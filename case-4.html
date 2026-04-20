@@ -1,310 +1,574 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Global Design System — Yuzhuo Zhang</title>
-  <meta name="description" content="Case study: Building a cross-platform design system from 0–1 covering design tokens, components, and documentation for iOS and Android.">
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
-</head>
-<body class="cs-body">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EdTechLive · Case Study by Jade Zhang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+<style>
+  :root {
+    --rose:    #F2C4CE;
+    --peach:   #F9DEC9;
+    --sky:     #C4DCF2;
+    --sage:    #C4E0D4;
+    --lavender:#D9C4F2;
+    --butter:  #F5EEC4;
+    --rose-mid:    #E8A0B0;
+    --sky-mid:     #90BADE;
+    --sage-mid:    #82C0A8;
+    --lavender-mid:#B89ADE;
+    --ink:     #1A1A1E;
+    --ink-2:   #5A5A6A;
+    --ink-3:   #9898A8;
+    --white:   #F5F7FA;
+    --serif: 'Lora', Georgia, serif;
+    --sans:  'Satoshi', 'DM Sans', sans-serif;
+    --r-xl: 28px;
+    --r-lg: 20px;
+    --r-md: 14px;
+    --r-sm: 10px;
+    --shadow-soft:  0 8px 40px rgba(26,26,30,0.08);
+    --shadow-card:  0 4px 24px rgba(26,26,30,0.06);
+    --shadow-float: 0 16px 60px rgba(26,26,30,0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--white);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
 
-<!-- ── NAV ── -->
+  /* ── PROGRESS BAR ── */
+  #progress-bar {
+    position: fixed; top:0; left:0; height:3px; width:0%;
+    background: linear-gradient(90deg,var(--rose-mid),var(--lavender-mid),var(--sky-mid));
+    z-index:999; border-radius:0 3px 3px 0; transition: width 0.1s linear;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top:0; z-index:100;
+    background: rgba(245,247,250,0.88); backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(26,26,30,0.07);
+    padding: 0 48px; height:60px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .nav-logo { font-family:var(--serif); font-size:15px; font-weight:500; font-style:italic; color:var(--ink); text-decoration:none; }
+  .nav-links { list-style:none; display:flex; gap:32px; }
+  .nav-links a { font-size:13px; color:var(--ink-2); text-decoration:none; transition:color 0.2s; }
+  .nav-links a:hover { color:var(--ink); }
+
+  /* ── LAYOUT ── */
+  .container { max-width:980px; margin:0 auto; padding:0 48px; }
+
+  /* ── GLASS ── */
+  .glass {
+    background: rgba(245,247,250,0.72); backdrop-filter:blur(16px);
+    border:1px solid rgba(255,255,255,0.85); border-radius:var(--r-xl);
+    box-shadow: var(--shadow-card);
+  }
+
+  /* ── HERO ── */
+  .hero { padding:96px 0 80px; }
+
+  .hero-tag {
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:12px; font-weight:500; color:var(--ink-2);
+    letter-spacing:0.06em; text-transform:uppercase;
+    background:rgba(245,247,250,0.82); border:1px solid rgba(26,26,30,0.08);
+    border-radius:100px; padding:6px 16px; margin-bottom:32px;
+  }
+  .hero-tag::before { content:''; width:6px;height:6px; border-radius:50%; background:linear-gradient(135deg,var(--rose-mid),var(--lavender-mid)); }
+
+  .hero h1 { font-family:var(--serif); font-size:clamp(42px,6vw,72px); font-weight:600; line-height:1.1; letter-spacing:-0.02em; color:var(--ink); margin-bottom:20px; max-width:680px; }
+  .hero h1 em { font-style:italic; background:linear-gradient(135deg,var(--rose-mid),var(--lavender-mid)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+
+  .hero-subtitle { font-family:var(--serif); font-size:18px; font-weight:400; font-style:italic; color:var(--ink-2); line-height:1.65; max-width:520px; margin-bottom:52px; }
+
+  /* Preview strip */
+  .hero-preview { display:grid; grid-template-columns:1fr 1.4fr 1fr; gap:16px; margin-bottom:52px; }
+
+  .img-placeholder {
+    height: 180px;
+    border-radius: var(--r-lg);
+    border: 1.5px dashed rgba(26,26,30,0.15);
+    background: rgba(26,26,30,0.025);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background 0.2s, border-color 0.2s;
+    cursor: default;
+  }
+
+  .img-placeholder:hover {
+    background: rgba(26,26,30,0.04);
+    border-color: rgba(26,26,30,0.22);
+  }
+
+  .img-ph-icon { color: rgba(26,26,30,0.22); }
+
+  .img-placeholder span {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(26,26,30,0.3);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* Meta */
+  .hero-meta { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  .meta-card {
+    background:rgba(245,247,250,0.72); backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,0.9); border-radius:var(--r-lg);
+    padding:20px 22px; box-shadow:var(--shadow-card);
+  }
+  .meta-label { font-size:11px; font-weight:500; color:var(--ink-3); letter-spacing:0.07em; text-transform:uppercase; margin-bottom:6px; }
+  .meta-value { font-size:13px; color:var(--ink); font-weight:400; line-height:1.5; }
+
+  /* ── QUOTE BAND ── */
+  .quote-band { padding:80px 0; }
+  .quote-band-inner {
+    text-align:center; padding:60px 80px;
+    background:linear-gradient(135deg,rgba(196,220,242,0.22),rgba(217,196,242,0.18) 50%,rgba(196,224,212,0.18));
+    border:1px solid rgba(255,255,255,0.8); border-radius:32px; backdrop-filter:blur(16px);
+  }
+  .qb-label { font-size:12px; font-weight:500; color:var(--ink-3); letter-spacing:0.07em; text-transform:uppercase; margin-bottom:20px; }
+  .qb-quote { font-family:var(--serif); font-size:clamp(20px,3vw,28px); font-style:italic; color:var(--ink); line-height:1.55; max-width:620px; margin:0 auto 20px; }
+  .qb-attr { font-size:13px; color:var(--ink-3); }
+
+  /* ── SECTIONS ── */
+  section { padding:80px 0; }
+
+  .section-pill {
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:11px; font-weight:500; color:var(--ink-2);
+    letter-spacing:0.07em; text-transform:uppercase;
+    background:rgba(245,247,250,0.82); border:1px solid rgba(26,26,30,0.07);
+    border-radius:100px; padding:5px 14px; margin-bottom:20px;
+  }
+
+  h2.section-heading { font-family:var(--serif); font-size:clamp(28px,3.5vw,42px); font-weight:600; line-height:1.2; letter-spacing:-0.02em; color:var(--ink); margin-bottom:14px; }
+  h2.section-heading em { font-style:italic; background:linear-gradient(135deg,var(--rose-mid),var(--lavender-mid)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+
+  .section-body { font-family:var(--serif); font-size:15px; font-weight:400; font-style:italic; color:var(--ink-2); line-height:1.8; max-width:640px; margin-bottom:16px; }
+
+  /* ── FLOAT CARDS ── */
+  .float-card {
+    background:rgba(245,247,250,0.72); backdrop-filter:blur(16px);
+    border:1px solid rgba(255,255,255,0.88); border-radius:var(--r-xl);
+    box-shadow:var(--shadow-card); padding:28px;
+    transition:transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .float-card:hover { transform:translateY(-5px); box-shadow:var(--shadow-float); }
+
+  .card-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:28px; }
+  .card-grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:28px; }
+
+  .card-tag { font-size:10px; font-weight:500; color:var(--ink-3); letter-spacing:0.07em; text-transform:uppercase; margin-bottom:10px; }
+  .card-title { font-family:var(--serif); font-size:17px; font-weight:600; color:var(--ink); margin-bottom:10px; letter-spacing:-0.01em; line-height:1.3; }
+  .card-body { font-size:13px; color:var(--ink-2); line-height:1.7; font-weight:300; }
+
+  .card-list { list-style:none; margin-top:10px; }
+  .card-list li { font-size:13px; color:var(--ink-2); padding:7px 0; border-bottom:1px solid rgba(26,26,30,0.06); display:flex; gap:8px; line-height:1.55; font-weight:300; }
+  .card-list li:last-child { border-bottom:none; }
+  .card-list li::before { content:'·'; color:var(--ink-3); font-size:18px; flex-shrink:0; margin-top:-2px; }
+
+  .card-gap { background:linear-gradient(135deg,rgba(242,196,206,0.25),rgba(217,196,242,0.25)); border-color:rgba(232,160,176,0.35); }
+
+  /* ── TAGS ── */
+  .tags-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
+  .tag { font-size:12px; color:var(--ink-2); border:1px solid rgba(26,26,30,0.1); border-radius:100px; padding:5px 14px; background:rgba(245,247,250,0.7); }
+
+  /* ── DECISION BOX ── */
+  .decision-box {
+    margin-top:28px; padding:32px 36px;
+    background:linear-gradient(135deg,rgba(217,196,242,0.2),rgba(196,220,242,0.2));
+    border:1px solid rgba(255,255,255,0.8); border-radius:var(--r-xl); backdrop-filter:blur(12px);
+  }
+  .decision-box-label { font-size:11px; font-weight:500; color:var(--ink-3); letter-spacing:0.07em; text-transform:uppercase; margin-bottom:14px; }
+  .decision-box blockquote { font-family:var(--serif); font-size:16px; font-style:italic; color:var(--ink); line-height:1.65; margin-bottom:18px; }
+  .decision-outcome { font-size:13px; color:var(--ink-2); border-top:1px solid rgba(26,26,30,0.08); padding-top:16px; line-height:1.85; font-weight:300; }
+
+  /* ── FEATURE BLOCKS ── */
+  .feature-block { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; padding:56px 0; border-top:1px solid rgba(26,26,30,0.06); }
+  .feature-block.reverse { direction:rtl; }
+  .feature-block.reverse > * { direction:ltr; }
+  .feature-num { font-size:11px; font-weight:500; color:var(--ink-3); letter-spacing:0.07em; text-transform:uppercase; margin-bottom:12px; }
+  .feature-label { display:inline-block; font-size:11px; font-weight:500; color:var(--ink-2); letter-spacing:0.05em; text-transform:uppercase; border:1px solid rgba(26,26,30,0.1); border-radius:100px; padding:4px 12px; margin-bottom:14px; background:rgba(245,247,250,0.7); }
+  .feature-title { font-family:var(--serif); font-size:22px; font-weight:600; letter-spacing:-0.02em; color:var(--ink); line-height:1.3; margin-bottom:14px; }
+  .feature-body { font-size:14px; color:var(--ink-2); line-height:1.8; margin-bottom:16px; font-weight:300; }
+
+  .why-box { padding:16px 20px; border-radius:var(--r-md); border:1px solid rgba(255,255,255,0.8); margin-top:16px; }
+  .why-box-1 { background:rgba(242,196,206,0.20); }
+  .why-box-2 { background:rgba(196,220,242,0.20); }
+  .why-box-3 { background:rgba(196,224,212,0.20); }
+  .why-box-4 { background:rgba(217,196,242,0.20); }
+  .why-box-label { font-size:10px; font-weight:600; color:var(--ink-3); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:6px; }
+  .why-box p { font-family:var(--serif); font-size:13px; color:var(--ink-2); line-height:1.65; font-style:italic; }
+
+  /* ── FEATURE VISUAL ── */
+  .feature-visual { border-radius:var(--r-xl); aspect-ratio:4/3; display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative; box-shadow:var(--shadow-soft); }
+  .fv-1 { background:linear-gradient(135deg,rgba(242,196,206,0.4),rgba(249,222,201,0.4)); }
+  .fv-2 { background:linear-gradient(135deg,rgba(196,220,242,0.4),rgba(217,196,242,0.4)); }
+  .fv-3 { background:linear-gradient(135deg,rgba(196,224,212,0.4),rgba(245,238,196,0.4)); }
+  .fv-4 { background:linear-gradient(135deg,rgba(217,196,242,0.4),rgba(242,196,206,0.4)); }
+  .visual-label { position:absolute; bottom:14px; left:18px; font-size:11px; color:var(--ink-3); letter-spacing:0.04em; font-weight:500; }
+
+  .fv-img-ph {
+    width: 78%; height: 70%;
+    border-radius: var(--r-lg);
+    border: 1.5px dashed rgba(26,26,30,0.18);
+    background: rgba(255,255,255,0.38);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 10px;
+  }
+
+  .fv-img-ph-icon { color: rgba(26,26,30,0.2); }
+
+  .fv-img-ph span {
+    font-size: 10px; font-weight: 500;
+    color: rgba(26,26,30,0.25);
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+
+  /* ── QUOTE CARDS ── */
+  .quote-card {
+    background:rgba(245,247,250,0.72); backdrop-filter:blur(16px);
+    border:1px solid rgba(255,255,255,0.88); border-radius:var(--r-xl);
+    box-shadow:var(--shadow-card); padding:28px;
+    transition:transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .quote-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-float); }
+  .quote-card blockquote { font-family:var(--serif); font-size:14px; font-style:italic; color:var(--ink); line-height:1.7; margin-bottom:16px; }
+  .quote-insight { font-size:11px; font-weight:500; color:var(--ink-3); border-top:1px solid rgba(26,26,30,0.07); padding-top:12px; letter-spacing:0.03em; line-height:1.6; }
+
+  /* ── ITER CARDS ── */
+  .iter-card { background:rgba(245,247,250,0.65); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.85); border-radius:var(--r-lg); padding:22px 24px; box-shadow:var(--shadow-card); }
+  .iter-arrow { font-size:11px; font-weight:500; color:var(--ink-3); letter-spacing:0.04em; text-transform:uppercase; margin-bottom:10px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+  .iter-arrow .after { color:var(--ink); }
+  .iter-title { font-family:var(--serif); font-size:15px; font-weight:600; color:var(--ink); margin-bottom:7px; }
+  .iter-body { font-size:13px; color:var(--ink-2); line-height:1.65; font-weight:300; }
+
+  /* ── TESTING BAND ── */
+  .testing-band {
+    margin:0 -48px; padding:72px 48px;
+    background:linear-gradient(160deg,rgba(196,220,242,0.15),rgba(217,196,242,0.12) 50%,rgba(196,224,212,0.12));
+    border-radius:40px; border:1px solid rgba(255,255,255,0.7);
+  }
+
+  /* ── LESSONS ── */
+  .lesson-row { display:grid; grid-template-columns:72px 1fr; gap:24px; align-items:start; padding:20px 0; border-bottom:1px solid rgba(26,26,30,0.06); }
+  .lesson-row:last-child { border-bottom:none; }
+  .lesson-num { font-size:11px; font-weight:500; color:var(--ink-3); letter-spacing:0.07em; text-transform:uppercase; padding-top:3px; }
+  .lesson-title { font-family:var(--serif); font-size:16px; font-weight:600; color:var(--ink); margin-bottom:5px; letter-spacing:-0.01em; }
+  .lesson-body { font-size:13px; color:var(--ink-2); line-height:1.7; font-weight:300; }
+
+  /* ── FOOTER ── */
+  footer { padding:40px 0 56px; }
+  .footer-inner { display:flex; align-items:center; justify-content:space-between; }
+  .footer-name { font-family:var(--serif); font-size:15px; font-weight:500; font-style:italic; color:var(--ink); }
+  .footer-role { font-size:12px; color:var(--ink-3); margin-top:2px; }
+  .footer-links { display:flex; gap:24px; }
+  .footer-links a { font-size:13px; color:var(--ink-2); text-decoration:none; transition:color 0.15s; }
+  .footer-links a:hover { color:var(--ink); }
+
+  /* ── REVEAL ── */
+  .reveal { opacity:0; transform:translateY(18px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+  .reveal-d1 { transition-delay:0.08s; }
+  .reveal-d2 { transition-delay:0.16s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width:780px) {
+    nav { padding:0 20px; }
+    .container { padding:0 20px; }
+    .hero-preview { grid-template-columns:1fr; }
+    .hero-meta { grid-template-columns:1fr 1fr; }
+    .card-grid-2,.card-grid-3 { grid-template-columns:1fr; }
+    .feature-block,.feature-block.reverse { grid-template-columns:1fr; direction:ltr; }
+    .lesson-row { grid-template-columns:1fr; gap:4px; }
+    .testing-band { margin:0; border-radius:24px; padding:48px 24px; }
+    footer .footer-inner { flex-direction:column; gap:20px; text-align:center; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
 <nav>
-  <a href="index.html" class="nav-logo">YZ</a>
+  <a class="nav-logo" href="index.html">Jade Zhang</a>
   <ul class="nav-links">
     <li><a href="index.html#works">Work</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="contact.html" class="cta">Contact Me</a></li>
+    <li><a href="#context">Context</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#design">Design</a></li>
+    <li><a href="#testing">Testing</a></li>
+    <li><a href="#reflection">Reflection</a></li>
   </ul>
 </nav>
 
-<!-- ── BACK NAVIGATION ── -->
-<div class="cs-back">
-  <a href="index.html" class="cs-back-link">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-      <path d="M19 12H5M12 5l-7 7 7 7"/>
-    </svg>
-    All Work
-  </a>
-</div>
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-tag reveal">EdTechLive · Web UX Design · Sep – Dec 2021</div>
+    <h1 class="reveal">Giving Teachers<br>a <em>Voice Back</em></h1>
+    <p class="hero-subtitle reveal">How do you design for people who are too burned out to trust that feedback will ever lead to change?</p>
 
-<!-- ── HERO ── -->
-<div class="cs-hero">
-  <span class="cs-hero-tag">Design System · Cross-Platform</span>
-  <h1>Global Design System</h1>
-  <p class="cs-hero-subtitle">Building a cross-platform design system from 0–1 — design tokens, components, and documentation for consistent experiences across iOS and Android</p>
+    <div class="hero-preview reveal">
+      <div class="img-placeholder">
+        <!-- REPLACE: add your image src here, recommended size 800x600px -->
+        <div class="img-ph-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        </div>
+        <span>Calendar View</span>
+      </div>
+      <div class="img-placeholder">
+        <!-- REPLACE: add your image src here, recommended size 800x600px -->
+        <div class="img-ph-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        </div>
+        <span>Student Engagement</span>
+      </div>
+      <div class="img-placeholder">
+        <!-- REPLACE: add your image src here, recommended size 800x600px -->
+        <div class="img-ph-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        </div>
+        <span>Student Preferences</span>
+      </div>
+    </div>
 
-  <!-- Hero image — REPLACE: add your image src here, recommended size 1600x900px -->
-  <!-- Example: <img src="images/ds-hero.jpg" alt="Global Design System component overview"> -->
-  <div class="cs-hero-img system-bg">
-    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-    <span>Hero image — 1600×900px recommended</span>
+    <div class="hero-meta reveal">
+      <div class="meta-card"><div class="meta-label">My Role</div><div class="meta-value">Research, Interaction, Visual Design, Prototyping</div></div>
+      <div class="meta-card"><div class="meta-label">Team</div><div class="meta-value">6 UX designers · 4-month engagement</div></div>
+      <div class="meta-card"><div class="meta-label">Client</div><div class="meta-value">EdTechLive, LLC – New York</div></div>
+      <div class="meta-card"><div class="meta-label">Outcome</div><div class="meta-value">Shipped to production – live product</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── QUOTE BAND ─── -->
+<div class="quote-band">
+  <div class="container">
+    <div class="quote-band-inner reveal">
+      <div class="qb-label">User interview · Educator</div>
+      <p class="qb-quote">"Give me preliminary tips first before deeper insights. I need to know this is worth my time before I wait."</p>
+      <div class="qb-attr">Research participant · Mid-career teacher · NYC</div>
+    </div>
   </div>
 </div>
 
-<!-- ── OVERVIEW ── -->
-<div class="cs-overview reveal">
-  <div class="cs-overview-grid">
-    <div class="cs-overview-item">
-      <p class="cs-overview-label">Role</p>
-      <p class="cs-overview-value">Lead Design Systems Designer</p>
+<!-- ─── CONTEXT ─── -->
+<section id="context">
+  <div class="container">
+    <div class="section-pill reveal">The Brief</div>
+    <h2 class="section-heading reveal">A startup with a big mission<br>and an even <em>bigger assumption</em></h2>
+    <p class="section-body reveal">EdTechLive had the technology and the SEEDS survey methodology. What nobody had asked yet: why would a burned-out teacher add one more thing to their plate? Four months, six designers, one real question to answer before touching Figma.</p>
+    <div class="tags-row reveal">
+      <span class="tag">Double Diamond</span><span class="tag">User Research</span><span class="tag">Design Thinking</span><span class="tag">B2B EdTech</span>
     </div>
-    <div class="cs-overview-item">
-      <p class="cs-overview-label">Timeline</p>
-      <p class="cs-overview-value">Ongoing</p>
-    </div>
-    <div class="cs-overview-item">
-      <p class="cs-overview-label">Platform</p>
-      <p class="cs-overview-value">iOS &amp; Android</p>
-    </div>
-    <div class="cs-overview-item">
-      <p class="cs-overview-label">Team</p>
-      <p class="cs-overview-value">Cross-Platform Design &amp; Engineering</p>
-    </div>
-  </div>
-</div>
-
-<!-- ── PROBLEM STATEMENT ── -->
-<div class="cs-section reveal">
-  <h2 class="cs-section-title">The Problem</h2>
-  <p class="cs-section-text">
-    As Eightpoint scaled across iOS and Android, design inconsistencies multiplied. The same UI element looked and behaved differently across platforms — not because of intentional platform customization, but because there was no shared source of truth.
-  </p>
-  <p class="cs-section-text">
-    <strong>Every new feature required duplicate design decisions.</strong> Engineers were interpolating missing specs. Designers were recreating components from scratch. And users were experiencing subtle inconsistencies that eroded trust in the product over time.
-  </p>
-</div>
-
-<div class="cs-divider"><hr></div>
-
-<!-- ── RESEARCH & DISCOVERY ── -->
-<div class="cs-section reveal">
-  <h2 class="cs-section-title">Audit &amp; Discovery</h2>
-  <p class="cs-section-text">
-    Before building anything, I audited what existed — across both platforms — to understand the full scope of inconsistency and establish a baseline.
-  </p>
-
-  <div class="cs-steps">
-    <div class="cs-step">
-      <div class="cs-step-num">1</div>
-      <div class="cs-step-content">
-        <h4>Visual Audit</h4>
-        <p>Catalogued every unique color, typography style, spacing value, and component across iOS and Android builds. Found 47 unique button styles across the two platforms where there should have been 4.</p>
-      </div>
-    </div>
-    <div class="cs-step">
-      <div class="cs-step-num">2</div>
-      <div class="cs-step-content">
-        <h4>Engineering Interviews</h4>
-        <p>Spoke with iOS and Android engineers to understand where handoff was breaking down. Key finding: missing motion specs and unclear state definitions were the biggest time sinks.</p>
-      </div>
-    </div>
-    <div class="cs-step">
-      <div class="cs-step-num">3</div>
-      <div class="cs-step-content">
-        <h4>Platform Guidelines Review</h4>
-        <p>Reviewed Apple HIG and Material Design 3 to identify where intentional platform differences should be preserved vs. where cross-platform consistency was achievable and desirable.</p>
-      </div>
-    </div>
-    <div class="cs-step">
-      <div class="cs-step-num">4</div>
-      <div class="cs-step-content">
-        <h4>Prioritization Workshop</h4>
-        <p>Ran a cross-functional workshop to rank components by frequency of use and inconsistency severity, establishing the build order for the initial system release.</p>
+    <div style="margin-top:56px;" class="reveal">
+      <div class="section-pill">Competitive Landscape</div>
+      <h3 style="font-family:var(--serif);font-size:20px;font-weight:600;color:var(--ink);letter-spacing:-0.01em;margin-bottom:8px;line-height:1.3;">We looked at what already existed — and found a gap hiding in plain sight.</h3>
+      <p class="section-body" style="margin-bottom:0;">Every competitor went survey → report. Full stop. Nobody closed the loop back to the teacher with something actionable.</p>
+      <div class="card-grid-2">
+        <div class="float-card"><div class="card-title">Tripod</div><div class="card-body">Aggregates at school level, no individual teacher action path</div></div>
+        <div class="float-card"><div class="card-title">Resonant Education</div><div class="card-body">Topic-specific surveys, but PD workshops don't scale</div></div>
+        <div class="float-card"><div class="card-title">YouTube EDU</div><div class="card-body">Survey-centered, results skew toward reporting not action</div></div>
+        <div class="float-card card-gap"><div class="card-title">The Gap</div><div class="card-body">Nobody connects student data → personalized teacher tip → measurable change</div></div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- Audit images — REPLACE: add your image src here, recommended size 800x600px each -->
-<div class="cs-section reveal">
-  <div class="cs-img-grid">
-    <div class="cs-img-block">
-      <!-- REPLACE: add your image src here, recommended size 800x600px -->
-      <!-- Example: <img src="images/ds-audit.jpg" alt="Visual component audit across platforms"> -->
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-      <span>Visual audit — component inconsistencies</span>
+<!-- ─── RESEARCH ─── -->
+<section id="research">
+  <div class="container">
+    <div class="section-pill reveal">Research</div>
+    <h2 class="section-heading reveal">We talked to 8 people.<br><em>One answer changed everything.</em></h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:8px;" class="reveal">
+      <p class="section-body" style="margin:0;">8 interviews across educators and administrators. 5 with teachers. Online forums revealed what interviews often can't — newer teachers weren't struggling with curriculum. They were drowning in uncontextualized negative feedback with no idea what to do next.</p>
+      <p class="section-body" style="margin:0;">This wasn't a data problem. It was a support problem. Teachers didn't need more surveys — they needed someone to translate results into one thing they could try tomorrow. Affinity mapping made it undeniable: administrators wanted monitoring; teachers wanted actionable guidance, fast.</p>
     </div>
-    <div class="cs-img-block">
-      <!-- REPLACE: add your image src here, recommended size 800x600px -->
-      <!-- Example: <img src="images/ds-mapping.jpg" alt="Cross-platform component mapping"> -->
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-      <span>Cross-platform component mapping</span>
+    <div class="card-grid-3">
+      <div class="float-card reveal"><div class="card-tag">Persona · Administrator</div><div class="card-title">Monitor &amp; Communicate</div><ul class="card-list"><li>Track teacher performance across classes</li><li>Efficient pipelines for formal feedback</li><li>Increase student engagement school-wide</li></ul></div>
+      <div class="float-card reveal reveal-d1"><div class="card-tag">Persona · Educator</div><div class="card-title">Advise &amp; Improve</div><ul class="card-list"><li>Fast, practical tips — not lengthy PD</li><li>Summarized, digestible data insights</li><li>Multiple periods create fragmented context</li></ul></div>
+      <div class="float-card reveal reveal-d2"><div class="card-tag">Research · Forums</div><div class="card-title">Emotional Weight</div><ul class="card-list"><li>Negative anonymous feedback is stressful without context</li><li>No tool helps teachers interpret student frustration</li><li>Trust is low without visible follow-through</li></ul></div>
     </div>
   </div>
-</div>
+</section>
 
-<div class="cs-divider"><hr></div>
+<!-- ─── PIVOT ─── -->
+<section id="pivot">
+  <div class="container">
+    <div class="section-pill reveal">The Call</div>
+    <h2 class="section-heading reveal">The hardest UX decision is often<br>who <em>not</em> to design for.</h2>
+    <p class="section-body reveal">Our research surfaced two user groups with fundamentally different needs. We couldn't serve both well in the time we had. Educators were the power users — touching the platform daily, with behavior change that would directly reach students. We designed for them first, deeply, knowing a strong educator layer would make the admin view meaningful later.</p>
+    <div class="decision-box reveal">
+      <div class="decision-box-label">// Design Decision Log</div>
+      <blockquote>"Based on all primary research, educators are more likely to use the software to summarize, update, and improve their course circumstances."</blockquote>
+      <div class="decision-outcome">→ Unanimous team decision: focus on educator persona for depth<br>→ User journey scope narrowed to 4 stages: Onboarding → Collecting → Receiving Tips → Integrating<br>→ Admin views scoped to future iteration</div>
+    </div>
+  </div>
+</section>
 
-<!-- ── DESIGN PROCESS ── -->
-<div class="cs-section reveal">
-  <h2 class="cs-section-title">Design Process</h2>
-  <p class="cs-section-text">
-    I built the system in four layers, each one enabling the next: tokens first, then components, then documentation, then governance.
-  </p>
+<!-- ─── DESIGN ─── -->
+<section id="design">
+  <div class="container">
+    <div class="section-pill reveal">Design Decisions</div>
+    <h2 class="section-heading reveal">Four features. Each one<br><em>earned through research.</em></h2>
+    <p class="section-body reveal">After 3 rounds of wireframes, we moved into a mid-fidelity prototype. Every feature below was shaped by specific pain points — not assumptions.</p>
 
-  <div class="cs-steps">
-    <div class="cs-step">
-      <div class="cs-step-num">1</div>
-      <div class="cs-step-content">
-        <h4>Design Token Architecture</h4>
-        <p>Defined a three-tier token system: primitive → semantic → component. Semantic naming (color.action.primary, not color.blue.500) ensures tokens survive rebrands and theme changes without breaking components.</p>
+    <!-- F1 -->
+    <div class="feature-block reveal">
+      <div>
+        <div class="feature-num">01</div>
+        <span class="feature-label">Modular Dashboard</span>
+        <div class="feature-title">A classroom is not a monolith. The dashboard shouldn't be either.</div>
+        <p class="feature-body">Teachers routinely teach 3–6 class types per day. We built a tabular class-switching system — multiple classes, no lost context, engagement data surfaced to the top.</p>
+        <div class="why-box why-box-1"><div class="why-box-label">Jakob's Law · Mental Model</div><p>Teachers already think in classes. Matching that pattern cuts cognitive load exactly when they're most pressed for time.</p></div>
+      </div>
+      <div class="feature-visual fv-1">
+        <!-- REPLACE: add your image src here, recommended size 800x600px -->
+        <div class="fv-img-ph">
+          <div class="fv-img-ph-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <span>Dashboard · Tab System</span>
+        </div>
+        <span class="visual-label">Dashboard · Tab System</span>
       </div>
     </div>
-    <div class="cs-step">
-      <div class="cs-step-num">2</div>
-      <div class="cs-step-content">
-        <h4>Component Library in Figma</h4>
-        <p>Built 50+ components using Figma component properties, variants, and auto-layout. Each component has interactive states (default, hover, pressed, disabled, error) and a single source of truth shared across both platform files.</p>
+
+    <!-- F2 -->
+    <div class="feature-block reverse reveal">
+      <div>
+        <div class="feature-num">02</div>
+        <span class="feature-label">Calendar + Tip Requesting</span>
+        <div class="feature-title">Tips shouldn't live in a sidebar. They should live in the lesson plan.</div>
+        <p class="feature-body">We embedded "Request a Tip" directly into the calendar, linked to specific lessons. The client later promoted it to a primary CTA — validating we'd identified the right behavior.</p>
+        <div class="why-box why-box-2"><div class="why-box-label">Contextual Embedding · Zeigarnik Effect</div><p>Teachers plan lessons — that's the exact moment they need guidance. Pending tips create a loop that pulls them back.</p></div>
+      </div>
+      <div class="feature-visual fv-2">
+        <!-- REPLACE: add your image src here, recommended size 800x600px -->
+        <div class="fv-img-ph">
+          <div class="fv-img-ph-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <span>Calendar · Tip Integration</span>
+        </div>
+        <span class="visual-label">Calendar · Tip Integration</span>
       </div>
     </div>
-    <div class="cs-step">
-      <div class="cs-step-num">3</div>
-      <div class="cs-step-content">
-        <h4>Platform Variant Strategy</h4>
-        <p>Mapped every component to its iOS and Android expression — deciding case-by-case where to enforce consistency and where to honor platform convention (e.g., iOS switches vs. Android toggles).</p>
+
+    <!-- F3 -->
+    <div class="feature-block reveal">
+      <div>
+        <div class="feature-num">03</div>
+        <span class="feature-label">Teacher Goals</span>
+        <div class="feature-title">Goals set in September shouldn't feel invisible in November.</div>
+        <p class="feature-body">We built a goals module — categorized by class environment and instructional strategies — that stays visible all year as a shared anchor between educator and administrator.</p>
+        <div class="why-box why-box-3"><div class="why-box-label">Goal-Gradient Effect · IA Chunking</div><p>Categorized domains make progress feel visible. When teachers can see the finish line, they keep moving toward it.</p></div>
+      </div>
+      <div class="feature-visual fv-3">
+        <!-- REPLACE: add your image src here, recommended size 800x600px -->
+        <div class="fv-img-ph">
+          <div class="fv-img-ph-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <span>Teacher Goals · Category View</span>
+        </div>
+        <span class="visual-label">Teacher Goals · Category View</span>
       </div>
     </div>
-    <div class="cs-step">
-      <div class="cs-step-num">4</div>
-      <div class="cs-step-content">
-        <h4>Documentation &amp; Governance</h4>
-        <p>Wrote usage guidelines for every component: anatomy, do/don't examples, spacing specs, motion behavior, and accessibility requirements. Established a contribution model so the system stays alive as the product grows.</p>
+
+    <!-- F4 -->
+    <div class="feature-block reverse reveal">
+      <div>
+        <div class="feature-num">04</div>
+        <span class="feature-label">Student Inventory</span>
+        <div class="feature-title">Data about students that actually helps teachers teach.</div>
+        <p class="feature-body">Student learning styles visualized as a chart, linked to teacher goals. Small copy change: "UPDATE" → "RESEND" implied the survey had gone somewhere. Reduced confusion immediately in testing.</p>
+        <div class="why-box why-box-4"><div class="why-box-label">Recognition over Recall · Nielsen Heuristic #6</div><p>Teachers shouldn't memorize categories — they should see patterns at a glance. The goal link closes the loop from data to action.</p></div>
+      </div>
+      <div class="feature-visual fv-4">
+        <!-- REPLACE: add your image src here, recommended size 800x600px -->
+        <div class="fv-img-ph">
+          <div class="fv-img-ph-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <span>Student Inventory · Styles</span>
+        </div>
+        <span class="visual-label">Student Inventory · Styles</span>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- Token architecture image — REPLACE: add your image src here, recommended size 1600x900px -->
-<div class="cs-section reveal">
-  <div class="cs-img-block">
-    <!-- REPLACE: add your image src here, recommended size 1600x900px -->
-    <!-- Example: <img src="images/ds-tokens.jpg" alt="Design token architecture diagram"> -->
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-    <span>Design token architecture — 1600×900px</span>
-  </div>
-</div>
-
-<!-- Component library images — REPLACE: add your image src here, recommended size 800x600px each -->
-<div class="cs-section reveal">
-  <div class="cs-img-grid">
-    <div class="cs-img-block">
-      <!-- REPLACE: add your image src here, recommended size 800x600px -->
-      <!-- Example: <img src="images/ds-components-ios.jpg" alt="iOS component library overview"> -->
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-      <span>iOS component library</span>
-    </div>
-    <div class="cs-img-block">
-      <!-- REPLACE: add your image src here, recommended size 800x600px -->
-      <!-- Example: <img src="images/ds-components-android.jpg" alt="Android component library overview"> -->
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-      <span>Android component library</span>
+<!-- ─── TESTING ─── -->
+<section id="testing">
+  <div class="container">
+    <div class="testing-band">
+      <div class="section-pill reveal">User Testing</div>
+      <h2 class="section-heading reveal">We thought we'd nailed it.<br><em>We were halfway there.</em></h2>
+      <p class="section-body reveal">3 user tests on the mid-fidelity prototype. 6 tasks per session. Honest, occasionally uncomfortable feedback — exactly what we needed.</p>
+      <div class="card-grid-2 reveal">
+        <div class="quote-card"><blockquote>"It would be more efficient if I can double-click the calendar to add a unit or lesson."</blockquote><div class="quote-insight">→ Direct manipulation expected · Redesigned calendar interactions</div></div>
+        <div class="quote-card"><blockquote>"The calendar layout is confusing. I feel more comfortable with a typical monthly view."</blockquote><div class="quote-insight">→ Jakob's Law violation · Layout redesigned to match existing mental model</div></div>
+        <div class="quote-card"><blockquote>"Give me preliminary tips first. This way, I'm more willing to wait for the full analysis."</blockquote><div class="quote-insight">→ Patience requires a bridge · Quick tip added immediately on submission</div></div>
+        <div class="quote-card"><blockquote>"Tips should be instantaneous. Maybe two types — one immediate, one that takes time to process?"</blockquote><div class="quote-insight">→ Two-tier tip model validated · Architecture updated</div></div>
+      </div>
+      <div class="card-grid-3" style="margin-top:16px;">
+        <div class="iter-card reveal"><div class="iter-arrow"><span>Student Engagement</span><span>→</span><span class="after">Top Priority</span></div><div class="iter-title">Engagement Results</div><div class="iter-body">Elevated position, more stats, subscale key as interactive buttons.</div></div>
+        <div class="iter-card reveal reveal-d1"><div class="iter-arrow"><span>Custom Calendar</span><span>→</span><span class="after">Monthly View</span></div><div class="iter-title">Calendar Layout</div><div class="iter-body">Overhauled to match expectations. Double-click to add units and lessons.</div></div>
+        <div class="iter-card reveal reveal-d2"><div class="iter-arrow"><span>Tip Form Only</span><span>→</span><span class="after">Immediate + Deep</span></div><div class="iter-title">Request Tip Flow</div><div class="iter-body">Quick tip on submit. Reduces abandonment from waiting anxiety.</div></div>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
-<div class="cs-divider"><hr></div>
-
-<!-- ── KEY DESIGN DECISIONS ── -->
-<div class="cs-section reveal">
-  <h2 class="cs-section-title">Key Design Decisions</h2>
-  <p class="cs-section-text">System decisions are infrastructure decisions — they compound over time, for better or worse.</p>
-
-  <div class="cs-decisions">
-    <div class="cs-decision-card">
-      <h4>Semantic Token Naming</h4>
-      <p>Tokens named by purpose, not value — color.action.primary, not color.blue.500. This means a rebrand changes one token, not 200 component overrides.</p>
-    </div>
-    <div class="cs-decision-card">
-      <h4>Single Figma Library, Two Platforms</h4>
-      <p>One shared Figma library with platform-specific component variants, rather than two separate files. One source of truth prevents the system from forking over time.</p>
-    </div>
-    <div class="cs-decision-card">
-      <h4>Intentional Platform Divergence</h4>
-      <p>Documented every place where iOS and Android differ by design choice (not accident). Engineers know where they have flexibility and where they don't.</p>
-    </div>
-    <div class="cs-decision-card">
-      <h4>Contribution Model</h4>
-      <p>Built a process for product teams to propose new components — with a review gate before anything enters the system. Keeps the library authoritative, not a dumping ground.</p>
+<!-- ─── REFLECTION ─── -->
+<section id="reflection">
+  <div class="container">
+    <div class="section-pill reveal">Reflection</div>
+    <h2 class="section-heading reveal">What I'd tell myself<br>on <em>day one.</em></h2>
+    <p class="section-body reveal">We shipped this. It went live. Every decision was traceable back to something a real person told us. The most valuable thing wasn't a tool — it was sitting with ambiguity long enough to find the right problem. The brief said "survey platform." Research said "teacher confidence." Those are different products. Scope is a design decision, and sequencing is design.</p>
+    <div style="margin-top:32px;" class="reveal">
+      <div class="lesson-row"><div class="lesson-num">Lesson 01</div><div><div class="lesson-title">The brief is never the problem</div><div class="lesson-body">Research your way to the real question. The survey platform wasn't the product — teacher confidence was.</div></div></div>
+      <div class="lesson-row"><div class="lesson-num">Lesson 02</div><div><div class="lesson-title">Scope is a design decision</div><div class="lesson-body">Choosing who to design for deeply, rather than everyone shallowly, is strategic — not a cop-out. Name it clearly.</div></div></div>
+      <div class="lesson-row"><div class="lesson-num">Lesson 03</div><div><div class="lesson-title">Testing surfaces what you're too close to see</div><div class="lesson-body">We were proud of the custom calendar. Users found it confusing. Mid-fi testing saved weeks of rework.</div></div></div>
+      <div class="lesson-row"><div class="lesson-num">Lesson 04</div><div><div class="lesson-title">Client feedback is user research too</div><div class="lesson-body">When the client pushed "Request Tip" to primary CTA, they were signaling observed behavior. Listen for it.</div></div></div>
     </div>
   </div>
-</div>
+</section>
 
-<div class="cs-divider"><hr></div>
-
-<!-- ── OUTCOME & METRICS ── -->
-<div class="cs-section reveal">
-  <h2 class="cs-section-title">Outcome &amp; Metrics</h2>
-  <p class="cs-section-text">
-    The system shipped as a living library and continues to grow. Early impact was measured in handoff quality and consistency rather than user-facing metrics.
-  </p>
-
-  <div class="cs-metrics">
-    <div class="cs-metric">
-      <p class="cs-metric-value">50+</p>
-      <p class="cs-metric-label">Components Documented</p>
-    </div>
-    <div class="cs-metric">
-      <p class="cs-metric-value">2</p>
-      <p class="cs-metric-label">Platforms Covered (iOS &amp; Android)</p>
-    </div>
-    <div class="cs-metric">
-      <p class="cs-metric-value">0→1</p>
-      <p class="cs-metric-label">Built from Scratch</p>
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div><div class="footer-name">Jade Zhang</div><div class="footer-role">Senior UX/UI Designer</div></div>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/yuzhuo-zhang777" target="_blank">LinkedIn</a>
+        <a href="https://www.instagram.com/jadeyuiii/" target="_blank">Instagram</a>
+        <a href="index.html">Portfolio</a>
+      </div>
     </div>
   </div>
-</div>
-
-<!-- Documentation image — REPLACE: add your image src here, recommended size 1600x900px -->
-<div class="cs-section reveal">
-  <div class="cs-img-block">
-    <!-- REPLACE: add your image src here, recommended size 1600x900px -->
-    <!-- Example: <img src="images/ds-docs.jpg" alt="Component documentation and usage guidelines"> -->
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-    <span>Component documentation &amp; usage guidelines — 1600×900px</span>
-  </div>
-</div>
-
-<div class="cs-divider"><hr></div>
-
-<!-- ── REFLECTION & NEXT STEPS ── -->
-<div class="cs-section reveal">
-  <h2 class="cs-section-title">Reflection &amp; Next Steps</h2>
-  <p class="cs-section-text">
-    The most underrated part of a design system is the governance model, not the component library. <strong>A system without a clear contribution process and an owner will drift into inconsistency within months.</strong> Getting buy-in on the process was harder — and more important — than building the components.
-  </p>
-  <p class="cs-section-text">
-    Next steps: connect design tokens directly to the engineering token pipeline (eliminating manual handoff entirely), expand motion specs into a dedicated motion library, and build an automated component health dashboard to surface drift before it reaches production.
-  </p>
-</div>
-
-<!-- ── NEXT: BACK TO ALL WORK ── -->
-<div class="cs-next-nav">
-  <p class="cs-next-label">That's a wrap</p>
-  <h3>See all case studies</h3>
-  <a href="index.html#works" class="cs-next-link">
-    Back to Work
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-      <path d="M5 12h14M12 5l7 7-7 7"/>
-    </svg>
-  </a>
-</div>
-
-<!-- ── FOOTER ── -->
-<footer>© 2025 Yuzhuo Zhang · Designed with care</footer>
+</footer>
 
 <script>
-  /* Scroll-triggered reveal */
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
-    });
-  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-  reveals.forEach(el => observer.observe(el));
+  const bar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    bar.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%';
+  });
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -28px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
-
 </body>
 </html>
