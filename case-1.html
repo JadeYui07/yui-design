@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track My Sleep Now — Yuzhuo Zhang</title>
+  <meta name="description" content="Case study: Redesigning a sleep tracker app to drive premium conversion and retention through personalized soundscapes and actionable insights.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+</head>
+<body class="cs-body">
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="index.html" class="nav-logo">YZ</a>
+  <ul class="nav-links">
+    <li><a href="index.html#works">Work</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="cta">Contact Me</a></li>
+  </ul>
+</nav>
+
+<!-- ── BACK NAVIGATION ── -->
+<div class="cs-back">
+  <a href="index.html" class="cs-back-link">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <path d="M19 12H5M12 5l-7 7 7 7"/>
+    </svg>
+    All Work
+  </a>
+</div>
+
+<!-- ── HERO ── -->
+<div class="cs-hero">
+  <span class="cs-hero-tag">iOS App · Health &amp; Wellness</span>
+  <h1>Track My Sleep Now</h1>
+  <p class="cs-hero-subtitle">Optimizing Sleep Experience for Conversion and Retention</p>
+
+  <!-- Hero image — REPLACE: add your image src here, recommended size 1600x900px -->
+  <!-- Example: <img src="images/sleep-hero.jpg" alt="Track My Sleep Now hero screens"> -->
+  <div class="cs-hero-img">
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+    <span>Hero image — 1600×900px recommended</span>
+  </div>
+</div>
+
+<!-- ── OVERVIEW ── -->
+<div class="cs-overview reveal">
+  <div class="cs-overview-grid">
+    <div class="cs-overview-item">
+      <p class="cs-overview-label">Role</p>
+      <p class="cs-overview-value">Lead UX/Product Designer</p>
+    </div>
+    <div class="cs-overview-item">
+      <p class="cs-overview-label">Timeline</p>
+      <p class="cs-overview-value">12 Weeks</p>
+    </div>
+    <div class="cs-overview-item">
+      <p class="cs-overview-label">Platform</p>
+      <p class="cs-overview-value">iOS</p>
+    </div>
+    <div class="cs-overview-item">
+      <p class="cs-overview-label">Team</p>
+      <p class="cs-overview-value">1 Designer · 2 Engineers · 1 PM</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── PROBLEM STATEMENT ── -->
+<div class="cs-section reveal">
+  <h2 class="cs-section-title">The Problem</h2>
+  <p class="cs-section-text">
+    Track My Sleep Now was struggling with high drop-off during onboarding and low premium conversion. Users weren't seeing enough immediate value to justify upgrading, and the existing design didn't align with how people actually think about sleep.
+  </p>
+  <p class="cs-section-text">
+    <strong>64% of users dropped off at the "setup soundscape" step</strong> — one of the app's most valuable features — because it was buried behind account creation and multiple setup screens. Users were being asked to commit before they'd experienced any value.
+  </p>
+</div>
+
+<div class="cs-divider"><hr></div>
+
+<!-- ── RESEARCH & DISCOVERY ── -->
+<div class="cs-section reveal">
+  <h2 class="cs-section-title">Research &amp; Discovery</h2>
+  <p class="cs-section-text">
+    I started with a broad research phase to understand both users and the competitive landscape, before narrowing into the specific friction points causing drop-off.
+  </p>
+
+  <div class="cs-steps">
+    <div class="cs-step">
+      <div class="cs-step-num">1</div>
+      <div class="cs-step-content">
+        <h4>Competitive Analysis</h4>
+        <p>Audited 8 leading sleep apps — Calm, Sleep Cycle, Headspace — to identify onboarding patterns, value-first strategies, and paywall placement.</p>
+      </div>
+    </div>
+    <div class="cs-step">
+      <div class="cs-step-num">2</div>
+      <div class="cs-step-content">
+        <h4>User Interviews</h4>
+        <p>Conducted 12 interviews with current and lapsed users. Key theme: users want to hear a sound before committing to the app. Personalization felt generic and trust was low early in the flow.</p>
+      </div>
+    </div>
+    <div class="cs-step">
+      <div class="cs-step-num">3</div>
+      <div class="cs-step-content">
+        <h4>Journey Mapping</h4>
+        <p>Mapped the full onboarding flow to surface every friction point. The biggest drop-off moments: account creation (step 2) and soundscape setup (step 5).</p>
+      </div>
+    </div>
+    <div class="cs-step">
+      <div class="cs-step-num">4</div>
+      <div class="cs-step-content">
+        <h4>User Survey</h4>
+        <p>Surveyed 200 users about sleep habits and app expectations. 78% said they'd be more likely to sign up if they could try a sleep sound first.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Research images — REPLACE: add your image src here, recommended size 800x600px each -->
+<div class="cs-section reveal">
+  <div class="cs-img-grid">
+    <div class="cs-img-block">
+      <!-- REPLACE: add your image src here, recommended size 800x600px -->
+      <!-- Example: <img src="images/sleep-journey-map.jpg" alt="User journey map"> -->
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      <span>User journey map</span>
+    </div>
+    <div class="cs-img-block">
+      <!-- REPLACE: add your image src here, recommended size 800x600px -->
+      <!-- Example: <img src="images/sleep-affinity.jpg" alt="Research affinity diagram"> -->
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      <span>Affinity diagram / research synthesis</span>
+    </div>
+  </div>
+</div>
+
+<div class="cs-divider"><hr></div>
+
+<!-- ── DESIGN PROCESS ── -->
+<div class="cs-section reveal">
+  <h2 class="cs-section-title">Design Process</h2>
+  <p class="cs-section-text">
+    With a clear picture of where users dropped off, I restructured the onboarding flow around a single principle: let users experience the core feature before asking them to commit.
+  </p>
+
+  <div class="cs-steps">
+    <div class="cs-step">
+      <div class="cs-step-num">1</div>
+      <div class="cs-step-content">
+        <h4>Reframe the Onboarding Flow</h4>
+        <p>Moved soundscape selection to step 1, before account creation. Users now experience the app's signature feature within 30 seconds of opening.</p>
+      </div>
+    </div>
+    <div class="cs-step">
+      <div class="cs-step-num">2</div>
+      <div class="cs-step-content">
+        <h4>Personalized Soundscape Selection</h4>
+        <p>Designed an interactive soundscape picker that adapts recommendations based on the user's stated sleep goal — fall asleep faster, stay asleep, or wake up refreshed.</p>
+      </div>
+    </div>
+    <div class="cs-step">
+      <div class="cs-step-num">3</div>
+      <div class="cs-step-content">
+        <h4>Sleep Insight Dashboard</h4>
+        <p>Redesigned the home screen to lead with actionable insights rather than raw data — showing sleep trends in plain language with suggested next actions.</p>
+      </div>
+    </div>
+    <div class="cs-step">
+      <div class="cs-step-num">4</div>
+      <div class="cs-step-content">
+        <h4>Paywall Timing Redesign</h4>
+        <p>Repositioned the premium offer after 3+ nights of value, with contextual prompts tied to each user's specific usage pattern rather than a fixed trigger.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Design process image — wireframes — REPLACE: add your image src here, recommended size 1600x900px -->
+<div class="cs-section reveal">
+  <div class="cs-img-block">
+    <!-- REPLACE: add your image src here, recommended size 1600x900px -->
+    <!-- Example: <img src="images/sleep-wireframes.jpg" alt="Wireframes and flow exploration"> -->
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+    <span>Wireframes &amp; flow exploration — 1600×900px</span>
+  </div>
+</div>
+
+<!-- High-fidelity screens — REPLACE: add your image src here, recommended size 800x600px each -->
+<div class="cs-section reveal">
+  <div class="cs-img-grid">
+    <div class="cs-img-block">
+      <!-- REPLACE: add your image src here, recommended size 800x600px -->
+      <!-- Example: <img src="images/sleep-onboarding.jpg" alt="Redesigned onboarding screens"> -->
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      <span>Redesigned onboarding screens</span>
+    </div>
+    <div class="cs-img-block">
+      <!-- REPLACE: add your image src here, recommended size 800x600px -->
+      <!-- Example: <img src="images/sleep-dashboard.jpg" alt="Sleep insight dashboard"> -->
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      <span>Sleep insight dashboard</span>
+    </div>
+  </div>
+</div>
+
+<div class="cs-divider"><hr></div>
+
+<!-- ── KEY DESIGN DECISIONS ── -->
+<div class="cs-section reveal">
+  <h2 class="cs-section-title">Key Design Decisions</h2>
+  <p class="cs-section-text">Every decision was grounded in a specific research finding — here are the four that moved the needle most.</p>
+
+  <div class="cs-decisions">
+    <div class="cs-decision-card">
+      <h4>Value Before Commitment</h4>
+      <p>Moved soundscape playback to step 1, before account creation. Users who heard a sound first converted at 2.4× the rate of those who didn't.</p>
+    </div>
+    <div class="cs-decision-card">
+      <h4>Progressive Disclosure</h4>
+      <p>Broke the original 8-step onboarding into 3 phases, revealing features progressively. Users felt less overwhelmed and stayed engaged longer.</p>
+    </div>
+    <div class="cs-decision-card">
+      <h4>Social Proof at the Paywall</h4>
+      <p>Added "X people improving sleep this week" and user testimonials at the premium moment. Trust signals reduced paywall abandonment significantly.</p>
+    </div>
+    <div class="cs-decision-card">
+      <h4>Contextual Premium Prompts</h4>
+      <p>Replaced the generic paywall with usage-tied prompts: "You've used Rain sounds 5× — unlock 40+ more." Personalizing the value proposition lifted conversion.</p>
+    </div>
+  </div>
+</div>
+
+<div class="cs-divider"><hr></div>
+
+<!-- ── OUTCOME & METRICS ── -->
+<div class="cs-section reveal">
+  <h2 class="cs-section-title">Outcome &amp; Metrics</h2>
+  <p class="cs-section-text">
+    After launching the redesigned onboarding and paywall flow, the app saw measurable improvements across all key conversion metrics within the first 60 days.
+  </p>
+
+  <div class="cs-metrics">
+    <div class="cs-metric">
+      <p class="cs-metric-value">+32%</p>
+      <p class="cs-metric-label">Premium Conversion Rate</p>
+    </div>
+    <div class="cs-metric">
+      <p class="cs-metric-value">4.6★</p>
+      <p class="cs-metric-label">User Satisfaction Rating</p>
+    </div>
+    <div class="cs-metric">
+      <p class="cs-metric-value">−28%</p>
+      <p class="cs-metric-label">Onboarding Drop-off Rate</p>
+    </div>
+  </div>
+</div>
+
+<!-- Final screens — REPLACE: add your image src here, recommended size 1600x900px -->
+<div class="cs-section reveal">
+  <div class="cs-img-block">
+    <!-- REPLACE: add your image src here, recommended size 1600x900px -->
+    <!-- Example: <img src="images/sleep-final.jpg" alt="Final delivered app screens"> -->
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+    <span>Final delivered app screens — 1600×900px</span>
+  </div>
+</div>
+
+<div class="cs-divider"><hr></div>
+
+<!-- ── REFLECTION & NEXT STEPS ── -->
+<div class="cs-section reveal">
+  <h2 class="cs-section-title">Reflection &amp; Next Steps</h2>
+  <p class="cs-section-text">
+    The biggest learning was the power of <strong>leading with experience rather than account creation</strong>. Users don't need to believe in your product — they need to feel it. This principle now informs how I approach every onboarding design challenge.
+  </p>
+  <p class="cs-section-text">
+    Next steps I'd pursue with more time: A/B test a personalized AI recommendation engine for soundscapes, explore Apple Watch integration for passive sleep data collection, and run a longitudinal study on 90-day retention after the redesign.
+  </p>
+</div>
+
+<!-- ── NEXT CASE STUDY ── -->
+<div class="cs-next-nav">
+  <p class="cs-next-label">Next Case Study</p>
+  <h3>EdTechLive — Personalized Instructional Strategies</h3>
+  <a href="case-3.html" class="cs-next-link">
+    View Project
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <path d="M5 12h14M12 5l7 7-7 7"/>
+    </svg>
+  </a>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>© 2025 Yuzhuo Zhang · Designed with care</footer>
+
+<script>
+  /* Scroll-triggered reveal */
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

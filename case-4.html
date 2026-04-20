@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Global Design System — Yuzhuo Zhang</title>
+  <meta name="description" content="Case study: Building a cross-platform design system from 0–1 covering design tokens, components, and documentation for iOS and Android.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+</head>
+<body class="cs-body">
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="index.html" class="nav-logo">YZ</a>
+  <ul class="nav-links">
+    <li><a href="index.html#works">Work</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="cta">Contact Me</a></li>
+  </ul>
+</nav>
+
+<!-- ── BACK NAVIGATION ── -->
+<div class="cs-back">
+  <a href="index.html" class="cs-back-link">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <path d="M19 12H5M12 5l-7 7 7 7"/>
+    </svg>
+    All Work
+  </a>
+</div>
+
+<!-- ── HERO ── -->
+<div class="cs-hero">
+  <span class="cs-hero-tag">Design System · Cross-Platform</span>
+  <h1>Global Design System</h1>
+  <p class="cs-hero-subtitle">Building a cross-platform design system from 0–1 — design tokens, components, and documentation for consistent experiences across iOS and Android</p>
+
+  <!-- Hero image — REPLACE: add your image src here, recommended size 1600x900px -->
+  <!-- Example: <img src="images/ds-hero.jpg" alt="Global Design System component overview"> -->
+  <div class="cs-hero-img system-bg">
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+    <span>Hero image — 1600×900px recommended</span>
+  </div>
+</div>
+
+<!-- ── OVERVIEW ── -->
+<div class="cs-overview reveal">
+  <div class="cs-overview-grid">
+    <div class="cs-overview-item">
+      <p class="cs-overview-label">Role</p>
+      <p class="cs-overview-value">Lead Design Systems Designer</p>
+    </div>
+    <div class="cs-overview-item">
+      <p class="cs-overview-label">Timeline</p>
+      <p class="cs-overview-value">Ongoing</p>
+    </div>
+    <div class="cs-overview-item">
+      <p class="cs-overview-label">Platform</p>
+      <p class="cs-overview-value">iOS &amp; Android</p>
+    </div>
+    <div class="cs-overview-item">
+      <p class="cs-overview-label">Team</p>
+      <p class="cs-overview-value">Cross-Platform Design &amp; Engineering</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── PROBLEM STATEMENT ── -->
+<div class="cs-section reveal">
+  <h2 class="cs-section-title">The Problem</h2>
+  <p class="cs-section-text">
+    As Eightpoint scaled across iOS and Android, design inconsistencies multiplied. The same UI element looked and behaved differently across platforms — not because of intentional platform customization, but because there was no shared source of truth.
+  </p>
+  <p class="cs-section-text">
+    <strong>Every new feature required duplicate design decisions.</strong> Engineers were interpolating missing specs. Designers were recreating components from scratch. And users were experiencing subtle inconsistencies that eroded trust in the product over time.
+  </p>
+</div>
+
+<div class="cs-divider"><hr></div>
+
+<!-- ── RESEARCH & DISCOVERY ── -->
+<div class="cs-section reveal">
+  <h2 class="cs-section-title">Audit &amp; Discovery</h2>
+  <p class="cs-section-text">
+    Before building anything, I audited what existed — across both platforms — to understand the full scope of inconsistency and establish a baseline.
+  </p>
+
+  <div class="cs-steps">
+    <div class="cs-step">
+      <div class="cs-step-num">1</div>
+      <div class="cs-step-content">
+        <h4>Visual Audit</h4>
+        <p>Catalogued every unique color, typography style, spacing value, and component across iOS and Android builds. Found 47 unique button styles across the two platforms where there should have been 4.</p>
+      </div>
+    </div>
+    <div class="cs-step">
+      <div class="cs-step-num">2</div>
+      <div class="cs-step-content">
+        <h4>Engineering Interviews</h4>
+        <p>Spoke with iOS and Android engineers to understand where handoff was breaking down. Key finding: missing motion specs and unclear state definitions were the biggest time sinks.</p>
+      </div>
+    </div>
+    <div class="cs-step">
+      <div class="cs-step-num">3</div>
+      <div class="cs-step-content">
+        <h4>Platform Guidelines Review</h4>
+        <p>Reviewed Apple HIG and Material Design 3 to identify where intentional platform differences should be preserved vs. where cross-platform consistency was achievable and desirable.</p>
+      </div>
+    </div>
+    <div class="cs-step">
+      <div class="cs-step-num">4</div>
+      <div class="cs-step-content">
+        <h4>Prioritization Workshop</h4>
+        <p>Ran a cross-functional workshop to rank components by frequency of use and inconsistency severity, establishing the build order for the initial system release.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Audit images — REPLACE: add your image src here, recommended size 800x600px each -->
+<div class="cs-section reveal">
+  <div class="cs-img-grid">
+    <div class="cs-img-block">
+      <!-- REPLACE: add your image src here, recommended size 800x600px -->
+      <!-- Example: <img src="images/ds-audit.jpg" alt="Visual component audit across platforms"> -->
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      <span>Visual audit — component inconsistencies</span>
+    </div>
+    <div class="cs-img-block">
+      <!-- REPLACE: add your image src here, recommended size 800x600px -->
+      <!-- Example: <img src="images/ds-mapping.jpg" alt="Cross-platform component mapping"> -->
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      <span>Cross-platform component mapping</span>
+    </div>
+  </div>
+</div>
+
+<div class="cs-divider"><hr></div>
+
+<!-- ── DESIGN PROCESS ── -->
+<div class="cs-section reveal">
+  <h2 class="cs-section-title">Design Process</h2>
+  <p class="cs-section-text">
+    I built the system in four layers, each one enabling the next: tokens first, then components, then documentation, then governance.
+  </p>
+
+  <div class="cs-steps">
+    <div class="cs-step">
+      <div class="cs-step-num">1</div>
+      <div class="cs-step-content">
+        <h4>Design Token Architecture</h4>
+        <p>Defined a three-tier token system: primitive → semantic → component. Semantic naming (color.action.primary, not color.blue.500) ensures tokens survive rebrands and theme changes without breaking components.</p>
+      </div>
+    </div>
+    <div class="cs-step">
+      <div class="cs-step-num">2</div>
+      <div class="cs-step-content">
+        <h4>Component Library in Figma</h4>
+        <p>Built 50+ components using Figma component properties, variants, and auto-layout. Each component has interactive states (default, hover, pressed, disabled, error) and a single source of truth shared across both platform files.</p>
+      </div>
+    </div>
+    <div class="cs-step">
+      <div class="cs-step-num">3</div>
+      <div class="cs-step-content">
+        <h4>Platform Variant Strategy</h4>
+        <p>Mapped every component to its iOS and Android expression — deciding case-by-case where to enforce consistency and where to honor platform convention (e.g., iOS switches vs. Android toggles).</p>
+      </div>
+    </div>
+    <div class="cs-step">
+      <div class="cs-step-num">4</div>
+      <div class="cs-step-content">
+        <h4>Documentation &amp; Governance</h4>
+        <p>Wrote usage guidelines for every component: anatomy, do/don't examples, spacing specs, motion behavior, and accessibility requirements. Established a contribution model so the system stays alive as the product grows.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Token architecture image — REPLACE: add your image src here, recommended size 1600x900px -->
+<div class="cs-section reveal">
+  <div class="cs-img-block">
+    <!-- REPLACE: add your image src here, recommended size 1600x900px -->
+    <!-- Example: <img src="images/ds-tokens.jpg" alt="Design token architecture diagram"> -->
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+    <span>Design token architecture — 1600×900px</span>
+  </div>
+</div>
+
+<!-- Component library images — REPLACE: add your image src here, recommended size 800x600px each -->
+<div class="cs-section reveal">
+  <div class="cs-img-grid">
+    <div class="cs-img-block">
+      <!-- REPLACE: add your image src here, recommended size 800x600px -->
+      <!-- Example: <img src="images/ds-components-ios.jpg" alt="iOS component library overview"> -->
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      <span>iOS component library</span>
+    </div>
+    <div class="cs-img-block">
+      <!-- REPLACE: add your image src here, recommended size 800x600px -->
+      <!-- Example: <img src="images/ds-components-android.jpg" alt="Android component library overview"> -->
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      <span>Android component library</span>
+    </div>
+  </div>
+</div>
+
+<div class="cs-divider"><hr></div>
+
+<!-- ── KEY DESIGN DECISIONS ── -->
+<div class="cs-section reveal">
+  <h2 class="cs-section-title">Key Design Decisions</h2>
+  <p class="cs-section-text">System decisions are infrastructure decisions — they compound over time, for better or worse.</p>
+
+  <div class="cs-decisions">
+    <div class="cs-decision-card">
+      <h4>Semantic Token Naming</h4>
+      <p>Tokens named by purpose, not value — color.action.primary, not color.blue.500. This means a rebrand changes one token, not 200 component overrides.</p>
+    </div>
+    <div class="cs-decision-card">
+      <h4>Single Figma Library, Two Platforms</h4>
+      <p>One shared Figma library with platform-specific component variants, rather than two separate files. One source of truth prevents the system from forking over time.</p>
+    </div>
+    <div class="cs-decision-card">
+      <h4>Intentional Platform Divergence</h4>
+      <p>Documented every place where iOS and Android differ by design choice (not accident). Engineers know where they have flexibility and where they don't.</p>
+    </div>
+    <div class="cs-decision-card">
+      <h4>Contribution Model</h4>
+      <p>Built a process for product teams to propose new components — with a review gate before anything enters the system. Keeps the library authoritative, not a dumping ground.</p>
+    </div>
+  </div>
+</div>
+
+<div class="cs-divider"><hr></div>
+
+<!-- ── OUTCOME & METRICS ── -->
+<div class="cs-section reveal">
+  <h2 class="cs-section-title">Outcome &amp; Metrics</h2>
+  <p class="cs-section-text">
+    The system shipped as a living library and continues to grow. Early impact was measured in handoff quality and consistency rather than user-facing metrics.
+  </p>
+
+  <div class="cs-metrics">
+    <div class="cs-metric">
+      <p class="cs-metric-value">50+</p>
+      <p class="cs-metric-label">Components Documented</p>
+    </div>
+    <div class="cs-metric">
+      <p class="cs-metric-value">2</p>
+      <p class="cs-metric-label">Platforms Covered (iOS &amp; Android)</p>
+    </div>
+    <div class="cs-metric">
+      <p class="cs-metric-value">0→1</p>
+      <p class="cs-metric-label">Built from Scratch</p>
+    </div>
+  </div>
+</div>
+
+<!-- Documentation image — REPLACE: add your image src here, recommended size 1600x900px -->
+<div class="cs-section reveal">
+  <div class="cs-img-block">
+    <!-- REPLACE: add your image src here, recommended size 1600x900px -->
+    <!-- Example: <img src="images/ds-docs.jpg" alt="Component documentation and usage guidelines"> -->
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+    <span>Component documentation &amp; usage guidelines — 1600×900px</span>
+  </div>
+</div>
+
+<div class="cs-divider"><hr></div>
+
+<!-- ── REFLECTION & NEXT STEPS ── -->
+<div class="cs-section reveal">
+  <h2 class="cs-section-title">Reflection &amp; Next Steps</h2>
+  <p class="cs-section-text">
+    The most underrated part of a design system is the governance model, not the component library. <strong>A system without a clear contribution process and an owner will drift into inconsistency within months.</strong> Getting buy-in on the process was harder — and more important — than building the components.
+  </p>
+  <p class="cs-section-text">
+    Next steps: connect design tokens directly to the engineering token pipeline (eliminating manual handoff entirely), expand motion specs into a dedicated motion library, and build an automated component health dashboard to surface drift before it reaches production.
+  </p>
+</div>
+
+<!-- ── NEXT: BACK TO ALL WORK ── -->
+<div class="cs-next-nav">
+  <p class="cs-next-label">That's a wrap</p>
+  <h3>See all case studies</h3>
+  <a href="index.html#works" class="cs-next-link">
+    Back to Work
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <path d="M5 12h14M12 5l7 7-7 7"/>
+    </svg>
+  </a>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>© 2025 Yuzhuo Zhang · Designed with care</footer>
+
+<script>
+  /* Scroll-triggered reveal */
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
