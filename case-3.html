@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EdTechLive Redesign — Yuzhuo Zhang</title>
+  <meta name="description" content="Case study: Redesigning EdTechLive to empower student voice and personalized instruction through SEEDS-based tools.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+</head>
+<body class="cs-body">
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="index.html" class="nav-logo">YZ</a>
+  <ul class="nav-links">
+    <li><a href="index.html#works">Work</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="cta">Contact Me</a></li>
+  </ul>
+</nav>
+
+<!-- ── BACK NAVIGATION ── -->
+<div class="cs-back">
+  <a href="index.html" class="cs-back-link">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <path d="M19 12H5M12 5l-7 7 7 7"/>
+    </svg>
+    All Work
+  </a>
+</div>
+
+<!-- ── HERO ── -->
+<div class="cs-hero">
+  <span class="cs-hero-tag">Web Design · EdTech</span>
+  <h1>EdTechLive — Personalized Instructional Strategies</h1>
+  <p class="cs-hero-subtitle">Empowering students to share their voices and educators to build more engaging, effective learning experiences</p>
+
+  <!-- Hero image — REPLACE: add your image src here, recommended size 1600x900px -->
+  <!-- Example: <img src="images/edtech-hero.jpg" alt="EdTechLive redesign hero screens"> -->
+  <div class="cs-hero-img edtech-bg">
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+    <span>Hero image — 1600×900px recommended</span>
+  </div>
+</div>
+
+<!-- ── OVERVIEW ── -->
+<div class="cs-overview reveal">
+  <div class="cs-overview-grid">
+    <div class="cs-overview-item">
+      <p class="cs-overview-label">Role</p>
+      <p class="cs-overview-value">Lead UX Designer</p>
+    </div>
+    <div class="cs-overview-item">
+      <p class="cs-overview-label">Timeline</p>
+      <p class="cs-overview-value">16 Weeks</p>
+    </div>
+    <div class="cs-overview-item">
+      <p class="cs-overview-label">Platform</p>
+      <p class="cs-overview-value">Web App</p>
+    </div>
+    <div class="cs-overview-item">
+      <p class="cs-overview-label">Team</p>
+      <p class="cs-overview-value">1 Designer · 3 Engineers · 1 PM · 2 Educators</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── PROBLEM STATEMENT ── -->
+<div class="cs-section reveal">
+  <h2 class="cs-section-title">The Problem</h2>
+  <p class="cs-section-text">
+    EdTechLive's platform, built around the SEEDS framework for personalized instruction, had an interface that wasn't enabling the behaviors it was designed to support. Students weren't using the voice-sharing tools, and educators were spending too much time navigating rather than teaching.
+  </p>
+  <p class="cs-section-text">
+    <strong>The core tool — student voice sharing — was buried three levels deep in navigation.</strong> Educators couldn't customize instruction without extensive manual effort, and the data visualizations meant to guide teaching decisions were too complex to act on.
+  </p>
+</div>
+
+<div class="cs-divider"><hr></div>
+
+<!-- ── RESEARCH & DISCOVERY ── -->
+<div class="cs-section reveal">
+  <h2 class="cs-section-title">Research &amp; Discovery</h2>
+  <p class="cs-section-text">
+    Research spanned both sides of the classroom — students and educators — to understand where the platform was failing each group differently.
+  </p>
+
+  <div class="cs-steps">
+    <div class="cs-step">
+      <div class="cs-step-num">1</div>
+      <div class="cs-step-content">
+        <h4>Heuristic Evaluation</h4>
+        <p>Identified 12 usability violations in the existing platform — most critically: the navigation structure didn't reflect either the educator's or student's mental model of the workflow.</p>
+      </div>
+    </div>
+    <div class="cs-step">
+      <div class="cs-step-num">2</div>
+      <div class="cs-step-content">
+        <h4>8+ Qualitative Interviews</h4>
+        <p>Conducted in-depth interviews with teachers and students across grade levels. Key finding: educators wanted insights before each class, not after; students wanted to feel heard immediately.</p>
+      </div>
+    </div>
+    <div class="cs-step">
+      <div class="cs-step-num">3</div>
+      <div class="cs-step-content">
+        <h4>Contextual Inquiry</h4>
+        <p>Observed two live classroom sessions where EdTechLive was in use. Educators switched away from the platform 6+ times per session to manage tasks it should have handled natively.</p>
+      </div>
+    </div>
+    <div class="cs-step">
+      <div class="cs-step-num">4</div>
+      <div class="cs-step-content">
+        <h4>Affinity Mapping &amp; Synthesis</h4>
+        <p>Synthesized findings into two role-based need maps — one for students, one for educators — revealing that the same feature needed entirely different UI treatments for each group.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Research images — REPLACE: add your image src here, recommended size 800x600px each -->
+<div class="cs-section reveal">
+  <div class="cs-img-grid">
+    <div class="cs-img-block">
+      <!-- REPLACE: add your image src here, recommended size 800x600px -->
+      <!-- Example: <img src="images/edtech-research.jpg" alt="Research synthesis and affinity map"> -->
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      <span>Research synthesis / affinity map</span>
+    </div>
+    <div class="cs-img-block">
+      <!-- REPLACE: add your image src here, recommended size 800x600px -->
+      <!-- Example: <img src="images/edtech-interviews.jpg" alt="User interview notes and patterns"> -->
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      <span>Interview notes / key patterns</span>
+    </div>
+  </div>
+</div>
+
+<div class="cs-divider"><hr></div>
+
+<!-- ── DESIGN PROCESS ── -->
+<div class="cs-section reveal">
+  <h2 class="cs-section-title">Design Process</h2>
+  <p class="cs-section-text">
+    The redesign centered on a single structural decision: <strong>role-based dashboards</strong>. Students and educators needed fundamentally different starting points, each surfacing the right tools without any navigation overhead.
+  </p>
+
+  <div class="cs-steps">
+    <div class="cs-step">
+      <div class="cs-step-num">1</div>
+      <div class="cs-step-content">
+        <h4>Redefine Information Architecture</h4>
+        <p>Restructured the entire platform IA around user role and task frequency. Student Voice moved from level 3 navigation to the primary action on every student's home view.</p>
+      </div>
+    </div>
+    <div class="cs-step">
+      <div class="cs-step-num">2</div>
+      <div class="cs-step-content">
+        <h4>Role-Based Dashboards</h4>
+        <p>Designed separate entry experiences for students and educators — each showing only what's relevant before the next class, with the right level of data complexity for each role.</p>
+      </div>
+    </div>
+    <div class="cs-step">
+      <div class="cs-step-num">3</div>
+      <div class="cs-step-content">
+        <h4>Simplified Data Visualization</h4>
+        <p>Replaced dense data tables with plain-language insight cards — "Most students struggled with Q3 today. Consider revisiting tomorrow." Actionable, not just informational.</p>
+      </div>
+    </div>
+    <div class="cs-step">
+      <div class="cs-step-num">4</div>
+      <div class="cs-step-content">
+        <h4>2+ Rounds of Usability Testing</h4>
+        <p>Tested low-fidelity prototypes with real teachers and students. Each round uncovered specific interaction gaps that informed the next iteration before moving to high-fidelity.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Wireframe / IA image — REPLACE: add your image src here, recommended size 1600x900px -->
+<div class="cs-section reveal">
+  <div class="cs-img-block">
+    <!-- REPLACE: add your image src here, recommended size 1600x900px -->
+    <!-- Example: <img src="images/edtech-ia.jpg" alt="Information architecture diagram"> -->
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+    <span>Information architecture &amp; site map — 1600×900px</span>
+  </div>
+</div>
+
+<!-- Dashboard screens — REPLACE: add your image src here, recommended size 800x600px each -->
+<div class="cs-section reveal">
+  <div class="cs-img-grid">
+    <div class="cs-img-block">
+      <!-- REPLACE: add your image src here, recommended size 800x600px -->
+      <!-- Example: <img src="images/edtech-student.jpg" alt="Student dashboard redesign"> -->
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      <span>Student dashboard redesign</span>
+    </div>
+    <div class="cs-img-block">
+      <!-- REPLACE: add your image src here, recommended size 800x600px -->
+      <!-- Example: <img src="images/edtech-educator.jpg" alt="Educator dashboard redesign"> -->
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      <span>Educator dashboard redesign</span>
+    </div>
+  </div>
+</div>
+
+<div class="cs-divider"><hr></div>
+
+<!-- ── KEY DESIGN DECISIONS ── -->
+<div class="cs-section reveal">
+  <h2 class="cs-section-title">Key Design Decisions</h2>
+  <p class="cs-section-text">Four decisions that fundamentally changed how users experienced the platform.</p>
+
+  <div class="cs-decisions">
+    <div class="cs-decision-card">
+      <h4>Student Voice as Primary Action</h4>
+      <p>Moved the core sharing feature to the top of the student view — always one tap away. Students who saw it immediately used it 3× more often in testing.</p>
+    </div>
+    <div class="cs-decision-card">
+      <h4>Plain-Language Insights</h4>
+      <p>Replaced data tables with interpretive cards written in plain English. Educators reported significantly faster pre-class prep time in usability sessions.</p>
+    </div>
+    <div class="cs-decision-card">
+      <h4>Role-Based Entry Points</h4>
+      <p>Students and educators log in to different home views. Eliminating irrelevant UI reduced cognitive load and task completion time for both groups.</p>
+    </div>
+    <div class="cs-decision-card">
+      <h4>Progressive Educator Onboarding</h4>
+      <p>New educators encounter SEEDS features one at a time, contextually, as they build their first lesson — rather than a feature dump at first login.</p>
+    </div>
+  </div>
+</div>
+
+<div class="cs-divider"><hr></div>
+
+<!-- ── OUTCOME & METRICS ── -->
+<div class="cs-section reveal">
+  <h2 class="cs-section-title">Outcome &amp; Metrics</h2>
+  <p class="cs-section-text">
+    This project was research- and quality-driven rather than conversion-focused. Success was measured through qualitative depth and rigorous usability validation.
+  </p>
+
+  <div class="cs-metrics">
+    <div class="cs-metric">
+      <p class="cs-metric-value">8+</p>
+      <p class="cs-metric-label">Qualitative Interviews Conducted</p>
+    </div>
+    <div class="cs-metric">
+      <p class="cs-metric-value">2+</p>
+      <p class="cs-metric-label">Rounds of Usability Testing</p>
+    </div>
+    <div class="cs-metric">
+      <p class="cs-metric-value">↑</p>
+      <p class="cs-metric-label">Task Completion Rate in Testing</p>
+    </div>
+  </div>
+</div>
+
+<!-- Final screens — REPLACE: add your image src here, recommended size 1600x900px -->
+<div class="cs-section reveal">
+  <div class="cs-img-block">
+    <!-- REPLACE: add your image src here, recommended size 1600x900px -->
+    <!-- Example: <img src="images/edtech-final.jpg" alt="Final EdTechLive redesign screens"> -->
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+    <span>Final redesign screens — 1600×900px</span>
+  </div>
+</div>
+
+<div class="cs-divider"><hr></div>
+
+<!-- ── REFLECTION & NEXT STEPS ── -->
+<div class="cs-section reveal">
+  <h2 class="cs-section-title">Reflection &amp; Next Steps</h2>
+  <p class="cs-section-text">
+    The most important shift was recognizing that <strong>the same feature needs completely different UI for different roles</strong>. A student sharing their voice and an educator reviewing that voice are using the same data in opposite directions — and the interface has to reflect that asymmetry.
+  </p>
+  <p class="cs-section-text">
+    Next steps: a quantitative study measuring student voice submission rates post-launch, mobile optimization for students on shared devices, and an expansion of the educator insight cards to surface cross-class patterns over time.
+  </p>
+</div>
+
+<!-- ── NEXT CASE STUDY ── -->
+<div class="cs-next-nav">
+  <p class="cs-next-label">Next Case Study</p>
+  <h3>Global Design System (iOS &amp; Android)</h3>
+  <a href="case-4.html" class="cs-next-link">
+    View Project
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <path d="M5 12h14M12 5l7 7-7 7"/>
+    </svg>
+  </a>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>© 2025 Yuzhuo Zhang · Designed with care</footer>
+
+<script>
+  /* Scroll-triggered reveal */
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
