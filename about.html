@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Yuzhuo Zhang</title>
+  <meta name="description" content="3+ years in UX/Product Design, currently designing at Eightpoint.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+  <style>
+    .about-body { padding-top: 100px; }
+
+    .about-hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 80px;
+      align-items: start;
+      padding: 0 48px 80px;
+    }
+
+    .about-text-col h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(40px, 5.5vw, 68px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      background: linear-gradient(135deg, #4a90d9 0%, #7c5cbf 60%, #c44f80 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 28px;
+      animation: fadeUp 0.8s cubic-bezier(0.4,0,0.2,1) both;
+    }
+
+    .about-text-col .intro {
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 20px;
+      animation: fadeUp 0.8s 0.1s cubic-bezier(0.4,0,0.2,1) both;
+    }
+
+    .about-text-col .intro strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .about-highlights {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 32px;
+      animation: fadeUp 0.8s 0.2s cubic-bezier(0.4,0,0.2,1) both;
+    }
+
+    .highlight-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+
+    .highlight-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7c5cbf, #c44f80);
+      flex-shrink: 0;
+    }
+
+    .about-photo-col {
+      animation: fadeUp 0.8s 0.15s cubic-bezier(0.4,0,0.2,1) both;
+    }
+
+    .photo-frame {
+      width: 100%;
+      aspect-ratio: 3/4;
+      border-radius: 24px;
+      background: var(--card-sleep);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+      color: var(--text-secondary);
+      font-size: 14px;
+      overflow: hidden;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Skills section */
+    .skills-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px 80px;
+    }
+
+    .skills-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 36px;
+      font-weight: 400;
+      letter-spacing: -0.5px;
+      margin-bottom: 32px;
+    }
+
+    .skills-blocks {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .skill-block {
+      background: #fff;
+      border-radius: 20px;
+      padding: 28px;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .skill-block h3 {
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill-tag {
+      background: var(--bg);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    /* Experience */
+    .exp-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px 80px;
+    }
+
+    .exp-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 36px;
+      font-weight: 400;
+      letter-spacing: -0.5px;
+      margin-bottom: 32px;
+    }
+
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+
+    .exp-row {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 32px;
+      padding: 24px 0;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      align-items: start;
+    }
+
+    .exp-year {
+      font-size: 14px;
+      color: var(--text-secondary);
+      font-weight: 400;
+      padding-top: 3px;
+    }
+
+    .exp-details h4 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .exp-details .company {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .exp-details p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    @media (max-width: 768px) {
+      .about-hero-inner {
+        grid-template-columns: 1fr;
+        padding: 0 24px 60px;
+        gap: 40px;
+      }
+      .about-photo-col { order: -1; }
+      .photo-frame { aspect-ratio: 1/1; }
+      .skills-section, .exp-section { padding: 0 24px 60px; }
+      .skills-blocks { grid-template-columns: 1fr; }
+      .exp-row { grid-template-columns: 1fr; gap: 8px; }
+    }
+  </style>
+</head>
+<body class="about-body">
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="index.html" class="nav-logo">YZ</a>
+  <ul class="nav-links">
+    <li><a href="index.html#works">Work</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="mailto:yuzhuo.zhang@example.com" class="cta">Contact Me</a></li>
+  </ul>
+</nav>
+
+<!-- ── ABOUT HERO ── -->
+<div class="about-hero-inner">
+
+  <div class="about-text-col">
+    <h1>Yuzhuo Zhang</h1>
+
+    <p class="intro">
+      I'm a <strong>UX/Product Designer</strong> with 3+ years of experience crafting digital products that feel intuitive and perform. Currently at <strong>Eightpoint</strong>, where I work across mobile and web to solve complex UX problems through research, clarity, and structured design.
+    </p>
+
+    <p class="intro">
+      My practice sits at the intersection of user psychology and business strategy — I care about understanding <em>why</em> users behave the way they do, then designing systems that work with those mental models rather than against them.
+    </p>
+
+    <p class="intro">
+      I've shipped across health &amp; wellness apps, weather utilities, EdTech platforms, and cross-platform design systems — always starting from research and ending with measurable impact.
+    </p>
+
+    <div class="about-highlights">
+      <div class="highlight-row">
+        <div class="highlight-dot"></div>
+        <span>3+ Years in UX/Product Design</span>
+      </div>
+      <div class="highlight-row">
+        <div class="highlight-dot"></div>
+        <span>Currently designing @Eightpoint</span>
+      </div>
+      <div class="highlight-row">
+        <div class="highlight-dot"></div>
+        <span>PCMAG Top 10 Weather App contributor</span>
+      </div>
+      <div class="highlight-row">
+        <div class="highlight-dot"></div>
+        <span>Cross-platform design systems (iOS &amp; Android)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-photo-col">
+    <div class="photo-frame">
+      <!-- Replace with your photo: <img src="images/yuzhuo.jpg" alt="Yuzhuo Zhang"> -->
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      <span style="font-size:13px; color:rgba(0,0,0,0.3)">Add your photo here</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── SKILLS ── -->
+<div class="skills-section reveal">
+  <h2>Skills &amp; Tools</h2>
+  <div class="skills-blocks">
+
+    <div class="skill-block">
+      <h3>Design</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Figma</span>
+        <span class="skill-tag">Framer</span>
+        <span class="skill-tag">Prototyping</span>
+        <span class="skill-tag">Design Systems</span>
+        <span class="skill-tag">Motion Design</span>
+      </div>
+    </div>
+
+    <div class="skill-block">
+      <h3>Research</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">User Interviews</span>
+        <span class="skill-tag">Usability Testing</span>
+        <span class="skill-tag">Journey Mapping</span>
+        <span class="skill-tag">Heuristic Evaluation</span>
+        <span class="skill-tag">A/B Testing</span>
+      </div>
+    </div>
+
+    <div class="skill-block">
+      <h3>Methods</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Double Diamond</span>
+        <span class="skill-tag">Design Thinking</span>
+        <span class="skill-tag">Agile / Lean UX</span>
+        <span class="skill-tag">IA &amp; Navigation</span>
+        <span class="skill-tag">UCD</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── EXPERIENCE ── -->
+<div class="exp-section reveal">
+  <h2>Experience</h2>
+  <div class="exp-list">
+
+    <div class="exp-row">
+      <span class="exp-year">2023 — Now</span>
+      <div class="exp-details">
+        <h4>UX/Product Designer</h4>
+        <p class="company">Eightpoint</p>
+        <p>Leading design across mobile and web products. Shipped cross-platform design system from 0–1, covering design tokens and component library for iOS &amp; Android.</p>
+      </div>
+    </div>
+
+    <div class="exp-row">
+      <span class="exp-year">2022 — 2023</span>
+      <div class="exp-details">
+        <h4>UX Designer</h4>
+        <p class="company">Previous Role · Add details</p>
+        <p><!-- Add your experience here --></p>
+      </div>
+    </div>
+
+    <div class="exp-row">
+      <span class="exp-year">Education</span>
+      <div class="exp-details">
+        <h4>Add your degree</h4>
+        <p class="company">Add your university</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── CONTACT ── -->
+<div class="contact-strip">
+  <h2>Let's work together</h2>
+  <p>Open to full-time and contract opportunities</p>
+  <div class="contact-links">
+    <a href="https://www.linkedin.com/in/yuzhuo-zhang777/" target="_blank" class="contact-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      LinkedIn
+    </a>
+    <a href="mailto:yuzhuo.zhang@example.com" class="contact-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Email
+    </a>
+  </div>
+</div>
+<footer>© 2025 Yuzhuo Zhang · Designed with care</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
