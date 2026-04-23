@@ -62,18 +62,21 @@
     border-bottom: 1px solid rgba(26,26,30,0.07);
   }
   .nav-logo {
-    font-family: var(--serif); font-size: 18px; font-weight: 600;
-    font-style: italic; color: var(--ink); text-decoration: none;
+    font-size: 22px; font-weight: 700; text-decoration: none;
     letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #e8834a 0%, #d44f8a 50%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
-  .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
-  .nav-links a { font-size: 14px; color: var(--ink-2); text-decoration: none; transition: color 0.15s; }
-  .nav-links a:hover { color: var(--ink); }
+  .nav-links { display: flex; align-items: center; gap: 8px; list-style: none; }
+  .nav-links a { font-size: 15px; color: var(--ink-2); text-decoration: none; padding: 8px 16px; border-radius: 100px; transition: all 0.2s; }
+  .nav-links a:hover { color: var(--ink); background: rgba(26,26,30,0.06); }
   .nav-links .cta {
     background: var(--ink); color: var(--white) !important;
-    border-radius: 100px; padding: 8px 20px; font-size: 13px; font-weight: 500;
+    border-radius: 100px; padding: 9px 20px; font-size: 15px; font-weight: 500;
   }
-  .nav-links .cta:hover { opacity: 0.85; }
+  .nav-links .cta:hover { background: #333; opacity: 1; }
 
   /* ── LAYOUT ── */
   .container { max-width:980px; margin:0 auto; padding:0 48px; }
@@ -286,13 +289,18 @@
   .lesson-body { font-size:13px; color:var(--ink-2); line-height:1.7; font-weight:300; }
 
   /* ── FOOTER ── */
-  footer { padding:40px 0 56px; }
-  .footer-inner { display:flex; align-items:center; justify-content:space-between; }
-  .footer-name { font-family:var(--serif); font-size:15px; font-weight:500; font-style:italic; color:var(--ink); }
-  .footer-role { font-size:12px; color:var(--ink-3); margin-top:2px; }
+  footer {
+    padding: 28px 48px;
+    background: var(--ink);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .footer-name { font-size:14px; font-weight:500; color:rgba(255,255,255,0.85); margin-bottom:3px; }
+  .footer-copy { font-size:12px; color:rgba(255,255,255,0.38); }
   .footer-links { display:flex; gap:24px; }
-  .footer-links a { font-size:13px; color:var(--ink-2); text-decoration:none; transition:color 0.15s; }
-  .footer-links a:hover { color:var(--ink); }
+  .footer-links a { font-size:13px; color:rgba(255,255,255,0.5); text-decoration:none; transition:color 0.15s; }
+  .footer-links a:hover { color:rgba(255,255,255,0.9); }
+  @media (max-width:600px) { footer { flex-direction:column; align-items:flex-start; padding:28px 20px; } }
 
   /* ── REVEAL ── */
   .reveal { opacity:0; transform:translateY(18px); transition:opacity 0.6s ease, transform 0.6s ease; }
@@ -320,7 +328,7 @@
 
 <!-- ── NAV ── -->
 <nav>
-  <a class="nav-logo" href="index.html">Jade Zhang</a>
+  <a class="nav-logo" href="index.html">YZ</a>
   <ul class="nav-links">
     <li><a href="index.html#works">Work</a></li>
     <li><a href="about.html">About</a></li>
@@ -557,15 +565,13 @@
 
 <!-- ─── FOOTER ─── -->
 <footer>
-  <div class="container">
-    <div class="footer-inner">
-      <div><div class="footer-name">Jade Zhang</div><div class="footer-role">Senior UX/UI Designer</div></div>
-      <div class="footer-links">
-        <a href="https://www.linkedin.com/in/yuzhuo-zhang777/" target="_blank">LinkedIn</a>
-        <a href="https://www.instagram.com/jadeyuiii/" target="_blank">Instagram</a>
-        <a href="index.html">Portfolio</a>
-      </div>
-    </div>
+  <div>
+    <div class="footer-name">Yuzhuo Zhang</div>
+    <div class="footer-copy">© 2025 · Designed with care</div>
+  </div>
+  <div class="footer-links">
+    <a href="https://www.linkedin.com/in/yuzhuo-zhang777/" target="_blank">LinkedIn</a>
+    <a href="contact.html">Email</a>
   </div>
 </footer>
 

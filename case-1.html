@@ -836,23 +836,28 @@ p strong { color: var(--text); font-weight: 500; }
 
 /* ── FOOTER ────────────────────────────────── */
 footer {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 60px 40px 80px;
-  text-align: center;
   border-top: 1px solid var(--border);
+  padding: 28px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 .footer-name {
   font-family: 'Bricolage Grotesque', sans-serif;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
   background: var(--grad);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 8px;
+  margin-bottom: 3px;
 }
-.footer-sub { font-size: 13px; color: var(--text3); }
+.footer-copy { font-size: 12px; color: var(--text3); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 13px; color: var(--text2); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--text); }
 
 /* ── PROGRESS BAR ──────────────────────────── */
 #prog {
@@ -1430,8 +1435,14 @@ footer {
 
 <!-- ── FOOTER ──────────────────────────────── -->
 <footer class="reveal">
-  <div class="footer-name">Yuzhuo Zhang · Portfolio</div>
-  <div class="footer-sub">Lead Product Designer · Sleep Tracker Case Study</div>
+  <div>
+    <div class="footer-name">Yuzhuo Zhang</div>
+    <div class="footer-copy">© 2025 · Designed with care</div>
+  </div>
+  <div class="footer-links">
+    <a href="https://www.linkedin.com/in/yuzhuo-zhang777/" target="_blank">LinkedIn</a>
+    <a href="contact.html">Email</a>
+  </div>
 </footer>
 
 </div><!-- /page -->
