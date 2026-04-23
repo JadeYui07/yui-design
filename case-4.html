@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EdTechLive · Case Study by Jade Zhang</title>
+<title>EdTechLive – Case Study by Jade Zhang</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500&display=swap" rel="stylesheet">
@@ -55,16 +55,25 @@
 
   /* ── NAV ── */
   nav {
-    position: sticky; top:0; z-index:100;
-    background: rgba(245,247,250,0.88); backdrop-filter: blur(20px);
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px; height: 64px;
+    background: rgba(245,247,250,0.82); backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(26,26,30,0.07);
-    padding: 0 48px; height:60px;
-    display:flex; align-items:center; justify-content:space-between;
   }
-  .nav-logo { font-family:var(--serif); font-size:15px; font-weight:500; font-style:italic; color:var(--ink); text-decoration:none; }
-  .nav-links { list-style:none; display:flex; gap:32px; }
-  .nav-links a { font-size:13px; color:var(--ink-2); text-decoration:none; transition:color 0.2s; }
-  .nav-links a:hover { color:var(--ink); }
+  .nav-logo {
+    font-family: var(--serif); font-size: 18px; font-weight: 600;
+    font-style: italic; color: var(--ink); text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+  .nav-links a { font-size: 14px; color: var(--ink-2); text-decoration: none; transition: color 0.15s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links .cta {
+    background: var(--ink); color: var(--white) !important;
+    border-radius: 100px; padding: 8px 20px; font-size: 13px; font-weight: 500;
+  }
+  .nav-links .cta:hover { opacity: 0.85; }
 
   /* ── LAYOUT ── */
   .container { max-width:980px; margin:0 auto; padding:0 48px; }
@@ -77,7 +86,7 @@
   }
 
   /* ── HERO ── */
-  .hero { padding:96px 0 80px; }
+  .hero { padding:128px 0 80px; }
 
   .hero-tag {
     display:inline-flex; align-items:center; gap:8px;
@@ -115,7 +124,9 @@
     border-color: rgba(26,26,30,0.22);
   }
 
-  .img-ph-icon { color: rgba(26,26,30,0.22); }
+  .img-ph-icon {
+    color: rgba(26,26,30,0.22);
+  }
 
   .img-placeholder span {
     font-size: 11px;
@@ -307,15 +318,13 @@
 
 <div id="progress-bar"></div>
 
+<!-- ── NAV ── -->
 <nav>
   <a class="nav-logo" href="index.html">Jade Zhang</a>
   <ul class="nav-links">
     <li><a href="index.html#works">Work</a></li>
-    <li><a href="#context">Context</a></li>
-    <li><a href="#research">Research</a></li>
-    <li><a href="#design">Design</a></li>
-    <li><a href="#testing">Testing</a></li>
-    <li><a href="#reflection">Reflection</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="cta">Contact Me</a></li>
   </ul>
 </nav>
 
@@ -328,21 +337,21 @@
 
     <div class="hero-preview reveal">
       <div class="img-placeholder">
-        <!-- REPLACE: add your image src here, recommended size 800x600px -->
+        <!-- REPLACE: add your image src here, recommended size 800x480px -->
         <div class="img-ph-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
         </div>
         <span>Calendar View</span>
       </div>
       <div class="img-placeholder">
-        <!-- REPLACE: add your image src here, recommended size 800x600px -->
+        <!-- REPLACE: add your image src here, recommended size 800x480px -->
         <div class="img-ph-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
         </div>
         <span>Student Engagement</span>
       </div>
       <div class="img-placeholder">
-        <!-- REPLACE: add your image src here, recommended size 800x600px -->
+        <!-- REPLACE: add your image src here, recommended size 800x480px -->
         <div class="img-ph-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
         </div>
@@ -381,7 +390,7 @@
     </div>
     <div style="margin-top:56px;" class="reveal">
       <div class="section-pill">Competitive Landscape</div>
-      <h3 style="font-family:var(--serif);font-size:20px;font-weight:600;color:var(--ink);letter-spacing:-0.01em;margin-bottom:8px;line-height:1.3;">We looked at what already existed — and found a gap hiding in plain sight.</h3>
+      <h3 style="font-family:var(--serif);font-size:20px;font-weight:600;color:var(--ink);letter-spacing:-0.01em;margin-bottom:8px;line-height:1.3;">We looked at what already existed – and found a gap hiding in plain sight.</h3>
       <p class="section-body" style="margin-bottom:0;">Every competitor went survey → report. Full stop. Nobody closed the loop back to the teacher with something actionable.</p>
       <div class="card-grid-2">
         <div class="float-card"><div class="card-title">Tripod</div><div class="card-body">Aggregates at school level, no individual teacher action path</div></div>
@@ -399,12 +408,12 @@
     <div class="section-pill reveal">Research</div>
     <h2 class="section-heading reveal">We talked to 8 people.<br><em>One answer changed everything.</em></h2>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:8px;" class="reveal">
-      <p class="section-body" style="margin:0;">8 interviews across educators and administrators. 5 with teachers. Online forums revealed what interviews often can't — newer teachers weren't struggling with curriculum. They were drowning in uncontextualized negative feedback with no idea what to do next.</p>
-      <p class="section-body" style="margin:0;">This wasn't a data problem. It was a support problem. Teachers didn't need more surveys — they needed someone to translate results into one thing they could try tomorrow. Affinity mapping made it undeniable: administrators wanted monitoring; teachers wanted actionable guidance, fast.</p>
+      <p class="section-body" style="margin:0;">8 interviews across educators and administrators. 5 with teachers. Online forums revealed what interviews often can't – newer teachers weren't struggling with curriculum. They were drowning in uncontextualized negative feedback with no idea what to do next.</p>
+      <p class="section-body" style="margin:0;">This wasn't a data problem. It was a support problem. Teachers didn't need more surveys – they needed someone to translate results into one thing they could try tomorrow. Affinity mapping made it undeniable: administrators wanted monitoring; teachers wanted actionable guidance, fast.</p>
     </div>
     <div class="card-grid-3">
       <div class="float-card reveal"><div class="card-tag">Persona · Administrator</div><div class="card-title">Monitor &amp; Communicate</div><ul class="card-list"><li>Track teacher performance across classes</li><li>Efficient pipelines for formal feedback</li><li>Increase student engagement school-wide</li></ul></div>
-      <div class="float-card reveal reveal-d1"><div class="card-tag">Persona · Educator</div><div class="card-title">Advise &amp; Improve</div><ul class="card-list"><li>Fast, practical tips — not lengthy PD</li><li>Summarized, digestible data insights</li><li>Multiple periods create fragmented context</li></ul></div>
+      <div class="float-card reveal reveal-d1"><div class="card-tag">Persona · Educator</div><div class="card-title">Advise &amp; Improve</div><ul class="card-list"><li>Fast, practical tips – not lengthy PD</li><li>Summarized, digestible data insights</li><li>Multiple periods create fragmented context</li></ul></div>
       <div class="float-card reveal reveal-d2"><div class="card-tag">Research · Forums</div><div class="card-title">Emotional Weight</div><ul class="card-list"><li>Negative anonymous feedback is stressful without context</li><li>No tool helps teachers interpret student frustration</li><li>Trust is low without visible follow-through</li></ul></div>
     </div>
   </div>
@@ -415,7 +424,7 @@
   <div class="container">
     <div class="section-pill reveal">The Call</div>
     <h2 class="section-heading reveal">The hardest UX decision is often<br>who <em>not</em> to design for.</h2>
-    <p class="section-body reveal">Our research surfaced two user groups with fundamentally different needs. We couldn't serve both well in the time we had. Educators were the power users — touching the platform daily, with behavior change that would directly reach students. We designed for them first, deeply, knowing a strong educator layer would make the admin view meaningful later.</p>
+    <p class="section-body reveal">Our research surfaced two user groups with fundamentally different needs. We couldn't serve both well in the time we had. Educators were the power users – touching the platform daily, with behavior change that would directly reach students. We designed for them first, deeply, knowing a strong educator layer would make the admin view meaningful later.</p>
     <div class="decision-box reveal">
       <div class="decision-box-label">// Design Decision Log</div>
       <blockquote>"Based on all primary research, educators are more likely to use the software to summarize, update, and improve their course circumstances."</blockquote>
@@ -429,7 +438,7 @@
   <div class="container">
     <div class="section-pill reveal">Design Decisions</div>
     <h2 class="section-heading reveal">Four features. Each one<br><em>earned through research.</em></h2>
-    <p class="section-body reveal">After 3 rounds of wireframes, we moved into a mid-fidelity prototype. Every feature below was shaped by specific pain points — not assumptions.</p>
+    <p class="section-body reveal">After 3 rounds of wireframes, we moved into a mid-fidelity prototype. Every feature below was shaped by specific pain points – not assumptions.</p>
 
     <!-- F1 -->
     <div class="feature-block reveal">
@@ -437,11 +446,11 @@
         <div class="feature-num">01</div>
         <span class="feature-label">Modular Dashboard</span>
         <div class="feature-title">A classroom is not a monolith. The dashboard shouldn't be either.</div>
-        <p class="feature-body">Teachers routinely teach 3–6 class types per day. We built a tabular class-switching system — multiple classes, no lost context, engagement data surfaced to the top.</p>
+        <p class="feature-body">Teachers routinely teach 3–6 class types per day. We built a tabular class-switching system – multiple classes, no lost context, engagement data surfaced to the top.</p>
         <div class="why-box why-box-1"><div class="why-box-label">Jakob's Law · Mental Model</div><p>Teachers already think in classes. Matching that pattern cuts cognitive load exactly when they're most pressed for time.</p></div>
       </div>
       <div class="feature-visual fv-1">
-        <!-- REPLACE: add your image src here, recommended size 800x600px -->
+        <!-- REPLACE: add your image src here, recommended size 960x720px -->
         <div class="fv-img-ph">
           <div class="fv-img-ph-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
           <span>Dashboard · Tab System</span>
@@ -456,11 +465,11 @@
         <div class="feature-num">02</div>
         <span class="feature-label">Calendar + Tip Requesting</span>
         <div class="feature-title">Tips shouldn't live in a sidebar. They should live in the lesson plan.</div>
-        <p class="feature-body">We embedded "Request a Tip" directly into the calendar, linked to specific lessons. The client later promoted it to a primary CTA — validating we'd identified the right behavior.</p>
-        <div class="why-box why-box-2"><div class="why-box-label">Contextual Embedding · Zeigarnik Effect</div><p>Teachers plan lessons — that's the exact moment they need guidance. Pending tips create a loop that pulls them back.</p></div>
+        <p class="feature-body">We embedded "Request a Tip" directly into the calendar, linked to specific lessons. The client later promoted it to a primary CTA – validating we'd identified the right behavior.</p>
+        <div class="why-box why-box-2"><div class="why-box-label">Contextual Embedding · Zeigarnik Effect</div><p>Teachers plan lessons – that's the exact moment they need guidance. Pending tips create a loop that pulls them back.</p></div>
       </div>
       <div class="feature-visual fv-2">
-        <!-- REPLACE: add your image src here, recommended size 800x600px -->
+        <!-- REPLACE: add your image src here, recommended size 960x720px -->
         <div class="fv-img-ph">
           <div class="fv-img-ph-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
           <span>Calendar · Tip Integration</span>
@@ -475,11 +484,11 @@
         <div class="feature-num">03</div>
         <span class="feature-label">Teacher Goals</span>
         <div class="feature-title">Goals set in September shouldn't feel invisible in November.</div>
-        <p class="feature-body">We built a goals module — categorized by class environment and instructional strategies — that stays visible all year as a shared anchor between educator and administrator.</p>
+        <p class="feature-body">We built a goals module – categorized by class environment and instructional strategies – that stays visible all year as a shared anchor between educator and administrator.</p>
         <div class="why-box why-box-3"><div class="why-box-label">Goal-Gradient Effect · IA Chunking</div><p>Categorized domains make progress feel visible. When teachers can see the finish line, they keep moving toward it.</p></div>
       </div>
       <div class="feature-visual fv-3">
-        <!-- REPLACE: add your image src here, recommended size 800x600px -->
+        <!-- REPLACE: add your image src here, recommended size 960x720px -->
         <div class="fv-img-ph">
           <div class="fv-img-ph-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
           <span>Teacher Goals · Category View</span>
@@ -495,10 +504,10 @@
         <span class="feature-label">Student Inventory</span>
         <div class="feature-title">Data about students that actually helps teachers teach.</div>
         <p class="feature-body">Student learning styles visualized as a chart, linked to teacher goals. Small copy change: "UPDATE" → "RESEND" implied the survey had gone somewhere. Reduced confusion immediately in testing.</p>
-        <div class="why-box why-box-4"><div class="why-box-label">Recognition over Recall · Nielsen Heuristic #6</div><p>Teachers shouldn't memorize categories — they should see patterns at a glance. The goal link closes the loop from data to action.</p></div>
+        <div class="why-box why-box-4"><div class="why-box-label">Recognition over Recall · Nielsen Heuristic #6</div><p>Teachers shouldn't memorize categories – they should see patterns at a glance. The goal link closes the loop from data to action.</p></div>
       </div>
       <div class="feature-visual fv-4">
-        <!-- REPLACE: add your image src here, recommended size 800x600px -->
+        <!-- REPLACE: add your image src here, recommended size 960x720px -->
         <div class="fv-img-ph">
           <div class="fv-img-ph-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
           <span>Student Inventory · Styles</span>
@@ -515,12 +524,12 @@
     <div class="testing-band">
       <div class="section-pill reveal">User Testing</div>
       <h2 class="section-heading reveal">We thought we'd nailed it.<br><em>We were halfway there.</em></h2>
-      <p class="section-body reveal">3 user tests on the mid-fidelity prototype. 6 tasks per session. Honest, occasionally uncomfortable feedback — exactly what we needed.</p>
+      <p class="section-body reveal">3 user tests on the mid-fidelity prototype. 6 tasks per session. Honest, occasionally uncomfortable feedback – exactly what we needed.</p>
       <div class="card-grid-2 reveal">
         <div class="quote-card"><blockquote>"It would be more efficient if I can double-click the calendar to add a unit or lesson."</blockquote><div class="quote-insight">→ Direct manipulation expected · Redesigned calendar interactions</div></div>
         <div class="quote-card"><blockquote>"The calendar layout is confusing. I feel more comfortable with a typical monthly view."</blockquote><div class="quote-insight">→ Jakob's Law violation · Layout redesigned to match existing mental model</div></div>
         <div class="quote-card"><blockquote>"Give me preliminary tips first. This way, I'm more willing to wait for the full analysis."</blockquote><div class="quote-insight">→ Patience requires a bridge · Quick tip added immediately on submission</div></div>
-        <div class="quote-card"><blockquote>"Tips should be instantaneous. Maybe two types — one immediate, one that takes time to process?"</blockquote><div class="quote-insight">→ Two-tier tip model validated · Architecture updated</div></div>
+        <div class="quote-card"><blockquote>"Tips should be instantaneous. Maybe two types – one immediate, one that takes time to process?"</blockquote><div class="quote-insight">→ Two-tier tip model validated · Architecture updated</div></div>
       </div>
       <div class="card-grid-3" style="margin-top:16px;">
         <div class="iter-card reveal"><div class="iter-arrow"><span>Student Engagement</span><span>→</span><span class="after">Top Priority</span></div><div class="iter-title">Engagement Results</div><div class="iter-body">Elevated position, more stats, subscale key as interactive buttons.</div></div>
@@ -536,10 +545,10 @@
   <div class="container">
     <div class="section-pill reveal">Reflection</div>
     <h2 class="section-heading reveal">What I'd tell myself<br>on <em>day one.</em></h2>
-    <p class="section-body reveal">We shipped this. It went live. Every decision was traceable back to something a real person told us. The most valuable thing wasn't a tool — it was sitting with ambiguity long enough to find the right problem. The brief said "survey platform." Research said "teacher confidence." Those are different products. Scope is a design decision, and sequencing is design.</p>
+    <p class="section-body reveal">We shipped this. It went live. Every decision was traceable back to something a real person told us. The most valuable thing wasn't a tool – it was sitting with ambiguity long enough to find the right problem. The brief said "survey platform." Research said "teacher confidence." Those are different products. Scope is a design decision, and sequencing is design.</p>
     <div style="margin-top:32px;" class="reveal">
-      <div class="lesson-row"><div class="lesson-num">Lesson 01</div><div><div class="lesson-title">The brief is never the problem</div><div class="lesson-body">Research your way to the real question. The survey platform wasn't the product — teacher confidence was.</div></div></div>
-      <div class="lesson-row"><div class="lesson-num">Lesson 02</div><div><div class="lesson-title">Scope is a design decision</div><div class="lesson-body">Choosing who to design for deeply, rather than everyone shallowly, is strategic — not a cop-out. Name it clearly.</div></div></div>
+      <div class="lesson-row"><div class="lesson-num">Lesson 01</div><div><div class="lesson-title">The brief is never the problem</div><div class="lesson-body">Research your way to the real question. The survey platform wasn't the product – teacher confidence was.</div></div></div>
+      <div class="lesson-row"><div class="lesson-num">Lesson 02</div><div><div class="lesson-title">Scope is a design decision</div><div class="lesson-body">Choosing who to design for deeply, rather than everyone shallowly, is strategic – not a cop-out. Name it clearly.</div></div></div>
       <div class="lesson-row"><div class="lesson-num">Lesson 03</div><div><div class="lesson-title">Testing surfaces what you're too close to see</div><div class="lesson-body">We were proud of the custom calendar. Users found it confusing. Mid-fi testing saved weeks of rework.</div></div></div>
       <div class="lesson-row"><div class="lesson-num">Lesson 04</div><div><div class="lesson-title">Client feedback is user research too</div><div class="lesson-body">When the client pushed "Request Tip" to primary CTA, they were signaling observed behavior. Listen for it.</div></div></div>
     </div>
@@ -552,7 +561,7 @@
     <div class="footer-inner">
       <div><div class="footer-name">Jade Zhang</div><div class="footer-role">Senior UX/UI Designer</div></div>
       <div class="footer-links">
-        <a href="https://www.linkedin.com/in/yuzhuo-zhang777" target="_blank">LinkedIn</a>
+        <a href="https://www.linkedin.com/in/yuzhuo-zhang777/" target="_blank">LinkedIn</a>
         <a href="https://www.instagram.com/jadeyuiii/" target="_blank">Instagram</a>
         <a href="index.html">Portfolio</a>
       </div>
