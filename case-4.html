@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EdTechLive – Case Study by Jade Zhang</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
 <style>
@@ -57,22 +57,24 @@
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 0 48px; height: 64px;
-    background: rgba(245,247,250,0.82); backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(26,26,30,0.07);
+    padding: 20px 48px;
+    background: rgba(242,242,240,0.85); backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
   }
   .nav-logo {
-    font-size: 22px; font-weight: 700; text-decoration: none;
-    letter-spacing: -0.02em;
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px; font-weight: 400; text-decoration: none;
+    letter-spacing: -0.5px;
     background: linear-gradient(135deg, #e8834a 0%, #d44f8a 50%, #8b5cf6 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
   .nav-links { display: flex; align-items: center; gap: 8px; list-style: none; }
-  .nav-links a { font-size: 15px; color: var(--ink-2); text-decoration: none; padding: 8px 16px; border-radius: 100px; transition: all 0.2s; }
-  .nav-links a:hover { color: var(--ink); background: rgba(26,26,30,0.06); }
+  .nav-links a { font-family: 'DM Sans', sans-serif; font-size: 15px; color: var(--ink-2); text-decoration: none; padding: 8px 16px; border-radius: 100px; transition: all 0.2s; font-weight: 400; }
+  .nav-links a:hover { color: var(--ink); background: rgba(0,0,0,0.06); }
   .nav-links .cta {
+    font-family: 'DM Sans', sans-serif;
     background: var(--ink); color: var(--white) !important;
     border-radius: 100px; padding: 9px 20px; font-size: 15px; font-weight: 500;
   }
@@ -328,7 +330,7 @@
 
 <!-- ── NAV ── -->
 <nav>
-  <a class="nav-logo" href="index.html">YZ</a>
+  <a href="index.html" class="nav-logo">YZ</a>
   <ul class="nav-links">
     <li><a href="index.html#works">Work</a></li>
     <li><a href="about.html">About</a></li>
@@ -336,7 +338,7 @@
   </ul>
 </nav>
 
-<!-- ─── HERO ─── -->
+<!-- ── HERO ── -->
 <section class="hero">
   <div class="container">
     <div class="hero-tag reveal">EdTechLive · Web UX Design · Sep – Dec 2021</div>
@@ -376,7 +378,7 @@
   </div>
 </section>
 
-<!-- ─── QUOTE BAND ─── -->
+<!-- ── QUOTE BAND ── -->
 <div class="quote-band">
   <div class="container">
     <div class="quote-band-inner reveal">
@@ -387,7 +389,7 @@
   </div>
 </div>
 
-<!-- ─── CONTEXT ─── -->
+<!-- ── CONTEXT ── -->
 <section id="context">
   <div class="container">
     <div class="section-pill reveal">The Brief</div>
@@ -410,7 +412,7 @@
   </div>
 </section>
 
-<!-- ─── RESEARCH ─── -->
+<!-- ── RESEARCH ── -->
 <section id="research">
   <div class="container">
     <div class="section-pill reveal">Research</div>
@@ -427,7 +429,7 @@
   </div>
 </section>
 
-<!-- ─── PIVOT ─── -->
+<!-- ── PIVOT ── -->
 <section id="pivot">
   <div class="container">
     <div class="section-pill reveal">The Call</div>
@@ -441,7 +443,7 @@
   </div>
 </section>
 
-<!-- ─── DESIGN ─── -->
+<!-- ── DESIGN ── -->
 <section id="design">
   <div class="container">
     <div class="section-pill reveal">Design Decisions</div>
@@ -526,7 +528,7 @@
   </div>
 </section>
 
-<!-- ─── TESTING ─── -->
+<!-- ── TESTING ── -->
 <section id="testing">
   <div class="container">
     <div class="testing-band">
@@ -548,7 +550,7 @@
   </div>
 </section>
 
-<!-- ─── REFLECTION ─── -->
+<!-- ── REFLECTION ── -->
 <section id="reflection">
   <div class="container">
     <div class="section-pill reveal">Reflection</div>
@@ -563,7 +565,7 @@
   </div>
 </section>
 
-<!-- ─── FOOTER ─── -->
+<!-- ── FOOTER ── -->
 <footer>
   <div>
     <div class="footer-name">Yuzhuo Zhang</div>

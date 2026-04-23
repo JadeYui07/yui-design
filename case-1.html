@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sleep Tracker · Yuzhuo Zhang</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 /* ── TOKENS ────────────────────────────────── */
 :root {
@@ -84,52 +84,46 @@ nav {
   align-items: center;
   justify-content: space-between;
   padding: 20px 48px;
-}
-nav::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(12,12,16,0.85), transparent);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  mask-image: linear-gradient(to bottom, black 60%, transparent);
-  z-index: -1;
+  background: rgba(12,12,16,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .nav-logo {
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-size: 22px;
-  font-weight: 700;
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px;
+  font-weight: 400;
   background: var(--grad);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.5px;
   text-decoration: none;
 }
 
 .nav-links { display: flex; align-items: center; gap: 8px; list-style: none; }
 .nav-links a {
-  font-size: 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
   color: var(--text2);
   text-decoration: none;
-  padding: 7px 16px;
-  border-radius: 40px;
+  padding: 8px 16px;
+  border-radius: 100px;
   transition: all 0.2s;
 }
 .nav-links a:hover { color: var(--text); background: var(--surface); }
-.nav-links .btn-contact {
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  color: var(--text);
-  padding: 8px 20px;
-  border-radius: 40px;
-  font-size: 14px;
+.nav-links .cta {
+  font-family: 'DM Sans', sans-serif;
+  background: rgba(255,255,255,0.92);
+  color: #0c0c10;
+  padding: 9px 20px;
+  border-radius: 100px;
+  font-size: 15px;
   font-weight: 500;
   text-decoration: none;
   transition: all 0.2s;
 }
-.nav-links .btn-contact:hover { background: var(--border2); }
+.nav-links .cta:hover { background: #ffffff; }
 
 /* ── HERO ──────────────────────────────────── */
 .hero {
@@ -837,7 +831,7 @@ p strong { color: var(--text); font-weight: 500; }
 /* ── FOOTER ────────────────────────────────── */
 footer {
   border-top: 1px solid var(--border);
-  padding: 28px 40px;
+  padding: 28px 48px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -845,7 +839,7 @@ footer {
   gap: 16px;
 }
 .footer-name {
-  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 14px;
   font-weight: 500;
   background: var(--grad);
@@ -854,9 +848,9 @@ footer {
   background-clip: text;
   margin-bottom: 3px;
 }
-.footer-copy { font-size: 12px; color: var(--text3); }
+.footer-copy { font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--text3); }
 .footer-links { display: flex; gap: 24px; }
-.footer-links a { font-size: 13px; color: var(--text2); text-decoration: none; transition: color 0.2s; }
+.footer-links a { font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text2); text-decoration: none; transition: color 0.2s; }
 .footer-links a:hover { color: var(--text); }
 
 /* ── PROGRESS BAR ──────────────────────────── */
@@ -905,19 +899,19 @@ footer {
 <!-- read progress -->
 <div id="prog"></div>
 
-<!-- ── NAV ───────────────────────────────── -->
+<!-- ── NAV ── -->
 <nav>
   <a href="index.html" class="nav-logo">YZ</a>
   <ul class="nav-links">
     <li><a href="index.html#works">Work</a></li>
     <li><a href="about.html">About</a></li>
-    <li><a href="contact.html" class="btn-contact">Contact Me</a></li>
+    <li><a href="contact.html" class="cta">Contact Me</a></li>
   </ul>
 </nav>
 
 <div class="page">
 
-<!-- ── HERO ──────────────────────────────── -->
+<!-- ── HERO ── -->
 <div class="hero">
   <div class="hero-eyebrow">
     <span class="hero-eyebrow-dot"></span>
@@ -940,7 +934,7 @@ footer {
   </div>
 </div>
 
-<!-- ── IMPACT STRIP ───────────────────────── -->
+<!-- ── IMPACT STRIP ── -->
 <div class="impact-strip">
   <div class="impact-strip-inner">
     <div class="impact-item">
@@ -966,7 +960,7 @@ footer {
   </div>
 </div>
 
-<!-- ── CONTEXT ────────────────────────────── -->
+<!-- ── CONTEXT ── -->
 <section class="section reveal">
   <div class="section-label"><span class="section-label-line"></span>01 — Context</div>
   <h2>A product built around sleep<br>that couldn't <span class="grad-text">feel</span> like sleep</h2>
@@ -989,7 +983,7 @@ footer {
 <!-- DIVIDER -->
 <div class="divider"><hr></div>
 
-<!-- ── PROBLEM ────────────────────────────── -->
+<!-- ── PROBLEM ── -->
 <section class="section reveal">
   <div class="section-label"><span class="section-label-line"></span>02 — The Problem</div>
   <h2>The data told a story<br>about <span class="grad-text">disconnection</span></h2>
@@ -1065,7 +1059,7 @@ footer {
 <!-- DIVIDER -->
 <div class="divider"><hr></div>
 
-<!-- ── PROCESS ────────────────────────────── -->
+<!-- ── PROCESS ── -->
 <section class="section reveal">
   <div class="section-label"><span class="section-label-line"></span>03 — Process</div>
   <h2>Two features.<br><span class="grad-text">Two approaches.</span></h2>
@@ -1095,7 +1089,7 @@ footer {
 <!-- DIVIDER -->
 <div class="divider"><hr></div>
 
-<!-- ── KEY DECISION ───────────────────────── -->
+<!-- ── KEY DECISION ── -->
 <section class="section reveal">
   <div class="section-label"><span class="section-label-line"></span>04 — The Key Decision</div>
   <h2>Three flows tested.<br><span class="grad-text">One emerged clearly.</span></h2>
@@ -1179,7 +1173,7 @@ footer {
 <!-- DIVIDER -->
 <div class="divider"><hr></div>
 
-<!-- ── DESIGN RATIONALE ───────────────────── -->
+<!-- ── DESIGN RATIONALE ── -->
 <section class="section reveal">
   <div class="section-label"><span class="section-label-line"></span>04b — Design Rationale</div>
   <h2>The frameworks that<br><span class="grad-text">anchored</span> the decisions</h2>
@@ -1231,7 +1225,7 @@ footer {
 <!-- DIVIDER -->
 <div class="divider"><hr></div>
 
-<!-- ── SOLUTION ───────────────────────────── -->
+<!-- ── SOLUTION ── -->
 <section class="section reveal">
   <div class="section-label"><span class="section-label-line"></span>05 — The Solution</div>
   <h2>From friction<br>to <span class="grad-text">flow</span></h2>
@@ -1365,7 +1359,7 @@ footer {
 <!-- DIVIDER -->
 <div class="divider"><hr></div>
 
-<!-- ── IMPACT ──────────────────────────────── -->
+<!-- ── IMPACT ── -->
 <section class="section reveal">
   <div class="section-label"><span class="section-label-line"></span>06 — Impact</div>
   <h2>Numbers that validated<br>the <span class="grad-text">ritual</span></h2>
@@ -1408,7 +1402,7 @@ footer {
 <!-- DIVIDER -->
 <div class="divider"><hr></div>
 
-<!-- ── REFLECTION ─────────────────────────── -->
+<!-- ── REFLECTION ── -->
 <section class="section reveal">
   <div class="section-label"><span class="section-label-line"></span>07 — Reflection</div>
   <h2>What I carry<br><span class="grad-text">forward</span></h2>
@@ -1433,7 +1427,7 @@ footer {
   </div>
 </section>
 
-<!-- ── FOOTER ──────────────────────────────── -->
+<!-- ── FOOTER ── -->
 <footer class="reveal">
   <div>
     <div class="footer-name">Yuzhuo Zhang</div>
