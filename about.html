@@ -8,6 +8,11 @@
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
   <style>
+    :root {
+      --about-gradient-h1:  linear-gradient(135deg, #4a90d9 0%, #7c5cbf 60%, #c44f80 100%);
+      --about-gradient-dot: linear-gradient(135deg, #7c5cbf, #c44f80);
+    }
+
     .about-body { padding-top: 100px; }
 
     .about-hero-inner {
@@ -22,12 +27,11 @@
     }
 
     .about-text-col h1 {
-      font-family: 'DM Serif Display', serif;
       font-size: clamp(40px, 5.5vw, 68px);
       font-weight: 400;
       line-height: 1.1;
       letter-spacing: -1.5px;
-      background: linear-gradient(135deg, #4a90d9 0%, #7c5cbf 60%, #c44f80 100%);
+      background: var(--about-gradient-h1);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -67,7 +71,7 @@
     .highlight-dot {
       width: 6px; height: 6px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #7c5cbf, #c44f80);
+      background: var(--about-gradient-dot);
       flex-shrink: 0;
     }
 
@@ -104,7 +108,6 @@
     }
 
     .skills-section h2 {
-      font-family: 'DM Serif Display', serif;
       font-size: 36px;
       font-weight: 400;
       letter-spacing: -0.5px;
@@ -118,10 +121,10 @@
     }
 
     .skill-block {
-      background: #fff;
+      background: var(--surface);
       border-radius: 20px;
       padding: 28px;
-      border: 1px solid rgba(0,0,0,0.06);
+      border: 1px solid var(--border);
     }
 
     .skill-block h3 {
@@ -156,7 +159,6 @@
     }
 
     .exp-section h2 {
-      font-family: 'DM Serif Display', serif;
       font-size: 36px;
       font-weight: 400;
       letter-spacing: -0.5px;
@@ -375,6 +377,10 @@
 </footer>
 
 <script>
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 10);
+  });
+
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
