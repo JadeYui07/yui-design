@@ -75,6 +75,7 @@
   --shadow-sm: 0 2px 8px rgba(26,23,20,0.07);
   --shadow-md: 0 4px 20px rgba(26,23,20,0.09);
   --shadow-lg: 0 8px 40px rgba(26,23,20,0.12);
+  --shadow-xl: 0 20px 40px rgba(26,23,20,0.14);
 
   /* – Motion – */
   --transition: cubic-bezier(0.4, 0, 0.2, 1);
@@ -1177,6 +1178,11 @@ a:hover { color: var(--rust-700); }
 }
 
 .reveal.visible { opacity: 1; transform: translateY(0); }
+
+.d1 { transition-delay: 0.1s; }
+.d2 { transition-delay: 0.2s; }
+.d3 { transition-delay: 0.3s; }
+.d4 { transition-delay: 0.4s; }
 
 
 /* ────────────────────────────────────────────────────────────
