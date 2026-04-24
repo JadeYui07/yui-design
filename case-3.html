@@ -3,10 +3,543 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EdTechLive Redesign — Yuzhuo Zhang</title>
-  <meta name="description" content="Case study: Redesigning EdTechLive to empower student voice and personalized instruction through SEEDS-based tools.">
+  <title>One Language, Thirty Apps — Yuzhuo Zhang</title>
+  <meta name="description" content="Case study: Building a unified global design system for 30 iOS and Android apps — with 2 designers, in 2 months, from first principles.">
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+  <style>
+    /* ── Page-level color tokens ── */
+    :root {
+      --case-accent:          #0052FF;
+      --case-accent-2:        #4D7CFF;
+      --case-accent-light:    #7BA7F7;
+      --case-gradient:        linear-gradient(to right, #0052FF, #4D7CFF);
+      --case-gradient-135:    linear-gradient(135deg, #0052FF, #4D7CFF);
+      --case-success:         #7EC8A0;
+      --case-error:           #F87171;
+      --case-warning:         #C2410C;
+      --case-warning-light:   #FB923C;
+      --case-android:         #16A34A;
+      --case-dark-hover:      #1E293B;
+      --case-verdict-bg:      #FFF7ED;
+      --case-shadow-accent:   0 4px 14px rgba(0,82,255,0.25);
+      --case-shadow-accent-lg: 0 8px 28px rgba(0,82,255,0.35);
+    }
+
+    body { overflow-x: hidden; }
+
+    /* ── Gradient text ── */
+    .g-text {
+      background: var(--case-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* ── Section badge ── */
+    .ds-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      border: 1px solid rgba(0,82,255,0.3);
+      background: rgba(0,82,255,0.05);
+      padding: 8px 20px; border-radius: var(--radius-full);
+      margin-bottom: var(--space-3);
+    }
+    .ds-badge--dark {
+      border-color: rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.06);
+    }
+    .ds-badge-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--case-accent);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    .ds-badge--dark .ds-badge-dot { background: var(--case-accent-light); }
+    .ds-badge-text {
+      font-family: var(--font-mono);
+      font-size: 12px; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--case-accent);
+    }
+    .ds-badge--dark .ds-badge-text { color: rgba(255,255,255,0.6); }
+
+    @keyframes pulse-dot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.6; }
+    }
+    @keyframes rotate-cw  { to { transform: rotate(360deg); } }
+    @keyframes rotate-ccw { to { transform: rotate(-360deg); } }
+    @keyframes float-up   { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    @keyframes float-dn   { 0%,100%{transform:translateY(0)} 50%{transform:translateY(10px)} }
+
+    /* ── Hero ── */
+    .ds-hero-wrap {
+      max-width: 1100px; margin: 0 auto;
+      padding: var(--space-10) 0 var(--space-12);
+      position: relative; overflow: hidden;
+    }
+    .ds-hero-glow {
+      position: absolute; top: -80px; right: -80px;
+      width: 640px; height: 640px;
+      background: radial-gradient(circle, rgba(0,82,255,0.07) 0%, transparent 68%);
+      pointer-events: none;
+    }
+    .ds-hero-inner {
+      display: grid; grid-template-columns: 1.1fr 0.9fr;
+      gap: var(--space-8); align-items: center;
+    }
+    .ds-hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 7vw, 5.25rem);
+      font-weight: 600; line-height: 1.05;
+      letter-spacing: -0.02em; margin-bottom: var(--space-3);
+      color: var(--text);
+    }
+    .ds-title-line2 { position: relative; display: inline-block; }
+    .ds-gradient-underline {
+      position: absolute; bottom: -0.25rem; left: 0;
+      height: 0.75rem; width: 100%; border-radius: 2px;
+      background: linear-gradient(to right, rgba(0,82,255,0.18), rgba(77,124,255,0.08));
+    }
+    .ds-hero-sub {
+      font-size: 18px; color: var(--text-secondary);
+      line-height: 1.75; max-width: 480px;
+      margin-bottom: var(--space-6);
+    }
+    .ds-hero-meta {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      background: var(--border); gap: 1px;
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      overflow: hidden; max-width: 560px;
+    }
+    .ds-meta-item { background: var(--surface); padding: 16px var(--space-3); }
+    .ds-meta-label {
+      font-family: var(--font-mono);
+      font-size: 10px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-secondary); margin-bottom: 4px;
+    }
+    .ds-meta-value { font-size: 14px; font-weight: 600; color: var(--text); }
+
+    /* Hero graphic */
+    .ds-hero-graphic {
+      position: relative; height: 440px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ds-ring {
+      position: absolute; border-radius: 50%; border-style: dashed;
+    }
+    .ds-ring-1 {
+      width: 360px; height: 360px;
+      border: 2px dashed rgba(0,82,255,0.18);
+      animation: rotate-cw 60s linear infinite;
+    }
+    .ds-ring-2 {
+      width: 230px; height: 230px;
+      border: 1px dashed rgba(0,82,255,0.1);
+      animation: rotate-ccw 40s linear infinite;
+    }
+    .ds-hero-center {
+      width: 96px; height: 96px;
+      background: var(--case-gradient-135);
+      border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--case-shadow-accent-lg);
+      position: relative; z-index: 2;
+    }
+    .ds-hero-center svg { width: 38px; height: 38px; }
+    .ds-h-chip {
+      position: absolute;
+      font-family: var(--font-mono); font-size: 11px;
+      background: var(--text); color: var(--case-accent-light);
+      padding: 8px 14px; border-radius: var(--radius-xs);
+      box-shadow: var(--shadow-lg);
+      white-space: nowrap; z-index: 3;
+    }
+    .ds-h-chip .g { color: var(--case-success); }
+    .ds-chip-1 { top: 50px; right: 12px; animation: float-up 5s ease-in-out infinite; }
+    .ds-chip-2 { top: 150px; left: -4px; animation: float-dn 4s ease-in-out infinite; }
+    .ds-chip-3 { bottom: 110px; right: 4px; animation: float-up 4.5s ease-in-out infinite 0.5s; }
+    .ds-chip-4 { bottom: 44px; left: 18px; animation: float-dn 5.5s ease-in-out infinite 1s; }
+
+    /* ── Stats (inverted) ── */
+    .ds-stats {
+      background: var(--text);
+      position: relative; overflow: hidden;
+      padding: var(--space-10) 0;
+    }
+    .ds-stats-inner { max-width: 1100px; margin: 0 auto; }
+    .ds-dot-texture {
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, white 1px, transparent 1px);
+      background-size: 32px 32px; opacity: 0.03;
+      pointer-events: none;
+    }
+    .ds-radial-glow {
+      position: absolute; width: 480px; height: 480px;
+      border-radius: 50%; pointer-events: none;
+      background: radial-gradient(circle, rgba(0,82,255,0.18) 0%, transparent 65%);
+    }
+    .ds-glow-bl { bottom: -120px; left: -80px; }
+    .ds-glow-tr { top: -120px; right: -80px; }
+    .ds-stats-grid {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 1px; background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius-sm); overflow: hidden;
+      position: relative;
+    }
+    .ds-stat-item { padding: 48px 36px; background: var(--text); }
+    .ds-stat-number {
+      font-family: var(--font-display);
+      font-size: 60px; line-height: 1;
+      background: var(--case-gradient);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      margin-bottom: 10px;
+    }
+    .ds-stat-number sup { font-size: 32px; }
+    .ds-stat-label { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.5; }
+
+    /* ── Content sections ── */
+    .ds-section {
+      max-width: 1100px; margin: 0 auto;
+      padding: var(--space-12) 0;
+    }
+    .ds-section--border { border-top: 1px solid var(--border); }
+
+    /* Section title — larger display style */
+    .ds-section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4.5vw, 3.25rem);
+      font-weight: 500; line-height: 1.15;
+      margin-bottom: var(--space-3); color: var(--text);
+    }
+
+    /* Prose */
+    .ds-prose {
+      font-size: 16px; color: var(--text-secondary);
+      line-height: 1.8; max-width: 600px;
+    }
+    .ds-prose p + p { margin-top: 18px; }
+    .ds-prose strong { color: var(--text); font-weight: 600; }
+    .ds-prose em { color: var(--case-accent); font-style: normal; font-weight: 500; }
+
+    /* Two-col layouts */
+    .ds-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); align-items: start; }
+    .ds-two-col-asym { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: var(--space-8); align-items: start; }
+
+    /* Pull quote */
+    .ds-pull-quote {
+      border-left: 3px solid var(--case-accent);
+      background: rgba(0,82,255,0.04);
+      padding: var(--space-3) var(--space-4);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin: var(--space-6) 0;
+    }
+    .ds-pull-quote p {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 3vw, 28px); line-height: 1.4; color: var(--text);
+    }
+
+    /* Image placeholder */
+    .ds-img-ph {
+      width: 100%; background: var(--bg-subtle);
+      border: 1.5px dashed var(--border);
+      border-radius: var(--radius-sm);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 12px; color: var(--text-secondary);
+    }
+    .ds-img-ph-label {
+      font-family: var(--font-mono);
+      font-size: 11px; letter-spacing: 0.05em; text-align: center;
+    }
+
+    /* Principle callout */
+    .ds-callout {
+      background: rgba(0,82,255,0.06);
+      border: 1px solid rgba(0,82,255,0.15);
+      border-radius: var(--radius-sm); padding: var(--space-3);
+    }
+    .ds-callout-label {
+      font-family: var(--font-mono); font-size: 10px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--case-accent); margin-bottom: 8px;
+    }
+    .ds-callout-text { font-size: 14px; line-height: 1.65; color: var(--text); }
+    .ds-callout-text strong { color: var(--case-accent); }
+
+    /* ── Comparison cards ── */
+    .ds-comparison-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: var(--space-3); margin: var(--space-6) 0;
+    }
+    .ds-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 36px;
+      box-shadow: var(--shadow-md);
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .ds-card:hover { box-shadow: var(--shadow-xl); transform: translateY(-3px); }
+
+    .ds-card-featured-wrap {
+      background: var(--case-gradient-135);
+      border-radius: var(--radius); padding: 2px;
+      box-shadow: var(--case-shadow-accent-lg);
+    }
+    .ds-card-featured {
+      background: var(--text); border-radius: calc(var(--radius) - 2px);
+      padding: 36px; height: 100%;
+    }
+
+    .ds-comp-label {
+      font-family: var(--font-mono);
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .ds-card .ds-comp-label { color: var(--text-secondary); }
+    .ds-card-featured .ds-comp-label { color: var(--case-accent-light); }
+
+    .ds-comp-title {
+      font-family: var(--font-display); font-size: 24px; margin-bottom: var(--space-3);
+    }
+    .ds-card .ds-comp-title { color: var(--text); }
+    .ds-card-featured .ds-comp-title { color: var(--text-inverse); }
+
+    .ds-comp-axes { display: flex; flex-direction: column; gap: 10px; margin-bottom: var(--space-3); }
+    .ds-comp-axis { display: flex; gap: 10px; align-items: flex-start; }
+    .ds-axis-tag {
+      font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+      padding: 3px 9px; border-radius: var(--radius-xs);
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .ds-card .ds-axis-tag { background: var(--bg-subtle); color: var(--text-secondary); }
+    .ds-card-featured .ds-axis-tag { background: rgba(123,167,247,0.15); color: var(--case-accent-light); }
+    .ds-axis-desc { font-size: 13px; line-height: 1.5; }
+    .ds-card .ds-axis-desc { color: var(--text-secondary); }
+    .ds-card-featured .ds-axis-desc { color: rgba(255,255,255,0.5); }
+
+    .ds-comp-example {
+      font-family: var(--font-mono); font-size: 12px; line-height: 1.85;
+      padding: 14px 16px; border-radius: var(--radius-xs); margin-bottom: 16px;
+    }
+    .ds-card .ds-comp-example { background: var(--bg-subtle); color: var(--text-secondary); }
+    .ds-card .ds-comp-example .tp { color: var(--case-accent); }
+    .ds-card .ds-comp-example .sep { color: var(--border); }
+    .ds-card-featured .ds-comp-example {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.07);
+      color: rgba(255,255,255,0.8);
+    }
+    .ds-card-featured .ds-comp-example .tp { color: var(--case-accent-light); }
+    .ds-card-featured .ds-comp-example .sep { color: rgba(255,255,255,0.2); }
+
+    .ds-comp-verdict {
+      display: flex; gap: 10px; align-items: center;
+      font-size: 13px; padding: 12px 14px; border-radius: var(--radius-xs);
+    }
+    .ds-card .ds-comp-verdict { background: var(--case-verdict-bg); color: var(--case-warning); }
+    .ds-card-featured .ds-comp-verdict { background: rgba(126,200,160,0.15); color: var(--case-success); }
+
+    /* ── M3 Rejection box ── */
+    .ds-rejection-box {
+      background: var(--text); border-radius: var(--radius);
+      padding: var(--space-5); margin: var(--space-5) 0;
+      position: relative; overflow: hidden;
+    }
+    .ds-rejection-title {
+      font-family: var(--font-display);
+      font-size: 26px; color: var(--text-inverse);
+      margin-bottom: var(--space-3); position: relative;
+    }
+    .ds-rejection-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: var(--space-3); position: relative;
+    }
+    .ds-rej-label {
+      font-family: var(--font-mono); font-size: 10px;
+      letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px;
+    }
+    .ds-rej-pro .ds-rej-label { color: var(--case-success); }
+    .ds-rej-con .ds-rej-label { color: var(--case-error); }
+    .ds-rej-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .ds-rej-list li {
+      display: flex; gap: 10px;
+      font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.55;
+    }
+    .ds-rej-pro .ds-rej-list li::before { content: '+'; color: var(--case-success); flex-shrink: 0; }
+    .ds-rej-con .ds-rej-list li::before { content: '−'; color: var(--case-error); flex-shrink: 0; }
+
+    /* ── Font role grid ── */
+    .ds-font-roles-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      overflow: hidden; margin-top: var(--space-5);
+    }
+    .ds-font-role {
+      background: var(--surface); padding: 28px var(--space-4);
+      transition: background 0.2s;
+    }
+    .ds-font-role:hover { background: var(--bg-subtle); }
+    .ds-font-role:first-child {
+      grid-column: 1 / -1;
+      background: var(--text); position: relative; overflow: hidden;
+    }
+    .ds-font-role:first-child:hover { background: var(--case-dark-hover); }
+    .ds-font-role-name { font-family: var(--font-display); margin-bottom: 8px; }
+    .ds-font-role:first-child .ds-font-role-name { font-size: 36px; color: var(--text-inverse); position: relative; }
+    .ds-font-role:not(:first-child) .ds-font-role-name { font-size: 20px; color: var(--text); }
+    .ds-font-role-desc { font-size: 13px; line-height: 1.55; }
+    .ds-font-role:first-child .ds-font-role-desc { color: rgba(255,255,255,0.45); position: relative; }
+    .ds-font-role:not(:first-child) .ds-font-role-desc { color: var(--text-secondary); }
+    .ds-platform-badges { display: flex; gap: 6px; margin-bottom: 10px; }
+    .ds-b-ios {
+      font-family: var(--font-mono); font-size: 10px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 3px 8px; border-radius: var(--radius-xs);
+      background: rgba(0,82,255,0.08); color: var(--case-accent);
+    }
+    .ds-b-android {
+      font-family: var(--font-mono); font-size: 10px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 3px 8px; border-radius: var(--radius-xs);
+      background: rgba(22,163,74,0.08); color: var(--case-android);
+    }
+
+    /* ── Constraint cards ── */
+    .ds-constraint-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-top: var(--space-5); }
+    .ds-constraint-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: var(--space-4);
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .ds-constraint-card:hover { box-shadow: var(--shadow-xl); transform: translateY(-2px); }
+    .ds-constraint-tag {
+      display: inline-block;
+      font-family: var(--font-mono); font-size: 10px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 4px 14px; border-radius: var(--radius-full);
+      background: rgba(239,68,68,0.07); color: var(--case-error);
+      border: 1px solid rgba(239,68,68,0.18);
+      margin-bottom: 16px;
+    }
+    .ds-constraint-title { font-family: var(--font-display); font-size: 22px; margin-bottom: 12px; color: var(--text); }
+    .ds-constraint-body { font-size: 14px; color: var(--text-secondary); line-height: 1.75; }
+    .ds-constraint-lesson {
+      margin-top: 16px; padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 13px; color: var(--text-secondary);
+    }
+    .ds-constraint-lesson strong { color: var(--text); }
+
+    /* ── Results (inverted) ── */
+    .ds-results {
+      background: var(--text); position: relative; overflow: hidden;
+      padding: var(--space-12) 0;
+    }
+    .ds-results-inner { max-width: 1100px; margin: 0 auto; }
+    .ds-results .ds-section-title { color: var(--text-inverse); }
+
+    .ds-results-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px; background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius-sm); overflow: hidden;
+      margin-top: var(--space-5); position: relative;
+    }
+    .ds-result-item { padding: 36px 28px; background: var(--text); }
+    .ds-result-stat {
+      font-family: var(--font-display); font-size: 56px; line-height: 1;
+      background: var(--case-gradient);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      margin-bottom: 10px;
+    }
+    .ds-result-label { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.5; }
+    .ds-result-label strong { color: var(--text-inverse); display: block; margin-bottom: 4px; }
+
+    .ds-vqa-bar {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius-sm); padding: var(--space-4); margin-top: var(--space-3);
+    }
+    .ds-vqa-heading {
+      font-family: var(--font-mono); font-size: 11px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: rgba(255,255,255,0.3); margin-bottom: var(--space-3);
+    }
+    .ds-vqa-row-label { font-size: 13px; color: rgba(255,255,255,0.35); margin-bottom: 8px; }
+    .ds-vqa-track {
+      height: 6px; background: rgba(255,255,255,0.09);
+      border-radius: 3px; overflow: hidden; margin-bottom: 8px;
+    }
+    .ds-vqa-fill { height: 100%; border-radius: 3px; width: 0; transition: width 1.4s cubic-bezier(0.16,1,0.3,1); }
+    .ds-vqa-before { background: linear-gradient(to right, var(--case-error), var(--case-warning-light)); }
+    .ds-vqa-after  { background: var(--case-gradient); }
+    .ds-vqa-before.go { width: 95%; }
+    .ds-vqa-after.go  { width: 80%; }
+    .ds-vqa-num { display: flex; justify-content: flex-end; font-size: 13px; color: rgba(255,255,255,0.35); margin-bottom: var(--space-3); }
+    .ds-vqa-num strong { color: var(--text-inverse); }
+
+    .ds-quote-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: var(--space-3); }
+    .ds-quote-card {
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-sm); padding: 28px;
+      background: rgba(255,255,255,0.04);
+    }
+    .ds-quote-text {
+      font-family: var(--font-display); font-size: 20px;
+      color: var(--text-inverse); line-height: 1.45; margin-bottom: 16px;
+    }
+    .ds-quote-source {
+      font-family: var(--font-mono); font-size: 11px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--case-accent-light);
+    }
+    .ds-motion-callout {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius-sm); padding: var(--space-3) 28px; margin-top: var(--space-3);
+    }
+    .ds-mc-label {
+      font-family: var(--font-mono); font-size: 10px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35); margin-bottom: 8px;
+    }
+    .ds-mc-body { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.65; }
+    .ds-mc-body strong { color: var(--text-inverse); }
+
+    /* ── Reflection ── */
+    .ds-reflection-list { margin-top: var(--space-5); }
+    .ds-reflection-item {
+      display: grid; grid-template-columns: 72px 1fr;
+      gap: 28px; padding: 36px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .ds-reflection-item:last-child { border-bottom: none; }
+    .ds-reflection-num {
+      font-family: var(--font-display); font-size: 52px; line-height: 1;
+      background: var(--case-gradient);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .ds-reflection-title { font-size: 17px; font-weight: 600; margin-bottom: 8px; color: var(--text); }
+    .ds-reflection-body { font-size: 15px; color: var(--text-secondary); line-height: 1.75; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .ds-hero-inner { grid-template-columns: 1fr; }
+      .ds-hero-graphic { display: none; }
+      .ds-hero-meta { grid-template-columns: 1fr 1fr; }
+      .ds-stats-grid { grid-template-columns: 1fr 1fr; }
+      .ds-comparison-grid { grid-template-columns: 1fr; }
+      .ds-two-col, .ds-two-col-asym { grid-template-columns: 1fr; gap: var(--space-5); }
+      .ds-font-roles-grid { grid-template-columns: 1fr; }
+      .ds-constraint-grid { grid-template-columns: 1fr; }
+      .ds-results-grid { grid-template-columns: 1fr; }
+      .ds-quote-grid { grid-template-columns: 1fr; }
+      .ds-rejection-grid { grid-template-columns: 1fr; }
+      .ds-reflection-item { grid-template-columns: 1fr; gap: 8px; }
+    }
+  </style>
 </head>
 <body class="cs-body">
 
@@ -20,7 +553,7 @@
   </ul>
 </nav>
 
-<!-- ── BACK NAVIGATION ── -->
+<!-- ── BACK ── -->
 <div class="cs-back">
   <a href="index.html" class="cs-back-link">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -31,259 +564,406 @@
 </div>
 
 <!-- ── HERO ── -->
-<div class="cs-hero">
-  <span class="cs-hero-tag">Web Design · EdTech</span>
-  <h1>EdTechLive — Personalized Instructional Strategies</h1>
-  <p class="cs-hero-subtitle">Empowering students to share their voices and educators to build more engaging, effective learning experiences</p>
+<div class="ds-hero-wrap">
+  <div class="ds-hero-glow"></div>
+  <div class="ds-hero-inner">
+    <div>
+      <div class="ds-badge reveal">
+        <span class="ds-badge-dot"></span>
+        <span class="ds-badge-text">Case Study · Cross-Platform Design System</span>
+      </div>
+      <h1 class="ds-hero-title reveal d1">
+        One Language,<br>
+        <span class="ds-title-line2">
+          <span class="g-text">Thirty Apps.</span>
+          <span class="ds-gradient-underline"></span>
+        </span>
+      </h1>
+      <p class="ds-hero-sub reveal d2">
+        Building a unified global design system for 30 iOS and Android apps — with 2 designers, in 2 months, from first principles.
+      </p>
+      <div class="ds-hero-meta reveal d3">
+        <div class="ds-meta-item">
+          <div class="ds-meta-label">Role</div>
+          <div class="ds-meta-value">Mobile UX Lead</div>
+        </div>
+        <div class="ds-meta-item">
+          <div class="ds-meta-label">Timeline</div>
+          <div class="ds-meta-value">Jun – Jul 2024</div>
+        </div>
+        <div class="ds-meta-item">
+          <div class="ds-meta-label">Platforms</div>
+          <div class="ds-meta-value">iOS & Android</div>
+        </div>
+        <div class="ds-meta-item">
+          <div class="ds-meta-label">Team</div>
+          <div class="ds-meta-value">2 Designers</div>
+        </div>
+      </div>
+    </div>
 
-  <!-- Hero image — REPLACE: add your image src here, recommended size 1600x900px -->
-  <!-- Example: <img src="images/edtech-hero.jpg" alt="EdTechLive redesign hero screens"> -->
-  <div class="cs-hero-img edtech-bg">
-    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-    <span>Hero image — 1600×900px recommended</span>
+    <!-- Abstract hero graphic -->
+    <div class="ds-hero-graphic reveal d2">
+      <div class="ds-ring ds-ring-1"></div>
+      <div class="ds-ring ds-ring-2"></div>
+      <div class="ds-hero-center">
+        <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="4" width="13" height="13" rx="3" fill="white" opacity=".9"/>
+          <rect x="21" y="4" width="13" height="13" rx="3" fill="white" opacity=".6"/>
+          <rect x="4" y="21" width="13" height="13" rx="3" fill="white" opacity=".6"/>
+          <rect x="21" y="21" width="13" height="13" rx="3" fill="white" opacity=".9"/>
+        </svg>
+      </div>
+      <div class="ds-h-chip ds-chip-1">screen<span style="color:rgba(255,255,255,.2)">.</span>background<span style="color:rgba(255,255,255,.2)">.</span><span class="g">neutral-base</span></div>
+      <div class="ds-h-chip ds-chip-2">button<span style="color:rgba(255,255,255,.2)">.</span>background<span style="color:rgba(255,255,255,.2)">.</span><span class="g">primary-bold</span></div>
+      <div class="ds-h-chip ds-chip-3">card<span style="color:rgba(255,255,255,.2)">.</span>content<span style="color:rgba(255,255,255,.2)">.</span><span class="g">error-soft</span></div>
+      <div class="ds-h-chip ds-chip-4">line<span style="color:rgba(255,255,255,.2)">.</span><span class="g">neutral-soft</span></div>
+    </div>
   </div>
 </div>
 
-<!-- ── OVERVIEW ── -->
-<div class="cs-overview reveal">
-  <div class="cs-overview-grid">
-    <div class="cs-overview-item">
-      <p class="cs-overview-label">Role</p>
-      <p class="cs-overview-value">Lead UX Designer</p>
-    </div>
-    <div class="cs-overview-item">
-      <p class="cs-overview-label">Timeline</p>
-      <p class="cs-overview-value">16 Weeks</p>
-    </div>
-    <div class="cs-overview-item">
-      <p class="cs-overview-label">Platform</p>
-      <p class="cs-overview-value">Web App</p>
-    </div>
-    <div class="cs-overview-item">
-      <p class="cs-overview-label">Team</p>
-      <p class="cs-overview-value">1 Designer · 3 Engineers · 1 PM · 2 Educators</p>
-    </div>
-  </div>
-</div>
-
-<!-- ── PROBLEM STATEMENT ── -->
-<div class="cs-section reveal">
-  <h2 class="cs-section-title">The Problem</h2>
-  <p class="cs-section-text">
-    EdTechLive's platform, built around the SEEDS framework for personalized instruction, had an interface that wasn't enabling the behaviors it was designed to support. Students weren't using the voice-sharing tools, and educators were spending too much time navigating rather than teaching.
-  </p>
-  <p class="cs-section-text">
-    <strong>The core tool — student voice sharing — was buried three levels deep in navigation.</strong> Educators couldn't customize instruction without extensive manual effort, and the data visualizations meant to guide teaching decisions were too complex to act on.
-  </p>
-</div>
-
-<div class="cs-divider"><hr></div>
-
-<!-- ── RESEARCH & DISCOVERY ── -->
-<div class="cs-section reveal">
-  <h2 class="cs-section-title">Research &amp; Discovery</h2>
-  <p class="cs-section-text">
-    Research spanned both sides of the classroom — students and educators — to understand where the platform was failing each group differently.
-  </p>
-
-  <div class="cs-steps">
-    <div class="cs-step">
-      <div class="cs-step-num">1</div>
-      <div class="cs-step-content">
-        <h4>Heuristic Evaluation</h4>
-        <p>Identified 12 usability violations in the existing platform — most critically: the navigation structure didn't reflect either the educator's or student's mental model of the workflow.</p>
+<!-- ── STATS (inverted) ── -->
+<div class="ds-stats">
+  <div class="ds-dot-texture"></div>
+  <div class="ds-radial-glow ds-glow-bl"></div>
+  <div class="ds-stats-inner">
+    <div class="ds-stats-grid">
+      <div class="ds-stat-item reveal">
+        <div class="ds-stat-number">30<sup>+</sup></div>
+        <div class="ds-stat-label">iOS & Android apps under one mobile design org</div>
       </div>
-    </div>
-    <div class="cs-step">
-      <div class="cs-step-num">2</div>
-      <div class="cs-step-content">
-        <h4>8+ Qualitative Interviews</h4>
-        <p>Conducted in-depth interviews with teachers and students across grade levels. Key finding: educators wanted insights before each class, not after; students wanted to feel heard immediately.</p>
+      <div class="ds-stat-item reveal d1">
+        <div class="ds-stat-number">2</div>
+        <div class="ds-stat-label">Separate design systems — one per platform, never speaking to each other</div>
       </div>
-    </div>
-    <div class="cs-step">
-      <div class="cs-step-num">3</div>
-      <div class="cs-step-content">
-        <h4>Contextual Inquiry</h4>
-        <p>Observed two live classroom sessions where EdTechLive was in use. Educators switched away from the platform 6+ times per session to manage tasks it should have handled natively.</p>
+      <div class="ds-stat-item reveal d2">
+        <div class="ds-stat-number">5</div>
+        <div class="ds-stat-label">Designers on the team, only 2 maintaining design files</div>
       </div>
-    </div>
-    <div class="cs-step">
-      <div class="cs-step-num">4</div>
-      <div class="cs-step-content">
-        <h4>Affinity Mapping &amp; Synthesis</h4>
-        <p>Synthesized findings into two role-based need maps — one for students, one for educators — revealing that the same feature needed entirely different UI treatments for each group.</p>
+      <div class="ds-stat-item reveal d3">
+        <div class="ds-stat-number">0</div>
+        <div class="ds-stat-label">Shared token vocabulary between iOS, Android, and engineering</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Research images — REPLACE: add your image src here, recommended size 800x600px each -->
-<div class="cs-section reveal">
-  <div class="cs-img-grid">
-    <div class="cs-img-block">
-      <!-- REPLACE: add your image src here, recommended size 800x600px -->
-      <!-- Example: <img src="images/edtech-research.jpg" alt="Research synthesis and affinity map"> -->
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-      <span>Research synthesis / affinity map</span>
-    </div>
-    <div class="cs-img-block">
-      <!-- REPLACE: add your image src here, recommended size 800x600px -->
-      <!-- Example: <img src="images/edtech-interviews.jpg" alt="User interview notes and patterns"> -->
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-      <span>Interview notes / key patterns</span>
-    </div>
-  </div>
-</div>
-
-<div class="cs-divider"><hr></div>
-
-<!-- ── DESIGN PROCESS ── -->
-<div class="cs-section reveal">
-  <h2 class="cs-section-title">Design Process</h2>
-  <p class="cs-section-text">
-    The redesign centered on a single structural decision: <strong>role-based dashboards</strong>. Students and educators needed fundamentally different starting points, each surfacing the right tools without any navigation overhead.
-  </p>
-
-  <div class="cs-steps">
-    <div class="cs-step">
-      <div class="cs-step-num">1</div>
-      <div class="cs-step-content">
-        <h4>Redefine Information Architecture</h4>
-        <p>Restructured the entire platform IA around user role and task frequency. Student Voice moved from level 3 navigation to the primary action on every student's home view.</p>
+<!-- ── 01 THE TRIGGER ── -->
+<div class="ds-section">
+  <div class="ds-two-col-asym">
+    <div>
+      <div class="ds-badge reveal">
+        <span class="ds-badge-dot"></span>
+        <span class="ds-badge-text">01 · The Trigger</span>
+      </div>
+      <h2 class="ds-section-title reveal d1">When two worlds had to become one</h2>
+      <div class="ds-prose reveal d2">
+        <p>We had two separate design systems — one for iOS, one for Android — that had never needed to talk to each other. Then the company strategy shifted: iOS and Android dev teams would now collaborate on cross-platform apps.</p>
+        <p><strong>Our two systems weren't just inefficient anymore — they were an architectural liability.</strong> Adopting either one would bake platform-specific assumptions into shared products. We had one choice: rebuild from a common foundation.</p>
       </div>
     </div>
-    <div class="cs-step">
-      <div class="cs-step-num">2</div>
-      <div class="cs-step-content">
-        <h4>Role-Based Dashboards</h4>
-        <p>Designed separate entry experiences for students and educators — each showing only what's relevant before the next class, with the right level of data complexity for each role.</p>
-      </div>
-    </div>
-    <div class="cs-step">
-      <div class="cs-step-num">3</div>
-      <div class="cs-step-content">
-        <h4>Simplified Data Visualization</h4>
-        <p>Replaced dense data tables with plain-language insight cards — "Most students struggled with Q3 today. Consider revisiting tomorrow." Actionable, not just informational.</p>
-      </div>
-    </div>
-    <div class="cs-step">
-      <div class="cs-step-num">4</div>
-      <div class="cs-step-content">
-        <h4>2+ Rounds of Usability Testing</h4>
-        <p>Tested low-fidelity prototypes with real teachers and students. Each round uncovered specific interaction gaps that informed the next iteration before moving to high-fidelity.</p>
+    <div class="reveal d2">
+      <div class="ds-img-ph" style="height:320px;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
+        <span class="ds-img-ph-label">Before / After org structure diagram</span>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Wireframe / IA image — REPLACE: add your image src here, recommended size 1600x900px -->
-<div class="cs-section reveal">
-  <div class="cs-img-block">
-    <!-- REPLACE: add your image src here, recommended size 1600x900px -->
-    <!-- Example: <img src="images/edtech-ia.jpg" alt="Information architecture diagram"> -->
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-    <span>Information architecture &amp; site map — 1600×900px</span>
+<!-- ── 02 THE REFRAME ── -->
+<div class="ds-section ds-section--border">
+  <div class="ds-badge reveal">
+    <span class="ds-badge-dot"></span>
+    <span class="ds-badge-text">02 · The Reframe</span>
+  </div>
+  <h2 class="ds-section-title reveal d1">Not a missing system.<br>A missing <span class="g-text">shared language.</span></h2>
+
+  <div class="ds-pull-quote reveal d2">
+    <p>"An iOS designer said 'primary blue'. A developer said 'surface container'. An Android designer said 'theme color'. They meant the same thing — and none of them knew it."</p>
+  </div>
+
+  <div class="ds-prose reveal d2">
+    <p>The root cause wasn't that we lacked a design system. We had two. The root cause was that every discipline had developed its own shorthand, and when teams finally had to collaborate, the translation overhead was enormous. A new system would only solve the problem if it gave everyone a <strong>single, unambiguous vocabulary</strong>.</p>
   </div>
 </div>
 
-<!-- Dashboard screens — REPLACE: add your image src here, recommended size 800x600px each -->
-<div class="cs-section reveal">
-  <div class="cs-img-grid">
-    <div class="cs-img-block">
-      <!-- REPLACE: add your image src here, recommended size 800x600px -->
-      <!-- Example: <img src="images/edtech-student.jpg" alt="Student dashboard redesign"> -->
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-      <span>Student dashboard redesign</span>
+<!-- ── 03 THE HARDEST CALL ── -->
+<div class="ds-section ds-section--border">
+  <div class="ds-badge reveal">
+    <span class="ds-badge-dot"></span>
+    <span class="ds-badge-text">03 · The Hardest Call</span>
+  </div>
+  <h2 class="ds-section-title reveal d1">Two philosophies.<br>Three weeks. <span class="g-text">One token system.</span></h2>
+  <div class="ds-prose reveal d2">
+    <p>My co-designer and I each developed a naming architecture independently, then spent nearly three weeks debating, aligning with engineering, and studying Material 3, Atlassian's token library, and W3C token formats. The core question: <strong>should a token name describe where it's used, or how it looks?</strong></p>
+  </div>
+
+  <div class="ds-comparison-grid reveal d2">
+    <!-- Idea 1 -->
+    <div class="ds-card">
+      <div class="ds-comp-label">Idea 1 — Element-anchored</div>
+      <div class="ds-comp-title">Type · Intent · Prominence</div>
+      <div class="ds-comp-axes">
+        <div class="ds-comp-axis">
+          <span class="ds-axis-tag">-type</span>
+          <span class="ds-axis-desc">What element this color belongs to (surface, button, outline…)</span>
+        </div>
+        <div class="ds-comp-axis">
+          <span class="ds-axis-tag">-intent</span>
+          <span class="ds-axis-desc">Semantic purpose (neutral, theme, warning, error…)</span>
+        </div>
+        <div class="ds-comp-axis">
+          <span class="ds-axis-tag">-prominence</span>
+          <span class="ds-axis-desc">Hierarchy level (primary, secondary, tertiary)</span>
+        </div>
+        <div class="ds-comp-axis">
+          <span class="ds-axis-tag">-state</span>
+          <span class="ds-axis-desc">Interaction state (focused, pressed, disabled…)</span>
+        </div>
+      </div>
+      <div class="ds-comp-example">
+        <div><span class="tp">surface</span><span class="sep">.</span><span class="tp">theme</span><span class="sep">.</span><span class="tp">primary</span><span class="sep">.</span>light</div>
+        <div><span class="tp">button</span><span class="sep">.</span><span class="tp">error</span><span class="sep">.</span><span class="tp">primary</span><span class="sep">.</span>pressed</div>
+      </div>
+      <div class="ds-comp-verdict">
+        <span>✕</span>
+        <span>Color vocabulary too narrow for 30+ diverse app styles</span>
+      </div>
     </div>
-    <div class="cs-img-block">
-      <!-- REPLACE: add your image src here, recommended size 800x600px -->
-      <!-- Example: <img src="images/edtech-educator.jpg" alt="Educator dashboard redesign"> -->
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-      <span>Educator dashboard redesign</span>
+
+    <!-- Idea 2 — Selected -->
+    <div class="ds-card-featured-wrap">
+      <div class="ds-card-featured">
+        <div class="ds-comp-label">Idea 2 — Space × Layer × Tone &nbsp;…&nbsp; Selected</div>
+        <div class="ds-comp-title">Zone · Layer · Tone × 5</div>
+        <div class="ds-comp-axes">
+          <div class="ds-comp-axis">
+            <span class="ds-axis-tag">.zone</span>
+            <span class="ds-axis-desc">Where in UI space (screen, card, button, dialog…)</span>
+          </div>
+          <div class="ds-comp-axis">
+            <span class="ds-axis-tag">.layer</span>
+            <span class="ds-axis-desc">Which visual layer (background, content, outline, overlay)</span>
+          </div>
+          <div class="ds-comp-axis">
+            <span class="ds-axis-tag">.tone</span>
+            <span class="ds-axis-desc">Semantic color × 5 intensity steps: deep / bold / base / soft / light</span>
+          </div>
+          <div class="ds-comp-axis">
+            <span class="ds-axis-tag">-variation</span>
+            <span class="ds-axis-desc">Prominence modifier (highest / high / low / lowest)</span>
+          </div>
+        </div>
+        <div class="ds-comp-example">
+          <div><span class="tp">button</span><span class="sep">.</span><span class="tp">background</span><span class="sep">.</span><span class="tp">primary-bold</span></div>
+          <div><span class="tp">card</span><span class="sep">.</span><span class="tp">content</span><span class="sep">.</span><span class="tp">error-soft</span></div>
+          <div><span class="tp">screen</span><span class="sep">.</span><span class="tp">background</span><span class="sep">.</span><span class="tp">neutral-base</span></div>
+        </div>
+        <div class="ds-comp-verdict">
+          <span>✓</span>
+          <span>Wide tonal range supports diverse app styles. Token names explain themselves.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- M3 rejection box -->
+  <div class="ds-rejection-box reveal d3">
+    <div class="ds-dot-texture"></div>
+    <div class="ds-rejection-title">Why we didn't adopt Material 3</div>
+    <div class="ds-rejection-grid">
+      <div class="ds-rej-pro">
+        <div class="ds-rej-label">M3's strengths</div>
+        <ul class="ds-rej-list">
+          <li>High developer familiarity — engineers already knew container / surface naming</li>
+          <li>Excellent reuse rates; fewer tokens to maintain</li>
+          <li>Well-documented, industry-proven structure</li>
+        </ul>
+      </div>
+      <div class="ds-rej-con">
+        <div class="ds-rej-label">Why it didn't fit our context</div>
+        <ul class="ds-rej-list">
+          <li>Container/surface naming compresses color vocabulary into too few slots — insufficient for 30 apps with distinct visual identities</li>
+          <li>M3's semantic layer assumes a single brand palette. Our apps do not share a brand.</li>
+          <li>Designers found token names non-descriptive outside Material's own ecosystem</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-callout reveal d3">
+    <div class="ds-callout-label">The Final Architecture</div>
+    <div class="ds-callout-text">Primitive layer (red-50, blue-300) feeds into a semantic layer built on Idea 2's Zone × Layer × Tone structure — <strong>one unified token set</strong> output for both platforms. After engineering alignment, the structure was deliberately simplified to balance their priority (reuse rate) with ours (readable semantics).</div>
+  </div>
+</div>
+
+<!-- ── 04 FONT ROLE SYSTEM ── -->
+<div class="ds-section ds-section--border">
+  <div class="ds-badge reveal">
+    <span class="ds-badge-dot"></span>
+    <span class="ds-badge-text">04 · Font Role System</span>
+  </div>
+  <div class="ds-two-col-asym">
+    <div>
+      <h2 class="ds-section-title reveal d1">Not a type scale.<br>A set of <span class="g-text">roles.</span></h2>
+      <div class="ds-prose reveal d2">
+        <p>Instead of specifying what text should <strong>look like</strong>, we specified what it should <strong>do</strong>. Seven roles — Display, Headline, Title, Subtitle, Body, Label, Button — each with a clear functional mandate, applied consistently across both platforms using platform-appropriate font families underneath.</p>
+        <p>A designer doesn't ask "17px or 18px?" — they ask "is this a Title or a Headline?" The answer is the same in every app, on every platform.</p>
+      </div>
+    </div>
+    <div class="reveal d2">
+      <div class="ds-img-ph" style="height:320px;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h10M4 18h6"/></svg>
+        <span class="ds-img-ph-label">Font Role documentation — 7 roles</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-font-roles-grid reveal d3">
+    <div class="ds-font-role">
+      <div class="ds-dot-texture"></div>
+      <div class="ds-platform-badges">
+        <span class="ds-b-ios">iOS</span><span class="ds-b-android">Android</span>
+      </div>
+      <div class="ds-font-role-name">Display</div>
+      <div class="ds-font-role-desc">Large, high-impact text for banners and hero sections. Captures immediate attention.</div>
+    </div>
+    <div class="ds-font-role">
+      <div class="ds-platform-badges"><span class="ds-b-ios">iOS</span><span class="ds-b-android">Android</span></div>
+      <div class="ds-font-role-name">Headline</div>
+      <div class="ds-font-role-desc">Establishes section hierarchy. Bold enough to anchor content, not compete with Display.</div>
+    </div>
+    <div class="ds-font-role">
+      <div class="ds-platform-badges"><span class="ds-b-ios">iOS</span><span class="ds-b-android">Android</span></div>
+      <div class="ds-font-role-name">Body</div>
+      <div class="ds-font-role-desc">Primary text style for paragraphs and descriptions. Optimized for reading clarity.</div>
+    </div>
+    <div class="ds-font-role">
+      <div class="ds-platform-badges"><span class="ds-b-ios">iOS</span><span class="ds-b-android">Android</span></div>
+      <div class="ds-font-role-name">Label</div>
+      <div class="ds-font-role-desc">Short descriptors — form labels, tags, chips. Clear and concise to guide interaction.</div>
+    </div>
+  </div>
+  <div class="ds-callout reveal d4" style="margin-top: var(--space-3);">
+    <div class="ds-callout-label">Platform Convention · Jakob's Law</div>
+    <div class="ds-callout-text">Token layer stays unified. Component layer respects platform convention. Android search gets a focus state; iOS doesn't. <strong>Tokens govern color vocabulary. Components govern interaction behaviour.</strong></div>
+  </div>
+</div>
+
+<!-- ── 05 DELIBERATE CONSTRAINTS ── -->
+<div class="ds-section ds-section--border">
+  <div class="ds-badge reveal">
+    <span class="ds-badge-dot"></span>
+    <span class="ds-badge-text">05 · Deliberate Constraints</span>
+  </div>
+  <h2 class="ds-section-title reveal d1">What we chose<br><span class="g-text">not to build.</span></h2>
+  <div class="ds-prose reveal d2">
+    <p>A system that over-specifies becomes a ceiling, not a foundation — a lesson we'd already learned from our first-generation systems.</p>
+  </div>
+  <div class="ds-constraint-grid reveal d2">
+    <div class="ds-constraint-card">
+      <span class="ds-constraint-tag">Out of Scope</span>
+      <div class="ds-constraint-title">Dark Mode</div>
+      <div class="ds-constraint-body">Our 30 apps are stylistically diverse — some are dark-mode-first, some have individual dark pages within a light app. Baking dark/light into the global system would force false consistency. Designers would either inherit wrong values or fight the system entirely.</div>
+      <div class="ds-constraint-lesson"><strong>Lesson from v1:</strong> Our first-gen systems included dark mode tokens. Designers found them constraining on apps with non-standard mode logic and bypassed them entirely — defeating the purpose.</div>
+    </div>
+    <div class="ds-constraint-card">
+      <span class="ds-constraint-tag">Out of Scope</span>
+      <div class="ds-constraint-title">Shadows & Effects</div>
+      <div class="ds-constraint-body">Visual effects like shadow and blur are highly style-dependent. A food delivery app and a fintech dashboard need fundamentally different elevation languages. Standardizing these would constrain UI variety in ways the creative director explicitly did not want.</div>
+      <div class="ds-constraint-lesson"><strong>Design principle:</strong> Global systems should govern shared logic, not aesthetic personality. Effects belong to the product, not the system.</div>
+    </div>
+  </div>
+  <div class="ds-pull-quote reveal d3">
+    <p>"A system that controls too much becomes a ceiling. We built a foundation — then got out of the way."</p>
+  </div>
+</div>
+
+<!-- ── 06 RESULTS (inverted) ── -->
+<div class="ds-results">
+  <div class="ds-dot-texture"></div>
+  <div class="ds-radial-glow ds-glow-tr"></div>
+  <div class="ds-results-inner">
+    <div class="ds-badge ds-badge--dark reveal">
+      <span class="ds-badge-dot"></span>
+      <span class="ds-badge-text">06 · Results</span>
+    </div>
+    <h2 class="ds-section-title reveal d1">What changed.</h2>
+
+    <div class="ds-results-grid reveal d2">
+      <div class="ds-result-item">
+        <div class="ds-result-stat">5</div>
+        <div class="ds-result-label"><strong>New apps launched</strong> using the global system — all cross-platform, consistent from day one</div>
+      </div>
+      <div class="ds-result-item">
+        <div class="ds-result-stat">−15<span style="font-size:28px;background:none;-webkit-background-clip:unset;background-clip:unset;color:rgba(255,255,255,.3)">%</span></div>
+        <div class="ds-result-label"><strong>VQA issue rate</strong> reduced from ~95% to ~80% — color and typography no longer the primary failure modes</div>
+      </div>
+      <div class="ds-result-item">
+        <div class="ds-result-stat">2</div>
+        <div class="ds-result-label"><strong>Platforms, one token set</strong> — engineering on both sides references identical color names</div>
+      </div>
+    </div>
+
+    <div class="ds-vqa-bar reveal d3">
+      <div class="ds-vqa-heading">VQA Issue Rate — Before vs After System Deployment</div>
+      <div class="ds-vqa-row-label">Before</div>
+      <div class="ds-vqa-track"><div class="ds-vqa-fill ds-vqa-before" id="vqa-b"></div></div>
+      <div class="ds-vqa-num"><strong>~95%</strong></div>
+      <div class="ds-vqa-row-label">After</div>
+      <div class="ds-vqa-track"><div class="ds-vqa-fill ds-vqa-after" id="vqa-a"></div></div>
+      <div class="ds-vqa-num"><strong>~80%</strong> &nbsp;<span style="color:rgba(255,255,255,.25)">· spacing remains the open problem</span></div>
+    </div>
+
+    <div class="ds-quote-grid reveal d3">
+      <div class="ds-quote-card">
+        <div class="ds-quote-text">"I don't need to ask what color value to use anymore."</div>
+        <div class="ds-quote-source">Engineering · iOS team</div>
+      </div>
+      <div class="ds-quote-card">
+        <div class="ds-quote-text">"Switching from light to dark is just a token swap now."</div>
+        <div class="ds-quote-source">Engineering · Android team</div>
+      </div>
+    </div>
+
+    <div class="ds-motion-callout reveal d4">
+      <div class="ds-mc-label">Adjacent Impact</div>
+      <div class="ds-mc-body">The motion team — responsible for promotional videos and animations — reported that <strong>improved design-to-product fidelity</strong> directly reduced their revision cycles. When the product looks like the design, they can pull UI references without manual corrections.</div>
     </div>
   </div>
 </div>
 
-<div class="cs-divider"><hr></div>
+<!-- ── 07 REFLECTION ── -->
+<div class="ds-section">
+  <div class="ds-badge reveal">
+    <span class="ds-badge-dot"></span>
+    <span class="ds-badge-text">07 · Reflection</span>
+  </div>
+  <h2 class="ds-section-title reveal d1">What we'd do<br><span class="g-text">differently.</span></h2>
 
-<!-- ── KEY DESIGN DECISIONS ── -->
-<div class="cs-section reveal">
-  <h2 class="cs-section-title">Key Design Decisions</h2>
-  <p class="cs-section-text">Four decisions that fundamentally changed how users experienced the platform.</p>
-
-  <div class="cs-decisions">
-    <div class="cs-decision-card">
-      <h4>Student Voice as Primary Action</h4>
-      <p>Moved the core sharing feature to the top of the student view — always one tap away. Students who saw it immediately used it 3× more often in testing.</p>
+  <div class="ds-reflection-list">
+    <div class="ds-reflection-item reveal">
+      <div class="ds-reflection-num">01</div>
+      <div>
+        <div class="ds-reflection-title">Spacing should have been in scope</div>
+        <div class="ds-reflection-body">VQA data shows spacing is now the most frequent failure point. Color and typography were solved — but without a shared spacing token system, handoff inconsistencies persist. Next iteration: spacing tokens first.</div>
+      </div>
     </div>
-    <div class="cs-decision-card">
-      <h4>Plain-Language Insights</h4>
-      <p>Replaced data tables with interpretive cards written in plain English. Educators reported significantly faster pre-class prep time in usability sessions.</p>
-    </div>
-    <div class="cs-decision-card">
-      <h4>Role-Based Entry Points</h4>
-      <p>Students and educators log in to different home views. Eliminating irrelevant UI reduced cognitive load and task completion time for both groups.</p>
-    </div>
-    <div class="cs-decision-card">
-      <h4>Progressive Educator Onboarding</h4>
-      <p>New educators encounter SEEDS features one at a time, contextually, as they build their first lesson — rather than a feature dump at first login.</p>
+    <div class="ds-reflection-item reveal d1">
+      <div class="ds-reflection-num">02</div>
+      <div>
+        <div class="ds-reflection-title">Bring engineering in at week one, not week three</div>
+        <div class="ds-reflection-body">We spent nearly three weeks debating Idea 1 vs Idea 2 between two designers. When we finally brought engineering in, their priorities clarified our decision within days. That conversation should have happened from the start.</div>
+      </div>
     </div>
   </div>
-</div>
-
-<div class="cs-divider"><hr></div>
-
-<!-- ── OUTCOME & METRICS ── -->
-<div class="cs-section reveal">
-  <h2 class="cs-section-title">Outcome &amp; Metrics</h2>
-  <p class="cs-section-text">
-    This project was research- and quality-driven rather than conversion-focused. Success was measured through qualitative depth and rigorous usability validation.
-  </p>
-
-  <div class="cs-metrics">
-    <div class="cs-metric">
-      <p class="cs-metric-value">8+</p>
-      <p class="cs-metric-label">Qualitative Interviews Conducted</p>
-    </div>
-    <div class="cs-metric">
-      <p class="cs-metric-value">2+</p>
-      <p class="cs-metric-label">Rounds of Usability Testing</p>
-    </div>
-    <div class="cs-metric">
-      <p class="cs-metric-value">↑</p>
-      <p class="cs-metric-label">Task Completion Rate in Testing</p>
-    </div>
-  </div>
-</div>
-
-<!-- Final screens — REPLACE: add your image src here, recommended size 1600x900px -->
-<div class="cs-section reveal">
-  <div class="cs-img-block">
-    <!-- REPLACE: add your image src here, recommended size 1600x900px -->
-    <!-- Example: <img src="images/edtech-final.jpg" alt="Final EdTechLive redesign screens"> -->
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-    <span>Final redesign screens — 1600×900px</span>
-  </div>
-</div>
-
-<div class="cs-divider"><hr></div>
-
-<!-- ── REFLECTION & NEXT STEPS ── -->
-<div class="cs-section reveal">
-  <h2 class="cs-section-title">Reflection &amp; Next Steps</h2>
-  <p class="cs-section-text">
-    The most important shift was recognizing that <strong>the same feature needs completely different UI for different roles</strong>. A student sharing their voice and an educator reviewing that voice are using the same data in opposite directions — and the interface has to reflect that asymmetry.
-  </p>
-  <p class="cs-section-text">
-    Next steps: a quantitative study measuring student voice submission rates post-launch, mobile optimization for students on shared devices, and an expansion of the educator insight cards to surface cross-class patterns over time.
-  </p>
 </div>
 
 <!-- ── NEXT CASE STUDY ── -->
 <div class="cs-next-nav">
   <p class="cs-next-label">Next Case Study</p>
-  <h3>Global Design System (iOS &amp; Android)</h3>
+  <h3>EdTechLive — Personalized Instructional Strategies</h3>
   <a href="case-4.html" class="cs-next-link">
     View Project
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -305,6 +985,7 @@
 </footer>
 
 <script>
+  /* Nav scroll */
   window.addEventListener('scroll', () => {
     document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 10);
   });
@@ -313,10 +994,23 @@
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
     });
-  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   reveals.forEach(el => observer.observe(el));
+
+  /* VQA bar animation */
+  const vqaB = document.getElementById('vqa-b');
+  const vqaA = document.getElementById('vqa-a');
+  const vqaIo = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      setTimeout(() => vqaB.classList.add('go'), 200);
+      setTimeout(() => vqaA.classList.add('go'), 700);
+      vqaIo.disconnect();
+    }
+  }, { threshold: 0.3 });
+  const vqaEl = document.querySelector('.ds-vqa-bar');
+  if (vqaEl) vqaIo.observe(vqaEl);
 </script>
 
 </body>
