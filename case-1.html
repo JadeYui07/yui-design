@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sleep Tracker · Yuzhuo Zhang</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
 <style>
 /* ── TOKENS ────────────────────────────────── */
 :root {
@@ -32,13 +32,10 @@
 }
 
 /* ── BASE ──────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Instrument Sans', sans-serif;
+  font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.65;
   overflow-x: hidden;
@@ -72,62 +69,29 @@ body {
 .container {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0;
 }
 
-/* ── NAV ───────────────────────────────────── */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px 48px;
-  background: rgba(12,12,16,0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
-
+/* ── NAV (dark overrides) ── */
+nav { background: rgba(12, 12, 16, 0.85); }
 .nav-logo {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-size: 28px;
   font-weight: 400;
   background: var(--grad);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  letter-spacing: -0.5px;
-  text-decoration: none;
+  color: transparent;
 }
-
-.nav-links { display: flex; align-items: center; gap: 8px; list-style: none; }
-.nav-links a {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 15px;
-  color: var(--text2);
-  text-decoration: none;
-  padding: 8px 16px;
-  border-radius: 100px;
-  transition: all 0.2s;
-}
+.nav-links a { color: var(--text2); }
 .nav-links a:hover { color: var(--text); background: var(--surface); }
-.nav-links .cta {
-  font-family: 'DM Sans', sans-serif;
-  background: rgba(255,255,255,0.92);
-  color: #0c0c10;
-  padding: 9px 20px;
-  border-radius: 100px;
-  font-size: 15px;
-  font-weight: 500;
-  text-decoration: none;
-  transition: all 0.2s;
-}
-.nav-links .cta:hover { background: #ffffff; }
+.nav-links .cta { background: rgba(255, 255, 255, 0.92); color: var(--bg); }
+.nav-links .cta:hover { background: #fff; }
 
 /* ── HERO ──────────────────────────────────── */
 .hero {
-  padding: 160px 40px 80px;
+  padding: 160px 0 80px;
   max-width: 1100px;
   margin: 0 auto;
   display: flex;
@@ -158,7 +122,7 @@ nav {
 }
 
 .hero-title {
-  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(44px, 6vw, 80px);
   font-weight: 600;
   line-height: 1.05;
@@ -211,7 +175,7 @@ nav {
 .impact-strip {
   max-width: 1100px;
   margin: 0 auto 0;
-  padding: 0 40px;
+  padding: 0;
   opacity: 0;
   animation: up 0.6s 0.5s forwards;
 }
@@ -236,7 +200,7 @@ nav {
   background: var(--border);
 }
 .impact-num {
-  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: var(--font-display);
   font-size: 38px;
   font-weight: 600;
   letter-spacing: -0.03em;
@@ -260,7 +224,7 @@ nav {
 .impact-label { font-size: 13px; color: var(--text2); line-height: 1.4; }
 
 /* ── SECTION COMMON ────────────────────────── */
-.section { padding: 100px 40px; max-width: 1100px; margin: 0 auto; }
+.section { padding: 100px 0; max-width: 1100px; margin: 0 auto; }
 
 .section-label {
   display: inline-flex;
@@ -278,7 +242,7 @@ nav {
 }
 
 h2 {
-  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(32px, 4vw, 52px);
   font-weight: 600;
   letter-spacing: -0.03em;
@@ -286,7 +250,7 @@ h2 {
   margin-bottom: 20px;
 }
 h3 {
-  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: var(--font-display);
   font-size: 22px;
   font-weight: 600;
   letter-spacing: -0.02em;
@@ -306,7 +270,7 @@ p strong { color: var(--text); font-weight: 500; }
 .divider {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0;
 }
 .divider hr {
   border: none;
@@ -341,7 +305,7 @@ p strong { color: var(--text); font-weight: 500; }
 }
 .data-pill:hover { border-color: var(--border2); }
 .dp-num {
-  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: var(--font-display);
   font-size: 32px;
   font-weight: 600;
   letter-spacing: -0.02em;
@@ -367,7 +331,7 @@ p strong { color: var(--text); font-weight: 500; }
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
 .quote-block p {
-  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: var(--font-display);
   font-size: 20px;
   font-weight: 400;
   color: var(--text);
@@ -526,7 +490,7 @@ p strong { color: var(--text); font-weight: 500; }
   margin-bottom: 16px;
 }
 .decision-box .main {
-  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: var(--font-display);
   font-size: 26px;
   font-weight: 500;
   line-height: 1.4;
@@ -791,7 +755,7 @@ p strong { color: var(--text); font-weight: 500; }
 .ic:hover { border-color: var(--border2); transform: translateY(-2px); }
 .ic-label { font-size: 12px; color: var(--text3); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
 .ic-num {
-  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: var(--font-display);
   font-size: 52px;
   font-weight: 600;
   letter-spacing: -0.03em;
@@ -817,7 +781,7 @@ p strong { color: var(--text); font-weight: 500; }
 }
 .rc:hover { border-color: var(--border2); transform: translateY(-2px); }
 .rc-num {
-  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: var(--font-display);
   font-size: 40px;
   font-weight: 600;
   color: rgba(255,255,255,0.04);
@@ -828,18 +792,9 @@ p strong { color: var(--text); font-weight: 500; }
 .rc-title { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 10px; line-height: 1.3; }
 .rc-body { font-size: 14px; color: var(--text2); line-height: 1.6; }
 
-/* ── FOOTER ────────────────────────────────── */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 28px 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 16px;
-}
+/* ── FOOTER (dark overrides) ── */
+footer { background: var(--bg1); border-top: 1px solid var(--border); padding: 28px 48px; }
 .footer-name {
-  font-family: 'DM Sans', sans-serif;
   font-size: 14px;
   font-weight: 500;
   background: var(--grad);
@@ -848,10 +803,9 @@ footer {
   background-clip: text;
   margin-bottom: 3px;
 }
-.footer-copy { font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--text3); }
-.footer-links { display: flex; gap: 24px; }
-.footer-links a { font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text2); text-decoration: none; transition: color 0.2s; }
-.footer-links a:hover { color: var(--text); }
+.footer-copy { font-size: 12px; color: var(--text3); }
+footer a { color: var(--text2); }
+footer a:hover { color: var(--text); }
 
 /* ── PROGRESS BAR ──────────────────────────── */
 #prog {
@@ -873,8 +827,8 @@ footer {
 /* ── RESPONSIVE ────────────────────────────── */
 @media (max-width: 860px) {
   nav { padding: 18px 24px; }
-  .hero, .section, .divider { padding-left: 24px; padding-right: 24px; }
-  .impact-strip { padding: 0 24px; }
+  .hero, .section, .divider { padding-left: 0; padding-right: 0; }
+  .impact-strip { padding: 0; }
   .impact-strip-inner { flex-direction: column; }
   .impact-item + .impact-item::before { top: 0; left: 20%; right: 20%; width: auto; height: 1px; }
   .card-grid-2, .card-grid-3 { grid-template-columns: 1fr; }
@@ -1442,10 +1396,11 @@ footer {
 </div><!-- /page -->
 
 <script>
-// progress bar
+// progress bar + nav scroll state
 window.addEventListener('scroll', () => {
   const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
   document.getElementById('prog').style.width = pct + '%';
+  document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 10);
 });
 
 // reveal on scroll
