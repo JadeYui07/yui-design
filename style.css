@@ -1200,10 +1200,13 @@ a:hover { color: var(--rust-700); }
    RESPONSIVE
 ──────────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
+  /* Universal horizontal gutter narrows on mobile */
+  :root { --page-x: var(--space-3); }
+
   nav { padding: 16px 24px; }
 
-  .hero { padding: 100px 24px 60px; }
-  .works { padding: 0 24px 80px; }
+  .hero { padding: 100px var(--page-x) 60px; }
+  .works { padding: 0 var(--page-x) 80px; }
 
   .card { grid-template-columns: 1fr; padding: 32px; gap: 28px; }
   .card-right { order: -1; }
@@ -1214,14 +1217,10 @@ a:hover { color: var(--rust-700); }
   .about-right { order: -1; }
   .about-photo { aspect-ratio: 1/1; }
 
-  .contact-strip { padding: 60px 24px; }
-  .contact-page  { padding: 120px 24px 60px; }
-  .cs-placeholder { padding: 120px 24px 60px; }
+  .contact-strip { padding: 60px var(--page-x); }
+  .contact-page  { padding: 120px var(--page-x) 60px; }
+  .cs-placeholder { padding: 120px var(--page-x) 60px; }
 
-  .cs-back,
-  .cs-hero,
-  .cs-overview,
-  .cs-section   { padding-left: 0; padding-right: 0; }
   .cs-divider   { padding: 0; }
 
   .cs-overview-grid { grid-template-columns: 1fr 1fr; }

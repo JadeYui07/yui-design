@@ -3,12 +3,468 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Onboarding &amp; Engagement — Yuzhuo Zhang</title>
-  <meta name="description" content="Case study coming soon: Onboarding & Engagement Patterns for App Growth.">
+  <title>NOAA Live Weather Radar — Yuzhuo Zhang</title>
+  <meta name="description" content="Case study: Rebuilding NOAA Live Weather Radar into a life-safety companion — earning PCMAG Best Weather Apps 2025.">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+  <style>
+    /* ── Page-level tokens ── */
+    :root {
+      --bg:             #050C18;
+      --bg-subtle:      rgba(255,255,255,0.07);
+      --bg-muted:       rgba(255,255,255,0.10);
+      --text:           #EEF2FF;
+      --text-secondary: rgba(238,242,255,0.45);
+      --text-tertiary:  rgba(238,242,255,0.2);
+      --text-inverse:   #050C18;
+      --border:         rgba(255,255,255,0.08);
+      --border-subtle:  rgba(255,255,255,0.05);
+      --surface:        rgba(255,255,255,0.045);
+
+      --case-accent:   #22D3EE;
+      --case-blue:     #3B82F6;
+      --case-violet:   #8B5CF6;
+      --case-amber:    #F59E0B;
+      --case-orange:   #F97316;
+      --case-red:      #EF4444;
+      --case-teal:     #14B8A6;
+      --case-gradient-top: linear-gradient(90deg, #22D3EE, #8B5CF6, #F59E0B);
+      --case-bg-deep:  rgba(5,12,24,0.7);
+
+      --case-orb-1: rgba(6,182,212,0.35);
+      --case-orb-2: rgba(59,130,246,0.3);
+      --case-orb-3: rgba(139,92,246,0.25);
+      --case-orb-4: rgba(245,158,11,0.18);
+      --case-orb-5: rgba(20,184,166,0.2);
+    }
+
+    body { overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+    /* ── NAV dark override ── */
+    nav { background: rgba(5,12,24,0.85); }
+    nav.scrolled { background: rgba(5,12,24,0.96); border-bottom-color: var(--border); }
+    .nav-logo { color: var(--text); }
+    .nav-links a { color: var(--text-secondary); }
+    .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+    .nav-links .cta { background: rgba(255,255,255,0.1); color: var(--text) !important; border: 1px solid rgba(255,255,255,0.15); }
+    .nav-links .cta:hover { background: rgba(255,255,255,0.18); color: var(--text) !important; }
+
+    /* ── CS-BACK dark override ── */
+    .cs-back-link { color: var(--text-secondary); }
+    .cs-back-link:hover { color: var(--case-accent); }
+
+    /* ── CS-NEXT-NAV dark override ── */
+    .cs-next-nav { background: rgba(255,255,255,0.04); border-top: 1px solid var(--border); }
+    .cs-next-label { color: var(--text-secondary); }
+    .cs-next-nav h3 { color: var(--text); }
+    .cs-next-link { color: var(--text); border-color: var(--border); }
+    .cs-next-link:hover { background: rgba(255,255,255,0.1); border-color: var(--case-accent); transform: translateY(-2px); }
+
+    /* ── FOOTER dark override ── */
+    footer { background: rgba(3,8,16,0.95); border-top: 1px solid var(--border-subtle); color: var(--text-secondary); }
+    footer a { color: var(--text-secondary); }
+    footer a:hover { color: var(--text); }
+
+    /* ── LIQUID BACKGROUND ── */
+    .noaa-liquid-bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+    .noaa-orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0; }
+    .noaa-orb-1 {
+      width: 600px; height: 600px; top: -100px; left: -100px;
+      background: radial-gradient(circle, var(--case-orb-1) 0%, transparent 70%);
+      animation: noaa-orb-in 2s forwards, noaa-drift-1 18s ease-in-out 2s infinite alternate;
+    }
+    .noaa-orb-2 {
+      width: 500px; height: 500px; top: 20%; right: -80px;
+      background: radial-gradient(circle, var(--case-orb-2) 0%, transparent 70%);
+      animation: noaa-orb-in 2.5s forwards, noaa-drift-2 22s ease-in-out 2.5s infinite alternate;
+    }
+    .noaa-orb-3 {
+      width: 450px; height: 450px; bottom: 20%; left: 20%;
+      background: radial-gradient(circle, var(--case-orb-3) 0%, transparent 70%);
+      animation: noaa-orb-in 3s forwards, noaa-drift-3 25s ease-in-out 3s infinite alternate;
+    }
+    .noaa-orb-4 {
+      width: 350px; height: 350px; bottom: -80px; right: 10%;
+      background: radial-gradient(circle, var(--case-orb-4) 0%, transparent 70%);
+      animation: noaa-orb-in 3.5s forwards, noaa-drift-4 20s ease-in-out 3.5s infinite alternate;
+    }
+    .noaa-orb-5 {
+      width: 300px; height: 300px; top: 50%; left: 50%;
+      background: radial-gradient(circle, var(--case-orb-5) 0%, transparent 70%);
+      animation: noaa-orb-in 4s forwards, noaa-drift-5 28s ease-in-out 4s infinite alternate;
+    }
+    @keyframes noaa-orb-in  { to { opacity: 1; } }
+    @keyframes noaa-drift-1 { 0%{transform:translate(0,0)} 100%{transform:translate(120px,80px)} }
+    @keyframes noaa-drift-2 { 0%{transform:translate(0,0)} 100%{transform:translate(-100px,120px)} }
+    @keyframes noaa-drift-3 { 0%{transform:translate(0,0)} 100%{transform:translate(80px,-60px)} }
+    @keyframes noaa-drift-4 { 0%{transform:translate(0,0)} 100%{transform:translate(-60px,-80px)} }
+    @keyframes noaa-drift-5 { 0%{transform:translate(-50%,-50%)} 100%{transform:translate(calc(-50% + 60px),calc(-50% + 40px))} }
+
+    .noaa-grain {
+      position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      background-size: 200px 200px; opacity: 0.6;
+    }
+
+    /* ── LAYOUT ── */
+    .noaa-main { position: relative; z-index: 2; }
+    .noaa-section { padding: var(--space-12) 0; position: relative; }
+    .noaa-container { max-width: 1100px; margin: 0 auto; padding: 0 var(--page-x); }
+    .noaa-container--mid { max-width: 840px; margin: 0 auto; padding: 0 var(--page-x); }
+    .noaa-divider {
+      border: none; height: 1px; position: relative; z-index: 2;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+
+    /* ── LABEL PILL ── */
+    .noaa-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-secondary); background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border); border-radius: var(--radius-full);
+      padding: 5px 14px; margin-bottom: 28px;
+    }
+
+    /* ── SECTION HEADING ── */
+    .noaa-section-h {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 600; letter-spacing: -0.03em;
+      color: var(--text); line-height: 1.1;
+    }
+
+    /* ────────────────────────────────────────────────────────
+       HERO
+    ──────────────────────────────────────────────────────── */
+    .noaa-hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 0 var(--space-10);
+    }
+
+    .noaa-hero-inner {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: var(--space-10);
+      align-items: center;
+    }
+
+    /* Poster-scale title — solid color, no gradient (ban fix) */
+    .noaa-hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(72px, 11vw, 128px);
+      font-weight: 600;
+      line-height: 0.88;
+      letter-spacing: -0.04em;
+      color: var(--text);
+      margin-bottom: var(--space-3);
+    }
+
+    .noaa-hero-sub {
+      font-size: 16px; color: var(--text-secondary);
+      font-weight: 300; max-width: 40ch; margin-bottom: 28px; line-height: 1.75;
+    }
+
+    .noaa-hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: var(--space-4); }
+    .noaa-tag {
+      font-size: 12px; font-weight: 500;
+      padding: 5px 14px; border-radius: var(--radius-full); border: 1px solid;
+    }
+    .noaa-tag--cyan   { color: var(--case-accent);  border-color: rgba(34,211,238,0.3);  background: rgba(34,211,238,0.08); }
+    .noaa-tag--amber  { color: var(--case-amber);   border-color: rgba(245,158,11,0.3);  background: rgba(245,158,11,0.08); }
+    .noaa-tag--muted  { color: var(--text-secondary); border-color: var(--border); background: transparent; }
+
+    /* Horizontal 4-col metric strip */
+    .noaa-hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+    .noaa-metric-cell {
+      padding: 16px 18px;
+      background: var(--case-bg-deep);
+      backdrop-filter: blur(12px);
+    }
+    .noaa-metric-val {
+      font-family: var(--font-display);
+      font-size: 18px; font-weight: 700; line-height: 1; margin-bottom: 5px;
+    }
+    .noaa-metric-val.cyan   { color: var(--case-accent); }
+    .noaa-metric-val.amber  { color: var(--case-amber); }
+    .noaa-metric-val.teal   { color: var(--case-teal); }
+    .noaa-metric-val.violet { color: var(--case-violet); }
+    .noaa-metric-lbl { font-size: 11px; color: var(--text-secondary); line-height: 1.4; }
+
+    /* Radar visual */
+    .noaa-hero-visual {
+      position: relative; display: flex;
+      align-items: center; justify-content: center; height: 420px;
+    }
+    .noaa-radar-ring {
+      position: absolute; border-radius: 50%;
+      border: 1px solid rgba(34,211,238,0.15);
+      animation: noaa-pulse-out 3s ease-out infinite;
+    }
+    .noaa-radar-ring:nth-child(1) { width: 300px; height: 300px; animation-delay: 0s; }
+    .noaa-radar-ring:nth-child(2) { width: 220px; height: 220px; animation-delay: 0.8s; }
+    .noaa-radar-ring:nth-child(3) { width: 140px; height: 140px; animation-delay: 1.6s; }
+    @keyframes noaa-pulse-out {
+      0%  { opacity: 0.6; transform: scale(0.95); }
+      100%{ opacity: 0;   transform: scale(1.1); }
+    }
+    .noaa-radar-sweep {
+      position: absolute; width: 320px; height: 320px; border-radius: 50%;
+      background: conic-gradient(from 0deg, transparent 85%, rgba(34,211,238,0.25) 95%, transparent 100%);
+      animation: noaa-sweep 4s linear infinite;
+    }
+    @keyframes noaa-sweep { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .noaa-radar-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--case-accent);
+      box-shadow: 0 0 16px var(--case-accent), 0 0 32px rgba(34,211,238,0.4);
+      animation: noaa-blink 2s ease-in-out infinite;
+    }
+    @keyframes noaa-blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .noaa-radar-label {
+      position: absolute; font-size: 10px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(34,211,238,0.5); font-weight: 500;
+    }
+    .noaa-radar-label:nth-of-type(1) { top: 60px;    left: 50%; transform: translateX(-50%); }
+    .noaa-radar-label:nth-of-type(2) { bottom: 60px; left: 50%; transform: translateX(-50%); }
+    .noaa-radar-label:nth-of-type(3) { left: 30px;   top: 50%;  transform: translateY(-50%); }
+    .noaa-radar-label:nth-of-type(4) { right: 30px;  top: 50%;  transform: translateY(-50%); }
+
+    /* ────────────────────────────────────────────────────────
+       PULL QUOTE (editorial, no card container)
+    ──────────────────────────────────────────────────────── */
+    .noaa-pull-quote {
+      padding: var(--space-6) 0 var(--space-5);
+      border-top: 1px solid var(--case-accent);
+    }
+    .noaa-pull-text {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 2.8vw, 32px);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.45;
+      color: var(--text);
+      margin-bottom: var(--space-3);
+    }
+    .noaa-pull-attr {
+      font-size: 12px; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-secondary);
+    }
+    .noaa-pull-context {
+      margin-top: 8px; font-size: 12px;
+      color: var(--case-accent); font-weight: 500; letter-spacing: 0.04em;
+    }
+    .noaa-quote-note {
+      margin-top: var(--space-4); font-size: 15px;
+      color: var(--text-secondary); max-width: 52ch; line-height: 1.7;
+    }
+
+    /* ────────────────────────────────────────────────────────
+       PROBLEM LIST (numbered rows, no card grid)
+    ──────────────────────────────────────────────────────── */
+    .noaa-problem-list { margin-top: var(--space-6); }
+    .noaa-problem-item {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: var(--space-5);
+      padding: var(--space-5) 0;
+      border-top: 1px solid var(--border);
+      align-items: start;
+    }
+    .noaa-problem-item:last-child { border-bottom: 1px solid var(--border); }
+    .noaa-problem-num {
+      font-family: var(--font-mono);
+      font-size: 11px; letter-spacing: 0.08em;
+      color: var(--text-tertiary); padding-top: 4px;
+    }
+    .noaa-problem-cat {
+      font-size: 10px; letter-spacing: 0.12em;
+      text-transform: uppercase; font-weight: 600; margin-bottom: 8px;
+    }
+    .noaa-p1 .noaa-problem-cat { color: var(--case-red); }
+    .noaa-p2 .noaa-problem-cat { color: var(--case-amber); }
+    .noaa-p3 .noaa-problem-cat { color: var(--case-violet); }
+    .noaa-problem-title { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .noaa-problem-desc  { font-size: 14px; color: var(--text-secondary); line-height: 1.65; max-width: 60ch; }
+
+    /* ────────────────────────────────────────────────────────
+       STRATEGIC PIVOT
+    ──────────────────────────────────────────────────────── */
+    .noaa-pivot-statement {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 3.5vw, 42px); font-weight: 600;
+      line-height: 1.2; letter-spacing: -0.02em;
+      color: var(--text); max-width: 800px; margin-bottom: var(--space-4);
+    }
+    /* Fixed: was border-left: 2px (ban) → full 1px border */
+    .noaa-tension-card {
+      padding: 24px 28px; border-radius: var(--radius-sm);
+      background: rgba(245,158,11,0.06);
+      border: 1px solid rgba(245,158,11,0.2);
+      max-width: 640px;
+    }
+    .noaa-tension-label {
+      font-size: 10px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--case-amber);
+      font-weight: 600; margin-bottom: 8px;
+    }
+    .noaa-tension-card p { font-size: 14px; color: rgba(238,242,255,0.75); line-height: 1.65; }
+
+    /* ────────────────────────────────────────────────────────
+       COMPETITIVE LIST (analytical rows, no card grid)
+    ──────────────────────────────────────────────────────── */
+    .noaa-comp-list { margin-top: var(--space-6); }
+    .noaa-comp-item {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: var(--space-6);
+      padding: var(--space-4) 0;
+      border-top: 1px solid var(--border);
+      align-items: start;
+    }
+    .noaa-comp-item:last-child { border-bottom: 1px solid var(--border); }
+    .noaa-comp-name { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .noaa-comp-gap  {
+      font-size: 11px; font-weight: 500;
+      color: var(--case-accent); text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .noaa-comp-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.65; }
+
+    /* ────────────────────────────────────────────────────────
+       DECISIONS
+    ──────────────────────────────────────────────────────── */
+    .noaa-decision {
+      display: grid; grid-template-columns: 56px 1fr;
+      gap: 36px; padding: var(--space-6) 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .noaa-decision:last-child { border-bottom: none; }
+    .noaa-decision-num {
+      font-family: var(--font-mono);
+      font-size: 13px; font-weight: 600; color: var(--case-accent);
+      letter-spacing: 0.05em; padding-top: 6px;
+    }
+    .noaa-decision-title {
+      font-family: var(--font-display);
+      font-size: 22px; font-weight: 600; color: var(--text);
+      letter-spacing: -0.01em; margin-bottom: 4px;
+    }
+    .noaa-decision-frame { font-size: 13px; color: var(--text-secondary); font-style: italic; margin-bottom: 18px; }
+    .noaa-decision-body p { font-size: 14.5px; color: rgba(238,242,255,0.7); line-height: 1.75; max-width: 62ch; }
+    .noaa-decision-body p + p { margin-top: 12px; }
+
+    .noaa-insight-bar {
+      margin-top: var(--space-3); padding: 12px 16px; border-radius: var(--radius-xs);
+      font-size: 13px; font-weight: 500;
+      display: flex; align-items: flex-start; gap: 10px; max-width: 56ch;
+    }
+    .noaa-insight-bar::before { content: '→'; font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+    .noaa-insight-bar.cyan  { background: rgba(34,211,238,0.08);  border: 1px solid rgba(34,211,238,0.18);  color: rgba(34,211,238,0.9); }
+    .noaa-insight-bar.amber { background: rgba(245,158,11,0.08);  border: 1px solid rgba(245,158,11,0.2);   color: rgba(245,158,11,0.9); }
+
+    .noaa-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
+    .noaa-chip {
+      font-size: 11px; font-weight: 500; padding: 4px 11px; border-radius: var(--radius-full);
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09);
+      color: var(--text-tertiary); letter-spacing: 0.02em;
+    }
+
+    /* ────────────────────────────────────────────────────────
+       RESULTS — raw numbers, no glass cards
+    ──────────────────────────────────────────────────────── */
+    .noaa-results-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-6);
+      margin-top: var(--space-6);
+    }
+    .noaa-result-item {
+      padding: var(--space-4) 0;
+      border-top: 1px solid var(--border);
+    }
+    .noaa-result-num {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 600; line-height: 1;
+      letter-spacing: -0.03em; margin-bottom: 10px;
+    }
+    .noaa-s1 .noaa-result-num { color: var(--case-accent); }
+    .noaa-s2 .noaa-result-num { color: var(--case-amber); }
+    .noaa-s3 .noaa-result-num { color: var(--case-teal); }
+    .noaa-s4 .noaa-result-num { color: var(--case-violet); }
+    .noaa-result-lbl { font-size: 12px; color: var(--text-secondary); line-height: 1.45; max-width: 16ch; }
+
+    /* ── PCMAG ── */
+    .noaa-pcmag {
+      margin-top: var(--space-6); padding: 16px 24px; border-radius: var(--radius-sm);
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      background: rgba(245,158,11,0.07); border: 1px solid rgba(245,158,11,0.2);
+    }
+    .noaa-pcmag-star {
+      width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--case-amber), var(--case-orange));
+      display: flex; align-items: center; justify-content: center; font-size: 16px;
+    }
+    .noaa-pcmag-text strong { display: block; font-size: 14px; font-weight: 700; color: var(--case-amber); margin-bottom: 2px; }
+    .noaa-pcmag-text span   { font-size: 12px; color: var(--text-secondary); }
+
+    /* ────────────────────────────────────────────────────────
+       REFLECTION — single glassmorphism use
+    ──────────────────────────────────────────────────────── */
+    .noaa-reflection-card {
+      padding: 56px; border-radius: var(--radius);
+      position: relative; overflow: hidden;
+      background: var(--surface); border: 1px solid var(--border);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    }
+    .noaa-reflection-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, var(--case-accent), var(--case-violet), var(--case-amber), transparent);
+    }
+    .noaa-reflection-pull {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 3vw, 34px); font-weight: 600;
+      line-height: 1.25; letter-spacing: -0.02em;
+      color: var(--text); margin-bottom: 28px;
+    }
+    .noaa-reflection-pull em { color: var(--case-accent); font-style: normal; }
+    .noaa-reflection-body { font-size: 15px; color: rgba(238,242,255,0.65); line-height: 1.8; max-width: 62ch; }
+    .noaa-reflection-body + .noaa-reflection-body { margin-top: 16px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 800px) {
+      .noaa-hero-inner { grid-template-columns: 1fr; gap: var(--space-5); }
+      .noaa-hero-visual { display: none; }
+      .noaa-hero-metrics { grid-template-columns: 1fr 1fr; }
+      .noaa-section { padding: 72px 0; }
+      .noaa-problem-item { grid-template-columns: 40px 1fr; gap: var(--space-3); }
+      .noaa-comp-item { grid-template-columns: 1fr; gap: 4px; }
+      .noaa-results-grid { grid-template-columns: 1fr 1fr; }
+      .noaa-decision { grid-template-columns: 1fr; gap: 8px; }
+      .noaa-reflection-card { padding: 32px 24px; }
+    }
+  </style>
 </head>
-<body class="cs-body">
+<body>
+
+<!-- ── LIQUID BACKGROUND ── -->
+<div class="noaa-liquid-bg" aria-hidden="true">
+  <div class="noaa-orb noaa-orb-1"></div>
+  <div class="noaa-orb noaa-orb-2"></div>
+  <div class="noaa-orb noaa-orb-3"></div>
+  <div class="noaa-orb noaa-orb-4"></div>
+  <div class="noaa-orb noaa-orb-5"></div>
+</div>
+<div class="noaa-grain" aria-hidden="true"></div>
 
 <!-- ── NAV ── -->
 <nav>
@@ -20,8 +476,8 @@
   </ul>
 </nav>
 
-<!-- ── BACK NAVIGATION ── -->
-<div class="cs-back">
+<!-- ── BACK ── -->
+<div class="cs-back" style="position:relative;z-index:2;">
   <a href="index.html" class="cs-back-link">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
       <path d="M19 12H5M12 5l-7 7 7 7"/>
@@ -30,22 +486,320 @@
   </a>
 </div>
 
-<!-- ── PLACEHOLDER CONTENT ── -->
-<div class="cs-placeholder">
-  <p class="cs-placeholder-tag">iOS App · Growth &amp; Engagement</p>
-  <h1>Onboarding &amp; Engagement Patterns for App Growth</h1>
-  <p>This case study is currently being written up. Check back soon — or reach out if you'd like to hear about it directly.</p>
-  <a href="contact.html" class="cs-placeholder-back">
+<main class="noaa-main">
+
+  <!-- ── HERO ── -->
+  <section class="noaa-hero">
+    <div class="noaa-container">
+      <div class="noaa-hero-inner">
+        <div>
+          <div class="noaa-pill">UX/UI Case Study · iOS · 2022–2024</div>
+          <h1 class="noaa-hero-title">NOAA<br>Live Weather<br>Radar</h1>
+          <p class="noaa-hero-sub">Rebuilding a broken weather app into a life-safety companion — and earning a spot on PCMAG's Best Weather Apps 2025.</p>
+          <div class="noaa-hero-tags">
+            <span class="noaa-tag noaa-tag--cyan">Lead UX/UI Designer</span>
+            <span class="noaa-tag noaa-tag--amber">0 → 1 Product</span>
+            <span class="noaa-tag noaa-tag--muted">iOS · Subscription</span>
+            <span class="noaa-tag noaa-tag--muted">Life-Safety</span>
+          </div>
+          <div class="noaa-hero-metrics">
+            <div class="noaa-metric-cell">
+              <div class="noaa-metric-val cyan">4.4★→4.7★</div>
+              <div class="noaa-metric-lbl">App Store rating</div>
+            </div>
+            <div class="noaa-metric-cell">
+              <div class="noaa-metric-val amber">↑ Sig.</div>
+              <div class="noaa-metric-lbl">Subscription uplift</div>
+            </div>
+            <div class="noaa-metric-cell">
+              <div class="noaa-metric-val teal">~30%</div>
+              <div class="noaa-metric-lbl">Download spike</div>
+            </div>
+            <div class="noaa-metric-cell">
+              <div class="noaa-metric-val violet">PCMAG</div>
+              <div class="noaa-metric-lbl">Best Weather 2025</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="noaa-hero-visual" aria-hidden="true">
+          <div class="noaa-radar-ring"></div>
+          <div class="noaa-radar-ring"></div>
+          <div class="noaa-radar-ring"></div>
+          <div class="noaa-radar-sweep"></div>
+          <div class="noaa-radar-dot"></div>
+          <span class="noaa-radar-label">N</span>
+          <span class="noaa-radar-label">S</span>
+          <span class="noaa-radar-label">W</span>
+          <span class="noaa-radar-label">E</span>
+
+          <svg style="position:absolute;top:80px;right:60px;width:180px;opacity:0.4;" viewBox="0 0 180 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 70 Q40 40 80 35 Q120 30 160 10" stroke="rgba(245,158,11,0.35)" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <circle cx="10" cy="70" r="4" fill="rgba(245,158,11,0.5)"/>
+            <circle cx="80" cy="35" r="6" fill="rgba(245,158,11,0.4)" stroke="rgba(245,158,11,0.6)" stroke-width="1"/>
+            <circle cx="160" cy="10" r="5" fill="none" stroke="rgba(239,68,68,0.6)" stroke-width="1.5"/>
+            <circle cx="130" cy="22" r="3" fill="rgba(239,68,68,0.4)"/>
+          </svg>
+          <svg viewBox="0 0 180 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;bottom:70px;left:50px;width:150px;opacity:0.3">
+            <path d="M5 70 Q50 50 90 45 Q130 38 170 15" stroke="rgba(34,211,238,0.5)" stroke-width="1" stroke-dasharray="3 3"/>
+            <circle cx="5" cy="70" r="3" fill="rgba(34,211,238,0.6)"/>
+            <circle cx="90" cy="45" r="5" fill="none" stroke="rgba(34,211,238,0.5)" stroke-width="1"/>
+            <circle cx="170" cy="15" r="4" fill="none" stroke="rgba(34,211,238,0.4)" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="noaa-divider">
+
+  <!-- ── QUOTE ── -->
+  <section class="noaa-section">
+    <div class="noaa-container--mid">
+      <div class="noaa-pill">October 9, 2024 · App Store Review</div>
+      <div class="noaa-pull-quote reveal">
+        <p class="noaa-pull-text">The app gives up to date info that affects my specific location. Exactly what I need when the networks just keep replaying the same news over and over.</p>
+        <p class="noaa-pull-attr">— oolie p</p>
+        <p class="noaa-pull-context">Downloaded during Hurricane Milton, hours before potential landfall</p>
+      </div>
+      <p class="noaa-quote-note">This review captures exactly what this redesign was built to do — and what the original app failed at.</p>
+    </div>
+  </section>
+
+  <hr class="noaa-divider">
+
+  <!-- ── 01 PROBLEM ── -->
+  <section class="noaa-section">
+    <div class="noaa-container">
+      <div class="noaa-pill">01 · Starting Point</div>
+      <h2 class="noaa-section-h">A product that lost trust<br>on three levels at once.</h2>
+      <div class="noaa-problem-list">
+        <div class="noaa-problem-item noaa-p1 reveal">
+          <div class="noaa-problem-num">01</div>
+          <div>
+            <div class="noaa-problem-cat">Functional</div>
+            <div class="noaa-problem-title">Core features didn't work</div>
+            <p class="noaa-problem-desc">Hurricane tracking buried in 35+ interchangeable layers. Smoke layers showing nothing. Wind with color but no direction. Nielsen heuristics #1, #5, #9 — all violated.</p>
+          </div>
+        </div>
+        <div class="noaa-problem-item noaa-p2 reveal">
+          <div class="noaa-problem-num">02</div>
+          <div>
+            <div class="noaa-problem-cat">Reliability</div>
+            <div class="noaa-problem-title">Failed under pressure</div>
+            <p class="noaa-problem-desc">Black screens on launch. A "Restore Purchases" button that triggered nothing. The product broke at the exact moment users needed it most.</p>
+          </div>
+        </div>
+        <div class="noaa-problem-item noaa-p3 reveal">
+          <div class="noaa-problem-num">03</div>
+          <div>
+            <div class="noaa-problem-cat">Trust</div>
+            <div class="noaa-problem-title">Commercially dishonest</div>
+            <p class="noaa-problem-desc">Purchased ratings. A "50% off" promo that went from $9.99 to $6.99. Users noticed. One wrote: <em style="color:var(--text-tertiary)">"I doubt the developer cares."</em></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="noaa-divider">
+
+  <!-- ── 02 STRATEGIC PIVOT ── -->
+  <section class="noaa-section">
+    <div class="noaa-container--mid">
+      <div class="noaa-pill">02 · Strategic Pivot</div>
+      <div class="reveal">
+        <p class="noaa-pivot-statement">The company is based in Florida. Severe weather isn't a feature category — it's the reason people need the product at all.</p>
+        <div class="noaa-tension-card">
+          <div class="noaa-tension-label">Design tension</div>
+          <p>Hurricanes are seasonal and geographically concentrated. How do you make a Florida-centric value proposition feel personally urgent to a user in California, Kansas, or Minnesota — year-round?</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="noaa-divider">
+
+  <!-- ── 03 COMPETITIVE LANDSCAPE ── -->
+  <section class="noaa-section">
+    <div class="noaa-container">
+      <div class="noaa-pill">03 · Competitive Landscape</div>
+      <h2 class="noaa-section-h">Everyone else designed<br>for weather curiosity.</h2>
+      <div class="noaa-comp-list">
+        <div class="noaa-comp-item reveal">
+          <div>
+            <div class="noaa-comp-name">Clime</div>
+            <div class="noaa-comp-gap">Gap → Context-switching when panic sets in</div>
+          </div>
+          <p class="noaa-comp-desc">Hurricane tracker lives in a separate workflow. Two navigation paths, two mental models — friction at exactly the wrong moment.</p>
+        </div>
+        <div class="noaa-comp-item reveal">
+          <div>
+            <div class="noaa-comp-name">AccuWeather</div>
+            <div class="noaa-comp-gap">Gap → Passive information architecture</div>
+          </div>
+          <p class="noaa-comp-desc">Hurricane data embedded deep in a general-purpose app with heavy ad load. Information-dense but cognitively overwhelming.</p>
+        </div>
+        <div class="noaa-comp-item reveal">
+          <div>
+            <div class="noaa-comp-name">Storm Tracker</div>
+            <div class="noaa-comp-gap">Gap → No path from information to action</div>
+          </div>
+          <p class="noaa-comp-desc">Broadcast-style TV-news experience. Users are observers watching the storm — not decision-makers planning around it.</p>
+        </div>
+      </div>
+      <p style="margin-top:var(--space-5);font-size:14px;color:var(--text-secondary)">We designed for protective action. Everything else followed from that.</p>
+    </div>
+  </section>
+
+  <hr class="noaa-divider">
+
+  <!-- ── 04 KEY DESIGN DECISIONS ── -->
+  <section class="noaa-section">
+    <div class="noaa-container">
+      <div class="noaa-pill">04 · Key Design Decisions</div>
+      <h2 class="noaa-section-h">Six screens.<br>One mental model.</h2>
+
+      <div style="margin-top:var(--space-8);">
+
+        <!-- 01 -->
+        <div class="noaa-decision reveal">
+          <div class="noaa-decision-num">01 ──</div>
+          <div class="noaa-decision-body">
+            <div class="noaa-decision-title">Location-aware OB severe weather page</div>
+            <div class="noaa-decision-frame">The moment that defines whether a user subscribes</div>
+            <p>Before any feature list — users see a real, active threat in their specific region. California gets wildfire alerts. Oklahoma gets tornado watches. Florida gets hurricane warnings. Not a welcome screen. A breaking news card, generated by remote config matching location to alert type.</p>
+            <p>The four-screen flow builds a chain of justified asks: threat → location permission → notification permission → subscribe. Each step's ask is earned by the step before it. Subscription stops feeling like a product decision — it feels like completing the act of protecting yourself.</p>
+            <div class="noaa-insight-bar amber">Static card, not dynamic. Every added MB impacts download conversion. The constraint forced copy and imagery to carry the full emotional weight alone.</div>
+            <div class="noaa-chips">
+              <span class="noaa-chip">Zeigarnik Effect</span>
+              <span class="noaa-chip">Goal-Gradient Effect</span>
+              <span class="noaa-chip">Nielsen #1 Visibility</span>
+              <span class="noaa-chip">Hypothesis-driven Design</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 02 -->
+        <div class="noaa-decision reveal">
+          <div class="noaa-decision-num">02 ──</div>
+          <div class="noaa-decision-body">
+            <div class="noaa-decision-title">Hurricane tracker with time scrubber</div>
+            <div class="noaa-decision-frame">From news display to evacuation planning tool</div>
+            <p>Competitors show a static snapshot: here is where the hurricane is. We built a horizontal time scrubber — drag across waypoints and the map cone, category, wind speed, and movement update in real time.</p>
+            <p>The design answers a different question: not "where is it now?" but "if I leave tomorrow morning, what will conditions look like?" Color-coded waypoints (red → Cat 3, orange → Cat 2, yellow → Cat 1) communicate intensity change over time without requiring users to read labels.</p>
+            <div class="noaa-insight-bar cyan">Also: bottom tab badge showing active alert count creates urgency before users enter the tracker screen.</div>
+            <div class="noaa-chips">
+              <span class="noaa-chip">Mental Model Alignment</span>
+              <span class="noaa-chip">Doherty Threshold</span>
+              <span class="noaa-chip">Dual-encode Severity</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 03 -->
+        <div class="noaa-decision reveal">
+          <div class="noaa-decision-num">03 ──</div>
+          <div class="noaa-decision-body">
+            <div class="noaa-decision-title">Multi-location alerts — protecting families, not just users</div>
+            <div class="noaa-decision-frame">Expanding the protection unit from individual to household</div>
+            <p>The Alerts page has two tabs: Current Location and Favorite Location. Alerts are grouped by city — Tampa shows 3 active, Irvine shows 2. A user monitoring elderly parents in Florida while safe in Chicago now has an app worth paying for.</p>
+            <p>Alert detail pages embed the NHC Seven-Day Graphical Tropical Weather Outlook directly — the official chart, uninterpreted. Users in high-stakes situations see exactly what emergency managers see. Trust through transparency, not through translation.</p>
+            <div class="noaa-chips">
+              <span class="noaa-chip">Jakob's Law</span>
+              <span class="noaa-chip">Miller's Law (chunk by city)</span>
+              <span class="noaa-chip">Dual encoding (color + text)</span>
+              <span class="noaa-chip">Doherty Threshold</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 04 -->
+        <div class="noaa-decision reveal">
+          <div class="noaa-decision-num">04 ──</div>
+          <div class="noaa-decision-body">
+            <div class="noaa-decision-title">App Store hurricane season promotion</div>
+            <div class="noaa-decision-frame">ASO as design — extending visual language to discovery</div>
+            <p>Using Apple's App Store Events feature, we built a hurricane-season promotion around the in-app track visualization: actual storm cones and paths, with copy written like a news alert. Users searching for weather apps during hurricane season encountered what looked like breaking news.</p>
+            <p>The creative was a direct extension of the product's visual language — urgency, specificity, action. Same vocabulary, applied to the top of the acquisition funnel.</p>
+            <div class="noaa-insight-bar amber">Result: approximately 30% download increase during the promotion window.</div>
+            <div class="noaa-chips">
+              <span class="noaa-chip">Von Restorff Effect</span>
+              <span class="noaa-chip">Aesthetic-Usability Effect</span>
+              <span class="noaa-chip">Consistent Design Language</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="noaa-divider">
+
+  <!-- ── 05 OUTCOMES ── -->
+  <section class="noaa-section">
+    <div class="noaa-container">
+      <div class="noaa-pill">05 · Outcomes</div>
+      <h2 class="noaa-section-h">Measurable trust, at scale.</h2>
+      <div class="noaa-results-grid">
+        <div class="noaa-result-item noaa-s1 reveal">
+          <div class="noaa-result-num">4.4→4.7★</div>
+          <div class="noaa-result-lbl">Rating — purchased to organic</div>
+        </div>
+        <div class="noaa-result-item noaa-s2 reveal">
+          <div class="noaa-result-num">↑ sig.</div>
+          <div class="noaa-result-lbl">Subscription uplift post-OB redesign</div>
+        </div>
+        <div class="noaa-result-item noaa-s3 reveal">
+          <div class="noaa-result-num">~30%</div>
+          <div class="noaa-result-lbl">Downloads during hurricane promo</div>
+        </div>
+        <div class="noaa-result-item noaa-s4 reveal">
+          <div class="noaa-result-num">#1</div>
+          <div class="noaa-result-lbl">PCMAG Best Weather Apps 2025</div>
+        </div>
+      </div>
+      <div class="noaa-pcmag reveal">
+        <div class="noaa-pcmag-star">★</div>
+        <div class="noaa-pcmag-text">
+          <strong>PCMAG "Best Weather Apps for 2025"</strong>
+          <span>Independent editorial recognition — the repositioning worked.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="noaa-divider">
+
+  <!-- ── 06 REFLECTION ── -->
+  <section class="noaa-section" style="padding-bottom:var(--space-16);">
+    <div class="noaa-container--mid">
+      <div class="noaa-pill">06 · Reflection</div>
+      <div class="noaa-reflection-card reveal">
+        <p class="noaa-reflection-pull">Competitors designed for <em>weather curiosity</em>.<br>We designed for <em>protective action</em>.</p>
+        <p class="noaa-reflection-body">The OB card couldn't be animated — every added MB impacts download conversion. That constraint forced a discipline: if you can't rely on motion to create urgency, the hierarchy, copy, and image have to do it alone. "Brace Yourself for the Incoming Heat Wave" works because it addresses the user directly. It assumes they're already in it.</p>
+        <p class="noaa-reflection-body">The most valuable decisions in this project weren't about interface components. They were about which mental model to design for. Once that was clear, everything else followed.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── NEXT CASE STUDY ── -->
+<div class="cs-next-nav" style="position:relative;z-index:2;">
+  <p class="cs-next-label">Next Case Study</p>
+  <h3>One Language, Thirty Apps — Global Design System</h3>
+  <a href="case-3.html" class="cs-next-link">
+    View Project
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-      <polyline points="22,6 12,13 2,6"/>
+      <path d="M5 12h14M12 5l7 7-7 7"/>
     </svg>
-    Get in Touch
   </a>
 </div>
 
 <!-- ── FOOTER ── -->
-<footer>
+<footer style="position:relative;z-index:2;">
   <div>
     <div class="footer-name">Yuzhuo Zhang</div>
     <div class="footer-copy">© 2025 · Designed with care</div>
@@ -60,6 +814,14 @@
   window.addEventListener('scroll', () => {
     document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 10);
   });
+
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+  reveals.forEach(el => observer.observe(el));
 </script>
 
 </body>

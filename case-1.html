@@ -69,7 +69,7 @@ body {
 .container {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 0;
+  padding: 0 var(--page-x);
 }
 
 /* ── NAV (dark overrides) ── */
@@ -78,11 +78,11 @@ nav { background: rgba(12, 12, 16, 0.85); }
   font-family: var(--font-display);
   font-size: 28px;
   font-weight: 400;
-  background: var(--grad);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
+  background: none;
+  -webkit-text-fill-color: unset;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  color: var(--text);
 }
 .nav-links a { color: var(--text2); }
 .nav-links a:hover { color: var(--text); background: var(--surface); }
@@ -91,7 +91,7 @@ nav { background: rgba(12, 12, 16, 0.85); }
 
 /* ── HERO ──────────────────────────────────── */
 .hero {
-  padding: 160px 0 80px;
+  padding: 160px var(--page-x) 80px;
   max-width: 1100px;
   margin: 0 auto;
   display: flex;
@@ -132,10 +132,7 @@ nav { background: rgba(12, 12, 16, 0.85); }
   animation: up 0.6s 0.2s forwards;
 }
 .hero-title .grad-text {
-  background: var(--grad);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--text);
 }
 
 .hero-sub {
@@ -206,25 +203,18 @@ nav { background: rgba(12, 12, 16, 0.85); }
   letter-spacing: -0.03em;
   line-height: 1;
   margin-bottom: 6px;
-  background: var(--grad);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #ff7b35;
 }
 .impact-num.teal {
-  background: linear-gradient(135deg, #2dd4bf, #60a5fa);
-  -webkit-background-clip: text;
-  background-clip: text;
+  color: #2dd4bf;
 }
 .impact-num.green {
-  background: linear-gradient(135deg, #4ade80, #22d3ee);
-  -webkit-background-clip: text;
-  background-clip: text;
+  color: #4ade80;
 }
 .impact-label { font-size: 13px; color: var(--text2); line-height: 1.4; }
 
 /* ── SECTION COMMON ────────────────────────── */
-.section { padding: 100px 0; max-width: 1100px; margin: 0 auto; }
+.section { padding: 100px var(--page-x); max-width: 1100px; margin: 0 auto; }
 
 .section-label {
   display: inline-flex;
@@ -260,10 +250,7 @@ p { color: var(--text2); line-height: 1.65; }
 p strong { color: var(--text); font-weight: 500; }
 
 .grad-text {
-  background: var(--grad);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #ff7b35;
 }
 
 /* ── DIVIDER ───────────────────────────────── */
@@ -313,22 +300,20 @@ p strong { color: var(--text); font-weight: 500; }
   min-width: 80px;
   flex-shrink: 0;
 }
-.dp-num.orange { background: linear-gradient(135deg, #ff7b35, #fb923c); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-.dp-num.purple { background: linear-gradient(135deg, #a855f7, #818cf8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-.dp-num.blue   { background: linear-gradient(135deg, #60a5fa, #38bdf8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-.dp-num.red    { background: linear-gradient(135deg, #f87171, #fb7185); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.dp-num.orange { color: #ff7b35; }
+.dp-num.purple { color: #a855f7; }
+.dp-num.blue   { color: #60a5fa; }
+.dp-num.red    { color: #f87171; }
 .dp-text { font-size: 15px; color: var(--text2); line-height: 1.5; }
 .dp-text strong { color: var(--text); }
 
 /* ── QUOTE BLOCK ───────────────────────────── */
 .quote-block {
-  border-left: 2px solid;
-  border-image: var(--grad) 1;
-  border-image-slice: 1;
-  padding: 20px 28px;
+  border: 1px solid rgba(255,123,53,0.25);
+  padding: 24px 32px;
   margin: 32px 0;
-  background: var(--grad-soft);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: linear-gradient(135deg, rgba(255,123,53,0.06), rgba(168,85,247,0.06));
+  border-radius: var(--radius);
 }
 .quote-block p {
   font-family: var(--font-display);
@@ -762,10 +747,10 @@ p strong { color: var(--text); font-weight: 500; }
   line-height: 1;
   margin-bottom: 12px;
 }
-.ic-num.orange { background: linear-gradient(135deg, #ff7b35, #a855f7); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-.ic-num.teal   { background: linear-gradient(135deg, #2dd4bf, #60a5fa); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-.ic-num.green  { background: linear-gradient(135deg, #4ade80, #22d3ee); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-.ic-num.purple { background: linear-gradient(135deg, #a855f7, #818cf8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.ic-num.orange { color: #ff7b35; }
+.ic-num.teal   { color: #2dd4bf; }
+.ic-num.green  { color: #4ade80; }
+.ic-num.purple { color: #a855f7; }
 .ic-num.sm { font-size: 36px; margin-top: 6px; }
 .ic-desc { font-size: 14px; color: var(--text2); line-height: 1.55; }
 .ic-context { font-size: 12px; color: var(--text3); margin-top: 8px; }
@@ -797,10 +782,7 @@ footer { background: var(--bg1); border-top: 1px solid var(--border); padding: 2
 .footer-name {
   font-size: 14px;
   font-weight: 500;
-  background: var(--grad);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--text);
   margin-bottom: 3px;
 }
 .footer-copy { font-size: 12px; color: var(--text3); }
@@ -827,7 +809,7 @@ footer a:hover { color: var(--text); }
 /* ── RESPONSIVE ────────────────────────────── */
 @media (max-width: 860px) {
   nav { padding: 18px 24px; }
-  .hero, .section, .divider { padding-left: 0; padding-right: 0; }
+  .divider { padding: 0; }
   .impact-strip { padding: 0; }
   .impact-strip-inner { flex-direction: column; }
   .impact-item + .impact-item::before { top: 0; left: 20%; right: 20%; width: auto; height: 1px; }
@@ -838,6 +820,8 @@ footer a:hover { color: var(--text); }
   .phone-showcase, .phone-showcase.flip { grid-template-columns: 1fr; direction: ltr; }
   .jt-header, .jt-row { grid-template-columns: 100px 1fr 1fr; }
   .jt-col-head:nth-child(n+4), .jt-cell:nth-child(n+4) { display: none; }
+  .track-rows .card { flex-direction: column; gap: 16px; }
+  .track-rows .card > div[style*="border-left"] { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 16px; }
 }
 </style>
 </head>
@@ -1019,18 +1003,26 @@ footer a:hover { color: var(--text); }
   <h2>Two features.<br><span class="grad-text">Two approaches.</span></h2>
   <p style="max-width:600px; margin-bottom:32px;">Recognizing that Sleep Sounds and Sleep Insights had fundamentally different user needs, I ran them as separate design tracks — each with a methodology matched to the problem type.</p>
 
-  <div class="card-grid-2" style="margin-bottom:24px;">
-    <div class="card" style="border-color: rgba(168,85,247,0.2);">
-      <div class="feature-label">Track A — Sleep Sounds</div>
-      <h3 style="font-size:17px;">Linear, goal-oriented flow</h3>
-      <p style="font-size:14px; margin-top:8px;">Pre-sleep context means cognitive load must be near zero. I designed 5 flow concepts, critiqued them with the design director using an evaluation matrix, then built 3 interactive Figma prototypes.</p>
-      <p style="font-size:12px; color: var(--text3); margin-top:14px; margin-bottom:0;">5 flows → critique → 3 prototypes → usability testing (n=9)</p>
+  <div class="track-rows" style="display:flex; flex-direction:column; gap:12px; margin-bottom:24px;">
+    <div class="card" style="border-color: rgba(168,85,247,0.2); display:flex; gap:32px; align-items:flex-start;">
+      <div style="flex:0 0 200px;">
+        <div class="feature-label">Track A — Sleep Sounds</div>
+        <h3 style="font-size:17px; margin-bottom:0;">Linear, goal-oriented flow</h3>
+      </div>
+      <div style="flex:1; border-left:1px solid var(--border); padding-left:32px;">
+        <p style="font-size:14px; margin-top:0;">Pre-sleep context means cognitive load must be near zero. I designed 5 flow concepts, critiqued them with the design director using an evaluation matrix, then built 3 interactive Figma prototypes.</p>
+        <p style="font-size:12px; color: var(--text3); margin-top:12px; margin-bottom:0;">5 flows → critique → 3 prototypes → usability testing (n=9)</p>
+      </div>
     </div>
-    <div class="card" style="border-color: rgba(45,212,191,0.2);">
-      <div class="feature-label" style="color:#2dd4bf;">Track B — Sleep Insights</div>
-      <h3 style="font-size:17px;">Hierarchical information design</h3>
-      <p style="font-size:14px; margin-top:8px;">Morning reflection involves varied data needs. I used card sorting and qualitative interviews to surface which metrics users cared about most — and how they mentally categorized them.</p>
-      <p style="font-size:12px; color: var(--text3); margin-top:14px; margin-bottom:0;">Card sorting + interviews + visual preference testing (n=9)</p>
+    <div class="card" style="border-color: rgba(45,212,191,0.2); display:flex; gap:32px; align-items:flex-start;">
+      <div style="flex:0 0 200px;">
+        <div class="feature-label" style="color:#2dd4bf;">Track B — Sleep Insights</div>
+        <h3 style="font-size:17px; margin-bottom:0;">Hierarchical information design</h3>
+      </div>
+      <div style="flex:1; border-left:1px solid var(--border); padding-left:32px;">
+        <p style="font-size:14px; margin-top:0;">Morning reflection involves varied data needs. I used card sorting and qualitative interviews to surface which metrics users cared about most — and how they mentally categorized them.</p>
+        <p style="font-size:12px; color: var(--text3); margin-top:12px; margin-bottom:0;">Card sorting + interviews + visual preference testing (n=9)</p>
+      </div>
     </div>
   </div>
 

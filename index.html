@@ -7,6 +7,42 @@
   <meta name="description" content="Solving complex UX problems fast by aligning user needs with business goals through research, clarity, and structured design.">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+  <style>
+    /* Index-specific spacing and works header */
+    .works {
+      padding-top: var(--space-8);
+    }
+
+    .works-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: var(--space-8);
+      padding: 0 var(--page-x);
+    }
+
+    .works-header .section-label {
+      margin-bottom: 0;
+    }
+
+    .works-summary {
+      font-size: 14px;
+      color: var(--text-secondary);
+      font-family: var(--font-body, 'Satoshi', sans-serif);
+      white-space: nowrap;
+    }
+
+    @media (max-width: 768px) {
+      .works-header {
+        flex-direction: column;
+        gap: 8px;
+      }
+      .works-summary {
+        white-space: normal;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -38,7 +74,10 @@
 
 <!-- ── WORKS ── -->
 <section class="works" id="works">
-  <p class="section-label">Selected Works</p>
+  <div class="works-header">
+    <p class="section-label">Selected Works</p>
+    <span class="works-summary">4 projects · iOS, Web &amp; Design Systems</span>
+  </div>
 
   <div class="cards-stack">
 

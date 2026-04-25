@@ -31,12 +31,9 @@
 
     body { overflow-x: hidden; }
 
-    /* ── Gradient text ── */
+    /* ── Accent text ── */
     .g-text {
-      background: var(--case-gradient);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      color: var(--case-accent);
     }
 
     /* ── Section badge ── */
@@ -76,7 +73,7 @@
     /* ── Hero ── */
     .ds-hero-wrap {
       max-width: 1100px; margin: 0 auto;
-      padding: var(--space-10) 0 var(--space-12);
+      padding: var(--space-10) var(--page-x) var(--space-12);
       position: relative; overflow: hidden;
     }
     .ds-hero-glow {
@@ -168,7 +165,7 @@
       position: relative; overflow: hidden;
       padding: var(--space-10) 0;
     }
-    .ds-stats-inner { max-width: 1100px; margin: 0 auto; }
+    .ds-stats-inner { max-width: 1100px; margin: 0 auto; padding: 0 var(--page-x); }
     .ds-dot-texture {
       position: absolute; inset: 0;
       background-image: radial-gradient(circle, white 1px, transparent 1px);
@@ -193,8 +190,7 @@
     .ds-stat-number {
       font-family: var(--font-display);
       font-size: 60px; line-height: 1;
-      background: var(--case-gradient);
-      -webkit-background-clip: text; background-clip: text; color: transparent;
+      color: var(--case-accent);
       margin-bottom: 10px;
     }
     .ds-stat-number sup { font-size: 32px; }
@@ -203,7 +199,7 @@
     /* ── Content sections ── */
     .ds-section {
       max-width: 1100px; margin: 0 auto;
-      padding: var(--space-12) 0;
+      padding: var(--space-12) var(--page-x);
     }
     .ds-section--border { border-top: 1px solid var(--border); }
 
@@ -230,10 +226,10 @@
 
     /* Pull quote */
     .ds-pull-quote {
-      border-left: 3px solid var(--case-accent);
-      background: rgba(0,82,255,0.04);
+      border: 1px solid rgba(0, 82, 255, 0.3);
+      background: rgba(0, 82, 255, 0.04);
       padding: var(--space-3) var(--space-4);
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      border-radius: var(--radius-sm);
       margin: var(--space-6) 0;
     }
     .ds-pull-quote p {
@@ -438,7 +434,7 @@
       background: var(--text); position: relative; overflow: hidden;
       padding: var(--space-12) 0;
     }
-    .ds-results-inner { max-width: 1100px; margin: 0 auto; }
+    .ds-results-inner { max-width: 1100px; margin: 0 auto; padding: 0 var(--page-x); }
     .ds-results .ds-section-title { color: var(--text-inverse); }
 
     .ds-results-grid {
@@ -451,8 +447,7 @@
     .ds-result-item { padding: 36px 28px; background: var(--text); }
     .ds-result-stat {
       font-family: var(--font-display); font-size: 56px; line-height: 1;
-      background: var(--case-gradient);
-      -webkit-background-clip: text; background-clip: text; color: transparent;
+      color: var(--case-accent);
       margin-bottom: 10px;
     }
     .ds-result-label { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.5; }
@@ -518,8 +513,7 @@
     .ds-reflection-item:last-child { border-bottom: none; }
     .ds-reflection-num {
       font-family: var(--font-display); font-size: 52px; line-height: 1;
-      background: var(--case-gradient);
-      -webkit-background-clip: text; background-clip: text; color: transparent;
+      color: var(--case-accent);
     }
     .ds-reflection-title { font-size: 17px; font-weight: 600; margin-bottom: 8px; color: var(--text); }
     .ds-reflection-body { font-size: 15px; color: var(--text-secondary); line-height: 1.75; }
@@ -897,7 +891,7 @@
         <div class="ds-result-label"><strong>New apps launched</strong> using the global system — all cross-platform, consistent from day one</div>
       </div>
       <div class="ds-result-item">
-        <div class="ds-result-stat">−15<span style="font-size:28px;background:none;-webkit-background-clip:unset;background-clip:unset;color:rgba(255,255,255,.3)">%</span></div>
+        <div class="ds-result-stat">−15<span style="font-size:28px;color:rgba(255,255,255,.3)">%</span></div>
         <div class="ds-result-label"><strong>VQA issue rate</strong> reduced from ~95% to ~80% — color and typography no longer the primary failure modes</div>
       </div>
       <div class="ds-result-item">
