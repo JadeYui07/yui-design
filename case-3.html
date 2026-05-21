@@ -13,28 +13,33 @@
   <style>
     /* ── Page-level color tokens ── */
     :root {
-      --case-accent:          #0052FF;
-      --case-accent-2:        #4D7CFF;
-      --case-accent-light:    #7BA7F7;
-      --case-gradient:        linear-gradient(to right, #0052FF, #4D7CFF);
-      --case-gradient-135:    linear-gradient(135deg, #0052FF, #4D7CFF);
-      --case-success:         #7EC8A0;
-      --case-error:           #F87171;
-      --case-warning:         #C2410C;
-      --case-warning-light:   #FB923C;
-      --case-android:         #16A34A;
-      --case-dark-hover:      #1E293B;
-      --case-verdict-bg:      #FFF7ED;
-      --case-shadow-accent:   0 4px 14px rgba(0,82,255,0.25);
+      --case-accent:           #0052FF;
+      --case-accent-2:         #4D7CFF;
+      --case-accent-light:     #7BA7F7;
+      --case-gradient:         linear-gradient(to right, #0052FF, #4D7CFF);
+      --case-gradient-135:     linear-gradient(135deg, #0052FF, #4D7CFF);
+      --case-success:          #7EC8A0;
+      --case-error:            #F87171;
+      --case-warning:          #C2410C;
+      --case-warning-light:    #FB923C;
+      --case-android:          #16A34A;
+      --case-dark-hover:       #1E293B;
+      --case-verdict-bg:       #FFF7ED;
+      --case-shadow-accent:    0 4px 14px rgba(0,82,255,0.25);
       --case-shadow-accent-lg: 0 8px 28px rgba(0,82,255,0.35);
     }
 
     body { overflow-x: hidden; }
 
-    /* ── Accent text ── */
-    .g-text {
-      color: var(--case-accent);
+    /* ── Progress bar ── */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+      background: var(--case-gradient);
+      z-index: 999; border-radius: 0 3px 3px 0; transition: width 0.1s linear;
     }
+
+    /* ── Accent text (solid, no gradient) ── */
+    .g-text { color: var(--case-accent); }
 
     /* ── Section badge ── */
     .ds-badge {
@@ -63,12 +68,12 @@
 
     @keyframes pulse-dot {
       0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.4); opacity: 0.6; }
+      50%       { transform: scale(1.4); opacity: 0.6; }
     }
     @keyframes rotate-cw  { to { transform: rotate(360deg); } }
     @keyframes rotate-ccw { to { transform: rotate(-360deg); } }
-    @keyframes float-up   { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-    @keyframes float-dn   { 0%,100%{transform:translateY(0)} 50%{transform:translateY(10px)} }
+    @keyframes float-up { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    @keyframes float-dn { 0%,100%{transform:translateY(0)} 50%{transform:translateY(10px)} }
 
     /* ── Hero ── */
     .ds-hero-wrap {
@@ -88,7 +93,7 @@
     }
     .ds-hero-title {
       font-family: var(--font-display);
-      font-size: clamp(3rem, 7vw, 5.25rem);
+      font-size: clamp(44px, 6vw, 76px);
       font-weight: 600; line-height: 1.05;
       letter-spacing: -0.02em; margin-bottom: var(--space-3);
       color: var(--text);
@@ -113,7 +118,7 @@
     .ds-meta-item { background: var(--surface); padding: 16px var(--space-3); }
     .ds-meta-label {
       font-family: var(--font-mono);
-      font-size: 10px; letter-spacing: 0.1em;
+      font-size: 12px; letter-spacing: 0.1em;
       text-transform: uppercase; color: var(--text-secondary); margin-bottom: 4px;
     }
     .ds-meta-value { font-size: 14px; font-weight: 600; color: var(--text); }
@@ -123,9 +128,7 @@
       position: relative; height: 440px;
       display: flex; align-items: center; justify-content: center;
     }
-    .ds-ring {
-      position: absolute; border-radius: 50%; border-style: dashed;
-    }
+    .ds-ring { position: absolute; border-radius: 50%; border-style: dashed; }
     .ds-ring-1 {
       width: 360px; height: 360px;
       border: 2px dashed rgba(0,82,255,0.18);
@@ -147,7 +150,7 @@
     .ds-hero-center svg { width: 38px; height: 38px; }
     .ds-h-chip {
       position: absolute;
-      font-family: var(--font-mono); font-size: 11px;
+      font-family: var(--font-mono); font-size: 12px;
       background: var(--text); color: var(--case-accent-light);
       padding: 8px 14px; border-radius: var(--radius-xs);
       box-shadow: var(--shadow-lg);
@@ -203,17 +206,22 @@
     }
     .ds-section--border { border-top: 1px solid var(--border); }
 
-    /* Section title — larger display style */
     .ds-section-title {
       font-family: var(--font-display);
-      font-size: clamp(2rem, 4.5vw, 3.25rem);
+      font-size: clamp(28px, 3.5vw, 46px);
+      font-weight: 500; line-height: 1.15;
+      margin-bottom: var(--space-3); color: var(--text);
+    }
+    .ds-section-title-sm {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 3vw, 36px);
       font-weight: 500; line-height: 1.15;
       margin-bottom: var(--space-3); color: var(--text);
     }
 
     /* Prose */
     .ds-prose {
-      font-size: 16px; color: var(--text-secondary);
+      font-size: 15px; color: var(--text-secondary);
       line-height: 1.8; max-width: 600px;
     }
     .ds-prose p + p { margin-top: 18px; }
@@ -224,18 +232,28 @@
     .ds-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); align-items: start; }
     .ds-two-col-asym { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: var(--space-8); align-items: start; }
 
-    /* Pull quote */
+    /* Pull quote — full border (no border-left stripe) */
     .ds-pull-quote {
-      border: 1px solid rgba(0, 82, 255, 0.3);
-      background: rgba(0, 82, 255, 0.04);
+      border: 1px solid rgba(0,82,255,0.3);
+      background: rgba(0,82,255,0.04);
       padding: var(--space-3) var(--space-4);
       border-radius: var(--radius-sm);
       margin: var(--space-6) 0;
     }
     .ds-pull-quote p {
       font-family: var(--font-display);
-      font-size: clamp(20px, 3vw, 28px); line-height: 1.4; color: var(--text);
+      font-size: clamp(20px,3vw,28px); line-height: 1.4; color: var(--text);
     }
+
+    /* Token chip row */
+    .ds-chip-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: var(--space-5); }
+    .ds-token-chip {
+      display: inline-flex; align-items: center;
+      font-family: var(--font-mono); font-size: 12px;
+      background: var(--text); color: var(--case-accent-light);
+      padding: 7px 14px; border-radius: var(--radius-xs);
+    }
+    .ds-ts { color: rgba(255,255,255,0.2); margin: 0 1px; }
 
     /* Image placeholder */
     .ds-img-ph {
@@ -248,7 +266,7 @@
     }
     .ds-img-ph-label {
       font-family: var(--font-mono);
-      font-size: 11px; letter-spacing: 0.05em; text-align: center;
+      font-size: 12px; letter-spacing: 0.05em; text-align: center;
     }
 
     /* Principle callout */
@@ -258,7 +276,7 @@
       border-radius: var(--radius-sm); padding: var(--space-3);
     }
     .ds-callout-label {
-      font-family: var(--font-mono); font-size: 10px;
+      font-family: var(--font-mono); font-size: 12px;
       letter-spacing: 0.1em; text-transform: uppercase;
       color: var(--case-accent); margin-bottom: 8px;
     }
@@ -277,7 +295,6 @@
       transition: box-shadow 0.3s, transform 0.3s;
     }
     .ds-card:hover { box-shadow: var(--shadow-xl); transform: translateY(-3px); }
-
     .ds-card-featured-wrap {
       background: var(--case-gradient-135);
       border-radius: var(--radius); padding: 2px;
@@ -287,36 +304,32 @@
       background: var(--text); border-radius: calc(var(--radius) - 2px);
       padding: 36px; height: 100%;
     }
-
     .ds-comp-label {
       font-family: var(--font-mono);
-      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+      font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
       margin-bottom: 16px;
     }
     .ds-card .ds-comp-label { color: var(--text-secondary); }
     .ds-card-featured .ds-comp-label { color: var(--case-accent-light); }
-
     .ds-comp-title {
       font-family: var(--font-display); font-size: 24px; margin-bottom: var(--space-3);
     }
     .ds-card .ds-comp-title { color: var(--text); }
     .ds-card-featured .ds-comp-title { color: var(--text-inverse); }
-
     .ds-comp-axes { display: flex; flex-direction: column; gap: 10px; margin-bottom: var(--space-3); }
     .ds-comp-axis { display: flex; gap: 10px; align-items: flex-start; }
     .ds-axis-tag {
-      font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+      font-family: var(--font-mono); font-size: 12px; font-weight: 500;
       padding: 3px 9px; border-radius: var(--radius-xs);
       white-space: nowrap; flex-shrink: 0;
     }
     .ds-card .ds-axis-tag { background: var(--bg-subtle); color: var(--text-secondary); }
     .ds-card-featured .ds-axis-tag { background: rgba(123,167,247,0.15); color: var(--case-accent-light); }
-    .ds-axis-desc { font-size: 13px; line-height: 1.5; }
+    .ds-axis-desc { font-size: 14px; line-height: 1.5; }
     .ds-card .ds-axis-desc { color: var(--text-secondary); }
     .ds-card-featured .ds-axis-desc { color: rgba(255,255,255,0.5); }
-
     .ds-comp-example {
-      font-family: var(--font-mono); font-size: 12px; line-height: 1.85;
+      font-family: var(--font-mono); font-size: 14px; line-height: 1.85;
       padding: 14px 16px; border-radius: var(--radius-xs); margin-bottom: 16px;
     }
     .ds-card .ds-comp-example { background: var(--bg-subtle); color: var(--text-secondary); }
@@ -329,10 +342,9 @@
     }
     .ds-card-featured .ds-comp-example .tp { color: var(--case-accent-light); }
     .ds-card-featured .ds-comp-example .sep { color: rgba(255,255,255,0.2); }
-
     .ds-comp-verdict {
       display: flex; gap: 10px; align-items: center;
-      font-size: 13px; padding: 12px 14px; border-radius: var(--radius-xs);
+      font-size: 14px; padding: 12px 14px; border-radius: var(--radius-xs);
     }
     .ds-card .ds-comp-verdict { background: var(--case-verdict-bg); color: var(--case-warning); }
     .ds-card-featured .ds-comp-verdict { background: rgba(126,200,160,0.15); color: var(--case-success); }
@@ -353,7 +365,7 @@
       gap: var(--space-3); position: relative;
     }
     .ds-rej-label {
-      font-family: var(--font-mono); font-size: 10px;
+      font-family: var(--font-mono); font-size: 12px;
       letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px;
     }
     .ds-rej-pro .ds-rej-label { color: var(--case-success); }
@@ -361,10 +373,26 @@
     .ds-rej-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .ds-rej-list li {
       display: flex; gap: 10px;
-      font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.55;
+      font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.55;
     }
     .ds-rej-pro .ds-rej-list li::before { content: '+'; color: var(--case-success); flex-shrink: 0; }
     .ds-rej-con .ds-rej-list li::before { content: '−'; color: var(--case-error); flex-shrink: 0; }
+
+    /* ── Decision rows (Final Architecture) ── */
+    .ds-decision-rows { margin-top: var(--space-5); }
+    .ds-decision-row {
+      display: grid; grid-template-columns: 180px 1fr;
+      gap: 28px; padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .ds-decision-row:last-child { border-bottom: none; }
+    .ds-decision-key {
+      font-family: var(--font-mono);
+      font-size: 12px; color: var(--case-accent); font-weight: 500;
+      padding-top: 3px;
+    }
+    .ds-decision-val { font-size: 15px; color: var(--text-secondary); line-height: 1.75; }
+    .ds-decision-val strong { color: var(--text); }
 
     /* ── Font role grid ── */
     .ds-font-roles-grid {
@@ -378,29 +406,65 @@
       transition: background 0.2s;
     }
     .ds-font-role:hover { background: var(--bg-subtle); }
-    .ds-font-role:first-child {
+    .ds-font-role--display {
       grid-column: 1 / -1;
       background: var(--text); position: relative; overflow: hidden;
     }
-    .ds-font-role:first-child:hover { background: var(--case-dark-hover); }
+    .ds-font-role--display:hover { background: var(--case-dark-hover); }
     .ds-font-role-name { font-family: var(--font-display); margin-bottom: 8px; }
-    .ds-font-role:first-child .ds-font-role-name { font-size: 36px; color: var(--text-inverse); position: relative; }
-    .ds-font-role:not(:first-child) .ds-font-role-name { font-size: 20px; color: var(--text); }
-    .ds-font-role-desc { font-size: 13px; line-height: 1.55; }
-    .ds-font-role:first-child .ds-font-role-desc { color: rgba(255,255,255,0.45); position: relative; }
-    .ds-font-role:not(:first-child) .ds-font-role-desc { color: var(--text-secondary); }
+    .ds-font-role--display .ds-font-role-name { font-size: 36px; color: var(--text-inverse); position: relative; }
+    .ds-font-role:not(.ds-font-role--display) .ds-font-role-name { font-size: 20px; color: var(--text); }
+    .ds-font-role-desc { font-size: 14px; line-height: 1.55; }
+    .ds-font-role--display .ds-font-role-desc { color: rgba(255,255,255,0.45); position: relative; }
+    .ds-font-role:not(.ds-font-role--display) .ds-font-role-desc { color: var(--text-secondary); }
     .ds-platform-badges { display: flex; gap: 6px; margin-bottom: 10px; }
     .ds-b-ios {
-      font-family: var(--font-mono); font-size: 10px;
+      font-family: var(--font-mono); font-size: 12px;
       letter-spacing: 0.06em; text-transform: uppercase;
       padding: 3px 8px; border-radius: var(--radius-xs);
       background: rgba(0,82,255,0.08); color: var(--case-accent);
     }
     .ds-b-android {
-      font-family: var(--font-mono); font-size: 10px;
+      font-family: var(--font-mono); font-size: 12px;
       letter-spacing: 0.06em; text-transform: uppercase;
       padding: 3px 8px; border-radius: var(--radius-xs);
       background: rgba(22,163,74,0.08); color: var(--case-android);
+    }
+
+    /* ── Font comparison ── */
+    .ds-font-compare-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: var(--space-3); margin-top: var(--space-5);
+    }
+    .ds-font-compare-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px;
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .ds-font-compare-card:hover { box-shadow: var(--shadow-xl); transform: translateY(-2px); }
+    .ds-fc-tag {
+      display: inline-block;
+      font-family: var(--font-mono); font-size: 12px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: var(--radius-full);
+      margin-bottom: 16px;
+    }
+    .ds-fc-name {
+      font-size: 28px; font-weight: 700; margin-bottom: 14px;
+      letter-spacing: -0.02em;
+    }
+    .ds-fc-sample {
+      font-size: 14px; line-height: 1.6;
+      color: var(--text-secondary); margin-bottom: var(--space-3);
+      padding-bottom: var(--space-3); border-bottom: 1px solid var(--border);
+    }
+    .ds-fc-metrics { display: flex; flex-direction: column; gap: 8px; margin-bottom: var(--space-3); }
+    .ds-fc-metric { display: flex; justify-content: space-between; font-size: 14px; }
+    .ds-fc-metric-label { color: var(--text-secondary); }
+    .ds-fc-metric-val { font-weight: 600; font-family: var(--font-mono); font-size: 12px; }
+    .ds-fc-note {
+      font-size: 14px; line-height: 1.65; color: var(--text-secondary);
+      padding-top: 16px; border-top: 1px solid var(--border);
     }
 
     /* ── Constraint cards ── */
@@ -413,21 +477,91 @@
     .ds-constraint-card:hover { box-shadow: var(--shadow-xl); transform: translateY(-2px); }
     .ds-constraint-tag {
       display: inline-block;
-      font-family: var(--font-mono); font-size: 10px;
+      font-family: var(--font-mono); font-size: 12px;
       letter-spacing: 0.1em; text-transform: uppercase;
       padding: 4px 14px; border-radius: var(--radius-full);
       background: rgba(239,68,68,0.07); color: var(--case-error);
       border: 1px solid rgba(239,68,68,0.18);
       margin-bottom: 16px;
     }
-    .ds-constraint-title { font-family: var(--font-display); font-size: 22px; margin-bottom: 12px; color: var(--text); }
+    .ds-constraint-title { font-family: var(--font-display); font-size: 20px; margin-bottom: 12px; color: var(--text); }
     .ds-constraint-body { font-size: 14px; color: var(--text-secondary); line-height: 1.75; }
     .ds-constraint-lesson {
       margin-top: 16px; padding-top: 16px;
       border-top: 1px solid var(--border);
-      font-size: 13px; color: var(--text-secondary);
+      font-size: 14px; color: var(--text-secondary);
     }
     .ds-constraint-lesson strong { color: var(--text); }
+
+    /* ── Component category grid ── */
+    .ds-comp-category-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: var(--space-3); margin-top: var(--space-5);
+    }
+    .ds-comp-category-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px;
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .ds-comp-category-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+    .ds-comp-cat-header {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: var(--space-3);
+    }
+    .ds-comp-cat-emoji { font-size: 20px; }
+    .ds-comp-cat-title {
+      font-family: var(--font-mono);
+      font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+      font-weight: 500; color: var(--text);
+    }
+    .ds-comp-cat-count {
+      margin-left: auto;
+      font-family: var(--font-mono); font-size: 12px;
+      color: var(--case-accent); background: rgba(0,82,255,0.07);
+      padding: 2px 8px; border-radius: var(--radius-full);
+    }
+    .ds-comp-item-list { display: flex; flex-direction: column; }
+    .ds-comp-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px; color: var(--text-secondary);
+    }
+    .ds-comp-item:last-child { border-bottom: none; }
+    .ds-comp-item-name { display: flex; align-items: center; gap: 8px; }
+    .ds-comp-item-arrow { font-size: 12px; color: var(--border); margin-right: 4px; }
+    .ds-comp-item-code {
+      font-family: var(--font-mono); font-size: 12px;
+      color: var(--case-accent); opacity: 0.5;
+    }
+    .ds-comp-item-code:hover { opacity: 1; }
+
+    /* ── Platform-specific component grid ── */
+    .ds-platform-comp-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: var(--space-3); margin-top: var(--space-5);
+    }
+    .ds-platform-comp-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .ds-platform-comp-card:hover { box-shadow: var(--shadow-xl); transform: translateY(-2px); }
+    .ds-pc-header { padding: 24px 28px 16px; }
+    .ds-pc-title { font-family: var(--font-display); font-size: 20px; margin-bottom: 6px; color: var(--text); }
+    .ds-pc-reason { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+    .ds-pc-images {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: var(--border); margin-top: 12px;
+    }
+    .ds-pc-img-item { background: var(--surface); }
+    .ds-pc-img-label {
+      padding: 8px 16px;
+      font-family: var(--font-mono); font-size: 12px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      display: flex; align-items: center; gap: 6px;
+      border-top: 1px solid var(--border);
+    }
 
     /* ── Results (inverted) ── */
     .ds-results {
@@ -436,7 +570,6 @@
     }
     .ds-results-inner { max-width: 1100px; margin: 0 auto; padding: 0 var(--page-x); }
     .ds-results .ds-section-title { color: var(--text-inverse); }
-
     .ds-results-grid {
       display: grid; grid-template-columns: repeat(3,1fr);
       gap: 1px; background: rgba(255,255,255,0.07);
@@ -452,18 +585,17 @@
     }
     .ds-result-label { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.5; }
     .ds-result-label strong { color: var(--text-inverse); display: block; margin-bottom: 4px; }
-
     .ds-vqa-bar {
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.07);
       border-radius: var(--radius-sm); padding: var(--space-4); margin-top: var(--space-3);
     }
     .ds-vqa-heading {
-      font-family: var(--font-mono); font-size: 11px;
+      font-family: var(--font-mono); font-size: 12px;
       letter-spacing: 0.08em; text-transform: uppercase;
       color: rgba(255,255,255,0.3); margin-bottom: var(--space-3);
     }
-    .ds-vqa-row-label { font-size: 13px; color: rgba(255,255,255,0.35); margin-bottom: 8px; }
+    .ds-vqa-row-label { font-size: 12px; color: rgba(255,255,255,0.35); margin-bottom: 8px; }
     .ds-vqa-track {
       height: 6px; background: rgba(255,255,255,0.09);
       border-radius: 3px; overflow: hidden; margin-bottom: 8px;
@@ -473,9 +605,8 @@
     .ds-vqa-after  { background: var(--case-gradient); }
     .ds-vqa-before.go { width: 95%; }
     .ds-vqa-after.go  { width: 80%; }
-    .ds-vqa-num { display: flex; justify-content: flex-end; font-size: 13px; color: rgba(255,255,255,0.35); margin-bottom: var(--space-3); }
+    .ds-vqa-num { display: flex; justify-content: flex-end; font-size: 12px; color: rgba(255,255,255,0.35); margin-bottom: var(--space-3); }
     .ds-vqa-num strong { color: var(--text-inverse); }
-
     .ds-quote-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: var(--space-3); }
     .ds-quote-card {
       border: 1px solid rgba(255,255,255,0.1);
@@ -487,16 +618,17 @@
       color: var(--text-inverse); line-height: 1.45; margin-bottom: 16px;
     }
     .ds-quote-source {
-      font-family: var(--font-mono); font-size: 11px;
+      font-family: var(--font-mono); font-size: 12px;
       letter-spacing: 0.06em; text-transform: uppercase;
       color: var(--case-accent-light);
     }
     .ds-motion-callout {
       background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
       border-radius: var(--radius-sm); padding: var(--space-3) 28px; margin-top: var(--space-3);
+      position: relative;
     }
     .ds-mc-label {
-      font-family: var(--font-mono); font-size: 10px;
+      font-family: var(--font-mono); font-size: 12px;
       letter-spacing: 0.1em; text-transform: uppercase;
       color: rgba(255,255,255,0.35); margin-bottom: 8px;
     }
@@ -527,15 +659,82 @@
       .ds-comparison-grid { grid-template-columns: 1fr; }
       .ds-two-col, .ds-two-col-asym { grid-template-columns: 1fr; gap: var(--space-5); }
       .ds-font-roles-grid { grid-template-columns: 1fr; }
+      .ds-font-compare-grid { grid-template-columns: 1fr; }
+      .ds-comp-category-grid { grid-template-columns: 1fr 1fr; }
+      .ds-platform-comp-grid { grid-template-columns: 1fr; }
       .ds-constraint-grid { grid-template-columns: 1fr; }
       .ds-results-grid { grid-template-columns: 1fr; }
       .ds-quote-grid { grid-template-columns: 1fr; }
       .ds-rejection-grid { grid-template-columns: 1fr; }
+      .ds-decision-row { grid-template-columns: 1fr; gap: 8px; }
       .ds-reflection-item { grid-template-columns: 1fr; gap: 8px; }
+      .ds-font-role--display { display: block !important; }
+    }
+    @media (max-width: 520px) {
+      .ds-comp-category-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── LIGHTBOX ── */
+    #lightbox {
+      position: fixed; inset: 0; z-index: 9000;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    #lightbox.open { opacity: 1; pointer-events: all; }
+
+    .lb-backdrop {
+      position: absolute; inset: 0;
+      background: rgba(10, 10, 14, 0.88);
+      backdrop-filter: blur(8px);
+      cursor: zoom-out;
+    }
+    #lightbox-img {
+      position: relative; z-index: 1;
+      max-width: min(92vw, 1200px);
+      max-height: 88vh;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+      transform: scale(0.92);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    #lightbox.open #lightbox-img { transform: scale(1); }
+
+    .lb-close {
+      position: absolute; top: 20px; right: 20px; z-index: 2;
+      width: 40px; height: 40px;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.8);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .lb-close:hover { background: rgba(255,255,255,0.2); transform: scale(1.1); }
+
+    /* cover mode — font role images fill the lightbox and can be cropped */
+    #lightbox.lb-cover #lightbox-img {
+      width: min(92vw, 1200px);
+      height: min(85vh, 900px);
+      max-width: none;
+      max-height: none;
+      object-fit: cover;
+      object-position: center top;
     }
   </style>
 </head>
 <body class="cs-body">
+
+<div id="progress-bar"></div>
+
+<!-- ── LIGHTBOX ── -->
+<div id="lightbox">
+  <div class="lb-backdrop"></div>
+  <img id="lightbox-img" src="" alt="">
+  <button class="lb-close" onclick="document.getElementById('lightbox').classList.remove('open');document.body.style.overflow=''" aria-label="Close">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+  </button>
+</div>
 
 <!-- ── NAV ── -->
 <nav>
@@ -548,7 +747,7 @@
 </nav>
 
 <!-- ── BACK ── -->
-<div class="cs-back">
+<div class="cs-back" style="padding-left: var(--page-x);">
   <a href="index.html" class="cs-back-link">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
       <path d="M19 12H5M12 5l-7 7 7 7"/>
@@ -596,12 +795,11 @@
       </div>
     </div>
 
-    <!-- Abstract hero graphic -->
     <div class="ds-hero-graphic reveal d2">
       <div class="ds-ring ds-ring-1"></div>
       <div class="ds-ring ds-ring-2"></div>
       <div class="ds-hero-center">
-        <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 38 38" fill="none">
           <rect x="4" y="4" width="13" height="13" rx="3" fill="white" opacity=".9"/>
           <rect x="21" y="4" width="13" height="13" rx="3" fill="white" opacity=".6"/>
           <rect x="4" y="21" width="13" height="13" rx="3" fill="white" opacity=".6"/>
@@ -652,15 +850,14 @@
       </div>
       <h2 class="ds-section-title reveal d1">When two worlds had to become one</h2>
       <div class="ds-prose reveal d2">
-        <p>We had two separate design systems — one for iOS, one for Android — that had never needed to talk to each other. Then the company strategy shifted: iOS and Android dev teams would now collaborate on cross-platform apps.</p>
-        <p><strong>Our two systems weren't just inefficient anymore — they were an architectural liability.</strong> Adopting either one would bake platform-specific assumptions into shared products. We had one choice: rebuild from a common foundation.</p>
+        <p>When I joined, there was no design system at all. Every app ran on its own styles and fonts — even within the same SF family, each product made its own choices. No shared philosophy. No governing logic.</p>
+        <p>In the second year, we recognized this was unsustainable. My co-designer and I each built separate systems — one for iOS, one for Android. It worked, in isolation. But it was still two languages operating in two separate rooms.</p>
+        <p><strong>Then the strategy shifted.</strong> The iOS and Android dev teams were now expected to collaborate on cross-platform apps. Suddenly, our two separate design systems weren't just inefficient — they were an architectural liability. Adopting either one would bake platform-specific assumptions into cross-platform products.</p>
+        <p>We had one choice: rebuild from a shared foundation.</p>
       </div>
     </div>
-    <div class="reveal d2">
-      <div class="ds-img-ph" style="height:320px;">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
-        <span class="ds-img-ph-label">Before / After org structure diagram</span>
-      </div>
+    <div class="reveal d2" style="padding-top:58px;">
+      <img src="images/case-3/case%203%20-%20Old%20design%20system.png" alt="Old design system — iOS and Android" style="width:100%;height:480px;object-fit:cover;object-position:center;display:block;border-radius:8px;">
     </div>
   </div>
 </div>
@@ -678,7 +875,16 @@
   </div>
 
   <div class="ds-prose reveal d2">
-    <p>The root cause wasn't that we lacked a design system. We had two. The root cause was that every discipline had developed its own shorthand, and when teams finally had to collaborate, the translation overhead was enormous. A new system would only solve the problem if it gave everyone a <strong>single, unambiguous vocabulary</strong>.</p>
+    <p>The root cause wasn't that we lacked a design system. We had two. The root cause was that every discipline had developed its own shorthand. When teams finally had to collaborate, the translation overhead was enormous.</p>
+    <p>A new cross-platform design system would only solve the problem if it gave everyone a <strong>single, unambiguous vocabulary</strong>. That meant token architecture wasn't a technical question. It was a <em>communication design problem</em>.</p>
+  </div>
+
+  <div class="ds-chip-row reveal d3">
+    <span class="ds-token-chip">screen<span class="ds-ts">.</span>background<span class="ds-ts">.</span>neutral-base</span>
+    <span class="ds-token-chip">button<span class="ds-ts">.</span>background<span class="ds-ts">.</span>primary-bold</span>
+    <span class="ds-token-chip">status<span class="ds-ts">.</span>error-base</span>
+    <span class="ds-token-chip">line<span class="ds-ts">.</span>neutral-soft</span>
+    <span class="ds-token-chip">state<span class="ds-ts">.</span>disabled-70</span>
   </div>
 </div>
 
@@ -690,7 +896,8 @@
   </div>
   <h2 class="ds-section-title reveal d1">Two philosophies.<br>Three weeks. <span class="g-text">One token system.</span></h2>
   <div class="ds-prose reveal d2">
-    <p>My co-designer and I each developed a naming architecture independently, then spent nearly three weeks debating, aligning with engineering, and studying Material 3, Atlassian's token library, and W3C token formats. The core question: <strong>should a token name describe where it's used, or how it looks?</strong></p>
+    <p>This was the most contested part of the project. My co-designer and I each developed a naming architecture independently, then spent nearly three weeks debating, researching, and aligning with engineering. We studied Material 3, Atlassian's token library, and W3C token formats.</p>
+    <p>The fundamental question: <strong>should a token name describe where it's used, or how it looks?</strong></p>
   </div>
 
   <div class="ds-comparison-grid reveal d2">
@@ -786,9 +993,83 @@
     </div>
   </div>
 
-  <div class="ds-callout reveal d3">
-    <div class="ds-callout-label">The Final Architecture</div>
-    <div class="ds-callout-text">Primitive layer (red-50, blue-300) feeds into a semantic layer built on Idea 2's Zone × Layer × Tone structure — <strong>one unified token set</strong> output for both platforms. After engineering alignment, the structure was deliberately simplified to balance their priority (reuse rate) with ours (readable semantics).</div>
+  <!-- Final Architecture -->
+  <div class="ds-badge reveal" style="margin-top: var(--space-8);">
+    <span class="ds-badge-dot"></span>
+    <span class="ds-badge-text">The Final Architecture</span>
+  </div>
+  <div class="ds-decision-rows reveal d1">
+    <div class="ds-decision-row">
+      <div class="ds-decision-key">Primitive layer</div>
+      <div class="ds-decision-val">Raw color values with neutral names: <strong>red-50, blue-300, neutral-700.</strong> Never used directly in product code — they are the source of truth semantic tokens reference.</div>
+    </div>
+    <div class="ds-decision-row">
+      <div class="ds-decision-key">Semantic layer</div>
+      <div class="ds-decision-val">
+        <p style="margin-bottom: var(--space-3);">Contextual tokens named by <strong>purpose, not hue</strong> — called <em>Local Colors</em>. Each token communicates meaning to designers and developers without guesswork, and maps directly to both light and dark themes.</p>
+        <div class="ds-chip-row" style="margin-top:0;">
+          <span class="ds-token-chip">Background</span><span class="ds-token-chip">On Background</span><span class="ds-token-chip">Scrim</span><span class="ds-token-chip">On Scrim</span>
+          <span class="ds-token-chip">Primary</span><span class="ds-token-chip">On Primary</span><span class="ds-token-chip">Secondary</span><span class="ds-token-chip">On Secondary</span><span class="ds-token-chip">Tertiary</span><span class="ds-token-chip">On Tertiary</span>
+          <span class="ds-token-chip">Error</span><span class="ds-token-chip">On Error</span><span class="ds-token-chip">Success</span><span class="ds-token-chip">On Success</span><span class="ds-token-chip">Warning</span><span class="ds-token-chip">On Warning</span>
+          <span class="ds-token-chip">Disabled</span><span class="ds-token-chip">Pressed</span><span class="ds-token-chip">Selected</span><span class="ds-token-chip">Outline</span><span class="ds-token-chip">Divider</span>
+        </div>
+      </div>
+    </div>
+    <div class="ds-decision-row">
+      <div class="ds-decision-key">One system, both platforms</div>
+      <div class="ds-decision-val">Rather than separate iOS and Android token sets, we output <strong>one unified token library.</strong> Engineering on both platforms references identical color vocabulary.</div>
+    </div>
+    <div class="ds-decision-row">
+      <div class="ds-decision-key">Deliberate simplification</div>
+      <div class="ds-decision-val">After engineering alignment, the Idea 2 structure was <strong>intentionally pruned.</strong> Dev's priority — high reuse rate — was honoured. Our priority — readable semantics — was preserved.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 03b LOCAL COLORS ── -->
+<div class="ds-section ds-section--border">
+  <div class="ds-badge reveal">
+    <span class="ds-badge-dot"></span>
+    <span class="ds-badge-text">03b · Local Colors</span>
+  </div>
+  <div class="ds-two-col-asym" style="align-items:start;">
+    <div>
+      <h2 class="ds-section-title reveal d1">Semantic tokens<br>named by <span class="g-text">purpose.</span></h2>
+      <div class="ds-prose reveal d2">
+        <p>Local Colors are semantic tokens that represent how colors are used in context throughout the product interface. Instead of defining a specific hue, each Local Color communicates <strong>purpose</strong> and <strong>meaning</strong>.</p>
+        <p>The naming rules follow a consistent hierarchy: surface tokens (<code style="font-family:var(--font-mono);font-size:13px;background:rgba(0,82,255,0.06);padding:2px 6px;border-radius:4px;">Background</code>, <code style="font-family:var(--font-mono);font-size:13px;background:rgba(0,82,255,0.06);padding:2px 6px;border-radius:4px;">Scrim</code>) anchor the canvas, role tokens (<code style="font-family:var(--font-mono);font-size:13px;background:rgba(0,82,255,0.06);padding:2px 6px;border-radius:4px;">Primary</code>, <code style="font-family:var(--font-mono);font-size:13px;background:rgba(0,82,255,0.06);padding:2px 6px;border-radius:4px;">Secondary</code>, <code style="font-family:var(--font-mono);font-size:13px;background:rgba(0,82,255,0.06);padding:2px 6px;border-radius:4px;">Tertiary</code>) carry brand intent, and status tokens (<code style="font-family:var(--font-mono);font-size:13px;background:rgba(0,82,255,0.06);padding:2px 6px;border-radius:4px;">Error</code>, <code style="font-family:var(--font-mono);font-size:13px;background:rgba(0,82,255,0.06);padding:2px 6px;border-radius:4px;">Success</code>, <code style="font-family:var(--font-mono);font-size:13px;background:rgba(0,82,255,0.06);padding:2px 6px;border-radius:4px;">Warning</code>) communicate state. Every token has a paired <code style="font-family:var(--font-mono);font-size:13px;background:rgba(0,82,255,0.06);padding:2px 6px;border-radius:4px;">On {Token}</code> for text and icons placed on top of it.</p>
+        <p>This structure keeps color usage consistent and meaningful across all 22 apps — designers and developers reference the same vocabulary whether they're building for light mode, dark mode, iOS, or Android.</p>
+      </div>
+      <div class="ds-chip-row reveal d3">
+        <span class="ds-token-chip">Background</span>
+        <span class="ds-token-chip">On Background</span>
+        <span class="ds-token-chip">Scrim</span>
+        <span class="ds-token-chip">On Scrim</span>
+        <span class="ds-token-chip">Primary</span>
+        <span class="ds-token-chip">On Primary</span>
+        <span class="ds-token-chip">Secondary</span>
+        <span class="ds-token-chip">On Secondary</span>
+        <span class="ds-token-chip">Tertiary</span>
+        <span class="ds-token-chip">On Tertiary</span>
+        <span class="ds-token-chip">Error</span>
+        <span class="ds-token-chip">On Error</span>
+        <span class="ds-token-chip">Success</span>
+        <span class="ds-token-chip">On Success</span>
+        <span class="ds-token-chip">Warning</span>
+        <span class="ds-token-chip">On Warning</span>
+        <span class="ds-token-chip">Disabled</span>
+        <span class="ds-token-chip">Pressed</span>
+        <span class="ds-token-chip">Selected</span>
+        <span class="ds-token-chip">Outline</span>
+        <span class="ds-token-chip">Divider</span>
+      </div>
+    </div>
+    <div class="reveal d2">
+      <img src="images/case-3/case%203%20-%20Local%20colors%20final.png"
+           alt="Local Color Structure — full token set"
+           data-lb="cover"
+           style="width:100%;height:auto;object-fit:contain;display:block;border-radius:8px;cursor:zoom-in;">
+    </div>
   </div>
 </div>
 
@@ -802,58 +1083,394 @@
     <div>
       <h2 class="ds-section-title reveal d1">Not a type scale.<br>A set of <span class="g-text">roles.</span></h2>
       <div class="ds-prose reveal d2">
-        <p>Instead of specifying what text should <strong>look like</strong>, we specified what it should <strong>do</strong>. Seven roles — Display, Headline, Title, Subtitle, Body, Label, Button — each with a clear functional mandate, applied consistently across both platforms using platform-appropriate font families underneath.</p>
-        <p>A designer doesn't ask "17px or 18px?" — they ask "is this a Title or a Headline?" The answer is the same in every app, on every platform.</p>
+        <p>Cross-platform typography is usually solved by mapping font sizes. We took a different approach: instead of specifying what text should <strong>look like</strong>, we specified what it should <strong>do</strong>.</p>
+        <p>The system defines seven roles: Display, Headline, Title, Subtitle, Body, Label, and Button. Each carries a clear functional mandate. Both iOS and Android use the same role names — but render them with platform-appropriate font families underneath.</p>
+        <p>A designer building a new app doesn't start by asking "17px or 18px?" They ask "is this text playing a Title role or a Headline role?" The answer is consistent across every app, every platform.</p>
       </div>
     </div>
     <div class="reveal d2">
-      <div class="ds-img-ph" style="height:320px;">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h10M4 18h6"/></svg>
-        <span class="ds-img-ph-label">Font Role documentation — 7 roles</span>
-      </div>
+      <img src="images/case-3/case%203%20-%20Font%20Role.png" data-lb="cover" alt="Font Role documentation — 7 roles" style="width:100%;height:520px;object-fit:cover;object-position:center top;display:block;border-radius:8px;">
     </div>
   </div>
 
+  <!-- 7-role grid with image placeholders -->
   <div class="ds-font-roles-grid reveal d3">
-    <div class="ds-font-role">
-      <div class="ds-dot-texture"></div>
-      <div class="ds-platform-badges">
-        <span class="ds-b-ios">iOS</span><span class="ds-b-android">Android</span>
+    <!-- Display — full width, dark -->
+    <div class="ds-font-role ds-font-role--display" style="display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; padding: 36px var(--space-4);">
+      <div>
+        <div class="ds-dot-texture"></div>
+        <div class="ds-platform-badges" style="position:relative;">
+          <span class="ds-b-ios">iOS</span><span class="ds-b-android">Android</span>
+        </div>
+        <div class="ds-font-role-name" style="position:relative;">Display</div>
+        <div class="ds-font-role-desc" style="position:relative;">Used for very large text that makes a <strong style="color:white;">strong visual impact</strong> — banners, hero sections, key promotional content. Designed to capture immediate attention.</div>
       </div>
-      <div class="ds-font-role-name">Display</div>
-      <div class="ds-font-role-desc">Large, high-impact text for banners and hero sections. Captures immediate attention.</div>
+      <img src="images/case-3/case%203%20-%20Font%20Role%20Display.png" data-lb="cover" alt="Display role — app screenshot" style="width:100%;height:200px;object-fit:contain;display:block;border-radius:8px;">
     </div>
-    <div class="ds-font-role">
-      <div class="ds-platform-badges"><span class="ds-b-ios">iOS</span><span class="ds-b-android">Android</span></div>
-      <div class="ds-font-role-name">Headline</div>
-      <div class="ds-font-role-desc">Establishes section hierarchy. Bold enough to anchor content, not compete with Display.</div>
+
+    <!-- Headline -->
+    <div class="ds-font-role" style="display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:center;">
+      <div>
+        <div class="ds-platform-badges"><span class="ds-b-ios">iOS</span><span class="ds-b-android">Android</span></div>
+        <div class="ds-font-role-name">Headline</div>
+        <div class="ds-font-role-desc">Highlights <strong>major sections</strong> or content areas. Large and bold enough to establish hierarchy without competing with Display text.</div>
+      </div>
+      <img src="images/case-3/case%203%20-%20Font%20Role%20Headline.png" data-lb="cover" alt="Headline role" style="width:100%;height:160px;object-fit:contain;display:block;border-radius:8px;">
     </div>
-    <div class="ds-font-role">
-      <div class="ds-platform-badges"><span class="ds-b-ios">iOS</span><span class="ds-b-android">Android</span></div>
-      <div class="ds-font-role-name">Body</div>
-      <div class="ds-font-role-desc">Primary text style for paragraphs and descriptions. Optimized for reading clarity.</div>
+
+    <!-- Title -->
+    <div class="ds-font-role" style="display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:center;">
+      <div>
+        <div class="ds-platform-badges"><span class="ds-b-ios">iOS</span><span class="ds-b-android">Android</span></div>
+        <div class="ds-font-role-name">Title</div>
+        <div class="ds-font-role-desc">Identifies <strong>pages, screens,</strong> or card-level content with medium emphasis. Balances prominence and readability.</div>
+      </div>
+      <img src="images/case-3/case%203%20-%20Font%20Role%20Title.png" data-lb="cover" alt="Title role" style="width:100%;height:160px;object-fit:contain;display:block;border-radius:8px;">
     </div>
-    <div class="ds-font-role">
-      <div class="ds-platform-badges"><span class="ds-b-ios">iOS</span><span class="ds-b-android">Android</span></div>
-      <div class="ds-font-role-name">Label</div>
-      <div class="ds-font-role-desc">Short descriptors — form labels, tags, chips. Clear and concise to guide interaction.</div>
+
+    <!-- Subtitle -->
+    <div class="ds-font-role" style="display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:center;">
+      <div>
+        <div class="ds-platform-badges"><span class="ds-b-ios">iOS</span><span class="ds-b-android">Android</span></div>
+        <div class="ds-font-role-name">Subtitle</div>
+        <div class="ds-font-role-desc">Provides <strong>supporting context</strong> under a headline or title. Typically smaller and lighter in weight.</div>
+      </div>
+      <img src="images/case-3/case%203%20-%20Font%20Role%20Subtitle.png" data-lb="cover" alt="Subtitle role" style="width:100%;height:160px;object-fit:contain;display:block;border-radius:8px;">
+    </div>
+
+    <!-- Body -->
+    <div class="ds-font-role" style="display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:center;">
+      <div>
+        <div class="ds-platform-badges"><span class="ds-b-ios">iOS</span><span class="ds-b-android">Android</span></div>
+        <div class="ds-font-role-name">Body</div>
+        <div class="ds-font-role-desc">Primary text style for <strong>paragraphs and descriptions.</strong> Optimized for clarity at reading sizes.</div>
+      </div>
+      <img src="images/case-3/case%203%20-%20Font%20Role%20Body.png" data-lb="cover" alt="Body role" style="width:100%;height:160px;object-fit:contain;display:block;border-radius:8px;">
+    </div>
+
+    <!-- Label -->
+    <div class="ds-font-role" style="display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:center;">
+      <div>
+        <div class="ds-platform-badges"><span class="ds-b-ios">iOS</span><span class="ds-b-android">Android</span></div>
+        <div class="ds-font-role-name">Label</div>
+        <div class="ds-font-role-desc">Used for <strong>short descriptors</strong> — form labels, tags, chips, helper text. Clear and concise.</div>
+      </div>
+      <img src="images/case-3/case%203%20-%20Font%20Role%20Label.png" data-lb="cover" alt="Label role" style="width:100%;height:160px;object-fit:contain;display:block;border-radius:8px;">
+    </div>
+
+    <!-- Button -->
+    <div class="ds-font-role" style="display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:center;">
+      <div>
+        <div class="ds-platform-badges"><span class="ds-b-ios">iOS</span><span class="ds-b-android">Android</span></div>
+        <div class="ds-font-role-name">Button</div>
+        <div class="ds-font-role-desc">For <strong>interactive elements</strong> like buttons and CTAs. Bold or medium weight, sized for legibility inside UI components.</div>
+      </div>
+      <img src="images/case-3/case%203%20-%20Font%20Role%20Button.png" data-lb="cover" alt="Button role" style="width:100%;height:160px;object-fit:contain;display:block;border-radius:8px;">
     </div>
   </div>
-  <div class="ds-callout reveal d4" style="margin-top: var(--space-3);">
-    <div class="ds-callout-label">Platform Convention · Jakob's Law</div>
-    <div class="ds-callout-text">Token layer stays unified. Component layer respects platform convention. Android search gets a focus state; iOS doesn't. <strong>Tokens govern color vocabulary. Components govern interaction behaviour.</strong></div>
+
+  <!-- Font family comparison -->
+  <div style="margin-top: var(--space-10);">
+    <div class="ds-badge reveal">
+      <span class="ds-badge-dot"></span>
+      <span class="ds-badge-text">Why Inter?</span>
+    </div>
+    <h3 class="ds-section-title-sm reveal d1">A font that <span class="g-text">disappears into both platforms.</span></h3>
+    <div class="ds-prose reveal d2">
+      <p>The obvious choices were SF Pro (iOS native) and Roboto (Android native). But using either would telegraph a platform preference — Android users notice SF Pro; iOS users notice Roboto. We needed something <strong>neutral, legible, and platform-agnostic</strong>.</p>
+      <p>Inter was chosen because its core metrics — x-height, stroke width, letter spacing, and line height — are remarkably close to both SF Pro and Roboto. Users don't notice it's a different font. They just notice the text is easy to read.</p>
+    </div>
+
+    <div class="ds-font-compare-grid reveal d2">
+      <!-- SF Pro -->
+      <div class="ds-font-compare-card">
+        <div class="ds-fc-tag" style="background:rgba(0,82,255,0.08); color:var(--case-accent);">iOS Native</div>
+        <div class="ds-fc-name" style="color:var(--text);">SF Pro</div>
+        <div class="ds-fc-sample">The quick brown fox jumps over the lazy dog</div>
+        <div class="ds-fc-metrics">
+          <div class="ds-fc-metric"><span class="ds-fc-metric-label">Line height</span><span class="ds-fc-metric-val">1.5 × size</span></div>
+          <div class="ds-fc-metric"><span class="ds-fc-metric-label">Letter spacing</span><span class="ds-fc-metric-val">Auto (optical)</span></div>
+          <div class="ds-fc-metric"><span class="ds-fc-metric-label">x-height</span><span class="ds-fc-metric-val">High</span></div>
+          <div class="ds-fc-metric"><span class="ds-fc-metric-label">Platform</span><span class="ds-fc-metric-val">Apple only</span></div>
+        </div>
+        <div class="ds-fc-note">Apple's system font. Excellent on iOS, but restricted license — cannot be used on Android or web outside Apple's ecosystem.</div>
+      </div>
+      <!-- Roboto -->
+      <div class="ds-font-compare-card">
+        <div class="ds-fc-tag" style="background:rgba(22,163,74,0.08); color:var(--case-android);">Android Native</div>
+        <div class="ds-fc-name" style="color:var(--text);">Roboto</div>
+        <div class="ds-fc-sample">The quick brown fox jumps over the lazy dog</div>
+        <div class="ds-fc-metrics">
+          <div class="ds-fc-metric"><span class="ds-fc-metric-label">Line height</span><span class="ds-fc-metric-val">1.5 × size</span></div>
+          <div class="ds-fc-metric"><span class="ds-fc-metric-label">Letter spacing</span><span class="ds-fc-metric-val">0–0.03em</span></div>
+          <div class="ds-fc-metric"><span class="ds-fc-metric-label">x-height</span><span class="ds-fc-metric-val">High</span></div>
+          <div class="ds-fc-metric"><span class="ds-fc-metric-label">Platform</span><span class="ds-fc-metric-val">Android / Open</span></div>
+        </div>
+        <div class="ds-fc-note">Google's system font. Slightly wider letterforms. Reads as "Android" to iOS users — breaks platform neutrality.</div>
+      </div>
+      <!-- Inter — featured -->
+      <div class="ds-card-featured-wrap" style="border-radius: var(--radius);">
+        <div class="ds-card-featured" style="border-radius: calc(var(--radius) - 2px); padding: 28px;">
+          <div class="ds-fc-tag" style="background:rgba(123,167,247,0.15); color:var(--case-accent-light);">✦ Selected</div>
+          <div class="ds-fc-name" style="color:white;">Inter</div>
+          <div class="ds-fc-sample" style="color:rgba(255,255,255,.7); border-color:rgba(255,255,255,.1);">The quick brown fox jumps over the lazy dog</div>
+          <div class="ds-fc-metrics">
+            <div class="ds-fc-metric">
+              <span class="ds-fc-metric-label" style="color:rgba(255,255,255,.4);">Line height</span>
+              <span class="ds-fc-metric-val" style="color:var(--case-accent-light);">1.5 × size</span>
+            </div>
+            <div class="ds-fc-metric">
+              <span class="ds-fc-metric-label" style="color:rgba(255,255,255,.4);">Letter spacing</span>
+              <span class="ds-fc-metric-val" style="color:var(--case-accent-light);">-0.01 – 0em</span>
+            </div>
+            <div class="ds-fc-metric">
+              <span class="ds-fc-metric-label" style="color:rgba(255,255,255,.4);">x-height</span>
+              <span class="ds-fc-metric-val" style="color:var(--case-accent-light);">High (≈ SF Pro)</span>
+            </div>
+            <div class="ds-fc-metric">
+              <span class="ds-fc-metric-label" style="color:rgba(255,255,255,.4);">Platform</span>
+              <span class="ds-fc-metric-val" style="color:var(--case-accent-light);">iOS + Android + Web</span>
+            </div>
+          </div>
+          <div class="ds-fc-note" style="color:rgba(255,255,255,.45); border-color:rgba(255,255,255,.08);">Metrics nearly identical to SF Pro and Roboto. Renders consistently across both platforms. Open license. Platform-neutral — users feel at home on iOS and Android.</div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- ── 05 DELIBERATE CONSTRAINTS ── -->
+<!-- ── 05 PLATFORM TENSIONS ── -->
 <div class="ds-section ds-section--border">
   <div class="ds-badge reveal">
     <span class="ds-badge-dot"></span>
-    <span class="ds-badge-text">05 · Deliberate Constraints</span>
+    <span class="ds-badge-text">05 · Platform Tensions</span>
+  </div>
+  <h2 class="ds-section-title reveal d1">Unified tokens.<br><span class="g-text">Respected conventions.</span></h2>
+  <div class="ds-two-col reveal d2">
+    <div class="ds-prose">
+      <p>Unifying iOS and Android at the token layer surfaced a real tension: what do we do when the two platforms have different interaction patterns that users are deeply familiar with?</p>
+      <p>The clearest example was the search bar. Android users expect a visible focus state — a clear indicator that the field is active. iOS users typically just tap and type; a focus state feels redundant.</p>
+      <p><strong>Our decision:</strong> the token layer stays unified. The component layer respects platform convention. Tokens govern color vocabulary. Components govern interaction behaviour. This is the right architectural split — and it maps directly to how Jakob's Law applies at a systems level.</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:var(--space-3);">
+      <img src="images/case-3/case%203%20-%20Search%20Bar%20comparison.png" alt="iOS vs Android search component comparison" style="width:100%;height:220px;object-fit:contain;display:block;border-radius:8px;">
+      <div class="ds-callout">
+        <div class="ds-callout-label">Principle Applied</div>
+        <div class="ds-callout-text"><strong>Jakob's Law</strong> — users spend most of their time in other apps. Design to match the platform conventions they already know, even within a unified system.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 06 COMPONENT LIBRARY ── -->
+<div class="ds-section ds-section--border">
+  <div class="ds-badge reveal">
+    <span class="ds-badge-dot"></span>
+    <span class="ds-badge-text">06 · Component Library</span>
+  </div>
+  <h2 class="ds-section-title reveal d1">Built for reuse.<br><span class="g-text">Sourced from evidence.</span></h2>
+  <div class="ds-prose reveal d2">
+    <p>Component selection wasn't based on guesswork. We cross-referenced Material 3, iOS Human Interface Guidelines, and Tencent's design system — then filtered against our own historical audit of what components appeared most frequently across the 30 apps. The result is a set of <strong>high-reuse, low-ambiguity building blocks</strong> that covers the full range of interaction patterns without over-engineering.</p>
+  </div>
+
+  <div class="ds-comp-category-grid reveal d2">
+    <div class="ds-comp-category-card">
+      <div class="ds-comp-cat-header">
+        <span class="ds-comp-cat-emoji">🔷</span>
+        <span class="ds-comp-cat-title">Basic UI</span>
+        <span class="ds-comp-cat-count">5</span>
+      </div>
+      <div class="ds-comp-item-list">
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Button</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>FAB</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Divider</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Chip (Tag)</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Image</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+      </div>
+    </div>
+
+    <div class="ds-comp-category-card">
+      <div class="ds-comp-cat-header">
+        <span class="ds-comp-cat-emoji">🧭</span>
+        <span class="ds-comp-cat-title">Navigation</span>
+        <span class="ds-comp-cat-count">5</span>
+      </div>
+      <div class="ds-comp-item-list">
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>NavBar (Top Bar)</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>TabBar (Bottom Nav)</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Tabs</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Segmented Picker</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Step Indicator</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+      </div>
+    </div>
+
+    <div class="ds-comp-category-card">
+      <div class="ds-comp-cat-header">
+        <span class="ds-comp-cat-emoji">✏️</span>
+        <span class="ds-comp-cat-title">Input</span>
+        <span class="ds-comp-cat-count">11</span>
+      </div>
+      <div class="ds-comp-item-list">
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Checkbox</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Radio</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Search</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Switch (Toggle)</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Slider</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Text Input</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Text Area</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Dropdown Menu</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Wheel Picker</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Date/Time Picker</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Rate</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+      </div>
+    </div>
+
+    <div class="ds-comp-category-card">
+      <div class="ds-comp-cat-header">
+        <span class="ds-comp-cat-emoji">📊</span>
+        <span class="ds-comp-cat-title">Data Display</span>
+        <span class="ds-comp-cat-count">8</span>
+      </div>
+      <div class="ds-comp-item-list">
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Avatar</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Badge</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Cell</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Swipe Cell</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>News</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Progress</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Pagination</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Carousel</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+      </div>
+    </div>
+
+    <div class="ds-comp-category-card">
+      <div class="ds-comp-cat-header">
+        <span class="ds-comp-cat-emoji">💬</span>
+        <span class="ds-comp-cat-title">Feedback</span>
+        <span class="ds-comp-cat-count">5</span>
+      </div>
+      <div class="ds-comp-item-list">
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Action Sheet</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Dialog</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Notice Bar (Message)</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Bottom Sheet (Modal)</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Tooltips</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+      </div>
+    </div>
+
+    <div class="ds-comp-category-card">
+      <div class="ds-comp-cat-header">
+        <span class="ds-comp-cat-emoji">📦</span>
+        <span class="ds-comp-cat-title">Others</span>
+        <span class="ds-comp-cat-count">6</span>
+      </div>
+      <div class="ds-comp-item-list">
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Guide</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Tutorial</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Event Card</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Ads</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Winback Offer</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+        <div class="ds-comp-item"><span class="ds-comp-item-name"><span class="ds-comp-item-arrow">›</span>Landing Page Template</span><span class="ds-comp-item-code">&lt;/&gt;</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Platform-specific components -->
+  <div style="margin-top: var(--space-10);">
+    <div class="ds-badge reveal">
+      <span class="ds-badge-dot"></span>
+      <span class="ds-badge-text">Platform-Specific Components</span>
+    </div>
+    <h3 class="ds-section-title-sm reveal d1">Same function,<br><span class="g-text">different form.</span></h3>
+    <div class="ds-prose reveal d2">
+      <p>Most components share one unified design. But a handful carry enough platform-native meaning that forcing a single visual would break user expectations. For these, we made a deliberate call to <strong>maintain separate iOS and Android variants</strong> within the same system — same token layer, different component expression.</p>
+    </div>
+
+    <div class="ds-platform-comp-grid reveal d2">
+      <!-- Segmented Picker -->
+      <div class="ds-platform-comp-card">
+        <div class="ds-pc-header">
+          <div class="ds-pc-title">Segmented Picker</div>
+          <div class="ds-pc-reason">iOS Segmented Control is a pill-shaped, filled selection. Android's equivalent is a more linear, outlined chip-group. Using the wrong one reads as "ported."</div>
+        </div>
+        <div class="ds-pc-images">
+          <div class="ds-pc-img-item">
+            <img src="images/case-3/case%203%20-%20iOS%20Segmented%20Picker.png" alt="iOS variant" style="width:100%;height:140px;object-fit:contain;display:block;border-radius:8px;">
+            <div class="ds-pc-img-label"><span class="ds-b-ios">iOS</span> Segmented Control</div>
+          </div>
+          <div class="ds-pc-img-item">
+            <img src="images/case-3/case%203%20-%20Android%20Segmented%20Picker.png" alt="Android variant" style="width:100%;height:140px;object-fit:contain;display:block;border-radius:8px;">
+            <div class="ds-pc-img-label"><span class="ds-b-android">Android</span> Chip Group</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="ds-platform-comp-card">
+        <div class="ds-pc-header">
+          <div class="ds-pc-title">Search Bar</div>
+          <div class="ds-pc-reason">Android users expect an explicit focus state when the field is active. iOS users tap directly and begin typing; a focus state feels redundant and creates noise in a familiar iOS context.</div>
+        </div>
+        <div class="ds-pc-images">
+          <div class="ds-pc-img-item">
+            <img src="images/case-3/case%203%20-%20iOS%20Search.png" alt="No focus state" style="width:100%;height:140px;object-fit:contain;display:block;border-radius:8px;">
+            <div class="ds-pc-img-label"><span class="ds-b-ios">iOS</span> Direct input</div>
+          </div>
+          <div class="ds-pc-img-item">
+            <img src="images/case-3/case%203%20-%20Android%20Search.png" alt="With focus state" style="width:100%;height:140px;object-fit:contain;display:block;border-radius:8px;">
+            <div class="ds-pc-img-label"><span class="ds-b-android">Android</span> Focus indicator</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Switch -->
+      <div class="ds-platform-comp-card">
+        <div class="ds-pc-header">
+          <div class="ds-pc-title">Switch (Toggle)</div>
+          <div class="ds-pc-reason">iOS switch is larger, with a white thumb and smooth slide. Android's M3 switch uses a smaller thumb that grows on press, with a distinct track shape. Both are instantly recognizable — but only on their home platform.</div>
+        </div>
+        <div class="ds-pc-images">
+          <div class="ds-pc-img-item">
+            <img src="images/case-3/case%203%20-%20iOS%20Toggle.png" alt="iOS switch" style="width:100%;height:140px;object-fit:contain;display:block;border-radius:8px;">
+            <div class="ds-pc-img-label"><span class="ds-b-ios">iOS</span> UISwitch</div>
+          </div>
+          <div class="ds-pc-img-item">
+            <img src="images/case-3/case%203%20-%20Android%20Toggle.png" alt="Android switch" style="width:100%;height:140px;object-fit:contain;display:block;border-radius:8px;">
+            <div class="ds-pc-img-label"><span class="ds-b-android">Android</span> M3 Switch</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event Cards -->
+      <div class="ds-platform-comp-card">
+        <div class="ds-pc-header">
+          <div class="ds-pc-title">App Store / Play Store Event Card</div>
+          <div class="ds-pc-reason">App Store and Google Play have distinct promotional card formats and aspect ratio requirements. Using one format on both stores risks rejection or poor display in the app's storefront listing.</div>
+        </div>
+        <div class="ds-pc-images">
+          <div class="ds-pc-img-item">
+            <img src="images/case-3/case%203%20-%20iOS%20Event%20Card.png" alt="App Store format" style="width:100%;height:140px;object-fit:contain;display:block;border-radius:8px;">
+            <div class="ds-pc-img-label"><span class="ds-b-ios">iOS</span> App Store Event</div>
+          </div>
+          <div class="ds-pc-img-item">
+            <img src="images/case-3/case%203%20-%20Android%20Event%20Card.png" alt="Play Store format" style="width:100%;height:140px;object-fit:contain;display:block;border-radius:8px;">
+            <div class="ds-pc-img-label"><span class="ds-b-android">Android</span> Play Store Event</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 07 DELIBERATE CONSTRAINTS ── -->
+<div class="ds-section ds-section--border">
+  <div class="ds-badge reveal">
+    <span class="ds-badge-dot"></span>
+    <span class="ds-badge-text">07 · Deliberate Constraints</span>
   </div>
   <h2 class="ds-section-title reveal d1">What we chose<br><span class="g-text">not to build.</span></h2>
   <div class="ds-prose reveal d2">
-    <p>A system that over-specifies becomes a ceiling, not a foundation — a lesson we'd already learned from our first-generation systems.</p>
+    <p>The instinct with design systems is to be comprehensive. We made the opposite call. A system that over-specifies becomes a ceiling, not a foundation — a lesson learned the hard way from our first-generation systems.</p>
   </div>
   <div class="ds-constraint-grid reveal d2">
     <div class="ds-constraint-card">
@@ -869,19 +1486,19 @@
       <div class="ds-constraint-lesson"><strong>Design principle:</strong> Global systems should govern shared logic, not aesthetic personality. Effects belong to the product, not the system.</div>
     </div>
   </div>
-  <div class="ds-pull-quote reveal d3">
+  <div class="ds-pull-quote reveal d3" style="margin-top: var(--space-5);">
     <p>"A system that controls too much becomes a ceiling. We built a foundation — then got out of the way."</p>
   </div>
 </div>
 
-<!-- ── 06 RESULTS (inverted) ── -->
+<!-- ── 08 RESULTS (inverted) ── -->
 <div class="ds-results">
   <div class="ds-dot-texture"></div>
   <div class="ds-radial-glow ds-glow-tr"></div>
   <div class="ds-results-inner">
     <div class="ds-badge ds-badge--dark reveal">
       <span class="ds-badge-dot"></span>
-      <span class="ds-badge-text">06 · Results</span>
+      <span class="ds-badge-text">08 · Results</span>
     </div>
     <h2 class="ds-section-title reveal d1">What changed.</h2>
 
@@ -928,11 +1545,11 @@
   </div>
 </div>
 
-<!-- ── 07 REFLECTION ── -->
+<!-- ── 09 REFLECTION ── -->
 <div class="ds-section">
   <div class="ds-badge reveal">
     <span class="ds-badge-dot"></span>
-    <span class="ds-badge-text">07 · Reflection</span>
+    <span class="ds-badge-text">09 · Reflection</span>
   </div>
   <h2 class="ds-section-title reveal d1">What we'd do<br><span class="g-text">differently.</span></h2>
 
@@ -941,14 +1558,21 @@
       <div class="ds-reflection-num">01</div>
       <div>
         <div class="ds-reflection-title">Spacing should have been in scope</div>
-        <div class="ds-reflection-body">VQA data shows spacing is now the most frequent failure point. Color and typography were solved — but without a shared spacing token system, handoff inconsistencies persist. Next iteration: spacing tokens first.</div>
+        <div class="ds-reflection-body">VQA data shows spacing is now the most frequent failure point. Color and typography were solved — but without a shared spacing token system, handoff inconsistencies persist. In the next iteration, spacing tokens are the priority.</div>
       </div>
     </div>
     <div class="ds-reflection-item reveal d1">
       <div class="ds-reflection-num">02</div>
       <div>
-        <div class="ds-reflection-title">Bring engineering in at week one, not week three</div>
-        <div class="ds-reflection-body">We spent nearly three weeks debating Idea 1 vs Idea 2 between two designers. When we finally brought engineering in, their priorities clarified our decision within days. That conversation should have happened from the start.</div>
+        <div class="ds-reflection-title">Bring engineering into the token architecture debate earlier</div>
+        <div class="ds-reflection-body">We spent nearly three weeks debating Idea 1 vs Idea 2 between two designers. When we finally brought engineering into the conversation, their priorities — reuse rate, simplicity — clarified our decision within days. That conversation should have happened in week one, not week three.</div>
+      </div>
+    </div>
+    <div class="ds-reflection-item reveal d2">
+      <div class="ds-reflection-num">03</div>
+      <div>
+        <div class="ds-reflection-title">The constraint strategy was the right call</div>
+        <div class="ds-reflection-body">Excluding dark mode and effects from the global system felt like a limitation at the time. In retrospect, it was the decision that made the system actually adoptable. Products with unique visual needs used the token foundation and built their personality on top. This is what a platform should feel like.</div>
       </div>
     </div>
   </div>
@@ -979,12 +1603,12 @@
 </footer>
 
 <script>
-  /* Nav scroll */
+  const progressBar = document.getElementById('progress-bar');
   window.addEventListener('scroll', () => {
+    progressBar.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%';
     document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 10);
   });
 
-  /* Scroll-triggered reveal */
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -993,7 +1617,6 @@
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   reveals.forEach(el => observer.observe(el));
 
-  /* VQA bar animation */
   const vqaB = document.getElementById('vqa-b');
   const vqaA = document.getElementById('vqa-a');
   const vqaIo = new IntersectionObserver(entries => {
@@ -1005,6 +1628,32 @@
   }, { threshold: 0.3 });
   const vqaEl = document.querySelector('.ds-vqa-bar');
   if (vqaEl) vqaIo.observe(vqaEl);
+
+  // ── LIGHTBOX ──
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightbox-img');
+
+  document.querySelectorAll('img[src*="images/case-3"]').forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => {
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      lb.classList.toggle('lb-cover', img.dataset.lb === 'cover');
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  lb.addEventListener('click', e => {
+    if (e.target === lb || e.target.classList.contains('lb-backdrop')) close();
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+
+  function close() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+    setTimeout(() => { lbImg.src = ''; }, 300);
+  }
 </script>
 
 </body>
