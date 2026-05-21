@@ -62,6 +62,13 @@
     .cs-next-link { color: var(--text); border-color: var(--border); }
     .cs-next-link:hover { background: rgba(0,0,0,0.04); border-color: var(--case-accent); transform: translateY(-2px); }
 
+    /* ── Progress bar ── */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+      background: var(--case-gradient-top);
+      z-index: 999; border-radius: 0 3px 3px 0; transition: width 0.1s linear;
+    }
+
     /* ── FOOTER light override ── */
     footer { background: oklch(0.96 0.008 255); border-top: 1px solid var(--border-subtle); color: var(--text-secondary); }
     footer a { color: var(--text-secondary); }
@@ -121,7 +128,7 @@
     /* ── LABEL PILL ── */
     .noaa-pill {
       display: inline-flex; align-items: center; gap: 6px;
-      font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+      font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
       color: var(--text-secondary); background: rgba(0,0,0,0.04);
       border: 1px solid var(--border); border-radius: var(--radius-full);
       padding: 5px 14px; margin-bottom: 28px;
@@ -130,7 +137,7 @@
     /* ── SECTION HEADING ── */
     .noaa-section-h {
       font-family: var(--font-display);
-      font-size: clamp(28px, 4vw, 44px);
+      font-size: clamp(28px, 3.5vw, 46px);
       font-weight: 600; letter-spacing: -0.03em;
       color: var(--text); line-height: 1.1;
     }
@@ -155,7 +162,7 @@
     /* Poster-scale title — solid color, no gradient (ban fix) */
     .noaa-hero-title {
       font-family: var(--font-display);
-      font-size: clamp(48px, 6vw, 74px);
+      font-size: clamp(44px, 6vw, 76px);
       font-weight: 600;
       line-height: 0.88;
       letter-spacing: -0.04em;
@@ -164,7 +171,7 @@
     }
 
     .noaa-hero-sub {
-      font-size: 16px; color: var(--text-secondary);
+      font-size: 18px; color: var(--text-secondary);
       font-weight: 300; max-width: 40ch; margin-bottom: 28px; line-height: 1.75;
     }
 
@@ -200,7 +207,7 @@
     .noaa-metric-val.amber  { color: var(--case-amber); }
     .noaa-metric-val.teal   { color: var(--case-teal); }
     .noaa-metric-val.violet { color: var(--case-violet); }
-    .noaa-metric-lbl { font-size: 11px; color: var(--text-secondary); line-height: 1.4; }
+    .noaa-metric-lbl { font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
 
     /* ── HURRICANE TRACKER VISUAL ── */
     .noaa-hero-visual {
@@ -249,6 +256,14 @@
       from { transform: scale(0); opacity: 0; }
       to   { transform: scale(1); opacity: 1; }
     }
+    .noaa-spin {
+      transform-box: fill-box; transform-origin: center;
+      animation: noaa-icon-spin 6s linear infinite;
+    }
+    @keyframes noaa-icon-spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
 
     /* ────────────────────────────────────────────────────────
        PULL QUOTE (editorial, no card container)
@@ -267,11 +282,11 @@
       margin-bottom: var(--space-3);
     }
     .noaa-pull-attr {
-      font-size: 12px; letter-spacing: 0.08em;
+      font-size: 14px; letter-spacing: 0.08em;
       text-transform: uppercase; color: var(--text-secondary);
     }
     .noaa-pull-context {
-      margin-top: 8px; font-size: 12px;
+      margin-top: 8px; font-size: 14px;
       color: var(--case-accent); font-weight: 500; letter-spacing: 0.04em;
     }
     .noaa-quote-note {
@@ -294,11 +309,11 @@
     .noaa-problem-item:last-child { border-bottom: 1px solid var(--border); }
     .noaa-problem-num {
       font-family: var(--font-mono);
-      font-size: 11px; letter-spacing: 0.08em;
+      font-size: 12px; letter-spacing: 0.08em;
       color: var(--text-tertiary); padding-top: 4px;
     }
     .noaa-problem-cat {
-      font-size: 10px; letter-spacing: 0.12em;
+      font-size: 12px; letter-spacing: 0.12em;
       text-transform: uppercase; font-weight: 600; margin-bottom: 8px;
     }
     .noaa-p1 .noaa-problem-cat { color: var(--case-red); }
@@ -312,7 +327,7 @@
     ──────────────────────────────────────────────────────── */
     .noaa-pivot-statement {
       font-family: var(--font-display);
-      font-size: clamp(24px, 3.5vw, 42px); font-weight: 600;
+      font-size: clamp(22px, 3vw, 36px); font-weight: 600;
       line-height: 1.2; letter-spacing: -0.02em;
       color: var(--text); max-width: 800px; margin-bottom: var(--space-4);
     }
@@ -324,7 +339,7 @@
       max-width: 640px;
     }
     .noaa-tension-label {
-      font-size: 10px; letter-spacing: 0.1em;
+      font-size: 12px; letter-spacing: 0.1em;
       text-transform: uppercase; color: var(--case-amber);
       font-weight: 600; margin-bottom: 8px;
     }
@@ -345,10 +360,10 @@
     .noaa-comp-item:last-child { border-bottom: 1px solid var(--border); }
     .noaa-comp-name { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
     .noaa-comp-gap  {
-      font-size: 11px; font-weight: 500;
+      font-size: 12px; font-weight: 500;
       color: var(--case-accent); text-transform: uppercase; letter-spacing: 0.06em;
     }
-    .noaa-comp-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.65; }
+    .noaa-comp-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.65; }
 
     /* ────────────────────────────────────────────────────────
        DECISIONS
@@ -361,21 +376,40 @@
     .noaa-decision:last-child { border-bottom: none; }
     .noaa-decision-num {
       font-family: var(--font-mono);
-      font-size: 13px; font-weight: 600; color: var(--case-accent);
+      font-size: 12px; font-weight: 600; color: var(--case-accent);
       letter-spacing: 0.05em; padding-top: 6px;
     }
     .noaa-decision-title {
       font-family: var(--font-display);
-      font-size: 22px; font-weight: 600; color: var(--text);
+      font-size: 20px; font-weight: 600; color: var(--text);
       letter-spacing: -0.01em; margin-bottom: 4px;
     }
-    .noaa-decision-frame { font-size: 13px; color: var(--text-secondary); font-style: italic; margin-bottom: 18px; }
-    .noaa-decision-body p { font-size: 14.5px; color: var(--text-secondary); line-height: 1.75; max-width: 62ch; }
+    .noaa-decision-frame { font-size: 14px; color: var(--text-secondary); font-style: italic; margin-bottom: 18px; }
+    .noaa-decision-body p { font-size: 15px; color: var(--text-secondary); line-height: 1.75; }
     .noaa-decision-body p + p { margin-top: 12px; }
+    .noaa-decision-split {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: var(--space-8);
+      align-items: start;
+    }
+    .noaa-decision-img-wrap {
+      position: sticky;
+      top: 96px;
+    }
+    .noaa-decision-img-wrap img {
+      width: 100%;
+      height: auto;
+      max-height: 380px;
+      object-fit: contain;
+      border-radius: 12px;
+      display: block;
+      background: rgba(0,0,0,0.02);
+    }
 
     .noaa-insight-bar {
       margin-top: var(--space-3); padding: 12px 16px; border-radius: var(--radius-xs);
-      font-size: 13px; font-weight: 500;
+      font-size: 14px; font-weight: 500;
       display: flex; align-items: flex-start; gap: 10px; max-width: 56ch;
     }
     .noaa-insight-bar::before { content: '→'; font-size: 14px; flex-shrink: 0; margin-top: 1px; }
@@ -384,7 +418,7 @@
 
     .noaa-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
     .noaa-chip {
-      font-size: 11px; font-weight: 500; padding: 4px 11px; border-radius: var(--radius-full);
+      font-size: 12px; font-weight: 500; padding: 4px 11px; border-radius: var(--radius-full);
       background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.09);
       color: var(--text-tertiary); letter-spacing: 0.02em;
     }
@@ -412,7 +446,7 @@
     .noaa-s2 .noaa-result-num { color: var(--case-amber); }
     .noaa-s3 .noaa-result-num { color: var(--case-teal); }
     .noaa-s4 .noaa-result-num { color: var(--case-violet); }
-    .noaa-result-lbl { font-size: 12px; color: var(--text-secondary); line-height: 1.45; max-width: 16ch; }
+    .noaa-result-lbl { font-size: 14px; color: var(--text-secondary); line-height: 1.45; max-width: 16ch; }
 
     /* ── PCMAG ── */
     .noaa-pcmag {
@@ -426,7 +460,7 @@
       display: flex; align-items: center; justify-content: center; font-size: 16px;
     }
     .noaa-pcmag-text strong { display: block; font-size: 14px; font-weight: 700; color: var(--case-amber); margin-bottom: 2px; }
-    .noaa-pcmag-text span   { font-size: 12px; color: var(--text-secondary); }
+    .noaa-pcmag-text span   { font-size: 14px; color: var(--text-secondary); }
 
     /* ────────────────────────────────────────────────────────
        REFLECTION — single glassmorphism use
@@ -451,6 +485,28 @@
     .noaa-reflection-body { font-size: 15px; color: var(--text-secondary); line-height: 1.8; max-width: 62ch; }
     .noaa-reflection-body + .noaa-reflection-body { margin-top: 16px; }
 
+    /* ── IMAGE PLACEHOLDERS ── */
+    .noaa-img-placeholder {
+      margin-top: var(--space-4);
+      width: 100%;
+      border-radius: var(--radius-sm);
+      border: 1.5px dashed rgba(0,0,0,0.12);
+      background: rgba(0,0,0,0.025);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: rgba(0,0,0,0.25);
+      text-align: center;
+      padding: 40px;
+    }
+    .noaa-img-placeholder.screens { height: 260px; }
+    .noaa-img-placeholder.banner  { height: 160px; }
+    .noaa-img-placeholder svg { opacity: 0.28; }
+    .noaa-img-ph-label { font-size: 12px; font-weight: 500; letter-spacing: 0.04em; color: rgba(0,0,0,0.32); }
+    .noaa-img-ph-sub   { font-size: 12px; color: rgba(0,0,0,0.18); letter-spacing: 0.02em; }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 800px) {
       .noaa-hero-inner { grid-template-columns: 1fr; gap: var(--space-5); }
@@ -461,11 +517,16 @@
       .noaa-comp-item { grid-template-columns: 1fr; gap: 4px; }
       .noaa-results-grid { grid-template-columns: 1fr 1fr; }
       .noaa-decision { grid-template-columns: 1fr; gap: 8px; }
+      .noaa-decision-split { grid-template-columns: 1fr; }
+      .noaa-decision-img-wrap { position: static; order: -1; }
+      .noaa-decision-img-wrap img { max-height: 260px; }
       .noaa-reflection-card { padding: 32px 24px; }
     }
   </style>
 </head>
 <body>
+
+<div id="progress-bar"></div>
 
 <!-- ── LIQUID BACKGROUND ── -->
 <div class="noaa-liquid-bg" aria-hidden="true">
@@ -556,7 +617,7 @@
 
             <!-- Forecast track (dashed) -->
             <path class="noaa-forecast-track"
-              d="M60 278 Q112 206 178 142 Q238 85 292 50"
+              d="M60 278 Q112 206 178 142"
               stroke="rgba(8,145,178,0.68)" stroke-width="1.8" fill="none"
               stroke-dasharray="8 4" stroke-linecap="round"/>
 
@@ -575,47 +636,32 @@
             <!-- Storm center -->
             <circle cx="60" cy="278" r="5" fill="rgba(8,145,178,0.95)"/>
 
-            <!-- Past TS dot -->
-            <circle cx="14" cy="346" r="5" class="noaa-wp" style="animation-delay:0.3s"
-              fill="rgba(120,120,140,0.15)" stroke="rgba(100,100,120,0.50)" stroke-width="1.2"/>
-
-            <!-- CAT 1 · NOW label -->
-            <text x="74" y="282" font-size="8.5" fill="rgba(217,119,6,0.92)"
+            <!-- Current state — Tropical Storm spinning -->
+            <g class="noaa-wp" style="animation-delay:0.5s">
+              <image class="noaa-spin" href="images/case-2/case%202%20-%20Hurricane%20Tropical%20Storm.png" x="38" y="256" width="44" height="44"/>
+            </g>
+            <text x="86" y="281" font-size="11" fill="rgba(217,119,6,0.92)"
               font-family="'Courier New',Courier,monospace" font-weight="700" letter-spacing="0.05em"
-              class="noaa-wp" style="animation-delay:0.7s">CAT 1 · NOW</text>
+              class="noaa-wp" style="animation-delay:0.9s">TS · NOW</text>
 
-            <!-- 24h · Cat 2 -->
-            <g class="noaa-wp" style="animation-delay:1.1s">
-              <circle cx="112" cy="206" r="7" fill="rgba(251,146,60,0.14)" stroke="rgba(234,88,12,0.70)" stroke-width="1.5"/>
-              <text x="124" y="209" font-size="8" fill="rgba(234,88,12,0.85)"
-                font-family="'Courier New',Courier,monospace" letter-spacing="0.04em">C2 · 24h</text>
+            <!-- 24h · Cat 1 — static -->
+            <g class="noaa-wp" style="animation-delay:1.2s">
+              <image href="images/case-2/case%202%20-%20Hurricane%20Cat%201.png" x="94" y="188" width="36" height="36"/>
+              <text x="133" y="210" font-size="10.5" fill="rgba(234,88,12,0.85)"
+                font-family="'Courier New',Courier,monospace" letter-spacing="0.04em">C1 · 24h</text>
             </g>
 
-            <!-- 48h · Cat 3 peak -->
-            <g class="noaa-wp" style="animation-delay:1.5s">
-              <circle cx="178" cy="142" r="9" fill="rgba(220,38,38,0.12)" stroke="rgba(220,38,38,0.75)" stroke-width="1.5"/>
-              <text x="191" y="145" font-size="8" fill="rgba(220,38,38,0.90)"
+            <!-- 48h · Cat 3 peak — static -->
+            <g class="noaa-wp" style="animation-delay:1.7s">
+              <image href="images/case-2/case%202%20-%20Hurricane%20Cat%203.png" x="161" y="125" width="34" height="34"/>
+              <text x="198" y="147" font-size="10.5" fill="rgba(220,38,38,0.90)"
                 font-family="'Courier New',Courier,monospace" font-weight="700" letter-spacing="0.04em">C3 · 48h</text>
             </g>
 
-            <!-- 72h · Cat 2 -->
-            <g class="noaa-wp" style="animation-delay:1.9s">
-              <circle cx="238" cy="87" r="7" fill="rgba(251,146,60,0.12)" stroke="rgba(234,88,12,0.60)" stroke-width="1.5"/>
-              <text x="249" y="90" font-size="8" fill="rgba(234,88,12,0.78)"
-                font-family="'Courier New',Courier,monospace" letter-spacing="0.04em">C2 · 72h</text>
-            </g>
-
-            <!-- 96h · Cat 1 -->
-            <g class="noaa-wp" style="animation-delay:2.3s">
-              <circle cx="292" cy="50" r="6" fill="rgba(251,191,36,0.12)" stroke="rgba(217,119,6,0.58)" stroke-width="1.5"/>
-              <text x="302" y="53" font-size="8" fill="rgba(217,119,6,0.73)"
-                font-family="'Courier New',Courier,monospace" letter-spacing="0.04em">C1 · 96h</text>
-            </g>
-
             <!-- Data readout -->
-            <text x="10" y="348" font-size="7" fill="rgba(0,0,0,0.18)"
-              font-family="'Courier New',Courier,monospace">115kt  940mb  CAT 3 INTENSIFYING</text>
-            <text x="10" y="357" font-size="7" fill="rgba(0,0,0,0.14)"
+            <text x="10" y="348" font-size="8.5" fill="rgba(0,0,0,0.18)"
+              font-family="'Courier New',Courier,monospace">45kt  1005mb  TROP STORM  INTENSIFYING</text>
+            <text x="10" y="357" font-size="8.5" fill="rgba(0,0,0,0.14)"
               font-family="'Courier New',Courier,monospace" letter-spacing="0.05em">NHC OFFICIAL FORECAST · HURRICANE IAN</text>
 
           </svg>
@@ -739,16 +785,23 @@
         <div class="noaa-decision reveal">
           <div class="noaa-decision-num">01 ──</div>
           <div class="noaa-decision-body">
-            <div class="noaa-decision-title">Location-aware OB severe weather page</div>
-            <div class="noaa-decision-frame">The moment that defines whether a user subscribes</div>
-            <p>Before any feature list — users see a real, active threat in their specific region. California gets wildfire alerts. Oklahoma gets tornado watches. Florida gets hurricane warnings. Not a welcome screen. A breaking news card, generated by remote config matching location to alert type.</p>
-            <p>The four-screen flow builds a chain of justified asks: threat → location permission → notification permission → subscribe. Each step's ask is earned by the step before it. Subscription stops feeling like a product decision — it feels like completing the act of protecting yourself.</p>
-            <div class="noaa-insight-bar amber">Static card, not dynamic. Every added MB impacts download conversion. The constraint forced copy and imagery to carry the full emotional weight alone.</div>
-            <div class="noaa-chips">
-              <span class="noaa-chip">Zeigarnik Effect</span>
-              <span class="noaa-chip">Goal-Gradient Effect</span>
-              <span class="noaa-chip">Nielsen #1 Visibility</span>
-              <span class="noaa-chip">Hypothesis-driven Design</span>
+            <div class="noaa-decision-split">
+              <div class="noaa-decision-text">
+                <div class="noaa-decision-title">Location-aware OB severe weather page</div>
+                <div class="noaa-decision-frame">The moment that defines whether a user subscribes</div>
+                <p>Before any feature list — users see a real, active threat in their specific region. California gets wildfire alerts. Oklahoma gets tornado watches. Florida gets hurricane warnings. Not a welcome screen. A breaking news card, generated by remote config matching location to alert type.</p>
+                <p>The four-screen flow builds a chain of justified asks: threat → location permission → notification permission → subscribe. Each step's ask is earned by the step before it. Subscription stops feeling like a product decision — it feels like completing the act of protecting yourself.</p>
+                <div class="noaa-insight-bar amber">Static card, not dynamic. Every added MB impacts download conversion. The constraint forced copy and imagery to carry the full emotional weight alone.</div>
+                <div class="noaa-chips">
+                  <span class="noaa-chip">Zeigarnik Effect</span>
+                  <span class="noaa-chip">Goal-Gradient Effect</span>
+                  <span class="noaa-chip">Nielsen #1 Visibility</span>
+                  <span class="noaa-chip">Hypothesis-driven Design</span>
+                </div>
+              </div>
+              <div class="noaa-decision-img-wrap">
+                <img src="images/case-2/case%202%20-%20NOAA%20hurricane%20OB.png" alt="Onboarding Flow · 4 Screens">
+              </div>
             </div>
           </div>
         </div>
@@ -757,15 +810,22 @@
         <div class="noaa-decision reveal">
           <div class="noaa-decision-num">02 ──</div>
           <div class="noaa-decision-body">
-            <div class="noaa-decision-title">Hurricane tracker with time scrubber</div>
-            <div class="noaa-decision-frame">From news display to evacuation planning tool</div>
-            <p>Competitors show a static snapshot: here is where the hurricane is. We built a horizontal time scrubber — drag across waypoints and the map cone, category, wind speed, and movement update in real time.</p>
-            <p>The design answers a different question: not "where is it now?" but "if I leave tomorrow morning, what will conditions look like?" Color-coded waypoints (red → Cat 3, orange → Cat 2, yellow → Cat 1) communicate intensity change over time without requiring users to read labels.</p>
-            <div class="noaa-insight-bar cyan">Also: bottom tab badge showing active alert count creates urgency before users enter the tracker screen.</div>
-            <div class="noaa-chips">
-              <span class="noaa-chip">Mental Model Alignment</span>
-              <span class="noaa-chip">Doherty Threshold</span>
-              <span class="noaa-chip">Dual-encode Severity</span>
+            <div class="noaa-decision-split">
+              <div class="noaa-decision-text">
+                <div class="noaa-decision-title">Hurricane tracker with time scrubber</div>
+                <div class="noaa-decision-frame">From news display to evacuation planning tool</div>
+                <p>Competitors show a static snapshot: here is where the hurricane is. We built a horizontal time scrubber — drag across waypoints and the map cone, category, wind speed, and movement update in real time.</p>
+                <p>The design answers a different question: not "where is it now?" but "if I leave tomorrow morning, what will conditions look like?" Color-coded waypoints (red → Cat 3, orange → Cat 2, yellow → Cat 1) communicate intensity change over time without requiring users to read labels.</p>
+                <div class="noaa-insight-bar cyan">Also: bottom tab badge showing active alert count creates urgency before users enter the tracker screen.</div>
+                <div class="noaa-chips">
+                  <span class="noaa-chip">Mental Model Alignment</span>
+                  <span class="noaa-chip">Doherty Threshold</span>
+                  <span class="noaa-chip">Dual-encode Severity</span>
+                </div>
+              </div>
+              <div class="noaa-decision-img-wrap">
+                <img src="images/case-2/case%202%20-%20NOAA%20hurriance%20tracker%20flow.png" alt="Hurricane Tracker · Time Scrubber">
+              </div>
             </div>
           </div>
         </div>
@@ -774,15 +834,22 @@
         <div class="noaa-decision reveal">
           <div class="noaa-decision-num">03 ──</div>
           <div class="noaa-decision-body">
-            <div class="noaa-decision-title">Multi-location alerts — protecting families, not just users</div>
-            <div class="noaa-decision-frame">Expanding the protection unit from individual to household</div>
-            <p>The Alerts page has two tabs: Current Location and Favorite Location. Alerts are grouped by city — Tampa shows 3 active, Irvine shows 2. A user monitoring elderly parents in Florida while safe in Chicago now has an app worth paying for.</p>
-            <p>Alert detail pages embed the NHC Seven-Day Graphical Tropical Weather Outlook directly — the official chart, uninterpreted. Users in high-stakes situations see exactly what emergency managers see. Trust through transparency, not through translation.</p>
-            <div class="noaa-chips">
-              <span class="noaa-chip">Jakob's Law</span>
-              <span class="noaa-chip">Miller's Law (chunk by city)</span>
-              <span class="noaa-chip">Dual encoding (color + text)</span>
-              <span class="noaa-chip">Doherty Threshold</span>
+            <div class="noaa-decision-split">
+              <div class="noaa-decision-text">
+                <div class="noaa-decision-title">Multi-location alerts — protecting families, not just users</div>
+                <div class="noaa-decision-frame">Expanding the protection unit from individual to household</div>
+                <p>The Alerts page has two tabs: Current Location and Favorite Location. Alerts are grouped by city — Tampa shows 3 active, Irvine shows 2. A user monitoring elderly parents in Florida while safe in Chicago now has an app worth paying for.</p>
+                <p>Alert detail pages embed the NHC Seven-Day Graphical Tropical Weather Outlook directly — the official chart, uninterpreted. Users in high-stakes situations see exactly what emergency managers see. Trust through transparency, not through translation.</p>
+                <div class="noaa-chips">
+                  <span class="noaa-chip">Jakob's Law</span>
+                  <span class="noaa-chip">Miller's Law (chunk by city)</span>
+                  <span class="noaa-chip">Dual encoding (color + text)</span>
+                  <span class="noaa-chip">Doherty Threshold</span>
+                </div>
+              </div>
+              <div class="noaa-decision-img-wrap">
+                <img src="images/case-2/case%202%20-%20NOAA%20different%20location%20alert%20on%20map.png" alt="Multi-location Alerts · Tabs View">
+              </div>
             </div>
           </div>
         </div>
@@ -791,15 +858,22 @@
         <div class="noaa-decision reveal">
           <div class="noaa-decision-num">04 ──</div>
           <div class="noaa-decision-body">
-            <div class="noaa-decision-title">App Store hurricane season promotion</div>
-            <div class="noaa-decision-frame">ASO as design — extending visual language to discovery</div>
-            <p>Using Apple's App Store Events feature, we built a hurricane-season promotion around the in-app track visualization: actual storm cones and paths, with copy written like a news alert. Users searching for weather apps during hurricane season encountered what looked like breaking news.</p>
-            <p>The creative was a direct extension of the product's visual language — urgency, specificity, action. Same vocabulary, applied to the top of the acquisition funnel.</p>
-            <div class="noaa-insight-bar amber">Result: approximately 30% download increase during the promotion window.</div>
-            <div class="noaa-chips">
-              <span class="noaa-chip">Von Restorff Effect</span>
-              <span class="noaa-chip">Aesthetic-Usability Effect</span>
-              <span class="noaa-chip">Consistent Design Language</span>
+            <div class="noaa-decision-split">
+              <div class="noaa-decision-text">
+                <div class="noaa-decision-title">App Store hurricane season promotion</div>
+                <div class="noaa-decision-frame">ASO as design — extending visual language to discovery</div>
+                <p>Using Apple's App Store Events feature, we built a hurricane-season promotion around the in-app track visualization: actual storm cones and paths, with copy written like a news alert. Users searching for weather apps during hurricane season encountered what looked like breaking news.</p>
+                <p>The creative was a direct extension of the product's visual language — urgency, specificity, action. Same vocabulary, applied to the top of the acquisition funnel.</p>
+                <div class="noaa-insight-bar amber">Result: approximately 30% download increase during the promotion window.</div>
+                <div class="noaa-chips">
+                  <span class="noaa-chip">Von Restorff Effect</span>
+                  <span class="noaa-chip">Aesthetic-Usability Effect</span>
+                  <span class="noaa-chip">Consistent Design Language</span>
+                </div>
+              </div>
+              <div class="noaa-decision-img-wrap">
+                <img src="images/case-2/case%202%20-%20NOAA%20App%20Store%20hurricane%20pomotion.png" alt="App Store Event · Hurricane Season Banner">
+              </div>
             </div>
           </div>
         </div>
@@ -884,7 +958,9 @@
 </footer>
 
 <script>
+  const progressBar = document.getElementById('progress-bar');
   window.addEventListener('scroll', () => {
+    progressBar.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%';
     document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 10);
   });
 

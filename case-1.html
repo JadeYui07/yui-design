@@ -25,6 +25,9 @@
   --grad:       linear-gradient(135deg, #ff7b35, #a855f7);
   --grad-soft:  linear-gradient(135deg, rgba(255,123,53,0.15), rgba(168,85,247,0.15));
 
+  /* case accent */
+  --case-accent: #ff7b35;
+
   --radius-sm:  10px;
   --radius:     18px;
   --radius-lg:  28px;
@@ -73,7 +76,8 @@ body {
 }
 
 /* ── NAV (dark overrides) ── */
-nav { background: rgba(12, 12, 16, 0.85); }
+nav { background: rgba(12, 12, 16, 0.85); border-bottom-color: transparent; }
+nav.scrolled { background: rgba(12, 12, 16, 0.95); border-bottom-color: var(--border); }
 .nav-logo {
   font-family: var(--font-display);
   font-size: 28px;
@@ -98,13 +102,16 @@ nav { background: rgba(12, 12, 16, 0.85); }
   flex-direction: column;
   align-items: flex-start;
   gap: 0;
+  width: fit-content;
+  height: fit-content;
+  min-height: auto;
 }
 
 .hero-eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text2);
   background: var(--surface);
   border: 1px solid var(--border);
@@ -128,11 +135,16 @@ nav { background: rgba(12, 12, 16, 0.85); }
   line-height: 1.05;
   letter-spacing: -0.03em;
   margin-bottom: 24px;
+  text-align: left;
   opacity: 0;
   animation: up 0.6s 0.2s forwards;
 }
 .hero-title .grad-text {
-  color: var(--text);
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+  background-clip: unset;
+  color: var(--case-accent);
 }
 
 .hero-sub {
@@ -142,24 +154,36 @@ nav { background: rgba(12, 12, 16, 0.85); }
   max-width: 560px;
   line-height: 1.6;
   margin-bottom: 40px;
+  text-align: left;
   opacity: 0;
   animation: up 0.6s 0.3s forwards;
 }
 
 .hero-meta {
   display: flex;
-  gap: 32px;
+  text-align: left;
+  align-items: flex-start;
+  flex-direction: row;
   flex-wrap: wrap;
+  width: auto;
+  max-width: 100%;
+  gap: 16px;
   opacity: 0;
   animation: up 0.6s 0.4s forwards;
 }
 .hero-meta-pill {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text2);
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 40px;
-  padding: 6px 14px;
+  text-align: left;
+  display: inline-flex;
+  width: auto;
+  padding: 5px 14px;
+  gap: 12px;
+  align-items: center;
+  white-space: nowrap;
 }
 .hero-meta-pill strong { color: var(--text); font-weight: 500; }
 
@@ -211,7 +235,7 @@ nav { background: rgba(12, 12, 16, 0.85); }
 .impact-num.green {
   color: #4ade80;
 }
-.impact-label { font-size: 13px; color: var(--text2); line-height: 1.4; }
+.impact-label { font-size: 12px; color: var(--text2); line-height: 1.4; }
 
 /* ── SECTION COMMON ────────────────────────── */
 .section { padding: 100px var(--page-x); max-width: 1100px; margin: 0 auto; }
@@ -220,7 +244,7 @@ nav { background: rgba(12, 12, 16, 0.85); }
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text3);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -233,7 +257,7 @@ nav { background: rgba(12, 12, 16, 0.85); }
 
 h2 {
   font-family: var(--font-display);
-  font-size: clamp(32px, 4vw, 52px);
+  font-size: clamp(28px, 3.5vw, 46px);
   font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.1;
@@ -241,7 +265,7 @@ h2 {
 }
 h3 {
   font-family: var(--font-display);
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 600;
   letter-spacing: -0.02em;
   margin-bottom: 10px;
@@ -326,7 +350,7 @@ p strong { color: var(--text); font-weight: 500; }
 }
 .quote-block cite {
   display: block;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text3);
   margin-top: 10px;
   font-style: normal;
@@ -363,7 +387,7 @@ p strong { color: var(--text); font-weight: 500; }
 .jt-row:last-child { border-bottom: none; }
 .jt-cell {
   padding: 16px 18px;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text2);
   line-height: 1.5;
   border-right: 1px solid var(--border);
@@ -383,7 +407,7 @@ p strong { color: var(--text); font-weight: 500; }
   color: #fb7185;
   border: 1px solid rgba(251,113,133,0.2);
   border-radius: 4px;
-  font-size: 10px;
+  font-size: 14px;
   padding: 1px 6px;
   margin-bottom: 4px;
   font-weight: 500;
@@ -394,7 +418,7 @@ p strong { color: var(--text); font-weight: 500; }
   color: #c084fc;
   border: 1px solid rgba(168,85,247,0.2);
   border-radius: 4px;
-  font-size: 10px;
+  font-size: 14px;
   padding: 1px 6px;
   margin-bottom: 4px;
   font-weight: 500;
@@ -408,6 +432,8 @@ p strong { color: var(--text); font-weight: 500; }
   border-radius: var(--radius-lg);
   overflow: hidden;
   transition: all 0.25s;
+  display: flex;
+  flex-direction: column;
 }
 .flow-card.winner {
   border-color: rgba(168,85,247,0.35);
@@ -423,7 +449,7 @@ p strong { color: var(--text); font-weight: 500; }
 }
 .flow-title { font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.3; }
 .badge {
-  font-size: 10px;
+  font-size: 12px;
   padding: 3px 10px;
   border-radius: 40px;
   white-space: nowrap;
@@ -432,11 +458,11 @@ p strong { color: var(--text); font-weight: 500; }
 }
 .badge-out  { background: rgba(255,255,255,0.05); color: var(--text3); border: 1px solid var(--border); }
 .badge-win  { background: rgba(168,85,247,0.15); color: #c084fc; border: 1px solid rgba(168,85,247,0.3); }
-.flow-body  { padding: 20px 24px; }
-.flow-desc  { font-size: 13px; color: var(--text2); line-height: 1.5; margin-bottom: 16px; }
+.flow-body  { padding: 20px 24px; flex: 1; display: flex; flex-direction: column; }
+.flow-desc  { font-size: 14px; color: var(--text2); line-height: 1.5; margin-bottom: 16px; }
 
 .metric-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-.metric-name { font-size: 12px; color: var(--text3); }
+.metric-name { font-size: 14px; color: var(--text3); }
 .metric-bar-bg {
   width: 72px; height: 4px;
   background: rgba(255,255,255,0.05);
@@ -452,10 +478,12 @@ p strong { color: var(--text); font-weight: 500; }
   margin-top: 16px;
   padding-top: 16px;
   border-top: 1px solid var(--border);
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text2);
   line-height: 1.5;
+  flex: 1;
 }
+.flow-body .case-video { margin-top: 20px; }
 .flow-insight .why { color: #c084fc; font-weight: 500; }
 .flow-insight .why-bad { color: #fb7185; font-weight: 500; }
 
@@ -512,7 +540,7 @@ p strong { color: var(--text); font-weight: 500; }
 }
 .principle-text {}
 .principle-title { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
-.principle-law { font-size: 11px; color: var(--text3); margin-bottom: 8px; letter-spacing: 0.04em; }
+.principle-law { font-size: 12px; color: var(--text3); margin-bottom: 8px; letter-spacing: 0.04em; }
 .principle-body { font-size: 14px; color: var(--text2); line-height: 1.6; max-width: 640px; }
 
 /* ── USER QUOTES ───────────────────────────── */
@@ -527,7 +555,7 @@ p strong { color: var(--text); font-weight: 500; }
 .quote-card:hover { border-color: var(--border2); }
 .qt-tag {
   display: inline-block;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
   padding: 3px 10px;
   border-radius: 40px;
@@ -552,7 +580,7 @@ p strong { color: var(--text); font-weight: 500; }
 .ba-head { display: grid; grid-template-columns: 1fr 1fr; }
 .ba-h-cell {
   padding: 16px 24px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   display: flex; align-items: center; gap: 8px;
   border-bottom: 1px solid var(--border);
@@ -593,6 +621,27 @@ p strong { color: var(--text); font-weight: 500; }
   display: flex;
   justify-content: center;
 }
+
+/* Image placeholder (replaces coded mockup) */
+.phone-placeholder {
+  width: 248px;
+  aspect-ratio: 9 / 19;
+  border-radius: 40px;
+  border: 1.5px dashed rgba(255,255,255,0.12);
+  background: var(--bg2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: rgba(255,255,255,0.3);
+  text-align: center;
+  padding: 24px;
+  letter-spacing: 0.04em;
+}
+.phone-placeholder svg { opacity: 0.35; }
+.phone-placeholder-label { font-size: 12px; font-weight: 500; }
+.phone-placeholder-sub { font-size: 12px; opacity: 0.55; }
 .phone {
   width: 248px;
   background: var(--bg2);
@@ -617,7 +666,7 @@ p strong { color: var(--text); font-weight: 500; }
   align-items: center;
   justify-content: space-between;
   padding: 0 14px;
-  font-size: 9px;
+  font-size: 14px;
   color: rgba(255,255,255,0.35);
 }
 .p-notch {
@@ -630,10 +679,10 @@ p strong { color: var(--text); font-weight: 500; }
 .p-body { padding: 12px; }
 
 /* sounds screen */
-.p-title { font-size: 13px; font-weight: 600; color: #f0eef8; margin-bottom: 10px; }
+.p-title { font-size: 14px; font-weight: 600; color: #f0eef8; margin-bottom: 10px; }
 .p-tabs { display: flex; gap: 5px; margin-bottom: 10px; }
 .p-tab {
-  font-size: 9px;
+  font-size: 14px;
   padding: 4px 10px;
   border-radius: 20px;
   border: 1px solid rgba(255,255,255,0.08);
@@ -652,8 +701,8 @@ p strong { color: var(--text); font-weight: 500; }
   overflow: hidden;
 }
 .p-sound-icon { font-size: 20px; position: absolute; top: 8px; left: 8px; }
-.p-sound-name { font-size: 8px; color: white; font-weight: 500; line-height: 1.2; }
-.p-sound-cat  { font-size: 7px; color: rgba(255,255,255,0.5); }
+.p-sound-name { font-size: 14px; color: white; font-weight: 500; line-height: 1.2; }
+.p-sound-cat  { font-size: 14px; color: rgba(255,255,255,0.5); }
 .p-sound.playing { outline: 1.5px solid rgba(168,85,247,0.6); }
 
 .p-player {
@@ -671,18 +720,18 @@ p strong { color: var(--text); font-weight: 500; }
   border-radius: 6px;
   background: linear-gradient(135deg, #7c3aed, #4c1d95);
   display: flex; align-items: center; justify-content: center;
-  font-size: 12px;
+  font-size: 14px;
   flex-shrink: 0;
 }
 .p-track { flex: 1; }
-.p-track-name { font-size: 9px; color: #f0eef8; font-weight: 500; }
-.p-track-sub  { font-size: 8px; color: rgba(255,255,255,0.35); }
+.p-track-name { font-size: 14px; color: #f0eef8; font-weight: 500; }
+.p-track-sub  { font-size: 14px; color: rgba(255,255,255,0.35); }
 .p-btns { display: flex; gap: 4px; }
 .p-btn {
   width: 18px; height: 18px;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-size: 8px; color: rgba(255,255,255,0.5);
+  font-size: 14px; color: rgba(255,255,255,0.5);
 }
 .p-btn.play { background: #a855f7; color: white; }
 
@@ -691,7 +740,7 @@ p strong { color: var(--text); font-weight: 500; }
   border-radius: 20px;
   padding: 8px;
   text-align: center;
-  font-size: 9px;
+  font-size: 14px;
   color: white;
   font-weight: 500;
 }
@@ -712,15 +761,15 @@ p strong { color: var(--text); font-weight: 500; }
   display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
 .p-score-v { font-size: 14px; color: #2dd4bf; font-weight: 700; }
-.p-score-l { font-size: 6px; color: rgba(255,255,255,0.3); }
-.p-score-grade { font-size: 10px; color: #4ade80; }
+.p-score-l { font-size: 14px; color: rgba(255,255,255,0.3); }
+.p-score-grade { font-size: 14px; color: #4ade80; }
 .p-rows { margin-top: 8px; }
 .p-row {
   display: flex;
   justify-content: space-between;
   padding: 7px 0;
   border-bottom: 1px solid rgba(255,255,255,0.04);
-  font-size: 9px;
+  font-size: 14px;
 }
 .p-row-k { color: rgba(255,255,255,0.4); }
 .p-row-v { color: #f0eef8; font-weight: 500; }
@@ -753,7 +802,7 @@ p strong { color: var(--text); font-weight: 500; }
 .ic-num.purple { color: #a855f7; }
 .ic-num.sm { font-size: 36px; margin-top: 6px; }
 .ic-desc { font-size: 14px; color: var(--text2); line-height: 1.55; }
-.ic-context { font-size: 12px; color: var(--text3); margin-top: 8px; }
+.ic-context { font-size: 14px; color: var(--text3); margin-top: 8px; }
 
 /* ── REFLECTION ────────────────────────────── */
 .reflection-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 32px 0; }
@@ -798,6 +847,120 @@ footer a:hover { color: var(--text); }
   transition: width 0.1s linear;
 }
 
+/* ── SHARED IMAGE / VIDEO UTILITIES ───────── */
+.case-img {
+  width: 100%; height: auto; display: block;
+  border-radius: 12px; object-fit: contain;
+}
+.case-img-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 32px 0; }
+.case-img-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 32px 0; }
+.case-img-full  { margin: 32px 0; }
+.case-video {
+  width: 100%; display: block;
+  border-radius: 8px; margin-top: 16px;
+  border: 1px solid var(--border);
+}
+.case-fig { display: flex; flex-direction: column; gap: 10px; }
+.case-img-insight {
+  font-size: 12px; color: var(--text3);
+  line-height: 1.6; letter-spacing: 0.01em;
+  padding: 0 2px;
+}
+/* ── PEEK CAROUSEL ─────────────────────────── */
+.peek-carousel {
+  position: relative;
+  overflow: hidden;
+  margin: 32px 0 0;
+}
+.peek-track {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: transform 0.48s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  cursor: grab;
+  user-select: none;
+  touch-action: pan-y;
+  -webkit-touch-callout: none;
+}
+.peek-item {
+  flex: 0 0 auto;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  opacity: 0.35;
+  transform: scale(0.88);
+}
+.peek-item.active {
+  opacity: 1;
+  transform: scale(1);
+}
+.peek-item img {
+  width: 100%; height: auto;
+  display: block;
+  border-radius: 16px;
+  object-fit: contain;
+  cursor: zoom-in;
+}
+.peek-item .case-img-insight {
+  display: block;
+  margin-top: 12px;
+  padding: 0 4px;
+}
+.peek-prev, .peek-next {
+  position: absolute;
+  top: 0;
+  bottom: 44px;
+  width: 22%;
+  background: none;
+  border: none;
+  padding: 0;
+  z-index: 20;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.peek-prev { left: 0; justify-content: flex-start; padding-left: 7%; }
+.peek-next { right: 0; justify-content: flex-end; padding-right: 7%; }
+.peek-prev:disabled, .peek-next:disabled { pointer-events: none; }
+.peek-nav-icon {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.9);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+}
+.peek-prev:not(:disabled):hover .peek-nav-icon,
+.peek-next:not(:disabled):hover .peek-nav-icon {
+  opacity: 1;
+  transform: scale(1);
+}
+.peek-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+.peek-dot {
+  width: 8px; height: 8px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.peek-dot.active {
+  width: 28px;
+  background: var(--text);
+}
+
 /* ── REVEAL ────────────────────────────────── */
 .reveal {
   opacity: 0;
@@ -822,10 +985,31 @@ footer a:hover { color: var(--text); }
   .jt-col-head:nth-child(n+4), .jt-cell:nth-child(n+4) { display: none; }
   .track-rows .card { flex-direction: column; gap: 16px; }
   .track-rows .card > div[style*="border-left"] { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 16px; }
+  .case-img-grid-3 { grid-template-columns: 1fr; }
+  .case-img-grid-2 { grid-template-columns: 1fr; }
+  .hero-meta { max-width: 100%; }
 }
+
+/* ── LIGHTBOX ─────────────────────────────── */
+#lightbox { position:fixed; inset:0; z-index:9000; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.25s ease; }
+#lightbox.open { opacity:1; pointer-events:all; }
+.lb-backdrop { position:absolute; inset:0; background:rgba(10,10,14,0.92); backdrop-filter:blur(8px); cursor:zoom-out; }
+#lightbox-img { position:relative; z-index:1; max-width:min(92vw,1200px); max-height:88vh; object-fit:contain; border-radius:12px; box-shadow:0 32px 80px rgba(0,0,0,0.7); transform:scale(0.92); transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+#lightbox.open #lightbox-img { transform:scale(1); }
+#lightbox.wide #lightbox-img { max-width:min(97vw,1800px); max-height:94vh; }
+.lb-close { position:absolute; top:20px; right:24px; z-index:2; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:50%; width:40px; height:40px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:white; transition:background 0.2s; }
+.lb-close:hover { background:rgba(255,255,255,0.15); }
 </style>
 </head>
 <body>
+
+<div id="lightbox">
+  <div class="lb-backdrop"></div>
+  <img id="lightbox-img" src="" alt="">
+  <button class="lb-close" aria-label="Close">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+</div>
 
 <!-- ambient gradient orbs -->
 <div class="blobs">
@@ -951,6 +1135,21 @@ footer a:hover { color: var(--text); }
       <div class="dp-text"><strong>Users felt overwhelmed by the Sleep Insight page.</strong> Without a clear hierarchy, every data point competed equally for attention — users disengaged rather than interpret.</div>
     </div>
   </div>
+
+  <div class="case-img-grid-3">
+    <figure class="case-fig">
+      <img class="case-img" src="images/case-1/case%201%20-%20sound%20page%20event%20tracking%20data.png" alt="Sound page event tracking data">
+      <figcaption class="case-img-insight">Event tracking shows users leaving the sound page without interacting — the drop-off begins at the first scroll, before premium content is even visible.</figcaption>
+    </figure>
+    <figure class="case-fig">
+      <img class="case-img" src="images/case-1/case%201%20-%20sound%20interaction%20tracking.png" alt="Sound interaction tracking">
+      <figcaption class="case-img-insight">Interaction data confirms nearly all taps cluster on row 1. Rows 2–5 register almost nothing — not because users preferred those four sounds, but because they never saw the rest.</figcaption>
+    </figure>
+    <figure class="case-fig">
+      <img class="case-img" src="images/case-1/case%201%20-%20sleep%20app%20tickle%20flow%20reviews.png" alt="Sleep app tickle flow App Store reviews">
+      <figcaption class="case-img-insight">App Store reviews from the trial (tickle) flow surface the same emotional pattern: users expected calm, encountered friction, and left before the premium offer landed.</figcaption>
+    </figure>
+  </div>
 </section>
 
 <!-- journey -->
@@ -958,39 +1157,8 @@ footer a:hover { color: var(--text); }
   <h3 style="margin-bottom:8px;">Mapping the Emotional Gap</h3>
   <p style="max-width:600px; margin-bottom:24px;">User journey mapping revealed that <strong>frustration was progressive</strong>. Users arrived calm, and the UI systematically eroded that state across multiple friction points.</p>
 
-  <div class="journey-table">
-    <div class="jt-header">
-      <div class="jt-col-head">Stage</div>
-      <div class="jt-col-head">Opens App</div>
-      <div class="jt-col-head">Browse Sounds</div>
-      <div class="jt-col-head">Setup Playback</div>
-      <div class="jt-col-head">Sleep Mode</div>
-      <div class="jt-col-head">Morning Review</div>
-    </div>
-    <div class="jt-row">
-      <div class="jt-cell jt-row-label">Emotion</div>
-      <div class="jt-cell"><span class="emoji-big">😌</span>Calm intent</div>
-      <div class="jt-cell"><span class="emoji-big">🤔</span>Mild confusion</div>
-      <div class="jt-cell"><span class="emoji-big">😕</span>Friction rising</div>
-      <div class="jt-cell"><span class="emoji-big">😤</span>Frustrated</div>
-      <div class="jt-cell"><span class="emoji-big">😵</span>Overwhelmed</div>
-    </div>
-    <div class="jt-row">
-      <div class="jt-cell jt-row-label">Pain</div>
-      <div class="jt-cell" style="color: var(--text3); font-style:italic;">User wants to relax</div>
-      <div class="jt-cell"><span class="badge-pain">poor IA</span><br>Labels truncated. Premium content below fold.</div>
-      <div class="jt-cell"><span class="badge-pain">unclear UX</span><br>Timer units mixed. Icons unfamiliar. Too many taps.</div>
-      <div class="jt-cell"><span class="badge-pain">broken feedback</span><br>Wake Up dominates. Screen never dims.</div>
-      <div class="jt-cell"><span class="badge-pain">overload</span><br>Too much data, no hierarchy.</div>
-    </div>
-    <div class="jt-row">
-      <div class="jt-cell jt-row-label">Opportunity</div>
-      <div class="jt-cell" style="color: var(--text3);">—</div>
-      <div class="jt-cell"><span class="badge-opp">discoverability</span><br>Category nav + smart defaults</div>
-      <div class="jt-cell"><span class="badge-opp">reduce steps</span><br>Tap-to-play, consolidated controls</div>
-      <div class="jt-cell"><span class="badge-opp">calm UX</span><br>Auto-dim, de-emphasize Wake Up</div>
-      <div class="jt-cell"><span class="badge-opp">hierarchy</span><br>Progressive disclosure model</div>
-    </div>
+  <div class="case-img-full" style="margin:40px 0;">
+    <img class="case-img" data-lb="wide" style="border-radius:16px; box-shadow:0 8px 40px rgba(0,0,0,0.4);" src="images/case-1/case%201%20-%20user%20journey.png" alt="User Journey Map — Emotional Gap">
   </div>
 </section>
 
@@ -1011,7 +1179,7 @@ footer a:hover { color: var(--text); }
       </div>
       <div style="flex:1; border-left:1px solid var(--border); padding-left:32px;">
         <p style="font-size:14px; margin-top:0;">Pre-sleep context means cognitive load must be near zero. I designed 5 flow concepts, critiqued them with the design director using an evaluation matrix, then built 3 interactive Figma prototypes.</p>
-        <p style="font-size:12px; color: var(--text3); margin-top:12px; margin-bottom:0;">5 flows → critique → 3 prototypes → usability testing (n=9)</p>
+        <p style="font-size: 14px; color: var(--text3); margin-top:12px; margin-bottom:0;">5 flows → critique → 3 prototypes → usability testing (n=9)</p>
       </div>
     </div>
     <div class="card" style="border-color: rgba(45,212,191,0.2); display:flex; gap:32px; align-items:flex-start;">
@@ -1021,7 +1189,7 @@ footer a:hover { color: var(--text); }
       </div>
       <div style="flex:1; border-left:1px solid var(--border); padding-left:32px;">
         <p style="font-size:14px; margin-top:0;">Morning reflection involves varied data needs. I used card sorting and qualitative interviews to surface which metrics users cared about most — and how they mentally categorized them.</p>
-        <p style="font-size:12px; color: var(--text3); margin-top:12px; margin-bottom:0;">Card sorting + interviews + visual preference testing (n=9)</p>
+        <p style="font-size: 14px; color: var(--text3); margin-top:12px; margin-bottom:0;">Card sorting + interviews + visual preference testing (n=9)</p>
       </div>
     </div>
   </div>
@@ -1029,6 +1197,28 @@ footer a:hover { color: var(--text); }
   <div class="card" style="border-color: rgba(255,123,53,0.15);">
     <div class="feature-label" style="color: #fb923c;">Research Design Note</div>
     <p style="font-size:14px; margin-top:4px;"><strong>Within-subjects design:</strong> Each of 9 participants tested 2 of the 3 Sleep Sounds flows, then completed the card sorting task. This controlled for individual differences and reduced comparative bias — critical with a small sample where personality variance would otherwise distort results.</p>
+  </div>
+
+  <div class="peek-carousel" data-carousel>
+    <div class="peek-track">
+      <div class="peek-item active">
+        <img class="case-img" src="images/case-1/case%201%20-%20card%20sorting%20result.png" alt="Card sorting results — Sleep Insights">
+        <span class="case-img-insight">Card sorting (n=9) revealed a consistent mental model: users prioritized total sleep time, schedule, and quality score — and mentally separated detailed metrics as secondary.</span>
+      </div>
+      <div class="peek-item">
+        <img class="case-img" src="images/case-1/case%201%20-%20Usability%20test%20affinity%20disgram.png" alt="Usability test affinity diagram">
+        <span class="case-img-insight">Affinity mapping across 9 sessions surfaced three dominant pain clusters: timer confusion, unclear playback state, and hidden premium content — each mapped to a distinct design intervention.</span>
+      </div>
+      <div class="peek-item">
+        <img class="case-img" src="images/case-1/case%201%20-%20User%20Testing%20Preference.png" alt="User testing preference scores">
+        <span class="case-img-insight">Visual preference testing (n=9) showed a clear lean toward Flow 3's consolidated layout — scores validated the affinity map findings and gave the design rationale quantitative grounding.</span>
+      </div>
+    </div>
+    <div class="peek-dots">
+      <button class="peek-dot active"></button>
+      <button class="peek-dot"></button>
+      <button class="peek-dot"></button>
+    </div>
   </div>
 </section>
 
@@ -1053,6 +1243,7 @@ footer a:hover { color: var(--text); }
         <div class="metric-row"><span class="metric-name">Task speed</span><div class="metric-bar-bg"><div class="metric-fill fill-dim" style="width:30%"></div></div></div>
         <div class="metric-row"><span class="metric-name">User satisfaction</span><div class="metric-bar-bg"><div class="metric-fill fill-orange" style="width:48%"></div></div></div>
         <div class="flow-insight"><span class="why-bad">Failed:</span> Users expected tap → immediate play. Timer units mixed minutes and hours. The "+" button was too hidden to find.</div>
+        <video class="case-video" src="images/case-1/case%201%20-%20Flow%201.mp4" autoplay muted loop playsinline></video>
       </div>
     </div>
 
@@ -1067,6 +1258,7 @@ footer a:hover { color: var(--text); }
         <div class="metric-row"><span class="metric-name">Task speed</span><div class="metric-bar-bg"><div class="metric-fill fill-orange" style="width:60%"></div></div></div>
         <div class="metric-row"><span class="metric-name">User satisfaction</span><div class="metric-bar-bg"><div class="metric-fill fill-orange" style="width:55%"></div></div></div>
         <div class="flow-insight"><span class="why-bad">Failed:</span> No explicit Save/Done button. Users unsure if edits persisted. Good concept, incomplete execution.</div>
+        <video class="case-video" src="images/case-1/case%201%20-%20Flow%202.mp4" autoplay muted loop playsinline></video>
       </div>
     </div>
 
@@ -1081,8 +1273,13 @@ footer a:hover { color: var(--text); }
         <div class="metric-row"><span class="metric-name">Task speed</span><div class="metric-bar-bg"><div class="metric-fill fill-purple" style="width:88%"></div></div></div>
         <div class="metric-row"><span class="metric-name">User satisfaction</span><div class="metric-bar-bg"><div class="metric-fill fill-purple" style="width:84%"></div></div></div>
         <div class="flow-insight"><span class="why">Won:</span> Fastest time-to-sleep. Highest preference scores. Aligned with Tesler's Law — complexity transferred to the system, not the user.</div>
+        <video class="case-video" src="images/case-1/case%201%20-%20Flow%203.mp4" autoplay muted loop playsinline></video>
       </div>
     </div>
+  </div>
+
+  <div class="case-img-full" style="margin-top:24px;">
+    <img class="case-img" src="images/case-1/case%201%20-%203%20flows%20usability%20prototypes.png" alt="3 flows usability prototypes overview">
   </div>
 
   <div class="decision-box">
@@ -1112,6 +1309,37 @@ footer a:hover { color: var(--text); }
       <span class="qt-tag qt-habit">Habit</span>
       <div class="qt-text">"Prefer all sounds were added to the playlist automatically, so I can just use switch button to switch sounds. I'm tired — I don't want to manage a queue."</div>
       <div class="qt-source">Participant #8 · Flow 1 + Flow 2</div>
+    </div>
+  </div>
+  <div class="peek-carousel" data-carousel>
+    <div class="peek-track">
+      <div class="peek-item active">
+        <img class="case-img" src="images/case-1/case%201%20-%20Interview%20quotes.png" alt="User interview quotes">
+        <span class="case-img-insight">Interview synthesis: users arrived tired and ready to relax, but the interface demanded cognitive effort before they could start.</span>
+      </div>
+      <div class="peek-item">
+        <img class="case-img" src="images/case-1/case%201%20-%20openend%20answers.png" alt="Open-ended survey answers">
+        <span class="case-img-insight">Open-ended responses clustered around three themes: navigating the sound library, configuring the timer, and tracking state uncertainty.</span>
+      </div>
+      <div class="peek-item">
+        <img class="case-img" src="images/case-1/case%201%20-%20Usability%20test%20openend%20question%20analysis.png" alt="Open-ended question analysis">
+        <span class="case-img-insight">Coded analysis: timer confusion and playback uncertainty account for over half of all negative mentions across 9 sessions.</span>
+      </div>
+      <div class="peek-item">
+        <img class="case-img" src="images/case-1/case%201%20-%20Usability%20test%20data%20result.png" alt="Usability test quantitative results">
+        <span class="case-img-insight">Quantitative results: task completion speed and error rates across all three flows — the performance gap between Flow 3 and Flow 1 is starkest at step 2.</span>
+      </div>
+      <div class="peek-item">
+        <img class="case-img" src="images/case-1/case%201%20-%20Insight%20page%20data%20visualization%20feedback.png" alt="Sleep Insights page — data visualization feedback">
+        <span class="case-img-insight">Insight page feedback: users wanted a clearer hierarchy — glanceable summary first, detailed breakdown on demand. Card sorting guided the restructure.</span>
+      </div>
+    </div>
+    <div class="peek-dots">
+      <button class="peek-dot active"></button>
+      <button class="peek-dot"></button>
+      <button class="peek-dot"></button>
+      <button class="peek-dot"></button>
+      <button class="peek-dot"></button>
     </div>
   </div>
 </section>
@@ -1215,77 +1443,20 @@ footer a:hover { color: var(--text); }
       </ul>
     </div>
     <div class="phone-wrap">
-      <div class="phone">
-        <div class="phone-inner">
-          <div class="p-bar"><span>9:41</span><span>●●●</span></div>
-          <div class="p-body">
-            <div class="p-title">🎵 Sleep Sounds</div>
-            <div class="p-tabs">
-              <span class="p-tab on">Favorites</span>
-              <span class="p-tab">Nature</span>
-              <span class="p-tab">Soothing</span>
-            </div>
-            <div class="p-sound-grid">
-              <div class="p-sound" style="background:linear-gradient(135deg,#1a3a2a,#0d2010);">
-                <span class="p-sound-icon">🌲</span>
-                <div><div class="p-sound-name">Ambient Spring Forest</div><div class="p-sound-cat">Nature</div></div>
-              </div>
-              <div class="p-sound playing" style="background:linear-gradient(135deg,#1a2040,#0d0e28);">
-                <span class="p-sound-icon">🌊</span>
-                <div><div class="p-sound-name">Waves White Noise</div><div class="p-sound-cat" style="color:#c084fc;">▶ Playing</div></div>
-              </div>
-              <div class="p-sound" style="background:linear-gradient(135deg,#3a1a1a,#200d0d);">
-                <span class="p-sound-icon">🔥</span>
-                <div><div class="p-sound-name">Old Water Mill</div><div class="p-sound-cat">Soothing</div></div>
-              </div>
-              <div class="p-sound" style="background:linear-gradient(135deg,#2a2310,#1a1800);">
-                <span class="p-sound-icon">🌅</span>
-                <div><div class="p-sound-name">Sunset Vibe</div><div class="p-sound-cat">Nature</div></div>
-              </div>
-            </div>
-            <div class="p-player">
-              <div class="p-art">🌊</div>
-              <div class="p-track">
-                <div class="p-track-name">Waves White Noise</div>
-                <div class="p-track-sub">⏱ Timer OFF · Auto ON</div>
-              </div>
-              <div class="p-btns">
-                <div class="p-btn">⏮</div>
-                <div class="p-btn play">⏸</div>
-                <div class="p-btn">⏭</div>
-              </div>
-            </div>
-            <div class="p-cta">🌙  Track My Sleep Now</div>
-          </div>
-        </div>
+      <div class="phone-placeholder">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+        <span class="phone-placeholder-label">Sleep Sounds</span>
+        <span class="phone-placeholder-sub">App Screen · Mockup</span>
       </div>
     </div>
   </div>
 
   <div class="phone-showcase flip" style="margin-top:72px;">
     <div class="phone-wrap">
-      <div class="phone" style="background:#0e121a; border-color:rgba(45,212,191,0.2);">
-        <div class="phone-inner" style="background:#080f14;">
-          <div class="p-bar" style="background:#080f14;"><span>9:41</span><span>●●●</span></div>
-          <div class="p-body">
-            <div class="p-score-wrap">
-              <div class="p-score-ring">
-                <div class="p-score-in">
-                  <span class="p-score-v">80</span>
-                  <span class="p-score-l">Score</span>
-                </div>
-              </div>
-              <div class="p-score-grade">Good · Better than 68%</div>
-            </div>
-            <div class="p-rows">
-              <div class="p-row"><span class="p-row-k">Total Sleep</span><span class="p-row-v">7h 23m</span></div>
-              <div class="p-row"><span class="p-row-k">Schedule</span><span class="p-row-v">11:14pm → 6:37am</span></div>
-              <div class="p-row"><span class="p-row-k">Last night</span><span class="p-row-v purple">🌲 47 min Rain Forest</span></div>
-              <div class="p-row"><span class="p-row-k">Heart Rate</span><span class="p-row-v">56 bpm avg</span></div>
-              <div class="p-row"><span class="p-row-k">Sleep Stages</span><span class="p-row-v" style="color:#60a5fa;">View Detail →</span></div>
-            </div>
-          </div>
-        </div>
+      <div class="phone-placeholder">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+        <span class="phone-placeholder-label">Sleep Insights</span>
+        <span class="phone-placeholder-sub">App Screen · Mockup</span>
       </div>
     </div>
     <div>
@@ -1439,6 +1610,134 @@ const bobs = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.3 });
 document.querySelectorAll('.flow-card').forEach(el => bobs.observe(el));
+
+// Lightbox
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lightbox-img');
+function openLb(img) {
+  lbImg.src = img.src;
+  lbImg.alt = img.alt || '';
+  lb.classList.toggle('wide', img.dataset.lb === 'wide');
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+document.querySelectorAll('img.case-img').forEach(img => {
+  img.style.cursor = 'zoom-in';
+  img.addEventListener('click', () => openLb(img));
+});
+lb.querySelector('.lb-backdrop').addEventListener('click', closeLb);
+lb.querySelector('.lb-close').addEventListener('click', closeLb);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+function closeLb() {
+  lb.classList.remove('open', 'wide');
+  document.body.style.overflow = '';
+  setTimeout(() => { lbImg.src = ''; }, 300);
+}
+
+const chevron = (dir) => `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="${dir === 'l' ? '15 18 9 12 15 6' : '9 18 15 12 9 6'}"/></svg>`;
+
+// Peek carousel
+class PeekCarousel {
+  constructor(el) {
+    this.el = el;
+    this.track = el.querySelector('.peek-track');
+    this.items = [...el.querySelectorAll('.peek-item')];
+    this.dots = [...el.querySelectorAll('.peek-dot')];
+    this.n = this.items.length;
+    this.i = 0;
+    this._buildNav();
+    this.bind();
+    this.render();
+    window.addEventListener('resize', () => this.render());
+  }
+  _buildNav() {
+    this.prevBtn = Object.assign(document.createElement('button'), { className: 'peek-prev', ariaLabel: 'Previous' });
+    this.nextBtn = Object.assign(document.createElement('button'), { className: 'peek-next', ariaLabel: 'Next' });
+    this.prevBtn.innerHTML = `<span class="peek-nav-icon">${chevron('l')}</span>`;
+    this.nextBtn.innerHTML = `<span class="peek-nav-icon">${chevron('r')}</span>`;
+    this.el.appendChild(this.prevBtn);
+    this.el.appendChild(this.nextBtn);
+    this.prevBtn.addEventListener('click', () => this.go(this.i - 1));
+    this.nextBtn.addEventListener('click', () => this.go(this.i + 1));
+  }
+  _offset() {
+    const cw = this.el.offsetWidth;
+    const iw = Math.min(cw * 0.76, 800);
+    return (cw - iw) / 2 - this.i * (iw + 16);
+  }
+  bind() {
+    this.dots.forEach((d, i) => d.addEventListener('click', () => this.go(i)));
+    let sx = 0, wasDragged = false, dragReady = false, base = 0, holdTimer = null;
+
+    this.track.addEventListener('pointerdown', e => {
+      sx = e.clientX;
+      wasDragged = false;
+      dragReady = false;
+      base = this._offset();
+      this.track.setPointerCapture(e.pointerId);
+      holdTimer = setTimeout(() => {
+        dragReady = true;
+        this.track.style.transition = 'none';
+        this.track.style.cursor = 'grabbing';
+      }, 280);
+    });
+
+    this.track.addEventListener('pointermove', e => {
+      if (!dragReady) return;
+      const dx = e.clientX - sx;
+      if (Math.abs(dx) > 4) {
+        wasDragged = true;
+        this.track.style.transform = `translateX(${base + dx}px)`;
+      }
+    });
+
+    this.track.addEventListener('pointerup', e => {
+      clearTimeout(holdTimer);
+      this.track.style.cursor = '';
+      if (dragReady) {
+        this.track.style.transition = '';
+        const dx = e.clientX - sx;
+        if (wasDragged && Math.abs(dx) > 60) this.go(this.i + (dx < 0 ? 1 : -1));
+        else this.render();
+      }
+      dragReady = false;
+    });
+
+    this.track.addEventListener('pointercancel', () => {
+      clearTimeout(holdTimer);
+      this.track.style.cursor = '';
+      this.track.style.transition = '';
+      dragReady = false;
+      wasDragged = false;
+      this.render();
+    });
+
+    this.track.addEventListener('click', e => {
+      if (wasDragged) { e.stopImmediatePropagation(); wasDragged = false; return; }
+      // setPointerCapture redirects click to the track instead of the img child,
+      // so manually open the lightbox for the active slide's image.
+      const img = this.items[this.i].querySelector('img');
+      if (img) openLb(img);
+    }, true);
+
+    this.track.addEventListener('contextmenu', e => e.preventDefault());
+  }
+  go(idx) {
+    this.i = Math.max(0, Math.min(this.n - 1, idx));
+    this.render();
+  }
+  render() {
+    const cw = this.el.offsetWidth;
+    const iw = Math.min(cw * 0.76, 800);
+    this.items.forEach(item => { item.style.width = iw + 'px'; });
+    this.track.style.transform = `translateX(${this._offset()}px)`;
+    this.items.forEach((item, j) => item.classList.toggle('active', j === this.i));
+    this.dots.forEach((d, j) => d.classList.toggle('active', j === this.i));
+    this.prevBtn.disabled = this.i === 0;
+    this.nextBtn.disabled = this.i === this.n - 1;
+  }
+}
+document.querySelectorAll('[data-carousel]').forEach(el => new PeekCarousel(el));
 </script>
 </body>
 </html>
