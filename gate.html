@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yuzhuo Zhang</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-6);
+    }
+
+    .gate {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-8);
+      width: 100%;
+      max-width: 340px;
+    }
+
+    .gate-logo {
+      opacity: 0.85;
+      display: block;
+    }
+
+    .gate-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      width: 100%;
+    }
+
+    .gate-input {
+      width: 100%;
+      padding: 13px var(--space-3);
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      outline: none;
+      transition: border-color 0.2s var(--transition), box-shadow 0.2s var(--transition);
+      -webkit-appearance: none;
+    }
+
+    .gate-input::placeholder {
+      color: var(--text-tertiary);
+    }
+
+    .gate-input:focus {
+      border-color: var(--rust-300);
+      box-shadow: 0 0 0 3px var(--rust-50);
+    }
+
+    .gate-input.shake {
+      animation: gate-shake 0.38s var(--transition);
+    }
+
+    @keyframes gate-shake {
+      0%, 100% { transform: translateX(0); }
+      18%       { transform: translateX(-7px); }
+      36%       { transform: translateX(7px); }
+      54%       { transform: translateX(-4px); }
+      72%       { transform: translateX(4px); }
+    }
+
+    .gate-btn {
+      width: 100%;
+      padding: 13px var(--space-3);
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-inverse);
+      background: var(--rust);
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      transition: background 0.2s var(--transition);
+    }
+
+    .gate-btn:hover:not(:disabled) { background: var(--rust-700); }
+    .gate-btn:active:not(:disabled) { background: var(--rust-900); }
+    .gate-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    .gate-error {
+      font-size: 13px;
+      color: oklch(0.50 0.16 22);
+      text-align: center;
+      min-height: 1em;
+      opacity: 0;
+      transition: opacity 0.18s var(--transition);
+    }
+
+    .gate-error.visible { opacity: 1; }
+  </style>
+</head>
+<body>
+
+<div class="gate">
+  <img class="gate-logo" src="/images/name_no_bg.png" alt="Yuzhuo Zhang" height="26">
+
+  <form class="gate-form" id="gate-form" novalidate>
+    <input
+      class="gate-input"
+      id="gate-input"
+      type="password"
+      placeholder="Password"
+      autocomplete="current-password"
+      autofocus
+      required
+    >
+    <button class="gate-btn" type="submit" id="gate-btn">Enter</button>
+    <p class="gate-error" id="gate-error" role="alert" aria-live="polite"></p>
+  </form>
+</div>
+
+<script>
+  const form  = document.getElementById('gate-form');
+  const input = document.getElementById('gate-input');
+  const btn   = document.getElementById('gate-btn');
+  const error = document.getElementById('gate-error');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const password = input.value;
+    if (!password) return;
+
+    btn.disabled = true;
+    error.classList.remove('visible');
+
+    try {
+      const res = await fetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
+
+      if (res.ok) {
+        window.location.href = '/';
+      } else {
+        error.textContent = 'Incorrect password.';
+        error.classList.add('visible');
+        input.classList.add('shake');
+        input.addEventListener('animationend', () => input.classList.remove('shake'), { once: true });
+        input.select();
+      }
+    } catch {
+      error.textContent = 'Something went wrong. Try again.';
+      error.classList.add('visible');
+    } finally {
+      btn.disabled = false;
+    }
+  });
+</script>
+
+</body>
+</html>

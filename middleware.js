@@ -3,20 +3,28 @@ export const config = {
 };
 
 export default function middleware(request) {
-  const auth = request.headers.get('authorization');
+  const { pathname } = new URL(request.url);
 
-  if (auth) {
-    const [scheme, encoded] = auth.split(' ');
-    if (scheme === 'Basic') {
-      const [user, pass] = atob(encoded).split(':');
-      if (user === 'jade' && pass === process.env.SITE_PASSWORD) {
-        return;
-      }
-    }
+  // Exempt paths — always pass through
+  if (
+    pathname === '/gate.html' ||
+    pathname.startsWith('/api/') ||
+    pathname === '/style.css' ||
+    pathname === '/favicon.ico' ||
+    pathname.startsWith('/images/')
+  ) {
+    return;
   }
 
-  return new Response('Authentication required', {
-    status: 401,
-    headers: { 'WWW-Authenticate': 'Basic realm="Portfolio"' },
-  });
+  // Parse auth cookie
+  const cookie = request.headers.get('cookie') || '';
+  const match = cookie.match(/(?:^|;\s*)auth=([^;]*)/);
+  const token = match ? decodeURIComponent(match[1]) : null;
+
+  if (token && process.env.AUTH_TOKEN && token === process.env.AUTH_TOKEN) {
+    return; // authorized
+  }
+
+  // Not authorized → redirect to gate
+  return Response.redirect(new URL('/gate.html', request.url), 302);
 }
