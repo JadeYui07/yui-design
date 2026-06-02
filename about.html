@@ -8,164 +8,261 @@
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
   <style>
-    :root {
-      --about-gradient-dot: linear-gradient(135deg, oklch(0.48 0.18 285), oklch(0.52 0.22 340));
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--rust);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+    .contact-strip h2 { color: var(--text-inverse); }
+
+    /* ── Base ── */
+    .about-body { overflow-x: hidden; }
+
+    /* ── Static pastel gradient (replaces canvas) ── */
+    .about-body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 70% 60% at 8% 12%,  rgba(220,184,232,0.30) 0%, transparent 70%),
+        radial-gradient(ellipse 55% 65% at 92% 78%,  rgba(181,218,240,0.25) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 45% at 72% 18%,  rgba(197,176,238,0.20) 0%, transparent 65%),
+        radial-gradient(ellipse 45% 55% at 22% 88%,  rgba(245,210,192,0.22) 0%, transparent 65%);
     }
 
-    .about-body { padding-top: 100px; }
+    /* ── Nav transparent, gains bg on scroll ── */
+    nav { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom-color: transparent; }
+    nav.scrolled { background: rgba(245,248,250,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom-color: var(--border-subtle); }
 
-    .about-hero-inner {
+    /* ── HERO ── */
+    .about-hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 0 var(--page-x) 100px;
       max-width: 1200px;
       margin: 0 auto;
-      width: 100%;
-      padding: 0 var(--page-x) 80px;
     }
-    .about-hero-inner > h1 {
-      margin-bottom: 36px;
-    }
-    .about-hero-grid {
+    .about-hero-inner {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
+      grid-template-columns: 1.15fr 0.85fr;
       gap: 80px;
-      align-items: stretch;
+      align-items: center;
+      width: 100%;
     }
 
-    .about-hero-inner > h1 {
-      font-size: clamp(28px, 3.2vw, 44px);
+    /* Hero text */
+    .about-h1 {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3.8vw, 48px);
       font-weight: 400;
-      line-height: 1.1;
+      line-height: 1.08;
       letter-spacing: -0.03em;
       color: var(--text);
-      animation: fadeUp 0.8s cubic-bezier(0.4,0,0.2,1) both;
+      margin-bottom: 24px;
     }
-
-    .about-text-col .intro {
+    .about-bio {
       font-size: 17px;
       color: var(--text-secondary);
       line-height: 1.8;
-      margin-bottom: 20px;
-      animation: fadeUp 0.8s 0.1s cubic-bezier(0.4,0,0.2,1) both;
+      margin-bottom: 36px;
+      max-width: 520px;
     }
+    .about-bio strong { color: var(--text); font-weight: 500; }
 
-    .about-text-col .intro strong {
-      color: var(--text);
-      font-weight: 500;
-    }
-
-    .about-highlights {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-top: 32px;
-      animation: fadeUp 0.8s 0.2s cubic-bezier(0.4,0,0.2,1) both;
-    }
-
-    .highlight-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 15px;
-      color: var(--text-secondary);
-    }
-
+    /* Highlight list */
+    .about-highlights { display: flex; flex-direction: column; gap: 14px; }
+    .highlight-row { display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--text-secondary); }
     .highlight-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--about-gradient-dot);
-      flex-shrink: 0;
+      width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, oklch(0.48 0.18 285), oklch(0.52 0.22 340));
     }
 
-    .about-photo-col {
-      animation: fadeUp 0.8s 0.15s cubic-bezier(0.4,0,0.2,1) both;
+    /* Hero photo */
+    .about-photo-wrap {
       position: relative;
-    }
-
-    .photo-frame {
-      position: absolute;
-      inset: 0;
-      border-radius: 24px;
-      background: var(--card-sleep);
       overflow: hidden;
+      width: clamp(300px, 34vw, 460px);
+      height: clamp(300px, 34vw, 460px);
+      flex-shrink: 0;
+      justify-self: center;
+      background: var(--bg-muted);
+      animation: liquid-morph 9s ease-in-out infinite;
+      box-shadow:
+        -18px 12px 48px rgba(220,184,232,0.60),
+        18px -10px 48px rgba(181,218,240,0.55),
+        8px 22px 40px rgba(197,176,238,0.45),
+        -8px -14px 36px rgba(245,210,192,0.40);
     }
-
-    .photo-frame img {
+    @keyframes liquid-morph {
+      0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+      20%       { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+      40%       { border-radius: 50% 40% 60% 30% / 30% 50% 70% 50%; }
+      60%       { border-radius: 40% 60% 30% 60% / 70% 30% 60% 40%; }
+      80%       { border-radius: 55% 45% 40% 60% / 45% 65% 35% 55%; }
+    }
+    .about-photo-wrap img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center 40%;
+      display: block;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .about-photo-wrap { animation: none; border-radius: 50%; }
     }
 
-    /* Skills section */
-    .skills-section {
+    /* ── Content sections ── */
+    .about-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .about-section {
+      flex: 0 0 auto;
+      width: 100%;
+      box-sizing: border-box;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 var(--page-x) 80px;
+      padding: 80px var(--page-x);
+      border-top: 1px solid var(--border-subtle);
     }
-
-    .skills-section h2 {
-      font-size: clamp(24px, 3.5vw, 36px);
-      font-weight: 400;
-      letter-spacing: -0.5px;
-      margin-bottom: 32px;
+    .about-section-head {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 5vw, 64px);
+      font-weight: 700;
+      font-style: italic;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 28px;
     }
+    .about-section-body {
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      max-width: 680px;
+    }
+    .about-section-body strong { color: var(--text); font-weight: 500; }
 
-    .skills-blocks {
+    /* ── FLIP CARDS ── */
+    .interests-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border-subtle);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-sm);
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .interest-card {
+      perspective: 1200px;
+      cursor: pointer;
+      height: 420px;
+      transition: transform 0.3s ease;
+    }
+    .interest-card:hover { transform: translateY(-6px); }
+    .interest-card-front,
+    .interest-card-back {
+      box-shadow: 0 24px 64px rgba(0,0,0,0.13);
+    }
+    .interest-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+    .interest-card:hover .interest-card-inner,
+    .interest-card.flipped .interest-card-inner {
+      transform: rotateY(180deg);
+    }
+    .interest-card-front,
+    .interest-card-back {
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    /* Front: text content (matches index work cards) */
+    .interest-card-front {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 32px 28px;
       overflow: hidden;
     }
+    .ic-1 .interest-card-front { background: var(--card-sleep); }
+    .ic-2 .interest-card-front { background: var(--card-weather); }
+    .ic-3 .interest-card-front { background: var(--card-edtech); }
 
-    .skill-block {
-      background: var(--surface);
-      border-radius: 0;
-      padding: 28px;
-      border: none;
-    }
-
-    .skill-block h3 {
-      font-size: 14px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
+    .ic-front-tag {
+      font-size: 12px;
       color: var(--text-secondary);
-      margin-bottom: 16px;
+      letter-spacing: 0.02em;
+      margin-bottom: 8px;
     }
-
-    .skill-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+    .ic-front-title {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 2.2vw, 26px);
+      font-weight: 500;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      margin-bottom: 10px;
     }
-
-    .skill-tag {
-      background: var(--bg);
-      border-radius: 100px;
-      padding: 6px 14px;
+    .ic-front-desc {
       font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 18px;
+    }
+    .ic-front-hint {
+      font-size: 12px;
       font-weight: 500;
       color: var(--text);
+      opacity: 0.45;
+      transition: opacity 0.2s;
     }
+    .interest-card:hover .ic-front-hint { opacity: 1; }
 
-    /* Experience */
-    .exp-section {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 var(--page-x) 80px;
+    /* Back: image placeholder */
+    .interest-card-back {
+      transform: rotateY(180deg);
+      background: var(--bg-subtle);
+      border: 1.5px dashed var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
     }
-
-    .exp-section h2 {
-      font-size: clamp(24px, 3.5vw, 36px);
-      font-weight: 400;
-      letter-spacing: -0.5px;
-      margin-bottom: 32px;
+    .ic-ph-icon { color: var(--text-tertiary); opacity: 0.45; }
+    .ic-ph-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
     }
+    .ic-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px;
+      display: block;
+    }
+    .ic-1 .ic-img { object-position: center 20%; }
 
-    .exp-list { display: flex; flex-direction: column; gap: 0; }
-
+    /* ── Experience rows ── */
+    .exp-list { display: flex; flex-direction: column; }
     .exp-row {
       display: grid;
       grid-template-columns: 160px 1fr;
@@ -174,54 +271,24 @@
       border-top: 1px solid var(--border);
       align-items: start;
     }
+    .exp-year { font-size: 14px; color: var(--text-secondary); padding-top: 3px; }
+    .exp-details h4 { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+    .exp-details .company { font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; }
+    .exp-details p { font-size: 14px; color: var(--text-secondary); line-height: 1.65; }
 
-    .exp-year {
-      font-size: 14px;
-      color: var(--text-secondary);
-      font-weight: 400;
-      padding-top: 3px;
-    }
-
-    .exp-details h4 {
-      font-size: 17px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .exp-details .company {
-      font-size: 14px;
-      color: var(--text-secondary);
-      margin-bottom: 8px;
-    }
-
-    .exp-details p {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.65;
-    }
-
+    /* ── Responsive ── */
     @media (max-width: 768px) {
-      .about-hero-inner { padding: 0 var(--page-x) 60px; }
-      .about-hero-grid { grid-template-columns: 1fr; gap: 40px; }
-      .about-photo-col { order: -1; min-height: 320px; }
-      .skills-section, .exp-section { padding: 0 var(--page-x) 60px; }
-      .skills-blocks { grid-template-columns: 1fr; }
+      .about-hero { min-height: auto; padding: 120px var(--page-x) 60px; }
+      .about-hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .about-photo-wrap { aspect-ratio: 1/1; max-width: 320px; }
+      .interests-grid { grid-template-columns: 1fr; }
+      .interest-card { height: 360px; }
       .exp-row { grid-template-columns: 1fr; gap: 8px; }
+      .about-section { padding: 56px var(--page-x); }
     }
 
-    /* ── Focus ── */
-    a:focus-visible, button:focus-visible {
-      outline: 2px solid var(--rust);
-      outline-offset: 3px;
-      border-radius: 3px;
-    }
-
-    /* ── Reduced motion ── */
     @media (prefers-reduced-motion: reduce) {
-      .about-hero-inner > h1,
-      .about-text-col .intro,
-      .about-highlights,
-      .about-photo-col { animation: none; opacity: 1; }
+      .interest-card-inner { transition: none; }
     }
   </style>
 </head>
@@ -239,157 +306,158 @@
 
 <main>
 
-<!-- ── ABOUT HERO ── -->
-<div class="about-hero-inner">
-  <h1>Hi! I'm Yuzhuo Zhang!</h1>
-  <div class="about-hero-grid">
+  <!-- ── HERO ── -->
+  <div class="about-hero">
+    <div class="about-hero-inner">
 
-  <div class="about-text-col">
-    <p class="intro">
-      Product designer with 3+ years driving measurable outcomes across mobile and web — from 0→1 products to design system infrastructure. Currently at <strong>Eightpoint</strong>, leading end-to-end design across 24 iOS &amp; Android apps with up to <strong>41% subscription conversion lift</strong>.
-    </p>
+      <div>
+        <h1 class="about-h1">Hi! I'm Yuzhuo Zhang!</h1>
+        <p class="about-bio">
+          I'm a product designer with 4 years of working experience, currently designing <strong>@Eightpoint</strong>.
+        </p>
+        <p class="about-bio" style="margin-top: 16px;">
+          My background spans design, research, data and a bit of code — I find the edges between disciplines are where the most interesting problems live. Always happy to chat, so feel free to reach out&nbsp;=)
+        </p>
+        <div class="about-highlights">
+          <div class="highlight-row"><div class="highlight-dot"></div><span>Currently designing @Eightpoint · iOS &amp; Android</span></div>
+          <div class="highlight-row"><div class="highlight-dot"></div><span>Cross-platform design system · 100% UI consistency</span></div>
+          <div class="highlight-row"><div class="highlight-dot"></div><span>PCMAG Best Weather Apps 2025 contributor</span></div>
+          <div class="highlight-row"><div class="highlight-dot"></div><span>End-to-end: research → prototype → shipped product</span></div>
+        </div>
+      </div>
 
-    <p class="intro">
-      I work at the intersection of research and execution — turning ambiguous problems into structured, user-validated solutions. Past impact: <strong>+35% DAU</strong> on a 500K-user weather app, <strong>100% UI consistency</strong> through a cross-platform design system, and <strong>+48% engagement</strong> on a redesigned scanner homepage.
-    </p>
+      <div class="about-photo-wrap">
+        <img src="images/me.jpg" alt="Yuzhuo Zhang">
+      </div>
 
-    <div class="about-highlights">
-      <div class="highlight-row">
-        <div class="highlight-dot"></div>
-        <span>Currently designing @Eightpoint · iOS &amp; Android</span>
-      </div>
-      <div class="highlight-row">
-        <div class="highlight-dot"></div>
-        <span>Cross-platform design system · 100% UI consistency</span>
-      </div>
-      <div class="highlight-row">
-        <div class="highlight-dot"></div>
-        <span>PCMAG Best Weather Apps 2025 contributor</span>
-      </div>
-      <div class="highlight-row">
-        <div class="highlight-dot"></div>
-        <span>End-to-end: research → prototype → shipped product</span>
-      </div>
     </div>
   </div>
 
-  <div class="about-photo-col">
-    <div class="photo-frame">
-      <img src="images/me.jpg" alt="Yuzhuo Zhang">
+  <!-- ── CONTENT ── -->
+  <div class="about-content">
+
+    <!-- Statement -->
+    <div class="about-section">
+      <h2 class="about-section-head">I make products<br>that actually work.</h2>
+      <p class="about-section-body">
+        I work at the intersection of research and execution — turning ambiguous problems into structured, user-validated solutions. Past impact: <strong>+35% DAU</strong> on a 500K-user weather app, <strong>100% UI consistency</strong> through a cross-platform design system, and <strong>+48% engagement</strong> on a redesigned scanner homepage.
+      </p>
     </div>
-  </div>
 
-  </div><!-- end about-hero-grid -->
-</div>
+    <!-- Interests flip cards -->
+    <div class="about-section">
+      <h2 class="about-section-head">Beyond the work.</h2>
+      <div class="interests-grid">
 
-<!-- ── SKILLS ── -->
-<div class="skills-section reveal">
-  <h2>Skills &amp; Tools</h2>
-  <div class="skills-blocks">
+        <!-- Card 1: Gaming -->
+        <div class="interest-card ic-1" role="button" aria-label="Where Winds Meet — hover to see screenshot">
+          <div class="interest-card-inner">
+            <div class="interest-card-front">
+              <span class="ic-front-tag">Currently playing</span>
+              <h3 class="ic-front-title">Where Winds Meet</h3>
+              <p class="ic-front-desc">An open-world wuxia RPG set in ancient China. The kind of game I forget to eat because of.</p>
+              <span class="ic-front-hint">See it →</span>
+            </div>
+            <div class="interest-card-back">
+              <img src="images/game.png" alt="Where Winds Meet" class="ic-img">
+            </div>
+          </div>
+        </div>
 
-    <div class="skill-block">
-      <h3>Design</h3>
-      <div class="skill-tags">
-        <span class="skill-tag">Figma</span>
-        <span class="skill-tag">Framer</span>
-        <span class="skill-tag">Prototyping</span>
-        <span class="skill-tag">Design Systems</span>
-        <span class="skill-tag">Motion Design</span>
+        <!-- Card 2: Ski -->
+        <div class="interest-card ic-2" role="button" aria-label="Skiing — hover to see photo">
+          <div class="interest-card-inner">
+            <div class="interest-card-front">
+              <span class="ic-front-tag">Favorite sport</span>
+              <h3 class="ic-front-title">Skiing</h3>
+              <p class="ic-front-desc">Nothing clears the head like going downhill at speed. Slope therapy, basically.</p>
+              <span class="ic-front-hint">See it →</span>
+            </div>
+            <div class="interest-card-back">
+              <img src="images/ski.jpg" alt="Skiing" class="ic-img">
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Pet -->
+        <div class="interest-card ic-3" role="button" aria-label="Doudou the chinchilla — hover to see photo">
+          <div class="interest-card-inner">
+            <div class="interest-card-front">
+              <span class="ic-front-tag">My pet</span>
+              <h3 class="ic-front-title">Doudou,<br>my chinchilla</h3>
+              <p class="ic-front-desc">Softest creature on earth. Objectively. Not biased at all.</p>
+              <span class="ic-front-hint">Meet Doudou →</span>
+            </div>
+            <div class="interest-card-back">
+              <img src="images/pet_doudou.jpg" alt="Doudou the chinchilla" class="ic-img">
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <div class="skill-block">
-      <h3>Research</h3>
-      <div class="skill-tags">
-        <span class="skill-tag">User Interviews</span>
-        <span class="skill-tag">Usability Testing</span>
-        <span class="skill-tag">Journey Mapping</span>
-        <span class="skill-tag">Heuristic Evaluation</span>
-        <span class="skill-tag">A/B Testing</span>
+    <!-- Experience -->
+    <div class="about-section">
+      <h2 class="about-section-head">Here's where<br>I've been.</h2>
+      <div class="exp-list">
+        <div class="exp-row">
+          <span class="exp-year">Jan 2023 — Now</span>
+          <div class="exp-details">
+            <h4>UX Team Design Lead</h4>
+            <p class="company">Eightpoint Interactive, Inc.</p>
+            <p>Led end-to-end design across 24 iOS &amp; Android apps, driving up to 41% subscription conversion. Spearheaded cross-platform design system unifying the full product suite with 100% UI consistency.</p>
+          </div>
+        </div>
+        <div class="exp-row">
+          <span class="exp-year">Jun — Dec 2022</span>
+          <div class="exp-details">
+            <h4>UX Designer Intern · Mobile iOS</h4>
+            <p class="company">Eightpoint Interactive, Inc.</p>
+            <p>Redesigned weather radar app for 500K+ users, driving 35% DAU increase. Led scanner app homepage redesign that boosted engagement by 48%.</p>
+          </div>
+        </div>
+        <div class="exp-row">
+          <span class="exp-year">Aug — Dec 2022</span>
+          <div class="exp-details">
+            <h4>UX Researcher / Designer Co-op</h4>
+            <p class="company">Assurant, Inc.</p>
+            <p>Designed core app features as an integrated system. Conducted card sorting, user interviews, and competitor analysis to optimize navigation and clustering.</p>
+          </div>
+        </div>
+        <div class="exp-row">
+          <span class="exp-year">Aug — Dec 2021</span>
+          <div class="exp-details">
+            <h4>Web Product Designer Co-op</h4>
+            <p class="company">EdTechLive, LLC.</p>
+            <p>Redesigned curriculum map and pre-lesson features for a B2B SaaS platform through 8 user interviews, iterative design, and cross-functional collaboration.</p>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="skill-block">
-      <h3>Methods</h3>
-      <div class="skill-tags">
-        <span class="skill-tag">Double Diamond</span>
-        <span class="skill-tag">Design Thinking</span>
-        <span class="skill-tag">Agile / Lean UX</span>
-        <span class="skill-tag">IA &amp; Navigation</span>
-        <span class="skill-tag">UCD</span>
+    <!-- Education -->
+    <div class="about-section">
+      <h2 class="about-section-head">Education.</h2>
+      <div class="exp-list">
+        <div class="exp-row">
+          <span class="exp-year">2021 — 2022</span>
+          <div class="exp-details">
+            <h4>M.P.S. in Information Science</h4>
+            <p class="company">Cornell University</p>
+          </div>
+        </div>
+        <div class="exp-row">
+          <span class="exp-year">2017 — 2021</span>
+          <div class="exp-details">
+            <h4>B.S. in Information Science and Technology</h4>
+            <p class="company">Pennsylvania State University</p>
+          </div>
+        </div>
       </div>
     </div>
 
-  </div>
-</div>
-
-<!-- ── EXPERIENCE ── -->
-<div class="exp-section reveal">
-  <h2>Experience</h2>
-  <div class="exp-list">
-
-    <div class="exp-row">
-      <span class="exp-year">Jan 2023 — Now</span>
-      <div class="exp-details">
-        <h4>UX Team Design Lead</h4>
-        <p class="company">Eightpoint Interactive, Inc.</p>
-        <p>Led end-to-end design across 24 iOS &amp; Android apps, driving up to 41% subscription conversion. Spearheaded cross-platform design system unifying the full product suite with 100% UI consistency.</p>
-      </div>
-    </div>
-
-    <div class="exp-row">
-      <span class="exp-year">Jun — Dec 2022</span>
-      <div class="exp-details">
-        <h4>UX Designer Intern · Mobile iOS</h4>
-        <p class="company">Eightpoint Interactive, Inc.</p>
-        <p>Redesigned weather radar app for 500K+ users, driving 35% DAU increase. Led scanner app homepage redesign that boosted engagement by 48%.</p>
-      </div>
-    </div>
-
-    <div class="exp-row">
-      <span class="exp-year">Aug — Dec 2022</span>
-      <div class="exp-details">
-        <h4>UX Researcher / Designer Co-op</h4>
-        <p class="company">Assurant, Inc.</p>
-        <p>Designed core app features (PG Mobile, Home, Auto, Privacy) as an integrated system. Conducted card sorting, user interviews, and competitor analysis to optimize navigation and clustering.</p>
-      </div>
-    </div>
-
-    <div class="exp-row">
-      <span class="exp-year">Aug — Dec 2021</span>
-      <div class="exp-details">
-        <h4>Web Product Designer Co-op</h4>
-        <p class="company">EdTechLive, LLC.</p>
-        <p>Redesigned curriculum map and pre-lesson features for a B2B SaaS platform through 8 user interviews, iterative design, and cross-functional collaboration.</p>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- ── EDUCATION ── -->
-<div class="exp-section reveal">
-  <h2>Education</h2>
-  <div class="exp-list">
-
-    <div class="exp-row">
-      <span class="exp-year">2021 — 2022</span>
-      <div class="exp-details">
-        <h4>M.P.S. in Information Science</h4>
-        <p class="company">Cornell University</p>
-      </div>
-    </div>
-
-    <div class="exp-row">
-      <span class="exp-year">2017 — 2021</span>
-      <div class="exp-details">
-        <h4>B.S. in Information Science and Technology</h4>
-        <p class="company">Pennsylvania State University</p>
-      </div>
-    </div>
-
-  </div>
-</div>
+  </div><!-- end about-content -->
 
 </main>
 
@@ -398,7 +466,7 @@
   <h2>Let's work together</h2>
   <p>Open to full-time Product Designer roles</p>
   <div class="contact-links">
-    <a href="https://www.linkedin.com/in/yuzhuo-zhang777/" target="_blank" class="contact-link">
+    <a href="https://www.linkedin.com/in/yuzhuo-zhang777/" target="_blank" rel="noopener noreferrer" class="contact-link">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
       LinkedIn
     </a>
@@ -409,18 +477,17 @@
   </div>
 </div>
 
+
 <script>
+  // Nav scroll state
   window.addEventListener('scroll', () => {
     document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 10);
   });
 
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
-    });
-  }, { threshold: 0.1 });
-  reveals.forEach(el => observer.observe(el));
+  // Flip cards — click toggle for touch devices
+  document.querySelectorAll('.interest-card').forEach(card => {
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+  });
 </script>
 
 </body>

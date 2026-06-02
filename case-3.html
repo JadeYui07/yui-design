@@ -203,6 +203,27 @@
     .ds-stat-number sup { font-size: 32px; }
     .ds-stat-label { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.5; }
 
+    /* ── Stats editorial rows (distilled) ── */
+    .ds-stats-lead {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 2.8vw, 32px);
+      font-weight: 500; line-height: 1.3;
+      color: var(--text-inverse);
+      max-width: 680px; margin-bottom: var(--space-5);
+      position: relative;
+    }
+    .ds-scale-facts { border-top: 1px solid rgba(255,255,255,0.1); position: relative; }
+    .ds-scale-fact {
+      display: flex; align-items: baseline; gap: 28px;
+      padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .ds-sf-num {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 2.5vw, 30px); font-weight: 600; line-height: 1;
+      color: var(--case-accent); flex-shrink: 0; min-width: 52px;
+    }
+    .ds-sf-text { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.65; }
+
     /* ── Content sections ── */
     .ds-section {
       max-width: 1200px; margin: 0 auto;
@@ -826,22 +847,19 @@
   <div class="ds-dot-texture"></div>
   <div class="ds-radial-glow ds-glow-bl"></div>
   <div class="ds-stats-inner">
-    <div class="ds-stats-grid">
-      <div class="ds-stat-item reveal">
-        <div class="ds-stat-number">30<sup>+</sup></div>
-        <div class="ds-stat-label">iOS & Android apps under one mobile design org</div>
+    <p class="ds-stats-lead reveal">When we started, 30+ apps shared a product org — and nothing else.</p>
+    <div class="ds-scale-facts reveal d1">
+      <div class="ds-scale-fact">
+        <span class="ds-sf-num">2</span>
+        <span class="ds-sf-text">separate design systems — one per platform, never speaking to each other</span>
       </div>
-      <div class="ds-stat-item reveal d1">
-        <div class="ds-stat-number">2</div>
-        <div class="ds-stat-label">Separate design systems — one per platform, never speaking to each other</div>
+      <div class="ds-scale-fact">
+        <span class="ds-sf-num">5</span>
+        <span class="ds-sf-text">designers on the team, only 2 actively maintaining design files</span>
       </div>
-      <div class="ds-stat-item reveal d2">
-        <div class="ds-stat-number">5</div>
-        <div class="ds-stat-label">Designers on the team, only 2 maintaining design files</div>
-      </div>
-      <div class="ds-stat-item reveal d3">
-        <div class="ds-stat-number">0</div>
-        <div class="ds-stat-label">Shared token vocabulary between iOS, Android, and engineering</div>
+      <div class="ds-scale-fact">
+        <span class="ds-sf-num">0</span>
+        <span class="ds-sf-text">shared token vocabulary between iOS, Android, and engineering</span>
       </div>
     </div>
   </div>
@@ -1508,21 +1526,7 @@
       <span class="ds-badge-text">08 · Results</span>
     </div>
     <h2 class="ds-section-title reveal d1">What changed.</h2>
-
-    <div class="ds-results-grid reveal d2">
-      <div class="ds-result-item">
-        <div class="ds-result-stat">5</div>
-        <div class="ds-result-label"><strong>New apps launched</strong> using the global system — all cross-platform, consistent from day one</div>
-      </div>
-      <div class="ds-result-item">
-        <div class="ds-result-stat">−15<span style="font-size:28px;color:rgba(255,255,255,.3)">%</span></div>
-        <div class="ds-result-label"><strong>VQA issue rate</strong> reduced from ~95% to ~80% — color and typography no longer the primary failure modes</div>
-      </div>
-      <div class="ds-result-item">
-        <div class="ds-result-stat">2</div>
-        <div class="ds-result-label"><strong>Platforms, one token set</strong> — engineering on both sides references identical color names</div>
-      </div>
-    </div>
+    <p class="ds-reflection-body reveal d2" style="color:rgba(255,255,255,0.5); max-width:600px; margin-bottom:var(--space-5);">5 new apps launched cross-platform from day one. VQA issue rate down from ~95% to ~80%. Engineering on iOS and Android now reference identical color names.</p>
 
     <div class="ds-vqa-bar reveal d3">
       <div class="ds-vqa-heading">VQA Issue Rate — Before vs After System Deployment</div>
