@@ -4,34 +4,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About — Yuzhuo Zhang</title>
-  <meta name="description" content="3+ years in UX/Product Design, currently designing at Eightpoint.">
+  <meta name="description" content="3+ years in Product Design, currently designing at Eightpoint.">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
   <style>
     :root {
-      --about-gradient-dot: linear-gradient(135deg, #7c5cbf, #c44f80);
+      --about-gradient-dot: linear-gradient(135deg, oklch(0.48 0.18 285), oklch(0.52 0.22 340));
     }
 
     .about-body { padding-top: 100px; }
 
     .about-hero-inner {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       width: 100%;
+      padding: 0 var(--page-x) 80px;
+    }
+    .about-hero-inner > h1 {
+      margin-bottom: 36px;
+    }
+    .about-hero-grid {
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
       gap: 80px;
-      align-items: start;
-      padding: 0 var(--page-x) 80px;
+      align-items: stretch;
     }
 
-    .about-text-col h1 {
-      font-size: clamp(40px, 5.5vw, 68px);
+    .about-hero-inner > h1 {
+      font-size: clamp(28px, 3.2vw, 44px);
       font-weight: 400;
       line-height: 1.1;
-      letter-spacing: -1.5px;
+      letter-spacing: -0.03em;
       color: var(--text);
-      margin-bottom: 28px;
       animation: fadeUp 0.8s cubic-bezier(0.4,0,0.2,1) both;
     }
 
@@ -73,20 +77,14 @@
 
     .about-photo-col {
       animation: fadeUp 0.8s 0.15s cubic-bezier(0.4,0,0.2,1) both;
+      position: relative;
     }
 
     .photo-frame {
-      width: 100%;
-      aspect-ratio: 3/4;
+      position: absolute;
+      inset: 0;
       border-radius: 24px;
       background: var(--card-sleep);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 10px;
-      color: var(--text-secondary);
-      font-size: 14px;
       overflow: hidden;
     }
 
@@ -94,17 +92,18 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center 40%;
     }
 
     /* Skills section */
     .skills-section {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 0 var(--page-x) 80px;
     }
 
     .skills-section h2 {
-      font-size: 36px;
+      font-size: clamp(24px, 3.5vw, 36px);
       font-weight: 400;
       letter-spacing: -0.5px;
       margin-bottom: 32px;
@@ -153,13 +152,13 @@
 
     /* Experience */
     .exp-section {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 0 var(--page-x) 80px;
     }
 
     .exp-section h2 {
-      font-size: 36px;
+      font-size: clamp(24px, 3.5vw, 36px);
       font-weight: 400;
       letter-spacing: -0.5px;
       margin-bottom: 32px;
@@ -172,7 +171,7 @@
       grid-template-columns: 160px 1fr;
       gap: 32px;
       padding: 24px 0;
-      border-top: 1px solid rgba(0,0,0,0.08);
+      border-top: 1px solid var(--border);
       align-items: start;
     }
 
@@ -202,16 +201,27 @@
     }
 
     @media (max-width: 768px) {
-      .about-hero-inner {
-        grid-template-columns: 1fr;
-        padding: 0 var(--page-x) 60px;
-        gap: 40px;
-      }
-      .about-photo-col { order: -1; }
-      .photo-frame { aspect-ratio: 1/1; }
+      .about-hero-inner { padding: 0 var(--page-x) 60px; }
+      .about-hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-photo-col { order: -1; min-height: 320px; }
       .skills-section, .exp-section { padding: 0 var(--page-x) 60px; }
       .skills-blocks { grid-template-columns: 1fr; }
       .exp-row { grid-template-columns: 1fr; gap: 8px; }
+    }
+
+    /* ── Focus ── */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--rust);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+
+    /* ── Reduced motion ── */
+    @media (prefers-reduced-motion: reduce) {
+      .about-hero-inner > h1,
+      .about-text-col .intro,
+      .about-highlights,
+      .about-photo-col { animation: none; opacity: 1; }
     }
   </style>
 </head>
@@ -219,7 +229,7 @@
 
 <!-- ── NAV ── -->
 <nav>
-  <a href="index.html" class="nav-logo">YZ</a>
+  <a href="index.html" class="nav-logo"><img src="images/name_no_bg.png" alt="YZ" height="32"></a>
   <ul class="nav-links">
     <li><a href="index.html#works">Work</a></li>
     <li><a href="about.html">About</a></li>
@@ -227,52 +237,49 @@
   </ul>
 </nav>
 
+<main>
+
 <!-- ── ABOUT HERO ── -->
 <div class="about-hero-inner">
+  <h1>Hi! I'm Yuzhuo Zhang!</h1>
+  <div class="about-hero-grid">
 
   <div class="about-text-col">
-    <h1>Yuzhuo Zhang</h1>
-
     <p class="intro">
-      I'm a <strong>UX/Product Designer</strong> with 3+ years of experience crafting digital products that feel intuitive and perform. Currently at <strong>Eightpoint</strong>, where I work across mobile and web to solve complex UX problems through research, clarity, and structured design.
+      Product designer with 3+ years driving measurable outcomes across mobile and web — from 0→1 products to design system infrastructure. Currently at <strong>Eightpoint</strong>, leading end-to-end design across 24 iOS &amp; Android apps with up to <strong>41% subscription conversion lift</strong>.
     </p>
 
     <p class="intro">
-      My practice sits at the intersection of user psychology and business strategy — I care about understanding <em>why</em> users behave the way they do, then designing systems that work with those mental models rather than against them.
-    </p>
-
-    <p class="intro">
-      I've shipped across health &amp; wellness apps, weather utilities, EdTech platforms, and cross-platform design systems — always starting from research and ending with measurable impact.
+      I work at the intersection of research and execution — turning ambiguous problems into structured, user-validated solutions. Past impact: <strong>+35% DAU</strong> on a 500K-user weather app, <strong>100% UI consistency</strong> through a cross-platform design system, and <strong>+48% engagement</strong> on a redesigned scanner homepage.
     </p>
 
     <div class="about-highlights">
       <div class="highlight-row">
         <div class="highlight-dot"></div>
-        <span>3+ Years in UX/Product Design</span>
+        <span>Currently designing @Eightpoint · iOS &amp; Android</span>
       </div>
       <div class="highlight-row">
         <div class="highlight-dot"></div>
-        <span>Currently designing @Eightpoint</span>
+        <span>Cross-platform design system · 100% UI consistency</span>
       </div>
       <div class="highlight-row">
         <div class="highlight-dot"></div>
-        <span>PCMAG Top 10 Weather App contributor</span>
+        <span>PCMAG Best Weather Apps 2025 contributor</span>
       </div>
       <div class="highlight-row">
         <div class="highlight-dot"></div>
-        <span>Cross-platform design systems (iOS &amp; Android)</span>
+        <span>End-to-end: research → prototype → shipped product</span>
       </div>
     </div>
   </div>
 
   <div class="about-photo-col">
     <div class="photo-frame">
-      <!-- Replace with your photo: <img src="images/yuzhuo.jpg" alt="Yuzhuo Zhang"> -->
-      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-      <span style="font-size: 14px; color:rgba(0,0,0,0.3)">Add your photo here</span>
+      <img src="images/me.jpg" alt="Yuzhuo Zhang">
     </div>
   </div>
 
+  </div><!-- end about-hero-grid -->
 </div>
 
 <!-- ── SKILLS ── -->
@@ -326,7 +333,7 @@
       <div class="exp-details">
         <h4>UX Team Design Lead</h4>
         <p class="company">Eightpoint Interactive, Inc.</p>
-        <p>Led end-to-end design across 22 iOS &amp; Android apps, driving up to 41% subscription conversion. Spearheaded cross-platform design system unifying the full product suite with 100% UI consistency.</p>
+        <p>Led end-to-end design across 24 iOS &amp; Android apps, driving up to 41% subscription conversion. Spearheaded cross-platform design system unifying the full product suite with 100% UI consistency.</p>
       </div>
     </div>
 
@@ -351,7 +358,7 @@
     <div class="exp-row">
       <span class="exp-year">Aug — Dec 2021</span>
       <div class="exp-details">
-        <h4>Web UX/UI Designer Co-op</h4>
+        <h4>Web Product Designer Co-op</h4>
         <p class="company">EdTechLive, LLC.</p>
         <p>Redesigned curriculum map and pre-lesson features for a B2B SaaS platform through 8 user interviews, iterative design, and cross-functional collaboration.</p>
       </div>
@@ -384,10 +391,12 @@
   </div>
 </div>
 
+</main>
+
 <!-- ── CONTACT ── -->
 <div class="contact-strip">
   <h2>Let's work together</h2>
-  <p>Open to full-time and contract opportunities</p>
+  <p>Open to full-time Product Designer roles</p>
   <div class="contact-links">
     <a href="https://www.linkedin.com/in/yuzhuo-zhang777/" target="_blank" class="contact-link">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
@@ -399,16 +408,6 @@
     </a>
   </div>
 </div>
-<footer>
-  <div>
-    <div class="footer-name">Yuzhuo Zhang</div>
-    <div class="footer-copy">© 2026 · Designed with care</div>
-  </div>
-  <div class="footer-links">
-    <a href="https://www.linkedin.com/in/yuzhuo-zhang777/" target="_blank">LinkedIn</a>
-    <a href="contact.html">Email</a>
-  </div>
-</footer>
 
 <script>
   window.addEventListener('scroll', () => {

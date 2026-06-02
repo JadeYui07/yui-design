@@ -3,52 +3,203 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yuzhuo Zhang — UX/Product Designer</title>
+  <title>Yuzhuo Zhang — Product Designer</title>
   <meta name="description" content="Solving complex UX problems fast by aligning user needs with business goals through research, clarity, and structured design.">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
   <style>
-    /* Index-specific spacing and works header */
+    :root { --case-screen-bg: oklch(0.08 0.01 275); }
+
     .works {
       padding-top: var(--space-8);
     }
-
     .works-header {
       display: flex;
       align-items: baseline;
       justify-content: space-between;
       gap: 24px;
-      margin-bottom: var(--space-8);
+      margin-bottom: var(--space-6);
       padding: 0 var(--page-x);
     }
-
-    .works-header .section-label {
-      margin-bottom: 0;
-    }
-
+    .works-header .section-label { margin-bottom: 0; }
     .works-summary {
       font-size: 14px;
       color: var(--text-secondary);
-      font-family: var(--font-body, 'Satoshi', sans-serif);
       white-space: nowrap;
     }
 
+    /* ── New 2-col card grid ── */
+    .works-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      row-gap: 48px;
+      column-gap: 32px;
+      padding: 0 var(--page-x) var(--space-8);
+    }
+
+    .work-card {
+      border-radius: 28px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease;
+    }
+    .work-card.card-sleep   { background: var(--card-sleep); }
+    .work-card.card-weather { background: var(--card-weather); }
+    .work-card.card-system  { background: var(--card-system); }
+    .work-card.card-edtech  { background: var(--card-edtech); }
+    .work-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.13);
+    }
+
+    .work-preview {
+      padding: 36px 36px 0;
+    }
+    .work-frame {
+      border-radius: 16px 16px 0 0;
+      overflow: hidden;
+    }
+    .work-screen {
+      border-radius: 16px 16px 0 0;
+      overflow: hidden;
+      background: var(--case-screen-bg);
+    }
+    .work-screen img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16/10;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    .work-info {
+      padding: 28px 36px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+    .work-tag {
+      font-size: 12px;
+      color: var(--text-secondary);
+      letter-spacing: 0.02em;
+    }
+    .work-card h2 {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 2vw, 28px);
+      font-weight: 500;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      margin: 0;
+    }
+    .work-card p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin: 0;
+    }
+    .work-card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      opacity: 0.5;
+      transition: opacity 0.2s;
+    }
+    .work-card:hover .work-card-link { opacity: 1; }
+
     @media (max-width: 768px) {
-      .works-header {
-        flex-direction: column;
-        gap: 8px;
-      }
-      .works-summary {
-        white-space: normal;
-      }
+      .works-grid { grid-template-columns: 1fr; }
+      .works-summary { white-space: normal; }
+      .works-header { flex-direction: column; gap: 8px; }
+      .work-preview { padding: 24px 24px 0; }
+      .work-info { padding: 20px 24px 28px; }
+    }
+
+    /* ── Focus ── */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--rust);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+
+    /* ── Reduced motion ── */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-h1, .hero-body { animation: none; opacity: 1; }
+    }
+
+    /* ── Nav transparent on index ── */
+    nav { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom-color: transparent; }
+    nav.scrolled { background: transparent; border-bottom-color: transparent; }
+
+    /* ── Light footer for index ── */
+    .contact-strip { display: none; }
+    footer {
+      background: var(--bg);
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border-subtle);
+    }
+    footer a { color: var(--text-secondary); }
+    footer a:hover { color: var(--text); }
+    .footer-name { color: var(--text); font-weight: 500; font-size: 14px; }
+    .footer-copy { color: var(--text-secondary); font-size: 14px; }
+
+    /* ── Fluid canvas background ── */
+    #fluid {
+      position: fixed;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── Hero overrides (transparent so canvas shows through) ── */
+    section.hero {
+      background: transparent;
+      overflow: visible;
+      text-align: left;
+      align-items: flex-start;
+      padding-left: var(--page-x);
+      padding-right: var(--page-x);
+    }
+    section.hero .hero-content { max-width: 780px; }
+    .hero-h1 {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 5.2vw, 68px);
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 20px;
+      animation: fadeUp 0.75s var(--transition) both;
+    }
+    .hero-body {
+      font-size: clamp(15px, 1.5vw, 18px);
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 540px;
+      animation: fadeUp 0.75s 0.15s var(--transition) both;
+    }
+
+    /* Works section */
+    .works {
+      position: relative;
+      z-index: 1;
     }
   </style>
 </head>
 <body>
 
+<canvas id="fluid" aria-hidden="true"></canvas>
+
 <!-- ── NAV ── -->
 <nav>
-  <a href="index.html" class="nav-logo">YZ</a>
+  <a href="index.html" class="nav-logo"><img src="images/name_no_bg.png" alt="YZ" height="32"></a>
   <ul class="nav-links">
     <li><a href="#works">Work</a></li>
     <li><a href="about.html">About</a></li>
@@ -56,19 +207,13 @@
   </ul>
 </nav>
 
+<main>
+
 <!-- ── HERO ── -->
 <section class="hero">
-  <div class="hero-blob blob-1"></div>
-  <div class="hero-blob blob-2"></div>
   <div class="hero-content">
-    <h1>Hi there, I'm Yuzhuo Zhang!</h1>
-    <div class="hero-meta">
-      <span>3+ Years in UX/Product Design</span>
-      <span>Currently designing @Eightpoint</span>
-    </div>
-    <p class="hero-tagline">
-      Solving complex UX problems fast by aligning user needs with business goals through research, clarity, and structured design
-    </p>
+    <h1 class="hero-h1">Hey! I'm Yuzhuo,<br>a 3+ years product designer.</h1>
+    <p class="hero-body">Solving complex UX problems fast by aligning user needs with business goals through research, clarity, and structured design</p>
   </div>
 </section>
 
@@ -79,119 +224,85 @@
     <span class="works-summary">4 projects · iOS, Web &amp; Design Systems</span>
   </div>
 
-  <div class="cards-stack">
+  <div class="works-grid">
 
     <!-- Card 1: Sleep -->
-    <div class="card card-sleep reveal">
-      <div class="card-left">
-        <span class="card-tag">iOS App · Health &amp; Wellness</span>
-        <h2>Track My Sleep Now</h2>
-        <p class="card-subtitle">Optimizing Sleep Experience for Conversion and Retention</p>
-        <p class="card-desc">
-          How to redesign a sleep tracker app to align with user mindset, reduce drop-off, and drive premium conversion through personalized soundscapes and actionable insights
-        </p>
-        <div class="card-footer">
-          <a href="case-1.html" class="card-btn">View case study</a>
-          <div class="card-stats">
-            <div class="stat">
-              <span class="stat-label">Conversion Rate</span>
-              <span class="stat-value">+32%</span>
-            </div>
-            <div class="stat">
-              <span class="stat-label">User Satisfaction</span>
-              <span class="stat-value">4.6★</span>
-            </div>
+    <a href="case-1.html" class="work-card card-sleep reveal">
+      <div class="work-preview">
+        <div class="work-frame">
+          <div class="work-screen">
+            <img src="images/Home%20covers/case%201%20-%20Sleep.png" alt="Sleep Tracker App">
           </div>
         </div>
       </div>
-      <div class="card-right">
-        <div class="card-img-wrap">
-          <img src="images/Home%20covers/case%201%20-%20Sleep.png" alt="Sleep Tracker App cover">
-        </div>
+      <div class="work-info">
+        <span class="work-tag">iOS App · Health &amp; Wellness</span>
+        <h2>Track My Sleep Now</h2>
+        <p>Redesigning a sleep tracker to align with user mindset, reduce drop-off, and drive premium conversion through personalized soundscapes and actionable insights.</p>
+        <span class="work-card-link">View project →</span>
       </div>
-    </div>
+    </a>
 
     <!-- Card 2: Weather -->
-    <div class="card card-weather reveal">
-      <div class="card-left">
-        <span class="card-tag">iOS App · Top 10 Weather</span>
-        <h2>NOAA Live Weather Radar</h2>
-        <p class="card-subtitle">PCMAG Rating — The Best Weather Apps for 2025 (iOS)</p>
-        <p class="card-desc">
-          How to get accurate, hyper-local weather alerts fast enough to make safe decisions for your family
-        </p>
-        <div class="card-footer">
-          <a href="case-2.html" class="card-btn">View case study</a>
-          <div class="card-stats">
-            <div class="stat">
-              <span class="stat-label">User Satisfaction</span>
-              <span class="stat-value">4.7★</span>
-            </div>
+    <a href="case-2.html" class="work-card card-weather reveal">
+      <div class="work-preview">
+        <div class="work-frame">
+          <div class="work-screen">
+            <img src="images/Home%20covers/case%202%20-%20weather.png" alt="NOAA Weather Radar App">
           </div>
         </div>
       </div>
-      <div class="card-right">
-        <div class="card-img-wrap">
-          <img src="images/Home%20covers/case%202%20-%20weather.png" alt="NOAA Weather Radar App cover">
-        </div>
+      <div class="work-info">
+        <span class="work-tag">iOS App · Top 10 Weather</span>
+        <h2>NOAA Live Weather Radar</h2>
+        <p>How to get accurate, hyper-local weather alerts fast enough to make safe decisions for your family. PCMAG Best Weather Apps 2025.</p>
+        <span class="work-card-link">View project →</span>
       </div>
-    </div>
+    </a>
 
     <!-- Card 3: Design System -->
-    <div class="card card-system reveal">
-      <div class="card-left">
-        <span class="card-tag">Design System · Cross-Platform</span>
-        <h2>Global Design System for Cross-Platform (iOS &amp; Android)</h2>
-        <p class="card-desc">
-          Build a cross-platform design system from 0–1, including design tokens, components, and documentation — enabling consistent product experiences across iOS and Android
-        </p>
-        <div class="card-footer">
-          <a href="case-3.html" class="card-btn">View case study</a>
-        </div>
-      </div>
-      <div class="card-right">
-        <div class="card-img-wrap">
-          <img src="images/Home%20covers/case%203%20-%20Global%20design%20system.png" alt="Global Design System cover" loading="lazy">
-        </div>
-      </div>
-    </div>
-
-    <!-- Card 4: EdTech -->
-    <div class="card card-edtech reveal">
-      <div class="card-left">
-        <span class="card-tag">Web Design · EdTech</span>
-        <h2>EdTechLive — Personalized Instructional Strategies App Redesign</h2>
-        <p class="card-desc">
-          How to empower students to share their voices and create more engaging, effective learning experiences by leveraging EdTechLive's SEEDS-based tools that benefit both students and educators
-        </p>
-        <div class="card-footer">
-          <a href="case-4.html" class="card-btn">View case study</a>
-          <div class="card-stats">
-            <div class="stat">
-              <span class="stat-label">Qualitative Interviews</span>
-              <span class="stat-value">8+</span>
-            </div>
-            <div class="stat">
-              <span class="stat-label">Usability Testing</span>
-              <span class="stat-value">2+ Rounds</span>
-            </div>
+    <a href="case-3.html" class="work-card card-system reveal">
+      <div class="work-preview">
+        <div class="work-frame">
+          <div class="work-screen">
+            <img src="images/Home%20covers/case%203%20-%20Global%20design%20system.png" alt="Global Design System" loading="lazy">
           </div>
         </div>
       </div>
-      <div class="card-right">
-        <div class="card-img-wrap">
-          <img src="images/Home%20covers/case%204%20-%20EdTech.png" alt="EdTechLive App cover">
+      <div class="work-info">
+        <span class="work-tag">Design System · Cross-Platform</span>
+        <h2>Global Design System for iOS &amp; Android</h2>
+        <p>Building a cross-platform design system from 0–1 — design tokens, components, and documentation enabling consistent experiences across iOS and Android.</p>
+        <span class="work-card-link">View project →</span>
+      </div>
+    </a>
+
+    <!-- Card 4: EdTech -->
+    <a href="case-4.html" class="work-card card-edtech reveal">
+      <div class="work-preview">
+        <div class="work-frame">
+          <div class="work-screen">
+            <img src="images/Home%20covers/case%204%20-%20EdTech.png" alt="EdTechLive App" loading="lazy">
+          </div>
         </div>
       </div>
-    </div>
+      <div class="work-info">
+        <span class="work-tag">Web Design · EdTech</span>
+        <h2>EdTechLive — Instructional Strategies App Redesign</h2>
+        <p>Empowering students to share their voices and create more engaging learning experiences through EdTechLive's SEEDS-based tools.</p>
+        <span class="work-card-link">View project →</span>
+      </div>
+    </a>
 
   </div>
 </section>
 
+</main>
+
 <!-- ── CONTACT ── -->
 <div class="contact-strip">
   <h2>Let's work together</h2>
-  <p>Open to full-time and contract opportunities</p>
+  <p>Open to full-time Product Designer roles</p>
   <div class="contact-links">
     <a href="https://www.linkedin.com/in/yuzhuo-zhang777/" target="_blank" class="contact-link">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
@@ -213,6 +324,187 @@
     <a href="contact.html">Email</a>
   </div>
 </footer>
+
+<script>
+'use strict';
+// ── Fluid canvas animation ──────────────────────────────────
+const canvas = document.getElementById('fluid');
+const ctx = canvas.getContext('2d');
+const EDGE_PAD = 220;
+const BG = '#F5F8FA';
+
+let W = 0, H = 0;
+function resize() {
+  W = window.innerWidth  + EDGE_PAD * 2;
+  H = window.innerHeight + EDGE_PAD * 2;
+  canvas.width  = W; canvas.height = H;
+  canvas.style.left   = `-${EDGE_PAD}px`;
+  canvas.style.top    = `-${EDGE_PAD}px`;
+  canvas.style.width  = `${W}px`;
+  canvas.style.height = `${H}px`;
+  ctx.fillStyle = BG;
+  ctx.fillRect(0, 0, W, H);
+}
+window.addEventListener('resize', resize);
+resize();
+
+const params = { mice:2, speed:1.4, omega:0.12, drift:0.87, brush:185, blur:36, fade:0.009, hue:1.4, satShift:6, lightShift:10 };
+
+const PALETTE_HEX = ['#F5E5A0','#F5D2C0','#F5C8D8','#F0BCDC','#DCB8E8','#C5B0EE','#B8C5EF','#B5DAF0'];
+function hexToHSL(hex) {
+  const r=parseInt(hex.slice(1,3),16)/255, g=parseInt(hex.slice(3,5),16)/255, b=parseInt(hex.slice(5,7),16)/255;
+  const max=Math.max(r,g,b), min=Math.min(r,g,b); let h=0,s=0;
+  const l=(max+min)/2;
+  if(max!==min){const d=max-min;s=l>0.5?d/(2-max-min):d/(max+min);
+    switch(max){case r:h=((g-b)/d+(g<b?6:0));break;case g:h=((b-r)/d+2);break;case b:h=((r-g)/d+4);break;}h/=6;}
+  return{h:h*360,s:s*100,l:l*100};
+}
+const PALETTE = PALETTE_HEX.map(hexToHSL);
+
+function paletteColor(idx, alpha) {
+  const mi = PALETTE.length-1, ci = Math.max(0,Math.min(mi,idx));
+  const lo=Math.floor(ci), hi=Math.min(lo+1,mi), f=ci-lo, a=PALETTE[lo], b=PALETTE[hi];
+  let dh=b.h-a.h; if(dh>180)dh-=360; else if(dh<-180)dh+=360;
+  const h=(a.h+dh*f+360)%360;
+  const s=Math.max(0,Math.min(95,a.s+(b.s-a.s)*f+params.satShift));
+  const l=Math.max(20,Math.min(95,a.l+(b.l-a.l)*f+params.lightShift));
+  return `hsla(${h.toFixed(1)},${s.toFixed(1)}%,${l.toFixed(1)}%,${alpha})`;
+}
+function paletteFromPosition(x,y){
+  const nx=Math.max(0,Math.min(1,(x-EDGE_PAD)/(W-EDGE_PAD*2)));
+  const ny=Math.max(0,Math.min(1,(y-EDGE_PAD)/(H-EDGE_PAD*2)));
+  return(nx*0.6+ny*0.4)*(PALETTE.length-1);
+}
+
+class VirtualMouse {
+  constructor(){
+    this.x=W*(0.35+Math.random()*0.3); this.y=H*(0.35+Math.random()*0.3);
+    this.theta=Math.random()*Math.PI*2; this.speed=params.speed; this.speedTarget=params.speed;
+    this.paletteIdx=Math.random()*(PALETTE.length-1); this.paletteDir=Math.random()<0.5?-1:1;
+  }
+  update(){
+    this.theta+=(Math.random()-0.5)*2*params.omega;
+    if(Math.random()<0.015*params.drift){this.speedTarget=params.speed*(0.4+Math.random()*1.4);}
+    this.speed+=(this.speedTarget-this.speed)*0.025;
+    this.x+=Math.cos(this.theta)*this.speed; this.y+=Math.sin(this.theta)*this.speed;
+    const cx=W/2,cy=H/2,dx=this.x-cx,dy=this.y-cy,dist=Math.sqrt(dx*dx+dy*dy);
+    const maxR=Math.min(W-EDGE_PAD*2,H-EDGE_PAD*2)*0.45;
+    if(dist>maxR){const ah=Math.atan2(-dy,-dx);let df=ah-this.theta;
+      while(df>Math.PI)df-=Math.PI*2;while(df<-Math.PI)df+=Math.PI*2;
+      this.theta+=df*Math.min(0.18,((dist-maxR)/maxR)*0.2);}
+    const mi=PALETTE.length-1;
+    this.paletteIdx+=params.hue*0.03*this.paletteDir;
+    if(this.paletteIdx>mi){this.paletteIdx=mi-(this.paletteIdx-mi);this.paletteDir=-1;}
+    else if(this.paletteIdx<0){this.paletteIdx=-this.paletteIdx;this.paletteDir=1;}
+  }
+  draw(ctx){
+    const r=params.brush;
+    const g=ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,r);
+    g.addColorStop(0,paletteColor(this.paletteIdx,0.55));
+    g.addColorStop(0.5,paletteColor(this.paletteIdx,0.18));
+    g.addColorStop(1,paletteColor(this.paletteIdx,0));
+    ctx.fillStyle=g; ctx.fillRect(this.x-r,this.y-r,r*2,r*2);
+  }
+}
+
+let mice=[];
+function rebuildMice(){const old=mice;mice=[];for(let i=0;i<params.mice;i++)mice.push(old[i]||new VirtualMouse());}
+rebuildMice();
+
+const rm={active:false,inWarmup:false,targetX:0,targetY:0,drawX:0,drawY:0,prevDrawX:0,prevDrawY:0,
+  paletteIdx:Math.random()*(PALETTE.length-1),paletteDir:Math.random()<0.5?-1:1,lastMoveTime:0};
+
+window.addEventListener('mousemove',function(e){
+  rm.targetX=e.clientX+EDGE_PAD; rm.targetY=e.clientY+EDGE_PAD;
+  if(!rm.active){rm.drawX=rm.targetX;rm.drawY=rm.targetY;rm.prevDrawX=rm.drawX;rm.prevDrawY=rm.drawY;
+    rm.active=true;rm.inWarmup=true;setTimeout(()=>{rm.inWarmup=false;},250);}
+  rm.lastMoveTime=performance.now();
+});
+window.addEventListener('mouseleave',()=>{rm.active=false;});
+window.addEventListener('mouseout',function(e){if(!e.relatedTarget&&!e.toElement)rm.active=false;});
+
+function drawRealMouse(){
+  const idle=performance.now()-rm.lastMoveTime>1500;
+  rm.prevDrawX=rm.drawX; rm.prevDrawY=rm.drawY;
+  rm.drawX+=(rm.targetX-rm.drawX)*0.35; rm.drawY+=(rm.targetY-rm.drawY)*0.35;
+  const dx=rm.drawX-rm.prevDrawX,dy=rm.drawY-rm.prevDrawY,v=Math.sqrt(dx*dx+dy*dy);
+  const velFactor=Math.max(0.3,1-Math.min(1,v/30)*0.65);
+  const baseAlpha=idle?0.15:(rm.inWarmup?0.35:0.85)*velFactor;
+  const mi=PALETTE.length-1;
+  rm.paletteIdx+=params.hue*0.04*rm.paletteDir;
+  if(rm.paletteIdx>mi){rm.paletteIdx=mi-(rm.paletteIdx-mi);rm.paletteDir=-1;}
+  else if(rm.paletteIdx<0){rm.paletteIdx=-rm.paletteIdx;rm.paletteDir=1;}
+  const idx=paletteFromPosition(rm.drawX,rm.drawY)*0.6+rm.paletteIdx*0.4;
+  const r=params.brush*1.15;
+  const g=ctx.createRadialGradient(rm.drawX,rm.drawY,0,rm.drawX,rm.drawY,r);
+  g.addColorStop(0,paletteColor(idx,0.55*baseAlpha));
+  g.addColorStop(0.5,paletteColor(idx,0.18*baseAlpha));
+  g.addColorStop(1,paletteColor(idx,0));
+  ctx.fillStyle=g; ctx.fillRect(rm.drawX-r,rm.drawY-r,r*2,r*2);
+}
+
+// ── Density self-correction (Option B) ───────────────────────
+// Pre-allocated 6×6 offscreen canvas for pixel sampling.
+// Reads the raw canvas (before CSS blur) every 2s, computes mean
+// deviation from background #F5F8FA, and smoothly ramps densityBoost
+// (1–4×) so the fade-out step counteracts multiply buildup invisibly.
+const BG_R=245, BG_G=248, BG_B=250; // components of BG #F5F8FA
+let densityBoost = 1;
+const _sc = Object.assign(document.createElement('canvas'), {width:6, height:6});
+const _sctx = _sc.getContext('2d', {willReadFrequently:true});
+let _lastSample = 0;
+
+function updateDensityBoost() {
+  const now = performance.now();
+  if (now - _lastSample < 2000) return;
+  _lastSample = now;
+  // Sample visible area (exclude EDGE_PAD bleed zones)
+  _sctx.drawImage(canvas, EDGE_PAD, EDGE_PAD, W-EDGE_PAD*2, H-EDGE_PAD*2, 0, 0, 6, 6);
+  const px = _sctx.getImageData(0, 0, 6, 6).data;
+  let dev = 0;
+  for (let i=0; i<px.length; i+=4) {
+    dev += (Math.abs(px[i]-BG_R) + Math.abs(px[i+1]-BG_G) + Math.abs(px[i+2]-BG_B)) / (3*255);
+  }
+  dev /= 36; // mean deviation 0–1
+  // Ramp: 1× below 5% deviation, up to 4× at 20%+ deviation
+  const target = 1 + Math.min(3, Math.max(0, dev - 0.05) / 0.15 * 3);
+  densityBoost += (target - densityBoost) * 0.25; // smooth transition
+}
+
+// On tab return after ≥30s: inject max boost so multiply buildup
+// clears quickly; sampler will decay it back to 1 invisibly.
+let _hiddenAt = 0;
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    _hiddenAt = performance.now();
+  } else if (performance.now() - _hiddenAt > 30000) {
+    densityBoost = 4;
+  }
+});
+
+function fluidFrame(){
+  updateDensityBoost();
+  let ef = params.fade;
+  if(params.blur<50){const boost=1+((50-params.blur)/50)*3; ef=Math.min(0.25,params.fade*boost);}
+  ef = Math.min(0.25, ef * densityBoost); // apply density correction
+  ctx.globalCompositeOperation='source-over';
+  ctx.fillStyle=`rgba(245,248,250,${ef})`; ctx.fillRect(0,0,W,H);
+  ctx.globalCompositeOperation='multiply';
+  ctx.globalAlpha=rm.active?0.55:1.0;
+  for(const m of mice){m.update();m.draw(ctx);}
+  ctx.globalAlpha=1.0;
+  if(rm.active)drawRealMouse();
+  requestAnimationFrame(fluidFrame);
+}
+canvas.style.filter=`blur(${params.blur}px)`;
+// Respect prefers-reduced-motion: fill with BG color and skip animation
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  ctx.fillStyle = BG; ctx.fillRect(0, 0, W, H);
+} else {
+  requestAnimationFrame(fluidFrame);
+}
+// ── End fluid canvas ────────────────────────────────────────
+</script>
 
 <script>
   // Nav scroll state

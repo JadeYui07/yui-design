@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>One Language, Thirty Apps — Yuzhuo Zhang</title>
-  <meta name="description" content="Case study: Building a unified global design system for 30 iOS and Android apps — with 2 designers, in 2 months, from first principles.">
+  <meta name="description" content="Building a unified global design system for 30 iOS and Android apps — with 2 designers, in 2 months, from first principles.">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,7 +24,10 @@
       --case-warning-light:    #FB923C;
       --case-android:          #16A34A;
       --case-dark-hover:       #1E293B;
-      --case-verdict-bg:       #FFF7ED;
+      --case-verdict-bg:       oklch(0.982 0.018 60);
+      --case-accent-a06:       rgba(0,82,255,0.06);
+      --case-accent-a08:       rgba(0,82,255,0.08);
+      --case-accent-a15:       rgba(0,82,255,0.15);
       --case-shadow-accent:    0 4px 14px rgba(0,82,255,0.25);
       --case-shadow-accent-lg: 0 8px 28px rgba(0,82,255,0.35);
     }
@@ -77,9 +80,10 @@
 
     /* ── Hero ── */
     .ds-hero-wrap {
-      max-width: 1100px; margin: 0 auto;
-      padding: var(--space-10) var(--page-x) var(--space-12);
+      max-width: 1200px; margin: 0 auto;
+      padding: 140px var(--page-x) 80px;
       position: relative; overflow: hidden;
+      text-align: left;
     }
     .ds-hero-glow {
       position: absolute; top: -80px; right: -80px;
@@ -168,7 +172,7 @@
       position: relative; overflow: hidden;
       padding: var(--space-10) 0;
     }
-    .ds-stats-inner { max-width: 1100px; margin: 0 auto; padding: 0 var(--page-x); }
+    .ds-stats-inner { max-width: 1200px; margin: 0 auto; padding: 0 var(--page-x); }
     .ds-dot-texture {
       position: absolute; inset: 0;
       background-image: radial-gradient(circle, white 1px, transparent 1px);
@@ -192,7 +196,7 @@
     .ds-stat-item { padding: 48px 36px; background: var(--text); }
     .ds-stat-number {
       font-family: var(--font-display);
-      font-size: 60px; line-height: 1;
+      font-size: clamp(36px, 6vw, 60px); line-height: 1;
       color: var(--case-accent);
       margin-bottom: 10px;
     }
@@ -201,7 +205,7 @@
 
     /* ── Content sections ── */
     .ds-section {
-      max-width: 1100px; margin: 0 auto;
+      max-width: 1200px; margin: 0 auto;
       padding: var(--space-12) var(--page-x);
     }
     .ds-section--border { border-top: 1px solid var(--border); }
@@ -292,7 +296,7 @@
       background: var(--surface); border: 1px solid var(--border);
       border-radius: var(--radius); padding: 36px;
       box-shadow: var(--shadow-md);
-      transition: box-shadow 0.3s, transform 0.3s;
+      transition: transform 0.3s ease;
     }
     .ds-card:hover { box-shadow: var(--shadow-xl); transform: translateY(-3px); }
     .ds-card-featured-wrap {
@@ -439,7 +443,7 @@
     .ds-font-compare-card {
       background: var(--surface); border: 1px solid var(--border);
       border-radius: var(--radius); padding: 28px;
-      transition: box-shadow 0.3s, transform 0.3s;
+      transition: transform 0.3s ease;
     }
     .ds-font-compare-card:hover { box-shadow: var(--shadow-xl); transform: translateY(-2px); }
     .ds-fc-tag {
@@ -472,7 +476,7 @@
     .ds-constraint-card {
       background: var(--surface); border: 1px solid var(--border);
       border-radius: var(--radius); padding: var(--space-4);
-      transition: box-shadow 0.3s, transform 0.3s;
+      transition: transform 0.3s ease;
     }
     .ds-constraint-card:hover { box-shadow: var(--shadow-xl); transform: translateY(-2px); }
     .ds-constraint-tag {
@@ -501,7 +505,7 @@
     .ds-comp-category-card {
       background: var(--surface); border: 1px solid var(--border);
       border-radius: var(--radius); padding: 28px;
-      transition: box-shadow 0.3s, transform 0.3s;
+      transition: transform 0.3s ease;
     }
     .ds-comp-category-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
     .ds-comp-cat-header {
@@ -544,7 +548,7 @@
     .ds-platform-comp-card {
       background: var(--surface); border: 1px solid var(--border);
       border-radius: var(--radius); overflow: hidden;
-      transition: box-shadow 0.3s, transform 0.3s;
+      transition: transform 0.3s ease;
     }
     .ds-platform-comp-card:hover { box-shadow: var(--shadow-xl); transform: translateY(-2px); }
     .ds-pc-header { padding: 24px 28px 16px; }
@@ -568,7 +572,7 @@
       background: var(--text); position: relative; overflow: hidden;
       padding: var(--space-12) 0;
     }
-    .ds-results-inner { max-width: 1100px; margin: 0 auto; padding: 0 var(--page-x); }
+    .ds-results-inner { max-width: 1200px; margin: 0 auto; padding: 0 var(--page-x); }
     .ds-results .ds-section-title { color: var(--text-inverse); }
     .ds-results-grid {
       display: grid; grid-template-columns: repeat(3,1fr);
@@ -579,7 +583,7 @@
     }
     .ds-result-item { padding: 36px 28px; background: var(--text); }
     .ds-result-stat {
-      font-family: var(--font-display); font-size: 56px; line-height: 1;
+      font-family: var(--font-display); font-size: clamp(32px, 5.5vw, 56px); line-height: 1;
       color: var(--case-accent);
       margin-bottom: 10px;
     }
@@ -600,11 +604,11 @@
       height: 6px; background: rgba(255,255,255,0.09);
       border-radius: 3px; overflow: hidden; margin-bottom: 8px;
     }
-    .ds-vqa-fill { height: 100%; border-radius: 3px; width: 0; transition: width 1.4s cubic-bezier(0.16,1,0.3,1); }
+    .ds-vqa-fill { height: 100%; border-radius: 3px; transform: scaleX(0); transform-origin: left; transition: transform 1.4s cubic-bezier(0.16,1,0.3,1); }
     .ds-vqa-before { background: linear-gradient(to right, var(--case-error), var(--case-warning-light)); }
     .ds-vqa-after  { background: var(--case-gradient); }
-    .ds-vqa-before.go { width: 95%; }
-    .ds-vqa-after.go  { width: 80%; }
+    .ds-vqa-before.go { transform: scaleX(0.95); }
+    .ds-vqa-after.go  { transform: scaleX(0.80); }
     .ds-vqa-num { display: flex; justify-content: flex-end; font-size: 12px; color: rgba(255,255,255,0.35); margin-bottom: var(--space-3); }
     .ds-vqa-num strong { color: var(--text-inverse); }
     .ds-quote-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: var(--space-3); }
@@ -649,6 +653,17 @@
     }
     .ds-reflection-title { font-size: 17px; font-weight: 600; margin-bottom: 8px; color: var(--text); }
     .ds-reflection-body { font-size: 15px; color: var(--text-secondary); line-height: 1.75; }
+
+    /* ── Focus ── */
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--case-accent); outline-offset: 3px; border-radius: 3px; }
+
+    /* ── Reduced motion ── */
+    @media (prefers-reduced-motion: reduce) {
+      .ds-ring-1, .ds-ring-2 { animation: none; }
+      .ds-chip-1, .ds-chip-2, .ds-chip-3, .ds-chip-4 { animation: none; }
+      .ds-badge-dot { animation: none; }
+      .ds-vqa-fill { transition: none; }
+    }
 
     /* ── Responsive ── */
     @media (max-width: 768px) {
@@ -697,7 +712,7 @@
       border-radius: 12px;
       box-shadow: 0 32px 80px rgba(0,0,0,0.6);
       transform: scale(0.92);
-      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
     #lightbox.open #lightbox-img { transform: scale(1); }
 
@@ -738,7 +753,7 @@
 
 <!-- ── NAV ── -->
 <nav>
-  <a href="index.html" class="nav-logo">YZ</a>
+  <a href="index.html" class="nav-logo"><img src="images/name_no_bg.png" alt="YZ" height="32"></a>
   <ul class="nav-links">
     <li><a href="index.html#works">Work</a></li>
     <li><a href="about.html">About</a></li>
@@ -746,15 +761,7 @@
   </ul>
 </nav>
 
-<!-- ── BACK ── -->
-<div class="cs-back" style="padding-left: var(--page-x);">
-  <a href="index.html" class="cs-back-link">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-      <path d="M19 12H5M12 5l-7 7 7 7"/>
-    </svg>
-    All Work
-  </a>
-</div>
+<main>
 
 <!-- ── HERO ── -->
 <div class="ds-hero-wrap">
@@ -763,7 +770,7 @@
     <div>
       <div class="ds-badge reveal">
         <span class="ds-badge-dot"></span>
-        <span class="ds-badge-text">Case Study · Cross-Platform Design System</span>
+        <span class="ds-badge-text">Product Design · Cross-Platform Design System</span>
       </div>
       <h1 class="ds-hero-title reveal d1">
         One Language,<br>
@@ -795,7 +802,7 @@
       </div>
     </div>
 
-    <div class="ds-hero-graphic reveal d2">
+    <div class="ds-hero-graphic reveal d2" aria-hidden="true">
       <div class="ds-ring ds-ring-1"></div>
       <div class="ds-ring ds-ring-2"></div>
       <div class="ds-hero-center">
@@ -1578,9 +1585,11 @@
   </div>
 </div>
 
+</main>
+
 <!-- ── NEXT CASE STUDY ── -->
 <div class="cs-next-nav">
-  <p class="cs-next-label">Next Case Study</p>
+  <p class="cs-next-label">Next Project</p>
   <h3>EdTechLive — Personalized Instructional Strategies</h3>
   <a href="case-4.html" class="cs-next-link">
     View Project

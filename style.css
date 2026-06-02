@@ -140,18 +140,15 @@ nav.scrolled {
 
 /* Logo */
 .nav-logo {
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 600;
-  letter-spacing: -0.5px;
-  color: var(--text);
+  display: flex;
+  align-items: center;
   text-decoration: none;
   line-height: 1;
-  transition: color 0.2s var(--transition);
-  /* Subtle rust accent on hover */
+  opacity: 1;
+  transition: opacity 0.2s var(--transition);
 }
-
-.nav-logo:hover { color: var(--rust); }
+.nav-logo img { height: 32px; width: auto; display: block; }
+.nav-logo:hover { opacity: 0.75; }
 
 /* Links */
 .nav-links {
@@ -595,7 +592,7 @@ a:hover { color: var(--rust-700); }
 }
 
 .about-content {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
   display: grid;
@@ -637,7 +634,7 @@ a:hover { color: var(--rust-700); }
   gap: 8px;
 }
 
-.about-section { max-width: 1100px; margin: 0 auto; width: 100%; padding: 0 var(--space-6) 80px; }
+.about-section { max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 var(--space-6) 80px; }
 
 .about-section h2 {
   font-family: var(--font-display);
@@ -680,7 +677,7 @@ a:hover { color: var(--rust-700); }
 
 /* ── Back link ── */
 .cs-back {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: var(--space-4) 0 0;
 }
@@ -700,7 +697,7 @@ a:hover { color: var(--rust-700); }
 
 /* ── Hero ── */
 .cs-hero {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 40px 0 60px;
 }
@@ -760,7 +757,7 @@ a:hover { color: var(--rust-700); }
 
 /* ── Overview grid ── */
 .cs-overview {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 0 60px;
 }
@@ -800,7 +797,7 @@ a:hover { color: var(--rust-700); }
 
 /* ── Content sections ── */
 .cs-section {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 0 var(--space-8);
 }
@@ -961,7 +958,7 @@ a:hover { color: var(--rust-700); }
 
 /* ── Section divider ── */
 .cs-divider {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto var(--space-8);
   padding: 0;
 }
