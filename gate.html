@@ -52,7 +52,7 @@
     .sr-only { position:absolute; width:1px; height:1px; padding:0; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
 
     .gate-logo-wrap { line-height: 0; }
-    .gate-logo-wrap img { opacity: 0.88; display: block; height: 28px; max-height: 28px; width: auto; max-width: 200px; object-fit: contain; }
+    .gate-logo-wrap img { opacity: 0.88; display: block; height: 56px; max-height: 56px; width: auto; max-width: 240px; object-fit: contain; }
 
     .gate-heading {
       font-family: var(--font-display);
@@ -126,13 +126,14 @@
 
     .gate-error {
       font-size: 13px;
-      color: oklch(0.50 0.16 22);
+      color: var(--text-secondary);
       min-height: 1em;
       opacity: 0;
       transition: opacity 0.18s var(--transition);
+      line-height: 1.6;
     }
-
     .gate-error.visible { opacity: 1; }
+    .gate-error a { color: var(--rust); text-underline-offset: 3px; }
   </style>
 </head>
 <body>
@@ -142,7 +143,7 @@
     <div class="gate-logo-wrap">
       <img src="/images/name_no_bg.png" alt="Yuzhuo Zhang" height="28">
     </div>
-    <h1 class="gate-heading">Private.<br>Enter to continue.</h1>
+    <h1 class="gate-heading">Hey, welcome.<br>Good to see you.</h1>
   </div>
 
   <form class="gate-form" id="gate-form" novalidate>
@@ -185,7 +186,7 @@
       if (res.ok) {
         window.location.href = '/';
       } else {
-        error.textContent = 'Incorrect password.';
+        error.innerHTML = 'Not quite. <a href="mailto:jadeyuizhang@gmail.com">Reach out</a> if you need access.';
         error.classList.add('visible');
         input.classList.add('shake');
         input.addEventListener('animationend', () => input.classList.remove('shake'), { once: true });
