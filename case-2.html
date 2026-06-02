@@ -208,30 +208,6 @@
       padding-top: 20px; line-height: 2.2;
     }
 
-    /* Horizontal 4-col metric strip (kept for reference, no longer used in hero) */
-    .noaa-hero-metrics {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      overflow: hidden;
-    }
-    .noaa-metric-cell {
-      padding: 16px 18px;
-      background: var(--case-bg-deep);
-    }
-    .noaa-metric-val {
-      font-family: var(--font-display);
-      font-size: 18px; font-weight: 700; line-height: 1; margin-bottom: 5px;
-    }
-    .noaa-metric-val.cyan   { color: var(--case-accent); }
-    .noaa-metric-val.amber  { color: var(--case-amber); }
-    .noaa-metric-val.teal   { color: var(--case-teal); }
-    .noaa-metric-val.violet { color: var(--case-violet); }
-    .noaa-metric-lbl { font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
-
     /* ── HURRICANE TRACKER VISUAL ── */
     .noaa-hero-visual {
       position: relative; display: flex;
@@ -546,8 +522,7 @@
     @media (max-width: 800px) {
       .noaa-hero-inner { grid-template-columns: 1fr; gap: var(--space-5); }
       .noaa-hero-visual { display: none; }
-      .noaa-hero-metrics { grid-template-columns: 1fr 1fr; }
-      .noaa-section { padding: 72px 0; }
+.noaa-section { padding: 72px 0; }
       .noaa-problem-item { grid-template-columns: 40px 1fr; gap: var(--space-3); }
       .noaa-comp-item { grid-template-columns: 1fr; gap: 4px; }
       .noaa-results-grid { grid-template-columns: 1fr 1fr; }
