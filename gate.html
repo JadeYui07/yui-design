@@ -22,7 +22,7 @@
     }
 
     body {
-      min-height: 100vh;
+      min-height: 100svh;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -49,7 +49,10 @@
       gap: var(--space-3);
     }
 
-    .gate-logo { opacity: 0.88; display: block; height: 26px; width: auto; }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+
+    .gate-logo-wrap { line-height: 0; }
+    .gate-logo-wrap img { opacity: 0.88; display: block; height: 28px; max-height: 28px; width: auto; max-width: 200px; object-fit: contain; }
 
     .gate-heading {
       font-family: var(--font-display);
@@ -136,11 +139,14 @@
 
 <div class="gate">
   <div class="gate-header">
-    <img class="gate-logo" src="/images/name_no_bg.png" alt="Yuzhuo Zhang">
+    <div class="gate-logo-wrap">
+      <img src="/images/name_no_bg.png" alt="Yuzhuo Zhang" height="28">
+    </div>
     <h1 class="gate-heading">Private.<br>Enter to continue.</h1>
   </div>
 
   <form class="gate-form" id="gate-form" novalidate>
+    <label for="gate-input" class="sr-only">Password</label>
     <input
       class="gate-input"
       id="gate-input"
