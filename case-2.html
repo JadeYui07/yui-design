@@ -186,7 +186,29 @@
     .noaa-tag--amber  { color: var(--case-amber);   border-color: rgba(217,119,6,0.28);   background: rgba(217,119,6,0.08); }
     .noaa-tag--muted  { color: var(--text-secondary); border-color: var(--border); background: transparent; }
 
-    /* Horizontal 4-col metric strip */
+    /* ── Impact lead (Option A) ── */
+    .noaa-impact-lead { padding: var(--space-10) 0; }
+    .noaa-impact-num {
+      font-family: var(--font-display);
+      font-size: clamp(72px, 11vw, 120px);
+      font-weight: 600; line-height: 1;
+      letter-spacing: -0.04em;
+      color: var(--case-accent);
+      margin-bottom: 8px;
+    }
+    .noaa-impact-desc {
+      font-size: 17px; color: var(--text-secondary);
+      font-weight: 300; margin-bottom: 28px; max-width: 520px;
+    }
+    .noaa-impact-desc strong { color: var(--text); font-weight: 600; }
+    .noaa-impact-support {
+      font-size: 13px; color: var(--text-tertiary);
+      letter-spacing: 0.03em;
+      border-top: 1px solid var(--border);
+      padding-top: 20px; line-height: 2.2;
+    }
+
+    /* Horizontal 4-col metric strip (kept for reference, no longer used in hero) */
     .noaa-hero-metrics {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -577,24 +599,6 @@
             <span class="noaa-tag noaa-tag--muted">iOS · Subscription</span>
             <span class="noaa-tag noaa-tag--muted">Life-Safety</span>
           </div>
-          <div class="noaa-hero-metrics">
-            <div class="noaa-metric-cell">
-              <div class="noaa-metric-val cyan">4.4★→4.7★</div>
-              <div class="noaa-metric-lbl">App Store rating</div>
-            </div>
-            <div class="noaa-metric-cell">
-              <div class="noaa-metric-val amber">↑ Sig.</div>
-              <div class="noaa-metric-lbl">Subscription uplift</div>
-            </div>
-            <div class="noaa-metric-cell">
-              <div class="noaa-metric-val teal">~30%</div>
-              <div class="noaa-metric-lbl">Download spike</div>
-            </div>
-            <div class="noaa-metric-cell">
-              <div class="noaa-metric-val violet">PCMAG</div>
-              <div class="noaa-metric-lbl">Best Weather 2025</div>
-            </div>
-          </div>
         </div>
 
         <div class="noaa-hero-visual" aria-hidden="true">
@@ -680,6 +684,15 @@
           </svg>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ── IMPACT LEAD ── -->
+  <section class="noaa-impact-lead">
+    <div class="noaa-container">
+      <div class="noaa-impact-num">4.7★</div>
+      <p class="noaa-impact-desc"><strong>App Store rating</strong> — up from 4.4, after the redesign shipped.</p>
+      <p class="noaa-impact-support">↑ significant subscription uplift &nbsp;·&nbsp; ~30% download spike &nbsp;·&nbsp; <a href="https://www.pcmag.com/picks/best-weather-apps" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">PCMAG Best Weather Apps 2025</a></p>
     </div>
   </section>
 

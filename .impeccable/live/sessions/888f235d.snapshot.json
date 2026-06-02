@@ -1,0 +1,23 @@
+{
+  "id": "888f235d",
+  "phase": "discarded",
+  "pageUrl": "/Users/yuzhuozhang/Documents/DesignCode/yui-design/case-4.html",
+  "sourceFile": "case-4.html",
+  "expectedVariants": 3,
+  "arrivedVariants": 3,
+  "visibleVariant": 2,
+  "paramValues": {
+    "radius": 18,
+    "fit": "cover"
+  },
+  "pendingEventSeq": null,
+  "pendingEvent": null,
+  "deliveryLease": null,
+  "checkpointRevision": 15,
+  "activeOwner": "e1af3726",
+  "sourceMarkers": {},
+  "fallbackMode": null,
+  "annotationArtifacts": [],
+  "diagnostics": [],
+  "updatedAt": "2026-06-01T22:08:04.849Z"
+}

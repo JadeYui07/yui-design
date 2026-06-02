@@ -186,6 +186,37 @@ nav.scrolled { background: rgba(12, 12, 16, 0.95); border-bottom-color: var(--bo
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ── IMPACT LEAD (Option A) ────────────────── */
+.impact-lead {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--page-x) 80px;
+}
+.impact-lead-num {
+  font-family: var(--font-display);
+  font-size: clamp(72px, 11vw, 120px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--case-accent);
+  margin-bottom: 8px;
+}
+.impact-lead-desc {
+  font-size: 17px;
+  color: var(--text2);
+  font-weight: 300;
+  margin-bottom: 28px;
+}
+.impact-lead-desc strong { color: var(--text); font-weight: 500; }
+.impact-support-row {
+  font-size: 13px;
+  color: var(--text3);
+  letter-spacing: 0.03em;
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+  line-height: 2.2;
+}
+
 /* ── IMPACT STRIP ──────────────────────────── */
 .impact-strip {
   max-width: 1200px;
@@ -1058,30 +1089,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--case-accent); o
   </div>
 </div>
 
-<!-- ── IMPACT STRIP ── -->
-<div class="impact-strip">
-  <div class="impact-strip-inner">
-    <div class="impact-item">
-      <div class="impact-num">+61%</div>
-      <div class="impact-label">Sound-to-pitch<br>trigger rate</div>
-    </div>
-    <div class="impact-item">
-      <div class="impact-num teal">4.5→7.2%</div>
-      <div class="impact-label">Start Paid Rate<br>(renewal conversion)</div>
-    </div>
-    <div class="impact-item">
-      <div class="impact-num">+30%</div>
-      <div class="impact-label">Trial Start Rate<br>post-launch</div>
-    </div>
-    <div class="impact-item">
-      <div class="impact-num green">70→90%</div>
-      <div class="impact-label">Flow success<br>rate</div>
-    </div>
-    <div class="impact-item">
-      <div class="impact-num teal">−22s</div>
-      <div class="impact-label">Task time removed<br>from sound selection</div>
-    </div>
-  </div>
+<!-- ── IMPACT LEAD ── -->
+<div class="impact-lead reveal">
+  <div class="impact-lead-num">+61%</div>
+  <p class="impact-lead-desc"><strong>subscription conversion lift</strong> — the headline result.</p>
+  <p class="impact-support-row">+30% trial starts &nbsp;·&nbsp; 70→90% task success &nbsp;·&nbsp; 4.5→7.2% paid rate &nbsp;·&nbsp; −22s per session</p>
 </div>
 
 <!-- ── CONTEXT ── -->
