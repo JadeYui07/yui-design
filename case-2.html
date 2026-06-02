@@ -4,40 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NOAA Live Weather Radar — Yuzhuo Zhang</title>
-  <meta name="description" content="Case study: Rebuilding NOAA Live Weather Radar into a life-safety companion — earning PCMAG Best Weather Apps 2025.">
+  <meta name="description" content="Rebuilding NOAA Live Weather Radar into a life-safety companion — earning PCMAG Best Weather Apps 2025.">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
   <style>
     /* ── Page-level tokens ── */
     :root {
-      --bg:             oklch(0.975 0.008 255);
+      --bg:             oklch(0.975 0.008 220);
       --bg-subtle:      rgba(0,0,0,0.03);
       --bg-muted:       rgba(0,0,0,0.055);
-      --text:           oklch(0.13 0.02 255);
-      --text-secondary: oklch(0.40 0.016 255);
-      --text-tertiary:  oklch(0.60 0.010 255);
-      --text-inverse:   oklch(0.975 0.008 255);
+      --text:           oklch(0.13 0.02 230);
+      --text-secondary: oklch(0.40 0.016 230);
+      --text-tertiary:  oklch(0.48 0.012 230);
+      --text-inverse:   oklch(0.975 0.008 220);
       --border:         rgba(0,0,0,0.09);
       --border-subtle:  rgba(0,0,0,0.05);
-      --surface:        rgba(255,255,255,0.72);
+      --border-soft:    rgba(0,0,0,0.06);
+      --surface:        rgba(255,255,255,0.80);
 
-      /* Slightly darkened accents for legibility on light bg */
-      --case-accent:   #0891b2;
-      --case-blue:     #2563eb;
-      --case-violet:   #7c3aed;
-      --case-amber:    #d97706;
-      --case-orange:   #ea580c;
-      --case-red:      #dc2626;
-      --case-teal:     #0d9488;
-      --case-gradient-top: linear-gradient(90deg, #0891b2, #7c3aed, #d97706);
-      --case-bg-deep:  rgba(255,255,255,0.82);
+      /* Accents — deepened for AA contrast on light bg */
+      --case-accent:   #0e7490;
+      --case-blue:     #1d4ed8;
+      --case-violet:   #6d28d9;
+      --case-amber:    #b45309;
+      --case-orange:   #c2410c;
+      --case-red:      #b91c1c;
+      --case-teal:     #0f766e;
+      --case-gradient-top: linear-gradient(90deg, #0e7490, #0284c7, #0369a1);
+      --case-bg-deep:  rgba(255,255,255,0.90);
 
-      /* Orbs: pink · blue · purple · amber · sea-green */
-      --case-orb-1: rgba(244,114,182,0.28);
-      --case-orb-2: rgba(99,102,241,0.22);
-      --case-orb-3: rgba(167,139,250,0.24);
-      --case-orb-4: rgba(251,191,36,0.20);
-      --case-orb-5: rgba(52,211,153,0.22);
+      /* Orbs: sky · deep-air · cirrus · horizon · atmosphere */
+      --case-orb-1: rgba(56,189,248,0.16);
+      --case-orb-2: rgba(100,149,237,0.13);
+      --case-orb-3: rgba(148,163,184,0.15);
+      --case-orb-4: rgba(186,230,253,0.18);
+      --case-orb-5: rgba(224,242,254,0.20);
     }
 
     body { overflow-x: hidden; -webkit-font-smoothing: antialiased; }
@@ -65,18 +66,18 @@
     /* ── Progress bar ── */
     #progress-bar {
       position: fixed; top: 0; left: 0; height: 3px; width: 0%;
-      background: var(--case-gradient-top);
+      background: var(--case-accent);
       z-index: 999; border-radius: 0 3px 3px 0; transition: width 0.1s linear;
     }
 
     /* ── FOOTER light override ── */
-    footer { background: oklch(0.96 0.008 255); border-top: 1px solid var(--border-subtle); color: var(--text-secondary); }
+    footer { background: var(--bg); border-top: 1px solid var(--border-subtle); color: var(--text-secondary); }
     footer a { color: var(--text-secondary); }
     footer a:hover { color: var(--text); }
 
     /* ── LIQUID BACKGROUND ── */
     .noaa-liquid-bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
-    .noaa-orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0; }
+    .noaa-orb { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0; }
     .noaa-orb-1 {
       width: 600px; height: 600px; top: -100px; left: -100px;
       background: radial-gradient(circle, var(--case-orb-1) 0%, transparent 70%);
@@ -112,13 +113,13 @@
     .noaa-grain {
       position: fixed; inset: 0; z-index: 1; pointer-events: none;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      background-size: 200px 200px; opacity: 0.45;
+      background-size: 200px 200px; opacity: 0.22;
     }
 
     /* ── LAYOUT ── */
     .noaa-main { position: relative; z-index: 2; }
     .noaa-section { padding: var(--space-12) 0; position: relative; }
-    .noaa-container { max-width: 1100px; margin: 0 auto; padding: 0 var(--page-x); }
+    .noaa-container { max-width: 1200px; margin: 0 auto; padding: 0 var(--page-x); }
     .noaa-container--mid { max-width: 840px; margin: 0 auto; padding: 0 var(--page-x); }
     .noaa-divider {
       border: none; height: 1px; position: relative; z-index: 2;
@@ -149,13 +150,14 @@
       min-height: 100vh;
       display: flex;
       align-items: center;
-      padding: 120px 0 var(--space-10);
+      padding: 140px 0 80px;
+      text-align: left;
     }
 
     .noaa-hero-inner {
       display: grid;
-      grid-template-columns: 1.3fr 0.7fr;
-      gap: var(--space-10);
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: var(--space-8);
       align-items: center;
     }
 
@@ -197,7 +199,6 @@
     .noaa-metric-cell {
       padding: 16px 18px;
       background: var(--case-bg-deep);
-      backdrop-filter: blur(12px);
     }
     .noaa-metric-val {
       font-family: var(--font-display);
@@ -246,11 +247,11 @@
     }
     @keyframes noaa-pulse-ring {
       0%   { transform: scale(1);   opacity: 0.55; }
-      100% { transform: scale(5);   opacity: 0; }
+      100% { transform: scale(2.5); opacity: 0; }
     }
     .noaa-wp {
       transform-box: fill-box; transform-origin: center;
-      animation: noaa-wp-pop 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+      animation: noaa-wp-pop 0.4s cubic-bezier(0.16,1,0.3,1) both;
     }
     @keyframes noaa-wp-pop {
       from { transform: scale(0); opacity: 0; }
@@ -371,7 +372,7 @@
     .noaa-decision {
       display: grid; grid-template-columns: 56px 1fr;
       gap: 36px; padding: var(--space-6) 0;
-      border-bottom: 1px solid rgba(0,0,0,0.06);
+      border-bottom: 1px solid var(--border-soft);
     }
     .noaa-decision:last-child { border-bottom: none; }
     .noaa-decision-num {
@@ -507,6 +508,18 @@
     .noaa-img-ph-label { font-size: 12px; font-weight: 500; letter-spacing: 0.04em; color: rgba(0,0,0,0.32); }
     .noaa-img-ph-sub   { font-size: 12px; color: rgba(0,0,0,0.18); letter-spacing: 0.02em; }
 
+    /* ── FOCUS ── */
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--case-accent); outline-offset: 3px; border-radius: 3px; }
+
+    /* ── REDUCED MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+      .noaa-orb { animation: none !important; opacity: 0.6; }
+      .noaa-storm-spiral, .noaa-storm-pulse, .noaa-spin { animation: none !important; }
+      .noaa-past-track, .noaa-forecast-track { animation: none !important; stroke-dashoffset: 0; }
+      .noaa-cone { animation: none !important; opacity: 1; }
+      .noaa-wp { animation: none !important; opacity: 1; transform: scale(1); }
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 800px) {
       .noaa-hero-inner { grid-template-columns: 1fr; gap: var(--space-5); }
@@ -540,7 +553,7 @@
 
 <!-- ── NAV ── -->
 <nav>
-  <a href="index.html" class="nav-logo">YZ</a>
+  <a href="index.html" class="nav-logo"><img src="images/name_no_bg.png" alt="YZ" height="32"></a>
   <ul class="nav-links">
     <li><a href="index.html#works">Work</a></li>
     <li><a href="about.html">About</a></li>
@@ -555,11 +568,11 @@
     <div class="noaa-container">
       <div class="noaa-hero-inner">
         <div>
-          <div class="noaa-pill">UX/UI Case Study · iOS · 2022–2024</div>
+          <div class="noaa-pill">Product Design · iOS · 2022–2024</div>
           <h1 class="noaa-hero-title">NOAA<br>Live Weather Radar</h1>
-          <p class="noaa-hero-sub">Rebuilding a broken weather app into a life-safety companion — and earning a spot on PCMAG's Best Weather Apps 2025.</p>
+          <p class="noaa-hero-sub">Rebuilding a broken weather app into a life-safety companion — and earning a spot on <a href="https://www.pcmag.com/picks/best-weather-apps" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:3px;opacity:0.8;">PCMAG's Best Weather Apps 2025</a>.</p>
           <div class="noaa-hero-tags">
-            <span class="noaa-tag noaa-tag--cyan">Lead UX/UI Designer</span>
+            <span class="noaa-tag noaa-tag--cyan">Lead Product Designer</span>
             <span class="noaa-tag noaa-tag--amber">0 → 1 Product</span>
             <span class="noaa-tag noaa-tag--muted">iOS · Subscription</span>
             <span class="noaa-tag noaa-tag--muted">Life-Safety</span>
@@ -674,7 +687,7 @@
 
   <!-- ── QUOTE ── -->
   <section class="noaa-section">
-    <div class="noaa-container--mid">
+    <div class="noaa-container">
       <div class="noaa-pill">October 9, 2024 · App Store Review</div>
       <div class="noaa-pull-quote reveal">
         <p class="noaa-pull-text">The app gives up to date info that affects my specific location. Exactly what I need when the networks just keep replaying the same news over and over.</p>
@@ -725,7 +738,7 @@
 
   <!-- ── 02 STRATEGIC PIVOT ── -->
   <section class="noaa-section">
-    <div class="noaa-container--mid">
+    <div class="noaa-container">
       <div class="noaa-pill">02 · Strategic Pivot</div>
       <div class="reveal">
         <p class="noaa-pivot-statement">The company is based in Florida. Severe weather isn't a feature category — it's the reason people need the product at all.</p>
@@ -904,13 +917,13 @@
         </div>
         <div class="noaa-result-item noaa-s4 reveal">
           <div class="noaa-result-num">#1</div>
-          <div class="noaa-result-lbl">PCMAG Best Weather Apps 2025</div>
+          <div class="noaa-result-lbl"><a href="https://www.pcmag.com/picks/best-weather-apps" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">PCMAG Best Weather Apps 2025</a></div>
         </div>
       </div>
       <div class="noaa-pcmag reveal">
         <div class="noaa-pcmag-star">★</div>
         <div class="noaa-pcmag-text">
-          <strong>PCMAG "Best Weather Apps for 2025"</strong>
+          <strong><a href="https://www.pcmag.com/picks/best-weather-apps" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">PCMAG "Best Weather Apps for 2025"</a></strong>
           <span>Independent editorial recognition — the repositioning worked.</span>
         </div>
       </div>
@@ -921,7 +934,7 @@
 
   <!-- ── 06 REFLECTION ── -->
   <section class="noaa-section" style="padding-bottom:var(--space-16);">
-    <div class="noaa-container--mid">
+    <div class="noaa-container">
       <div class="noaa-pill">06 · Reflection</div>
       <div class="noaa-reflection-card reveal">
         <p class="noaa-reflection-pull">Competitors designed for <em>weather curiosity</em>.<br>We designed for <em>protective action</em>.</p>
@@ -935,7 +948,7 @@
 
 <!-- ── NEXT CASE STUDY ── -->
 <div class="cs-next-nav" style="position:relative;z-index:2;">
-  <p class="cs-next-label">Next Case Study</p>
+  <p class="cs-next-label">Next Project</p>
   <h3>One Language, Thirty Apps — Global Design System</h3>
   <a href="case-3.html" class="cs-next-link">
     View Project
