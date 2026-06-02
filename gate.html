@@ -7,28 +7,61 @@
   <link rel="stylesheet" href="/style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
   <style>
+    /* ── Same pastel gradient as about page ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 70% 60% at 8% 12%,  rgba(220,184,232,0.30) 0%, transparent 70%),
+        radial-gradient(ellipse 55% 65% at 92% 78%,  rgba(181,218,240,0.25) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 45% at 72% 18%,  rgba(197,176,238,0.20) 0%, transparent 65%),
+        radial-gradient(ellipse 45% 55% at 22% 88%,  rgba(245,210,192,0.22) 0%, transparent 65%);
+    }
+
     body {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: var(--space-6);
+      position: relative;
     }
 
+    /* ── Gate wrapper ── */
     .gate {
+      position: relative;
+      z-index: 1;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
       gap: var(--space-8);
       width: 100%;
-      max-width: 340px;
+      max-width: 380px;
     }
 
-    .gate-logo {
-      opacity: 0.85;
-      display: block;
+    /* ── Logo + heading ── */
+    .gate-header {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
     }
 
+    .gate-logo { opacity: 0.88; display: block; }
+
+    .gate-heading {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 700;
+      font-style: italic;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+
+    /* ── Form ── */
     .gate-form {
       display: flex;
       flex-direction: column;
@@ -38,7 +71,7 @@
 
     .gate-input {
       width: 100%;
-      padding: 13px var(--space-3);
+      padding: 14px var(--space-3);
       font-family: var(--font-body);
       font-size: 16px;
       color: var(--text);
@@ -50,9 +83,7 @@
       -webkit-appearance: none;
     }
 
-    .gate-input::placeholder {
-      color: var(--text-tertiary);
-    }
+    .gate-input::placeholder { color: var(--text-tertiary); }
 
     .gate-input:focus {
       border-color: var(--rust-300);
@@ -73,7 +104,7 @@
 
     .gate-btn {
       width: 100%;
-      padding: 13px var(--space-3);
+      padding: 14px var(--space-3);
       font-family: var(--font-body);
       font-size: 15px;
       font-weight: 500;
@@ -93,7 +124,6 @@
     .gate-error {
       font-size: 13px;
       color: oklch(0.50 0.16 22);
-      text-align: center;
       min-height: 1em;
       opacity: 0;
       transition: opacity 0.18s var(--transition);
@@ -105,7 +135,10 @@
 <body>
 
 <div class="gate">
-  <img class="gate-logo" src="/images/name_no_bg.png" alt="Yuzhuo Zhang" height="26">
+  <div class="gate-header">
+    <img class="gate-logo" src="/images/name_no_bg.png" alt="Yuzhuo Zhang" height="26">
+    <h1 class="gate-heading">Private.<br>Enter to continue.</h1>
+  </div>
 
   <form class="gate-form" id="gate-form" novalidate>
     <input
