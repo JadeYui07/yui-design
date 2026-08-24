@@ -347,7 +347,7 @@
 
     /* ────────────────────────────────────────────────────────
        COMPETITIVE LIST (analytical rows, no card grid)
-    ──────────────────────────────────────────────────────── */
+    ─────────────────────────────────────���────────────────── */
     .noaa-comp-list { margin-top: var(--space-6); }
     .noaa-comp-item {
       display: grid;
@@ -1029,6 +1029,9 @@
   lb2.querySelector('.lb-close').addEventListener('click', closeLb2);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb2(); });
 </script>
+
+<!-- Vercel Web Analytics -->
+<script type="module" src="analytics.js"></script>
 
 </body>
 </html>
