@@ -9,6 +9,7 @@ export default function middleware(request) {
   if (
     pathname === '/gate.html' ||
     pathname.startsWith('/api/') ||
+    pathname.startsWith('/_vercel/') ||
     pathname === '/style.css' ||
     pathname === '/favicon.ico' ||
     pathname.startsWith('/images/')
