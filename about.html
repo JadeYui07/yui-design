@@ -66,21 +66,61 @@
       color: var(--text);
       margin-bottom: 24px;
     }
+    /* Lead statement */
+    .about-lead {
+      font-family: var(--font-display);
+      font-size: clamp(19px, 2vw, 24px);
+      font-weight: 500;
+      line-height: 1.4;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: var(--space-3);
+      max-width: 520px;
+    }
+
+    /* Capability keywords */
+    .about-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: var(--space-3);
+      max-width: 520px;
+    }
+    .about-skills .skill-chip { padding: 8px 16px; font-size: 13px; }
+
     .about-bio {
-      font-size: 17px;
+      font-size: 15.5px;
       color: var(--text-secondary);
       line-height: 1.8;
-      margin-bottom: 36px;
+      margin-bottom: var(--space-3);
       max-width: 520px;
     }
     .about-bio strong { color: var(--text); font-weight: 500; }
+    .about-bio--connect { margin-top: -8px; }
 
-    /* Highlight list */
-    .about-highlights { display: flex; flex-direction: column; gap: 14px; }
-    .highlight-row { display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--text-secondary); }
-    .highlight-dot {
-      width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
-      background: linear-gradient(135deg, oklch(0.48 0.18 285), oklch(0.52 0.22 340));
+    /* Resume CTA */
+    .about-resume {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 24px;
+      border-radius: var(--radius-full);
+      background: var(--rust);
+      color: var(--text-inverse);
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      box-shadow: var(--shadow-sm);
+      transition: background 0.2s var(--transition), transform 0.2s var(--transition), box-shadow 0.2s var(--transition);
+    }
+    .about-resume:hover {
+      background: var(--rust-700);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .about-resume:hover { transform: none; }
     }
 
     /* Hero photo */
@@ -314,18 +354,25 @@
 
       <div>
         <h1 class="about-h1">Hi! I'm Yuzhuo Zhang!</h1>
-        <p class="about-bio">
-          I'm a product designer with 4 years of working experience, currently designing <strong>@Eightpoint</strong>.
+        <p class="about-lead">
+          I turn ambiguous product problems into clear, actionable experiences.
         </p>
-        <p class="about-bio" style="margin-top: 16px;">
-          My background spans design, research, data and a bit of code. I find the edges between disciplines are where the most interesting problems live. Always happy to chat, so feel free to reach out&nbsp;=)
-        </p>
-        <div class="about-highlights">
-          <div class="highlight-row"><div class="highlight-dot"></div><span>Currently designing @Eightpoint · iOS &amp; Android</span></div>
-          <div class="highlight-row"><div class="highlight-dot"></div><span>Cross-platform design system · 100% UI consistency</span></div>
-          <div class="highlight-row"><div class="highlight-dot"></div><span>PCMAG Best Weather Apps since 2023 contributor</span></div>
-          <div class="highlight-row"><div class="highlight-dot"></div><span>End-to-end: research → prototype → shipped product</span></div>
+        <div class="about-skills">
+          <span class="skill-chip">Product Strategy</span>
+          <span class="skill-chip">UX Research</span>
+          <span class="skill-chip">Design Systems</span>
+          <span class="skill-chip">End-to-End Design</span>
         </div>
+        <p class="about-bio">
+          I'm a product designer at <strong>Eightpoint</strong> working across consumer products and cross-platform systems. I bring structure to complex problems by clarifying what matters, aligning teams around a direction, and designing experiences people can understand and act on. My work spans severe-weather safety, sleep routines, and a shared design language for 30 iOS and Android apps.
+        </p>
+        <p class="about-bio about-bio--connect">
+          Always happy to chat, so feel free to reach out&nbsp;=)
+        </p>
+        <a class="about-resume" href="https://drive.google.com/file/d/1VkIK9NDHbJUpGfgfrDlqiSERDJ0C7dOU/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>
+          View resume
+        </a>
       </div>
 
       <div class="about-photo-wrap">
@@ -338,12 +385,64 @@
   <!-- ── CONTENT ── -->
   <div class="about-content">
 
-    <!-- Statement -->
+    <!-- Experience -->
     <div class="about-section">
-      <h2 class="about-section-head">I make products<br>that actually work.</h2>
-      <p class="about-section-body">
-        I work at the intersection of research and execution, turning ambiguous problems into structured, user-validated solutions. Past impact: <strong>+35% DAU</strong> on a 500K-user weather app, <strong>100% UI consistency</strong> through a cross-platform design system, and <strong>+48% engagement</strong> on a redesigned scanner homepage.
-      </p>
+      <h2 class="about-section-head">Here's where<br>I've been.</h2>
+      <div class="exp-list">
+        <div class="exp-row">
+          <span class="exp-year">Jan 2023 — Now</span>
+          <div class="exp-details">
+            <h4>UX Team Design Lead</h4>
+            <p class="company">Eightpoint Interactive, Inc.</p>
+            <p>Led end-to-end design across 30 iOS &amp; Android apps, driving up to 41% subscription conversion. Spearheaded cross-platform design system unifying the full product suite with 100% UI consistency.</p>
+          </div>
+        </div>
+        <div class="exp-row">
+          <span class="exp-year">Jun — Dec 2022</span>
+          <div class="exp-details">
+            <h4>UX Designer Intern · Mobile iOS</h4>
+            <p class="company">Eightpoint Interactive, Inc.</p>
+            <p>Redesigned weather radar app for 500K+ users, driving 35% DAU increase. Led scanner app homepage redesign that boosted engagement by 48%.</p>
+          </div>
+        </div>
+        <div class="exp-row">
+          <span class="exp-year">Aug — Dec 2022</span>
+          <div class="exp-details">
+            <h4>UX Researcher / Designer Co-op</h4>
+            <p class="company">Assurant, Inc.</p>
+            <p>Designed core app features as an integrated system. Conducted card sorting, user interviews, and competitor analysis to optimize navigation and clustering.</p>
+          </div>
+        </div>
+        <div class="exp-row">
+          <span class="exp-year">Aug — Dec 2021</span>
+          <div class="exp-details">
+            <h4>Web Product Designer Co-op</h4>
+            <p class="company">EdTechLive, LLC.</p>
+            <p>Redesigned curriculum map and pre-lesson features for a B2B SaaS platform through 8 user interviews, iterative design, and cross-functional collaboration.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Education -->
+    <div class="about-section">
+      <h2 class="about-section-head">Education.</h2>
+      <div class="exp-list">
+        <div class="exp-row">
+          <span class="exp-year">2021 — 2022</span>
+          <div class="exp-details">
+            <h4>M.P.S. in Information Science</h4>
+            <p class="company">Cornell University</p>
+          </div>
+        </div>
+        <div class="exp-row">
+          <span class="exp-year">2017 — 2021</span>
+          <div class="exp-details">
+            <h4>B.S. in Information Science and Technology</h4>
+            <p class="company">Pennsylvania State University</p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Interests flip cards -->
@@ -396,66 +495,6 @@
           </div>
         </div>
 
-      </div>
-    </div>
-
-    <!-- Experience -->
-    <div class="about-section">
-      <h2 class="about-section-head">Here's where<br>I've been.</h2>
-      <div class="exp-list">
-        <div class="exp-row">
-          <span class="exp-year">Jan 2023 — Now</span>
-          <div class="exp-details">
-            <h4>UX Team Design Lead</h4>
-            <p class="company">Eightpoint Interactive, Inc.</p>
-            <p>Led end-to-end design across 24 iOS &amp; Android apps, driving up to 41% subscription conversion. Spearheaded cross-platform design system unifying the full product suite with 100% UI consistency.</p>
-          </div>
-        </div>
-        <div class="exp-row">
-          <span class="exp-year">Jun — Dec 2022</span>
-          <div class="exp-details">
-            <h4>UX Designer Intern · Mobile iOS</h4>
-            <p class="company">Eightpoint Interactive, Inc.</p>
-            <p>Redesigned weather radar app for 500K+ users, driving 35% DAU increase. Led scanner app homepage redesign that boosted engagement by 48%.</p>
-          </div>
-        </div>
-        <div class="exp-row">
-          <span class="exp-year">Aug — Dec 2022</span>
-          <div class="exp-details">
-            <h4>UX Researcher / Designer Co-op</h4>
-            <p class="company">Assurant, Inc.</p>
-            <p>Designed core app features as an integrated system. Conducted card sorting, user interviews, and competitor analysis to optimize navigation and clustering.</p>
-          </div>
-        </div>
-        <div class="exp-row">
-          <span class="exp-year">Aug — Dec 2021</span>
-          <div class="exp-details">
-            <h4>Web Product Designer Co-op</h4>
-            <p class="company">EdTechLive, LLC.</p>
-            <p>Redesigned curriculum map and pre-lesson features for a B2B SaaS platform through 8 user interviews, iterative design, and cross-functional collaboration.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Education -->
-    <div class="about-section">
-      <h2 class="about-section-head">Education.</h2>
-      <div class="exp-list">
-        <div class="exp-row">
-          <span class="exp-year">2021 — 2022</span>
-          <div class="exp-details">
-            <h4>M.P.S. in Information Science</h4>
-            <p class="company">Cornell University</p>
-          </div>
-        </div>
-        <div class="exp-row">
-          <span class="exp-year">2017 — 2021</span>
-          <div class="exp-details">
-            <h4>B.S. in Information Science and Technology</h4>
-            <p class="company">Pennsylvania State University</p>
-          </div>
-        </div>
       </div>
     </div>
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NOAA Live Weather Radar — Yuzhuo Zhang</title>
-  <meta name="description" content="Rebuilding NOAA Live Weather Radar into a life-safety companion — earning PCMAG Best Weather Apps since 2023.">
+  <meta name="description" content="NOAA Live Weather Radar — redesigning a low-trust weather utility around protective action: personal relevance, time-based planning, and visible sources of truth.">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="/images/favicon.png">
   <link rel="apple-touch-icon" href="/images/favicon.png">
@@ -173,10 +173,40 @@
       margin-bottom: var(--space-3);
     }
 
+    .noaa-hero-title em { color: var(--case-accent); font-style: normal; }
+
     .noaa-hero-sub {
       font-size: 18px; color: var(--text-secondary);
-      font-weight: 300; max-width: 40ch; margin-bottom: 28px; line-height: 1.75;
+      font-weight: 300; max-width: 46ch; margin-bottom: 24px; line-height: 1.75;
     }
+    .noaa-hero-role {
+      font-size: 14px; color: var(--text-tertiary);
+      line-height: 1.7; max-width: 46ch; margin-bottom: 20px;
+    }
+    .noaa-hero-role strong { color: var(--text-secondary); font-weight: 600; }
+
+    /* Hero outcome statement — qualitative, numbers live in section 06 */
+    .noaa-hero-outcome {
+      margin-top: var(--space-4);
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      font-size: 15px; color: var(--text-secondary);
+      line-height: 1.7; max-width: 52ch;
+    }
+    .noaa-hero-outcome strong { color: var(--text); font-weight: 600; }
+
+    /* ── CASE METADATA STRIP ── */
+    .noaa-meta-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-5) var(--space-6);
+      padding: var(--space-6) 0;
+    }
+    .noaa-meta-k {
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-tertiary); font-weight: 600; margin-bottom: 6px;
+    }
+    .noaa-meta-v { font-size: 14px; color: var(--text); line-height: 1.5; }
 
     .noaa-hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: var(--space-4); }
     .noaa-tag {
@@ -272,6 +302,8 @@
       padding: var(--space-6) 0 var(--space-5);
       border-top: 1px solid var(--case-accent);
     }
+    /* Quote that follows a list — no rule, the list already carries one */
+    .noaa-pull-quote--plain { border-top: none; padding-top: 0; }
     .noaa-pull-text {
       font-family: var(--font-display);
       font-size: clamp(20px, 2.8vw, 32px);
@@ -346,24 +378,131 @@
     .noaa-tension-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.65; }
 
     /* ────────────────────────────────────────────────────────
-       COMPETITIVE LIST (analytical rows, no card grid)
+       CURIOSITY vs PROTECTIVE ACTION
     ──────────────────────────────────────────────────────── */
-    .noaa-comp-list { margin-top: var(--space-6); }
-    .noaa-comp-item {
-      display: grid;
-      grid-template-columns: 180px 1fr;
-      gap: var(--space-6);
-      padding: var(--space-4) 0;
-      border-top: 1px solid var(--border);
-      align-items: start;
+    .noaa-contrast {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: var(--space-4); margin-top: var(--space-6); max-width: 880px;
     }
-    .noaa-comp-item:last-child { border-bottom: 1px solid var(--border); }
-    .noaa-comp-name { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
-    .noaa-comp-gap  {
-      font-size: 12px; font-weight: 500;
-      color: var(--case-accent); text-transform: uppercase; letter-spacing: 0.06em;
+    .noaa-contrast-col {
+      padding: 24px 28px; border-radius: var(--radius-sm);
+      border: 1px solid var(--border); background: rgba(0,0,0,0.02);
     }
-    .noaa-comp-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.65; }
+    .noaa-contrast-col--now {
+      border-color: rgba(14,116,144,0.28); background: rgba(14,116,144,0.06);
+    }
+    .noaa-contrast-k {
+      font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+      font-weight: 600; color: var(--text-tertiary); margin-bottom: 10px;
+    }
+    .noaa-contrast-col--now .noaa-contrast-k { color: var(--case-accent); }
+    .noaa-contrast-q {
+      font-family: var(--font-display); font-style: italic;
+      font-size: clamp(17px, 2vw, 21px); line-height: 1.4; color: var(--text);
+    }
+
+    /* ── DESIGN PRINCIPLE ── */
+    .noaa-principle {
+      margin-top: var(--space-6);
+      padding-top: 20px;
+      border-top: 1px solid var(--case-accent);
+      max-width: 720px;
+    }
+    .noaa-principle-k {
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      font-weight: 600; color: var(--case-accent); margin-bottom: 10px;
+    }
+    .noaa-principle-t {
+      font-family: var(--font-display);
+      font-size: clamp(18px, 2.2vw, 24px); font-weight: 500;
+      line-height: 1.45; color: var(--text);
+    }
+
+    /* ── WHAT CHANGED LIST ── */
+    .noaa-change-list { margin-top: 18px; display: flex; flex-direction: column; gap: 10px; max-width: 56ch; }
+    .noaa-change-row {
+      display: grid; grid-template-columns: 1fr 18px 1fr;
+      gap: 10px; align-items: baseline;
+      font-size: 14px; line-height: 1.5;
+      padding-bottom: 10px; border-bottom: 1px solid var(--border-subtle);
+    }
+    .noaa-change-row:last-child { border-bottom: none; }
+    .noaa-change-from { color: var(--text-tertiary); }
+    .noaa-change-arrow { color: var(--case-accent); }
+    .noaa-change-to { color: var(--text); font-weight: 500; }
+
+    /* ── ARTIFACT CAROUSEL ── */
+    .noaa-carousel { position: relative; }
+    .noaa-slide { margin: 0; display: none; }
+    .noaa-slide.is-active { display: block; animation: noaa-slide-in 0.28s ease-out both; }
+    @keyframes noaa-slide-in { from { opacity: 0; } to { opacity: 1; } }
+
+    .noaa-carousel-bar { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+    .noaa-car-btn {
+      width: 28px; height: 28px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%; cursor: pointer;
+      background: transparent; border: 1px solid var(--border);
+      color: var(--text-secondary);
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .noaa-car-btn:hover { background: rgba(0,0,0,0.04); border-color: var(--case-accent); color: var(--case-accent); }
+    .noaa-car-dots { display: flex; align-items: center; gap: 7px; }
+    .noaa-car-dot {
+      width: 7px; height: 7px; padding: 0; border-radius: 50%; cursor: pointer;
+      background: var(--border); border: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .noaa-car-dot:hover { background: var(--text-tertiary); }
+    .noaa-car-dot.is-active { background: var(--case-accent); transform: scale(1.25); }
+    .noaa-car-count {
+      margin-left: auto; font-family: var(--font-mono);
+      font-size: 11px; letter-spacing: 0.08em; color: var(--text-tertiary);
+    }
+
+    /* ── STANDALONE ARTIFACT IMAGE ── */
+    .noaa-artifact-img {
+      display: block; width: 100%; height: auto;
+      margin-top: var(--space-4);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      background: rgba(0,0,0,0.02);
+    }
+
+    /* ── ARTIFACT CAPTION ── */
+    .noaa-artifact-cap {
+      margin-top: 10px; font-size: 12.5px; color: var(--text-tertiary);
+      line-height: 1.6; letter-spacing: 0.01em;
+    }
+
+    /* ── OUTCOME READING NOTE ── */
+    .noaa-outcome-note {
+      margin-top: var(--space-6); padding: 22px 26px;
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      background: rgba(0,0,0,0.02); max-width: 780px;
+    }
+    .noaa-outcome-note-k {
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      font-weight: 600; color: var(--text-tertiary); margin-bottom: 12px;
+    }
+    .noaa-outcome-note ul { margin: 0; padding-left: 18px; }
+    .noaa-outcome-note li {
+      font-size: 14px; color: var(--text-secondary);
+      line-height: 1.7; margin-bottom: 6px;
+    }
+    .noaa-outcome-note li:last-child { margin-bottom: 0; }
+
+    /* ── LEARNING LIST ── */
+    .noaa-learn-list { margin: 24px 0 0; padding: 0; list-style: none; }
+    .noaa-learn-list li {
+      font-size: 15px; color: var(--text-secondary); line-height: 1.7;
+      padding: 12px 0 12px 26px; position: relative;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .noaa-learn-list li::before {
+      content: '→'; position: absolute; left: 0; top: 12px;
+      color: var(--case-accent); font-size: 14px;
+    }
 
     /* ────────────────────────────────────────────────────────
        DECISIONS
@@ -397,10 +536,11 @@
       position: sticky;
       top: 96px;
     }
+    .noaa-decision-img-wrap .noaa-img-placeholder { margin-top: 0; }
     .noaa-decision-img-wrap img {
       width: 100%;
       height: auto;
-      max-height: 380px;
+      max-height: 460px;
       object-fit: contain;
       border-radius: 12px;
       display: block;
@@ -415,13 +555,6 @@
     .noaa-insight-bar::before { content: '→'; font-size: 14px; flex-shrink: 0; margin-top: 1px; }
     .noaa-insight-bar.cyan  { background: rgba(8,145,178,0.08);   border: 1px solid rgba(8,145,178,0.20);   color: var(--case-accent); }
     .noaa-insight-bar.amber { background: rgba(217,119,6,0.08);   border: 1px solid rgba(217,119,6,0.22);   color: var(--case-amber); }
-
-    .noaa-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
-    .noaa-chip {
-      font-size: 12px; font-weight: 500; padding: 4px 11px; border-radius: var(--radius-full);
-      background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.09);
-      color: var(--text-tertiary); letter-spacing: 0.02em;
-    }
 
     /* ────────────────────────────────────────────────────────
        RESULTS — raw numbers, no glass cards
@@ -513,6 +646,7 @@
     /* ── REDUCED MOTION ── */
     @media (prefers-reduced-motion: reduce) {
       .noaa-orb { animation: none !important; opacity: 0.6; }
+      .noaa-slide.is-active { animation: none !important; }
       .noaa-storm-spiral, .noaa-storm-pulse, .noaa-spin { animation: none !important; }
       .noaa-past-track, .noaa-forecast-track { animation: none !important; stroke-dashoffset: 0; }
       .noaa-cone { animation: none !important; opacity: 1; }
@@ -527,10 +661,15 @@
       .noaa-problem-item { grid-template-columns: 40px 1fr; gap: var(--space-3); }
       .noaa-comp-item { grid-template-columns: 1fr; gap: 4px; }
       .noaa-results-grid { grid-template-columns: 1fr 1fr; }
+      .noaa-meta-strip { grid-template-columns: 1fr 1fr; gap: var(--space-3) var(--space-4); }
+      .noaa-contrast { grid-template-columns: 1fr; }
+      .noaa-change-row { grid-template-columns: 1fr; gap: 2px; }
+      .noaa-change-arrow { display: none; }
       .noaa-decision { grid-template-columns: 1fr; gap: 8px; }
       .noaa-decision-split { grid-template-columns: 1fr; }
       .noaa-decision-img-wrap { position: static; order: -1; }
-      .noaa-decision-img-wrap img { max-height: 260px; }
+      .noaa-decision-img-wrap .noaa-img-placeholder { margin-top: 0; }
+    .noaa-decision-img-wrap img { max-height: 260px; }
       .noaa-reflection-card { padding: 32px 24px; }
     }
   /* ── LIGHTBOX ── */
@@ -578,20 +717,25 @@
 
 <main class="noaa-main">
 
-  <!-- ── HERO ── -->
+  <!-- ══════════════════════════════════════════════════════
+       HERO
+  ══════════════════════════════════════════════════════ -->
   <section class="noaa-hero">
     <div class="noaa-container">
       <div class="noaa-hero-inner">
         <div>
           <div class="noaa-pill">Product Design · iOS · 2022–2024</div>
-          <h1 class="noaa-hero-title">NOAA<br>Live Weather Radar</h1>
-          <p class="noaa-hero-sub">Rebuilding a broken weather app into a life-safety companion — and earning a spot on <a href="https://www.pcmag.com/picks/best-weather-apps" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:3px;opacity:0.8;">PCMAG's Best Weather Apps since 2023</a>.</p>
+          <h1 class="noaa-hero-title">Designing for<br>protective action,<br><em>not weather curiosity</em></h1>
+          <p class="noaa-hero-sub">The original product showed people weather information. It did not help them trust it, understand what it meant, or decide what to do next. I led the redesign around a clearer promise: help people act before severe weather becomes personal.</p>
+          <p class="noaa-hero-role"><strong>Lead Product Designer</strong> · Product strategy, interaction design, onboarding, hurricane tracking, alerts, and App Store promotion.</p>
           <div class="noaa-hero-tags">
             <span class="noaa-tag noaa-tag--cyan">Lead Product Designer</span>
-            <span class="noaa-tag noaa-tag--amber">0 → 1 Product</span>
+            <span class="noaa-tag noaa-tag--amber">0 → 1 rebuild</span>
             <span class="noaa-tag noaa-tag--muted">iOS · Subscription</span>
-            <span class="noaa-tag noaa-tag--muted">Life-Safety</span>
+            <span class="noaa-tag noaa-tag--muted">Life-safety</span>
           </div>
+          <!-- GAP-01: swap this qualitative statement for the strongest confirmed outcome set once metrics are verified. -->
+          <p class="noaa-hero-outcome">Over two years, the redesign moved the product from a <strong>low-trust utility</strong> toward a severe-weather companion people rely on when the stakes are real. <a href="#outcomes" style="color:var(--case-accent);text-decoration:underline;text-underline-offset:3px;">See what changed in the signals →</a></p>
         </div>
 
         <div class="noaa-hero-visual" aria-hidden="true">
@@ -680,77 +824,101 @@
     </div>
   </section>
 
-  <!-- ── IMPACT LEAD ── -->
-  <section class="noaa-impact-lead">
-    <div class="noaa-container">
-      <div class="noaa-impact-num">4.7★</div>
-      <p class="noaa-impact-desc"><strong>App Store rating</strong> — up from 4.4, after the redesign shipped.</p>
-      <p class="noaa-impact-support">↑ significant subscription uplift &nbsp;·&nbsp; ~30% download spike &nbsp;·&nbsp; <a href="https://www.pcmag.com/picks/best-weather-apps" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">PCMAG Best Weather Apps since 2023</a></p>
-    </div>
-  </section>
-
   <hr class="noaa-divider">
 
-  <!-- ── QUOTE ── -->
-  <section class="noaa-section">
+  <!-- ══════════════════════════════════════════════════════
+       CASE METADATA
+  ══════════════════════════════════════════════════════ -->
+  <section style="position:relative;z-index:2;">
     <div class="noaa-container">
-      <div class="noaa-pill">October 9, 2024 · App Store Review</div>
-      <div class="noaa-pull-quote reveal">
-        <p class="noaa-pull-text">The app gives up to date info that affects my specific location. Exactly what I need when the networks just keep replaying the same news over and over.</p>
-        <p class="noaa-pull-attr">— oolie p</p>
-        <p class="noaa-pull-context">Downloaded during Hurricane Milton, hours before potential landfall</p>
+      <div class="noaa-meta-strip">
+        <div><div class="noaa-meta-k">Role</div><div class="noaa-meta-v">Lead Product Designer</div></div>
+        <div><div class="noaa-meta-k">Product</div><div class="noaa-meta-v">NOAA Live Weather Radar · iOS</div></div>
+        <div><div class="noaa-meta-k">Timeline</div><div class="noaa-meta-v">2022–2024</div></div>
+        <div><div class="noaa-meta-k">Scope</div><div class="noaa-meta-v">0 → 1 rebuild and continued iteration</div></div>
+        <div><div class="noaa-meta-k">Product model</div><div class="noaa-meta-v">Subscription weather app</div></div>
+        <div style="grid-column:span 3;"><div class="noaa-meta-k">Primary users</div><div class="noaa-meta-v">People monitoring severe weather for themselves and for the people they care about</div></div>
       </div>
-      <p class="noaa-quote-note">This review captures exactly what this redesign was built to do — and what the original app failed at.</p>
     </div>
   </section>
 
   <hr class="noaa-divider">
 
-  <!-- ── 01 PROBLEM ── -->
+  <!-- ══════════════════════════════════════════════════════
+       01 — THE STAKES
+  ══════════════════════════════════════════════════════ -->
   <section class="noaa-section">
     <div class="noaa-container">
-      <div class="noaa-pill">01 · Starting Point</div>
+      <div class="noaa-pill">01 · The stakes</div>
       <h2 class="noaa-section-h">A product that lost trust<br>on three levels at once.</h2>
+      <p class="noaa-quote-note" style="margin-top:var(--space-3);">The app broke down at the moment it was supposed to be most useful.</p>
+
       <div class="noaa-problem-list">
         <div class="noaa-problem-item noaa-p1 reveal">
           <div class="noaa-problem-num">01</div>
           <div>
-            <div class="noaa-problem-cat">Functional</div>
-            <div class="noaa-problem-title">Core features didn't work</div>
-            <p class="noaa-problem-desc">Hurricane tracking buried in 35+ interchangeable layers. Smoke layers showing nothing. Wind with color but no direction. Nielsen heuristics #1, #5, #9 — all violated.</p>
+            <div class="noaa-problem-cat">Functional trust</div>
+            <div class="noaa-problem-title">The core features were hard to use</div>
+            <p class="noaa-problem-desc">Hurricane tracking was buried among more than 35 interchangeable map layers. Smoke layers could render nothing at all. Wind showed color without communicating direction. The information was present; the meaning was not.</p>
           </div>
         </div>
         <div class="noaa-problem-item noaa-p2 reveal">
           <div class="noaa-problem-num">02</div>
           <div>
-            <div class="noaa-problem-cat">Reliability</div>
-            <div class="noaa-problem-title">Failed under pressure</div>
-            <p class="noaa-problem-desc">Black screens on launch. A "Restore Purchases" button that triggered nothing. The product broke at the exact moment users needed it most.</p>
+            <div class="noaa-problem-cat">Reliability trust</div>
+            <div class="noaa-problem-title">It failed under pressure</div>
+            <p class="noaa-problem-desc">Black screens on launch. A “Restore Purchases” button that triggered no visible result. A weather product that breaks during a storm is not a weather product.</p>
           </div>
         </div>
         <div class="noaa-problem-item noaa-p3 reveal">
           <div class="noaa-problem-num">03</div>
           <div>
-            <div class="noaa-problem-cat">Trust</div>
-            <div class="noaa-problem-title">Commercially dishonest</div>
-            <p class="noaa-problem-desc">Purchased ratings. A "50% off" promo that went from $9.99 to $6.99. Users noticed. One wrote: <em style="color:var(--text-tertiary)">"I doubt the developer cares."</em></p>
+            <div class="noaa-problem-cat">Commercial trust</div>
+            <div class="noaa-problem-title">The commerce felt dishonest</div>
+            <p class="noaa-problem-desc">Purchased ratings and a discount message that did not hold up to scrutiny. Users noticed, and said so in the only place available to them.</p>
           </div>
         </div>
       </div>
+
+      <div class="noaa-pull-quote noaa-pull-quote--plain reveal" style="margin-top:var(--space-6);">
+        <p class="noaa-pull-text">“I doubt the developer cares.”</p>
+        <p class="noaa-pull-attr">— App Store review, pre-redesign</p>
+        <p class="noaa-pull-context">One sentence that summarized all three failures</p>
+      </div>
+
+      <p class="noaa-quote-note" style="margin-top:var(--space-5);">Before improving individual screens, I needed to understand what the product should help people <em>do</em> when the stakes were high.</p>
     </div>
   </section>
 
   <hr class="noaa-divider">
 
-  <!-- ── 02 STRATEGIC PIVOT ── -->
+  <!-- ══════════════════════════════════════════════════════
+       02 — THE REFRAME
+  ══════════════════════════════════════════════════════ -->
   <section class="noaa-section">
     <div class="noaa-container">
-      <div class="noaa-pill">02 · Strategic Pivot</div>
+      <div class="noaa-pill">02 · The reframe</div>
       <div class="reveal">
-        <p class="noaa-pivot-statement">The company is based in Florida. Severe weather isn't a feature category — it's the reason people need the product at all.</p>
+        <p class="noaa-pivot-statement">Severe weather was not a feature category. It was the reason people needed the product at all.</p>
         <div class="noaa-tension-card">
           <div class="noaa-tension-label">Design tension</div>
-          <p>Hurricanes are seasonal and geographically concentrated. How do you make a Florida-centric value proposition feel personally urgent to a user in California, Kansas, or Minnesota — year-round?</p>
+          <p>The company was based in Florida, and hurricanes carried much of the product's value proposition. But hurricanes are seasonal and geographically concentrated. Someone in California, Kansas, or Minnesota needs a different reason to care — year-round.</p>
+        </div>
+
+        <div class="noaa-contrast">
+          <div class="noaa-contrast-col">
+            <div class="noaa-contrast-k">Weather curiosity</div>
+            <p class="noaa-contrast-q">“What is happening?”</p>
+          </div>
+          <div class="noaa-contrast-col noaa-contrast-col--now">
+            <div class="noaa-contrast-k">Protective action</div>
+            <p class="noaa-contrast-q">“What does this mean for me, and what should I do next?”</p>
+          </div>
+        </div>
+
+        <div class="noaa-principle">
+          <div class="noaa-principle-k">Design principle</div>
+          <p class="noaa-principle-t">Make the threat personal, make the information actionable, and make the source of truth visible.</p>
         </div>
       </div>
     </div>
@@ -758,140 +926,104 @@
 
   <hr class="noaa-divider">
 
-  <!-- ── 03 COMPETITIVE LANDSCAPE ── -->
+  <!-- ══════════════════════════════════════════════════════
+       03 — THREE DECISIONS
+  ══════════════════════════════════════════════════════ -->
   <section class="noaa-section">
     <div class="noaa-container">
-      <div class="noaa-pill">03 · Competitive Landscape</div>
-      <h2 class="noaa-section-h">Everyone else designed<br>for weather curiosity.</h2>
-      <div class="noaa-comp-list">
-        <div class="noaa-comp-item reveal">
-          <div>
-            <div class="noaa-comp-name">Clime</div>
-            <div class="noaa-comp-gap">Gap → Context-switching when panic sets in</div>
-          </div>
-          <p class="noaa-comp-desc">Hurricane tracker lives in a separate workflow. Two navigation paths, two mental models — friction at exactly the wrong moment.</p>
-        </div>
-        <div class="noaa-comp-item reveal">
-          <div>
-            <div class="noaa-comp-name">AccuWeather</div>
-            <div class="noaa-comp-gap">Gap → Passive information architecture</div>
-          </div>
-          <p class="noaa-comp-desc">Hurricane data embedded deep in a general-purpose app with heavy ad load. Information-dense but cognitively overwhelming.</p>
-        </div>
-        <div class="noaa-comp-item reveal">
-          <div>
-            <div class="noaa-comp-name">Storm Tracker</div>
-            <div class="noaa-comp-gap">Gap → No path from information to action</div>
-          </div>
-          <p class="noaa-comp-desc">Broadcast-style TV-news experience. Users are observers watching the storm — not decision-makers planning around it.</p>
-        </div>
-      </div>
-      <p style="margin-top:var(--space-5);font-size:14px;color:var(--text-secondary)">We designed for protective action. Everything else followed from that.</p>
-    </div>
-  </section>
-
-  <hr class="noaa-divider">
-
-  <!-- ── 04 KEY DESIGN DECISIONS ── -->
-  <section class="noaa-section">
-    <div class="noaa-container">
-      <div class="noaa-pill">04 · Key Design Decisions</div>
-      <h2 class="noaa-section-h">Six screens.<br>One mental model.</h2>
+      <div class="noaa-pill">03 · Three decisions</div>
+      <h2 class="noaa-section-h">One mental model,<br>carried through the product.</h2>
 
       <div style="margin-top:var(--space-8);">
 
-        <!-- 01 -->
+        <!-- Decision 01 -->
         <div class="noaa-decision reveal">
           <div class="noaa-decision-num">01 ──</div>
           <div class="noaa-decision-body">
             <div class="noaa-decision-split">
               <div class="noaa-decision-text">
-                <div class="noaa-decision-title">Location-aware OB severe weather page</div>
-                <div class="noaa-decision-frame">The moment that defines whether a user subscribes</div>
-                <p>Before any feature list — users see a real, active threat in their specific region. California gets wildfire alerts. Oklahoma gets tornado watches. Florida gets hurricane warnings. Not a welcome screen. A breaking news card, generated by remote config matching location to alert type.</p>
-                <p>The four-screen flow builds a chain of justified asks: threat → location permission → notification permission → subscribe. Each step's ask is earned by the step before it. Subscription stops feeling like a product decision — it feels like completing the act of protecting yourself.</p>
-                <div class="noaa-insight-bar amber">Static card, not dynamic. Every added MB impacts download conversion. The constraint forced copy and imagery to carry the full emotional weight alone.</div>
-                <div class="noaa-chips">
-                  <span class="noaa-chip">Zeigarnik Effect</span>
-                  <span class="noaa-chip">Goal-Gradient Effect</span>
-                  <span class="noaa-chip">Nielsen #1 Visibility</span>
-                  <span class="noaa-chip">Hypothesis-driven Design</span>
+                <div class="noaa-decision-title">Make severe weather personal</div>
+                <div class="noaa-decision-frame">The first screen had to answer: “Why should I care right now?”</div>
+                <p>Instead of opening with a generic welcome or a feature list, onboarding used the person's region to surface a severe-weather threat that was actually relevant to them: wildfire alerts in California, tornado watches in Oklahoma, hurricane warnings in Florida.</p>
+                <p>That turned setup into a chain of justified asks. Location permission was not an abstract request — it was what let the product show a threat that mattered. Notifications were not a generic opt-in — they were what made protection timely. Subscription stopped reading as a product decision and started reading as the last step of protecting yourself.</p>
+                <div class="noaa-change-list">
+                  <div class="noaa-change-row"><span class="noaa-change-from">Relevant threat</span><span class="noaa-change-arrow">→</span><span class="noaa-change-to">Location permission</span></div>
+                  <div class="noaa-change-row"><span class="noaa-change-from">Location permission</span><span class="noaa-change-arrow">→</span><span class="noaa-change-to">Notification permission</span></div>
+                  <div class="noaa-change-row"><span class="noaa-change-from">Notification permission</span><span class="noaa-change-arrow">→</span><span class="noaa-change-to">Subscription</span></div>
                 </div>
+                <div class="noaa-insight-bar amber">Constraint: the card had to be static rather than animated — every added megabyte affected download conversion. Copy, hierarchy, and imagery had to carry the emotional weight without motion.</div>
               </div>
               <div class="noaa-decision-img-wrap">
-                <img src="images/case-2/case%202%20-%20NOAA%20hurricane%20OB.webp" alt="Onboarding Flow · 4 Screens">
+                <div class="noaa-carousel" data-carousel>
+                  <figure class="noaa-slide is-active">
+                    <img loading="lazy" src="images/case-2/case%202%20-%20NOAA%20hurricane%20OB.webp" alt="Onboarding flow — hurricane threat, location request, notification request, premium">
+                    <figcaption class="noaa-artifact-cap">Onboarding · 4 screens. The threat comes first, and each permission request arrives only after the reason for it is on screen.</figcaption>
+                  </figure>
+                  <figure class="noaa-slide">
+                    <img loading="lazy" src="images/case-2/case%202%20-%20NOAA%20all%20severe%20weathers.webp" alt="Onboarding variants for heat, tornado, hurricane, thunderstorm, fire, wind, flood, air quality and blizzard, in light and dark mode">
+                    <figcaption class="noaa-artifact-cap">The same flow, built as a system: nine threat types across light and dark mode. Remote config matches region to threat, so the first screen is true wherever the app is opened.</figcaption>
+                  </figure>
+                  <div class="noaa-carousel-bar">
+                    <button class="noaa-car-btn" type="button" data-dir="-1" aria-label="Previous artifact">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                    </button>
+                    <div class="noaa-car-dots">
+                      <button class="noaa-car-dot is-active" type="button" data-go="0" aria-label="Onboarding flow"></button>
+                      <button class="noaa-car-dot" type="button" data-go="1" aria-label="Threat-type variants"></button>
+                    </div>
+                    <button class="noaa-car-btn" type="button" data-dir="1" aria-label="Next artifact">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                    </button>
+                    <span class="noaa-car-count" data-count>1 / 2</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- 02 -->
+        <!-- Decision 02 -->
         <div class="noaa-decision reveal">
           <div class="noaa-decision-num">02 ──</div>
           <div class="noaa-decision-body">
             <div class="noaa-decision-split">
               <div class="noaa-decision-text">
-                <div class="noaa-decision-title">Hurricane tracker with time scrubber</div>
-                <div class="noaa-decision-frame">From news display to evacuation planning tool</div>
-                <p>Competitors show a static snapshot: here is where the hurricane is. We built a horizontal time scrubber — drag across waypoints and the map cone, category, wind speed, and movement update in real time.</p>
-                <p>The design answers a different question: not "where is it now?" but "if I leave tomorrow morning, what will conditions look like?" Color-coded waypoints (red → Cat 3, orange → Cat 2, yellow → Cat 1) communicate intensity change over time without requiring users to read labels.</p>
-                <div class="noaa-insight-bar cyan">Also: bottom tab badge showing active alert count creates urgency before users enter the tracker screen.</div>
-                <div class="noaa-chips">
-                  <span class="noaa-chip">Mental Model Alignment</span>
-                  <span class="noaa-chip">Doherty Threshold</span>
-                  <span class="noaa-chip">Dual-encode Severity</span>
+                <div class="noaa-decision-title">Turn awareness into a plan</div>
+                <div class="noaa-decision-frame">The hurricane tracker became a planning tool</div>
+                <p>Competitors showed a static snapshot: where the storm is now. I designed the tracker around a more useful question — <em>“If I leave tomorrow morning, what might conditions look like?”</em></p>
+                <p>A horizontal time scrubber moved across forecast waypoints while the cone, category, wind speed, and direction updated together, so time, location, and severity stayed in one model. Color-coded waypoints made intensity change scannable; the labels kept the explicit detail a high-stakes decision needs.</p>
+                <div class="noaa-change-list">
+                  <div class="noaa-change-row"><span class="noaa-change-from">A static storm location</span><span class="noaa-change-arrow">→</span><span class="noaa-change-to">A time-based forecast</span></div>
+                  <div class="noaa-change-row"><span class="noaa-change-from">Isolated weather layers</span><span class="noaa-change-arrow">→</span><span class="noaa-change-to">One decision-oriented view</span></div>
+                  <div class="noaa-change-row"><span class="noaa-change-from">“Where is it?”</span><span class="noaa-change-arrow">→</span><span class="noaa-change-to">“What happens if I wait, or leave?”</span></div>
                 </div>
               </div>
               <div class="noaa-decision-img-wrap">
-                <img src="images/case-2/case%202%20-%20NOAA%20hurriance%20tracker%20flow.webp" alt="Hurricane Tracker · Time Scrubber">
+                <img loading="lazy" src="images/case-2/case%202%20-%20NOAA%20hurriance%20tracker%20flow.webp" alt="Hurricane tracker flow — map layer, storm list, storm modal, waypoint isolation, expanded detail">
+                <p class="noaa-artifact-cap">Hurricane tracker · map layer → storm list → forecast detail. Selecting a waypoint isolates that moment in time: category, sustained wind, gusts and movement update together.</p>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- 03 -->
+        <!-- Decision 03 -->
         <div class="noaa-decision reveal">
           <div class="noaa-decision-num">03 ──</div>
           <div class="noaa-decision-body">
             <div class="noaa-decision-split">
               <div class="noaa-decision-text">
-                <div class="noaa-decision-title">Multi-location alerts — protecting families, not just users</div>
-                <div class="noaa-decision-frame">Expanding the protection unit from individual to household</div>
-                <p>The Alerts page has two tabs: Current Location and Favorite Location. Alerts are grouped by city — Tampa shows 3 active, Irvine shows 2. A user monitoring elderly parents in Florida while safe in Chicago now has an app worth paying for.</p>
-                <p>Alert detail pages embed the NHC Seven-Day Graphical Tropical Weather Outlook directly — the official chart, uninterpreted. Users in high-stakes situations see exactly what emergency managers see. Trust through transparency, not through translation.</p>
-                <div class="noaa-chips">
-                  <span class="noaa-chip">Jakob's Law</span>
-                  <span class="noaa-chip">Miller's Law (chunk by city)</span>
-                  <span class="noaa-chip">Dual encoding (color + text)</span>
-                  <span class="noaa-chip">Doherty Threshold</span>
+                <div class="noaa-decision-title">Protect people and places, not only the current user</div>
+                <div class="noaa-decision-frame">The unit of protection expanded from “me” to “people I care about”</div>
+                <p>Severe weather is experienced across households. Someone may live in Chicago while watching a storm move toward their parents in Florida. The Alerts experience split into two locations — Current Location and Favorite Location — with alerts grouped by city so it stayed obvious which place needed attention.</p>
+                <p>The alert detail view embedded the official NHC Seven-Day Graphical Tropical Weather Outlook rather than replacing it with an opaque interpretation. People in high-stakes situations saw the same chart emergency managers see.</p>
+                <div class="noaa-principle" style="margin-top:var(--space-4);">
+                  <div class="noaa-principle-k">Design principle</div>
+                  <p class="noaa-principle-t">In a high-stakes context, trust comes from making the evidence inspectable — not only from making the interface simpler.</p>
                 </div>
               </div>
               <div class="noaa-decision-img-wrap">
-                <img src="images/case-2/case%202%20-%20NOAA%20different%20location%20alert%20on%20map.webp" alt="Multi-location Alerts · Tabs View">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 04 -->
-        <div class="noaa-decision reveal">
-          <div class="noaa-decision-num">04 ──</div>
-          <div class="noaa-decision-body">
-            <div class="noaa-decision-split">
-              <div class="noaa-decision-text">
-                <div class="noaa-decision-title">App Store hurricane season promotion</div>
-                <div class="noaa-decision-frame">ASO as design — extending visual language to discovery</div>
-                <p>Using Apple's App Store Events feature, we built a hurricane-season promotion around the in-app track visualization: actual storm cones and paths, with copy written like a news alert. Users searching for weather apps during hurricane season encountered what looked like breaking news.</p>
-                <p>The creative was a direct extension of the product's visual language — urgency, specificity, action. Same vocabulary, applied to the top of the acquisition funnel.</p>
-                <div class="noaa-insight-bar amber">Result: approximately 30% download increase during the promotion window.</div>
-                <div class="noaa-chips">
-                  <span class="noaa-chip">Von Restorff Effect</span>
-                  <span class="noaa-chip">Aesthetic-Usability Effect</span>
-                  <span class="noaa-chip">Consistent Design Language</span>
-                </div>
-              </div>
-              <div class="noaa-decision-img-wrap">
-                <img src="images/case-2/case%202%20-%20NOAA%20App%20Store%20hurricane%20pomotion.webp" alt="App Store Event · Hurricane Season Banner">
+                <img loading="lazy" src="images/case-2/case%202%20-%20NOAA%20different%20location%20alert%20on%20map.webp" alt="Radar view for a saved location with an active hurricane watch banner">
+                <p class="noaa-artifact-cap">A saved location, in its own context. The active watch banner sits above the map for the place you are watching — not only the place you are standing in.</p>
               </div>
             </div>
           </div>
@@ -903,63 +1035,107 @@
 
   <hr class="noaa-divider">
 
-  <!-- ── 05 OUTCOMES ── -->
+  <!-- ══════════════════════════════════════════════════════
+       SUPPORTING DECISION — DISCOVERY
+  ══════════════════════════════════════════════════════ -->
   <section class="noaa-section">
     <div class="noaa-container">
-      <div class="noaa-pill">05 · Outcomes</div>
-      <h2 class="noaa-section-h">Measurable trust, at scale.</h2>
-      <div class="noaa-results-grid">
-        <div class="noaa-result-item noaa-s1 reveal">
-          <div class="noaa-result-num">4.4→4.7★</div>
-          <div class="noaa-result-lbl">Rating — purchased to organic</div>
-        </div>
-        <div class="noaa-result-item noaa-s2 reveal">
-          <div class="noaa-result-num">↑ sig.</div>
-          <div class="noaa-result-lbl">Subscription uplift post-OB redesign</div>
-        </div>
-        <div class="noaa-result-item noaa-s3 reveal">
-          <div class="noaa-result-num">~30%</div>
-          <div class="noaa-result-lbl">Downloads during hurricane promo</div>
-        </div>
-        <div class="noaa-result-item noaa-s4 reveal">
-          <div class="noaa-result-num" style="font-size:clamp(20px,2.5vw,28px); line-height:1.2;">Best for<br>Local Forecasts</div>
-          <div class="noaa-result-lbl"><a href="https://www.pcmag.com/picks/best-weather-apps" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">PCMAG Best Weather Apps since 2023</a></div>
-        </div>
-      </div>
-      <div class="noaa-pcmag reveal">
-        <div class="noaa-pcmag-star">★</div>
-        <div class="noaa-pcmag-text">
-          <strong><a href="https://www.pcmag.com/picks/best-weather-apps" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">PCMAG "Best Weather Apps since 2023"</a></strong>
-          <span>Independent editorial recognition — the repositioning worked.</span>
-        </div>
+      <div class="noaa-pill">Supporting decision · Discovery</div>
+      <h2 class="noaa-section-h" style="font-size:clamp(24px,2.8vw,34px);">The same promise continued<br>into the App Store.</h2>
+      <div class="reveal" style="max-width:760px;margin-top:var(--space-4);">
+        <p style="font-size:15px;color:var(--text-secondary);line-height:1.75;">The hurricane-season App Store promotion used the product's own storm cones and paths, with copy written like a weather alert — urgency, specificity, and action rather than generic weather imagery. The same visual and verbal language that ran through the product ran through the top of the funnel.</p>
+        <img class="noaa-artifact-img" loading="lazy" src="images/case-2/case%202%20-%20NOAA%20App%20Store%20hurricane%20pomotion.webp" alt="App Store Connect live events for Hurricane Idalia, Harold and Hilary">
+        <p class="noaa-artifact-cap">App Store live events, shipped storm by storm — Idalia, Harold, Hilary — each running inside that storm’s own window.</p>
+        <!-- GAP-02: confirm promotion window, baseline, and attribution language before publishing. -->
+        <div class="noaa-insight-bar cyan" style="margin-top:var(--space-4);">The promotion window was associated with an approximately 30% increase in downloads.</div>
       </div>
     </div>
   </section>
 
   <hr class="noaa-divider">
 
-  <!-- ── 06 REFLECTION ── -->
-  <section class="noaa-section" style="padding-bottom:var(--space-16);">
+  <!-- ══════════════════════════════════════════════════════
+       04 — OUTCOMES
+  ══════════════════════════════════════════════════════ -->
+  <section class="noaa-section" id="outcomes">
     <div class="noaa-container">
-      <div class="noaa-pill">06 · Reflection</div>
+      <div class="noaa-pill">04 · Outcomes</div>
+      <h2 class="noaa-section-h">Trust became visible<br>in the product's signals.</h2>
+
+      <div class="noaa-results-grid">
+        <!-- GAP-03: confirm measurement period and the organic vs purchased wording. -->
+        <div class="noaa-result-item noaa-s1 reveal">
+          <div class="noaa-result-num">4.4 → 4.7★</div>
+          <div class="noaa-result-lbl">App Store rating, after the redesign shipped</div>
+        </div>
+        <!-- GAP-04: confirm window, denominator, and whether this is product-level or design-specific. -->
+        <div class="noaa-result-item noaa-s2 reveal">
+          <div class="noaa-result-num">~2% → ~6%</div>
+          <div class="noaa-result-lbl">Subscription conversion, peak during hurricane season</div>
+        </div>
+        <!-- GAP-05: confirm baseline, window, and source. -->
+        <div class="noaa-result-item noaa-s3 reveal">
+          <div class="noaa-result-num">≈ +30%</div>
+          <div class="noaa-result-lbl">Downloads during the hurricane-season promotion</div>
+        </div>
+        <div class="noaa-result-item noaa-s4 reveal">
+          <div class="noaa-result-num" style="font-size:clamp(20px,2.5vw,28px); line-height:1.2;">Since 2023</div>
+          <div class="noaa-result-lbl"><a href="https://www.pcmag.com/picks/best-weather-apps" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">PCMAG Best Weather Apps</a></div>
+        </div>
+      </div>
+
+      <div class="noaa-outcome-note reveal">
+        <div class="noaa-outcome-note-k">How to read these numbers</div>
+        <ul>
+          <li>Rating and conversion are <strong>product-level</strong> signals across a two-year period of continuous work, not the output of a single screen.</li>
+          <li>The download figure is a <strong>seasonal campaign</strong> signal, measured inside the promotion window.</li>
+          <li>PCMAG is <strong>independent editorial recognition</strong> — evidence of repositioning, not proof of causation.</li>
+        </ul>
+      </div>
+
+      <div class="noaa-pull-quote reveal" style="margin-top:var(--space-8);">
+        <p class="noaa-pull-text">The app gives up to date info that affects my specific location. Exactly what I need when the networks just keep replaying the same news over and over.</p>
+        <p class="noaa-pull-attr">— App Store review · October 9, 2024</p>
+        <p class="noaa-pull-context">Written during Hurricane Milton, hours before potential landfall</p>
+      </div>
+      <p class="noaa-quote-note">Qualitative evidence, clearly labeled: a person describing the product doing the exact job it was redesigned to do.</p>
+    </div>
+  </section>
+
+  <hr class="noaa-divider">
+
+  <!-- ══════════════════════════════════════════════════════
+       05 — WHAT I LEARNED
+  ══════════════════════════════════════════════════════ -->
+  <section class="noaa-section" style="padding-bottom:var(--space-10);">
+    <div class="noaa-container">
+      <div class="noaa-pill">05 · What I learned</div>
       <div class="noaa-reflection-card reveal">
-        <p class="noaa-reflection-pull">Competitors designed for <em>weather curiosity</em>.<br>We designed for <em>protective action</em>.</p>
-        <p class="noaa-reflection-body">The OB card couldn't be animated — every added MB impacts download conversion. That constraint forced a discipline: if you can't rely on motion to create urgency, the hierarchy, copy, and image have to do it alone. "Brace Yourself for the Incoming Heat Wave" works because it addresses the user directly. It assumes they're already in it.</p>
-        <p class="noaa-reflection-body">The most valuable decisions in this project weren't about interface components. They were about which mental model to design for. Once that was clear, everything else followed.</p>
+        <p class="noaa-reflection-pull">The most important decision was<br>choosing the right <em>mental model</em>.</p>
+        <p class="noaa-reflection-body">The strongest work here was not a component or a screen. It was deciding that the product should help people <strong style="color:var(--text);font-weight:600;">act</strong>, not simply help them observe weather. Once that was settled, the rest of the decisions stopped competing with each other:</p>
+        <ul class="noaa-learn-list">
+          <li>Onboarding made the threat personally relevant.</li>
+          <li>The tracker connected forecast changes to planning.</li>
+          <li>Alerts expanded protection to the people and places users cared about.</li>
+          <li>The source of critical information stayed visible.</li>
+        </ul>
+        <p class="noaa-reflection-body" style="margin-top:28px;">When the stakes are high, a product earns trust by helping people understand what matters, why it matters, and what they can do next.</p>
       </div>
     </div>
   </section>
 
-  <!-- ── CONTACT CTA ── -->
-  <section class="noaa-section" style="padding-bottom:var(--space-16);">
+  <!-- ══════════════════════════════════════════════════════
+       CONTACT
+  ══════════════════════════════════════════════════════ -->
+  <section class="noaa-section" style="padding-top:0;padding-bottom:var(--space-16);">
     <div class="noaa-container">
       <div style="max-width:580px;">
-        <div class="noaa-pill" style="margin-bottom:var(--space-3);">Want to know more?</div>
+        <div class="noaa-pill" style="margin-bottom:var(--space-3);">Want the rest?</div>
         <p class="noaa-pull-text" style="margin-bottom:var(--space-3);">
-          This case covers the highlights. The full story — research synthesis, edge cases, the decisions that didn't make it in — is worth a conversation.
+          This page is the argument. The research synthesis, the iterations, and the edge cases are the conversation.
         </p>
         <p style="font-size:15px; color:var(--text-secondary); line-height:1.7; margin-bottom:var(--space-4);">
-          If you're curious about the process behind a specific decision, or want to talk through how I approach life-safety UX, feel free to reach out.
+          If you're curious about the reasoning behind a specific decision, or how I approach life-safety UX, I'm happy to walk through it.
         </p>
         <a href="mailto:jadeyuizhang@gmail.com" style="display:inline-flex; align-items:center; gap:10px; font-size:15px; font-weight:500; color:var(--case-accent); text-decoration:none; border-bottom:1px solid rgba(14,116,144,0.3); padding-bottom:2px; transition:border-color 0.2s;">
           Get in touch
@@ -1010,6 +1186,23 @@
   }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
   reveals.forEach(el => observer.observe(el));
 
+  // Artifact carousels
+  document.querySelectorAll('[data-carousel]').forEach(car => {
+    const slides = [...car.querySelectorAll('.noaa-slide')];
+    const dots   = [...car.querySelectorAll('.noaa-car-dot')];
+    const count  = car.querySelector('[data-count]');
+    let i = 0;
+    const show = n => {
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s, k) => s.classList.toggle('is-active', k === i));
+      dots.forEach((d, k) => d.classList.toggle('is-active', k === i));
+      if (count) count.textContent = (i + 1) + ' / ' + slides.length;
+    };
+    car.querySelectorAll('[data-dir]').forEach(b =>
+      b.addEventListener('click', () => show(i + Number(b.dataset.dir))));
+    dots.forEach(d => d.addEventListener('click', () => show(Number(d.dataset.go))));
+  });
+
   // Lightbox
   const lb2 = document.getElementById('lightbox');
   const lbImg2 = document.getElementById('lightbox-img');
@@ -1021,7 +1214,7 @@
     lb2.classList.remove('open'); document.body.style.overflow = '';
     setTimeout(() => { lbImg2.src = ''; }, 300);
   }
-  document.querySelectorAll('img[src*="images/"]').forEach(img => {
+  document.querySelectorAll('.noaa-decision-img-wrap img, .noaa-artifact-img, img[data-lb]').forEach(img => {
     if (img.id === 'lightbox-img') return;
     img.style.cursor = 'zoom-in';
     img.addEventListener('click', () => openLb2(img));

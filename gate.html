@@ -37,8 +37,9 @@
       z-index: 1;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      gap: var(--space-8);
+      align-items: center;
+      text-align: center;
+      gap: var(--space-6);
       width: 100%;
       max-width: 380px;
     }
@@ -47,6 +48,7 @@
     .gate-header {
       display: flex;
       flex-direction: column;
+      align-items: center;
       gap: var(--space-3);
     }
 
@@ -56,13 +58,22 @@
     .gate-logo-wrap img { opacity: 0.88; display: block; height: 56px; max-height: 56px; width: auto; max-width: 240px; object-fit: contain; }
 
     .gate-heading {
-      font-family: var(--font-display);
-      font-size: clamp(32px, 4vw, 48px);
+      font-family: var(--font-body);
+      font-size: clamp(30px, 3.6vw, 42px);
       font-weight: 700;
-      font-style: italic;
-      line-height: 1.05;
-      letter-spacing: -0.03em;
+      line-height: 1.15;
+      letter-spacing: -0.035em;
       color: var(--text);
+    }
+
+    .gate-sub {
+      margin-top: 10px;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 34ch;
+      margin-inline: auto;
     }
 
     /* ── Form ── */
@@ -81,7 +92,7 @@
       color: var(--text);
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
+      border-radius: var(--radius-full);
       outline: none;
       transition: border-color 0.2s var(--transition), box-shadow 0.2s var(--transition);
       -webkit-appearance: none;
@@ -115,15 +126,16 @@
       color: var(--text-inverse);
       background: var(--rust);
       border: none;
-      border-radius: var(--radius-sm);
+      border-radius: var(--radius-full);
       cursor: pointer;
       letter-spacing: 0.02em;
-      transition: background 0.2s var(--transition);
+      box-shadow: var(--shadow-sm);
+      transition: background 0.2s var(--transition), transform 0.2s var(--transition), box-shadow 0.2s var(--transition);
     }
 
-    .gate-btn:hover:not(:disabled) { background: var(--rust-700); }
-    .gate-btn:active:not(:disabled) { background: var(--rust-900); }
-    .gate-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .gate-btn:hover:not(:disabled) { background: var(--rust-700); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .gate-btn:active:not(:disabled) { background: var(--rust-900); transform: translateY(0); }
+    .gate-btn:disabled { opacity: 0.45; cursor: not-allowed; box-shadow: none; }
 
     .gate-error {
       font-size: 13px;
@@ -135,6 +147,45 @@
     }
     .gate-error.visible { opacity: 1; }
     .gate-error a { color: var(--rust); text-underline-offset: 3px; }
+
+    /* ── No-password route ── */
+    .gate-alt {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding-top: var(--space-3);
+      border-top: 1px solid var(--border-subtle);
+    }
+    .gate-alt-note { font-size: 13px; color: var(--text-tertiary); }
+    .gate-alt-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: border-color 0.2s var(--transition), background 0.2s var(--transition), color 0.2s var(--transition);
+    }
+    .gate-alt-link:hover { border-color: var(--rust-300); background: var(--rust-50); color: var(--rust-700); }
+
+    /* ── Focus — same treatment as every other page ── */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--rust);
+      outline-offset: 3px;
+      border-radius: var(--radius-full);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .gate-btn:hover:not(:disabled) { transform: none; }
+      .gate-input.shake { animation: none; }
+    }
   </style>
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -146,6 +197,7 @@
       <img src="/images/name_no_bg.webp" alt="Yuzhuo Zhang" height="28">
     </div>
     <h1 class="gate-heading">Hey, welcome.<br>Good to see you.</h1>
+    <p class="gate-sub">This portfolio is password-protected. Enter the password to take a look around.</p>
   </div>
 
   <form class="gate-form" id="gate-form" novalidate>
@@ -162,6 +214,14 @@
     <button class="gate-btn" type="submit" id="gate-btn">Enter</button>
     <p class="gate-error" id="gate-error" role="alert" aria-live="polite"></p>
   </form>
+
+  <div class="gate-alt">
+    <p class="gate-alt-note">Don't have the password?</p>
+    <a class="gate-alt-link" href="https://www.linkedin.com/in/yuzhuo-zhang777/" target="_blank" rel="noopener noreferrer">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      Reach out on LinkedIn
+    </a>
+  </div>
 </div>
 
 <script>
@@ -188,7 +248,7 @@
       if (res.ok) {
         window.location.href = '/';
       } else {
-        error.innerHTML = 'Not quite. <a href="mailto:jadeyuizhang@gmail.com">Reach out</a> if you need access.';
+        error.innerHTML = 'Not quite. <a href="https://www.linkedin.com/in/yuzhuo-zhang777/" target="_blank" rel="noopener noreferrer">Reach out on LinkedIn</a> if you need access.';
         error.classList.add('visible');
         input.classList.add('shake');
         input.addEventListener('animationend', () => input.classList.remove('shake'), { once: true });
