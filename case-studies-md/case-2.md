@@ -2,166 +2,215 @@
 
 Product Design · iOS · 2022–2024
 
-## NOAA Live Weather Radar
+## Designing for protective action, *not weather curiosity*
 
-Rebuilding a broken weather app into a life-safety companion — and earning a spot on [PCMAG's Best Weather Apps since 2023](https://www.pcmag.com/picks/best-weather-apps).
+The original product showed people weather information. It did not help them trust it, work out what it meant, or decide what to do next. I led the redesign around a simpler promise: help people act before severe weather reaches them.
 
-Lead Product Designer 0 → 1 Product iOS · Subscription Life-Safety
+**Lead Product Designer** · Product strategy, interaction design, onboarding, hurricane tracking, alerts, and App Store promotion.
 
-**4.7★** — **App Store rating** — up from 4.4, after the redesign shipped.
+Lead Product Designer 0 → 1 rebuild iOS · Subscription Life-safety
 
-↑ significant subscription uplift · ~30% download spike · [PCMAG Best Weather Apps since 2023](https://www.pcmag.com/picks/best-weather-apps)
-
----
-
-October 9, 2024 · App Store Review
-
-The app gives up to date info that affects my specific location. Exactly what I need when the networks just keep replaying the same news over and over.
-
-— oolie p
-
-Downloaded during Hurricane Milton, hours before potential landfall
-
-This review captures exactly what this redesign was built to do — and what the original app failed at.
+Over two years the product went from one people **openly distrusted** to one they opened during real storms. See what changed in the signals →
 
 ---
 
-01 · Starting Point
+**Role**
+
+**Lead Product Designer**
+
+**Product**
+
+**NOAA Live Weather Radar · iOS**
+
+**Timeline**
+
+**2022–2024**
+
+**Scope**
+
+**0 → 1 rebuild and continued iteration**
+
+**Product model**
+
+**Subscription weather app**
+
+**Primary users** — People monitoring severe weather for themselves and for the people they care about
+
+---
+
+01 · The stakes
 
 ### A product that lost trust on three levels at once.
 
-**01** — Functional
+The app broke down at the moment it was supposed to be most useful.
 
-**Core features didn't work** — Hurricane tracking buried in 35+ interchangeable layers. Smoke layers showing nothing. Wind with color but no direction. Nielsen heuristics #1, #5, #9 — all violated.
+**01** — Functional trust
 
-**02** — Reliability
+**The core features were hard to use** — Hurricane tracking sat among more than 35 interchangeable map layers. Smoke layers sometimes rendered nothing at all. Wind had color but no direction. The data was on screen, but nothing told you what it meant for you.
 
-**Failed under pressure** — Black screens on launch. A "Restore Purchases" button that triggered nothing. The product broke at the exact moment users needed it most.
+**02** — Reliability trust
 
-**03** — Trust
+**It failed under pressure** — Black screens on launch. A "Restore Purchases" button that did nothing visible. The product broke at the moment people needed it.
 
-**Commercially dishonest** — Purchased ratings. A "50% off" promo that went from $9.99 to $6.99. Users noticed. One wrote: *"I doubt the developer cares."*
+**03** — Commercial trust
 
----
+**The commerce felt dishonest** — Purchased ratings, and a "50% off" promotion that moved the price from $9.99 to $6.99. Users noticed and said so in the reviews.
 
-02 · Strategic Pivot
+“I doubt the developer cares.”
 
-The company is based in Florida. Severe weather isn't a feature category — it's the reason people need the product at all.
+— App Store review, pre-redesign
 
-**Design tension** — Hurricanes are seasonal and geographically concentrated. How do you make a Florida-centric value proposition feel personally urgent to a user in California, Kansas, or Minnesota — year-round?
+One sentence that summarized all three failures
 
----
-
-03 · Competitive Landscape
-
-### Everyone else designed for weather curiosity.
-
-**Clime** — Gap → Context-switching when panic sets in
-
-Hurricane tracker lives in a separate workflow. Two navigation paths, two mental models — friction at exactly the wrong moment.
-
-**AccuWeather** — Gap → Passive information architecture
-
-Hurricane data embedded deep in a general-purpose app with heavy ad load. Information-dense but cognitively overwhelming.
-
-**Storm Tracker** — Gap → No path from information to action
-
-Broadcast-style TV-news experience. Users are observers watching the storm — not decision-makers planning around it.
-
-We designed for protective action. Everything else followed from that.
+Before fixing individual screens, I had to work out what the product should help people *do* when the stakes were high.
 
 ---
 
-04 · Key Design Decisions
+02 · The reframe
 
-### Six screens. One mental model.
+Severe weather was not a feature category. It was the reason people needed the product at all.
+
+**Design tension** — The company was based in Florida, and hurricanes carried much of what the product sold on. But hurricanes are seasonal and they only hit part of the country. Someone in California, Kansas, or Minnesota needs a different reason to care, and needs it all year.
+
+Weather curiosity
+
+“What is happening?”
+
+Protective action
+
+“What does this mean for me, and what should I do next?”
+
+Design principle
+
+Make the threat personal, make the information actionable, and make the source of truth visible.
+
+---
+
+03 · Three decisions
+
+### One mental model, carried through the product.
 
 **01 ──**
 
-**Location-aware OB severe weather page** — The moment that defines whether a user subscribes
+**Make severe weather personal** — The first screen had to answer: “Why should I care right now?”
 
-Before any feature list — users see a real, active threat in their specific region. California gets wildfire alerts. Oklahoma gets tornado watches. Florida gets hurricane warnings. Not a welcome screen. A breaking news card, generated by remote config matching location to alert type.
+Instead of a generic welcome or a feature list, onboarding used the person's region to show a threat that applied to them: wildfire alerts in California, tornado watches in Oklahoma, hurricane warnings in Florida.
 
-The four-screen flow builds a chain of justified asks: threat → location permission → notification permission → subscribe. Each step's ask is earned by the step before it. Subscription stops feeling like a product decision — it feels like completing the act of protecting yourself.
+That turned setup into a chain where each ask earned the next one. The app needed location to show a threat near you, and notifications to reach you in time. By the last screen, subscribing read as the final step in protecting yourself rather than a separate sales pitch.
 
-Static card, not dynamic. Every added MB impacts download conversion. The constraint forced copy and imagery to carry the full emotional weight alone.
+Relevant threat→Location permission
 
-Zeigarnik Effect Goal-Gradient Effect Nielsen #1 Visibility Hypothesis-driven Design
+Location permission→Notification permission
 
-![Onboarding Flow · 4 Screens](../images/case-2/case%202%20-%20NOAA%20hurricane%20OB.webp)
+Notification permission→Subscription
+
+Constraint: the card had to be static, not animated. Every added megabyte cost us download conversion, so the copy, the hierarchy and the image had to do the work motion would have done.
+
+![Onboarding flow: hurricane threat, location request, notification request, premium](../images/case-2/case%202%20-%20NOAA%20hurricane%20OB.webp)
+
+*Onboarding · 4 screens. The threat comes first, and each permission request arrives only after the reason for it is on screen.*
+
+![Onboarding variants for heat, tornado, hurricane, thunderstorm, fire, wind, flood, air quality and blizzard, in light and dark mode](../images/case-2/case%202%20-%20NOAA%20all%20severe%20weathers.webp)
+
+*The same flow, built as a system: nine threat types across light and dark mode. Remote config matches region to threat, so the first screen is true wherever the app is opened.*
+
+1 / 2
 
 **02 ──**
 
-**Hurricane tracker with time scrubber** — From news display to evacuation planning tool
+**Turn awareness into a plan** — The hurricane tracker became a planning tool
 
-Competitors show a static snapshot: here is where the hurricane is. We built a horizontal time scrubber — drag across waypoints and the map cone, category, wind speed, and movement update in real time.
+Competitors showed a static snapshot: where the storm is now. I designed the tracker around a more useful question. *"If I leave tomorrow morning, what will it be like?"*
 
-The design answers a different question: not "where is it now?" but "if I leave tomorrow morning, what will conditions look like?" Color-coded waypoints (red → Cat 3, orange → Cat 2, yellow → Cat 1) communicate intensity change over time without requiring users to read labels.
+Dragging the time scrubber across forecast waypoints moved the cone, the category, the wind speed and the direction together, so time and severity stayed tied to each other instead of sitting in separate readouts. Color on the waypoints let you see the storm strengthening at a glance, and the labels kept the exact numbers for anyone making a real decision.
 
-Also: bottom tab badge showing active alert count creates urgency before users enter the tracker screen.
+A static storm location→A time-based forecast
 
-Mental Model Alignment Doherty Threshold Dual-encode Severity
+Isolated weather layers→One decision-oriented view
 
-![Hurricane Tracker · Time Scrubber](../images/case-2/case%202%20-%20NOAA%20hurriance%20tracker%20flow.webp)
+“Where is it?”→“What happens if I wait, or leave?”
+
+![Hurricane tracker flow: map layer, storm list, storm modal, waypoint isolation, expanded detail](../images/case-2/case%202%20-%20NOAA%20hurriance%20tracker%20flow.webp)
+
+Hurricane tracker · map layer → storm list → forecast detail. Selecting a waypoint isolates that moment in time: category, sustained wind, gusts and movement update together.
 
 **03 ──**
 
-**Multi-location alerts — protecting families, not just users** — Expanding the protection unit from individual to household
+**Protect people and places, not only the current user** — The unit of protection expanded from “me” to “people I care about”
 
-The Alerts page has two tabs: Current Location and Favorite Location. Alerts are grouped by city — Tampa shows 3 active, Irvine shows 2. A user monitoring elderly parents in Florida while safe in Chicago now has an app worth paying for.
+People live through severe weather as households, not as individuals. Someone in Chicago may spend the week watching a storm move toward their parents in Florida. So Alerts split into two locations, Current and Favorite, with alerts grouped by city so it stayed obvious which place needed attention.
 
-Alert detail pages embed the NHC Seven-Day Graphical Tropical Weather Outlook directly — the official chart, uninterpreted. Users in high-stakes situations see exactly what emergency managers see. Trust through transparency, not through translation.
+The alert detail view embedded the official NHC Seven-Day Graphical Tropical Weather Outlook instead of replacing it with our own interpretation. People making real decisions saw the same chart emergency managers see.
 
-Jakob's Law Miller's Law (chunk by city) Dual encoding (color + text) Doherty Threshold
+Design principle
 
-![Multi-location Alerts · Tabs View](../images/case-2/case%202%20-%20NOAA%20different%20location%20alert%20on%20map.webp)
+When the stakes are high, people trust what they can check for themselves. A simpler interface is not enough on its own.
 
-**04 ──**
+![Radar view for a saved location with an active hurricane watch banner](../images/case-2/case%202%20-%20NOAA%20different%20location%20alert%20on%20map.webp)
 
-**App Store hurricane season promotion** — ASO as design — extending visual language to discovery
-
-Using Apple's App Store Events feature, we built a hurricane-season promotion around the in-app track visualization: actual storm cones and paths, with copy written like a news alert. Users searching for weather apps during hurricane season encountered what looked like breaking news.
-
-The creative was a direct extension of the product's visual language — urgency, specificity, action. Same vocabulary, applied to the top of the acquisition funnel.
-
-Result: approximately 30% download increase during the promotion window.
-
-Von Restorff Effect Aesthetic-Usability Effect Consistent Design Language
-
-![App Store Event · Hurricane Season Banner](../images/case-2/case%202%20-%20NOAA%20App%20Store%20hurricane%20pomotion.webp)
+A saved location, in its own context. The active watch banner sits above the map for the place you are watching, not just the place you are standing in.
 
 ---
 
-05 · Outcomes
+Supporting decision · Discovery
 
-### Measurable trust, at scale.
+### The same promise continued into the App Store.
 
-**4.4→4.7★** — Rating — purchased to organic
+The hurricane-season App Store promotion used the product's own storm cones and paths, with copy written like a weather alert instead of generic weather imagery. Someone searching the App Store during hurricane season saw the same thing they would see inside the app.
 
-**↑ sig.** — Subscription uplift post-OB redesign
+![App Store Connect live events for Hurricane Idalia, Harold and Hilary](../images/case-2/case%202%20-%20NOAA%20App%20Store%20hurricane%20pomotion.webp)
 
-**~30%** — Downloads during hurricane promo
+App Store live events, shipped storm by storm: Idalia, Harold, Hilary. Each one ran inside that storm's own window.
 
-**Best for Local Forecasts** — [PCMAG Best Weather Apps since 2023](https://www.pcmag.com/picks/best-weather-apps)
-
-★
-
-**[PCMAG "Best Weather Apps since 2023"](https://www.pcmag.com/picks/best-weather-apps)** Independent editorial recognition — the repositioning worked.
+Downloads went up about 30% during the promotion window.
 
 ---
 
-06 · Reflection
+04 · Outcomes
 
-Competitors designed for *weather curiosity*. We designed for *protective action*.
+### Where the numbers ended up.
 
-The OB card couldn't be animated — every added MB impacts download conversion. That constraint forced a discipline: if you can't rely on motion to create urgency, the hierarchy, copy, and image have to do it alone. "Brace Yourself for the Incoming Heat Wave" works because it addresses the user directly. It assumes they're already in it.
+**4.4 → 4.7★** — App Store rating, after the redesign shipped
 
-The most valuable decisions in this project weren't about interface components. They were about which mental model to design for. Once that was clear, everything else followed.
+**~2% → ~6%** — Subscription conversion, peak during hurricane season
 
-Want to know more?
+**≈ +30%** — Downloads during the hurricane-season promotion
 
-This case covers the highlights. The full story — research synthesis, edge cases, the decisions that didn't make it in — is worth a conversation.
+**Since 2023** — [PCMAG Best Weather Apps](https://www.pcmag.com/picks/best-weather-apps)
 
-If you're curious about the process behind a specific decision, or want to talk through how I approach life-safety UX, feel free to reach out.
+How to read these numbers
+
+- Rating and conversion are product-level numbers from two years of continuous work, not the result of any single screen.
+- The download figure covers one seasonal campaign, measured inside the promotion window.
+- PCMAG is an editorial pick, so it says the repositioning worked. It does not prove what caused it.
+
+The app gives up to date info that affects my specific location. Exactly what I need when the networks just keep replaying the same news over and over.
+
+— App Store review · October 9, 2024
+
+Written during Hurricane Milton, hours before potential landfall
+
+One review is not data. This one is here because it describes the app doing the job it was rebuilt to do.
+
+---
+
+05 · What I learned
+
+The most important decision was choosing the right *mental model*.
+
+The strongest work here was not a component or a screen. It was deciding that the product should help people **act** rather than watch the weather. Once that was settled, the rest of the decisions stopped pulling in different directions:
+
+- Onboarding made the threat personally relevant.
+- The tracker connected forecast changes to planning.
+- Alerts expanded protection to the people and places users cared about.
+- The source of critical information stayed visible.
+
+When the stakes are high, people trust a product that tells them what is happening near them and what to do about it.
+
+Want the rest?
+
+This page covers the decisions. The research, the iterations and the edge cases are easier to talk through than to write up.
+
+If you want the reasoning behind a specific decision, or how I approach life-safety work, I'm happy to walk through it.
 
 Get in touch

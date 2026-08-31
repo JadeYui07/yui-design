@@ -4,7 +4,7 @@
 
 ## One Language, Thirty Apps.
 
-Building a unified global design system for 30 iOS and Android apps — with 2 designers, in 2 months, from first principles.
+A unified global design system for 30 iOS and Android apps, built by 2 designers in 2 months, from first principles.
 
 **Role**
 
@@ -28,9 +28,9 @@ Building a unified global design system for 30 iOS and Android apps — with 2 d
 
 **card.content.error-soft**
 
-**line.neutral-soft** — When we started, 30+ apps shared a product org — and nothing else.
+**line.neutral-soft** — When we started, 30 apps shared a product org and nothing else.
 
-2 separate design systems — one per platform, never speaking to each other
+2 separate design systems, one per platform, never speaking to each other
 
 5 designers on the team, only 2 actively maintaining design files
 
@@ -40,11 +40,11 @@ Building a unified global design system for 30 iOS and Android apps — with 2 d
 
 ### When two worlds had to become one
 
-When I joined, there was no design system at all. Every app ran on its own styles and fonts — even within the same SF family, each product made its own choices. No shared philosophy. No governing logic.
+When I joined there was no design system at all. Every app ran on its own styles and fonts. Even inside the same SF family, each product picked its own sizes and weights, and nothing governed the choices.
 
-In the second year, we recognized this was unsustainable. My co-designer and I each built separate systems — one for iOS, one for Android. It worked, in isolation. But it was still two languages operating in two separate rooms.
+In the second year we admitted this could not continue. My co-designer and I each built a system, one for iOS and one for Android. Each worked on its own. They were still two languages spoken in two separate rooms.
 
-**Then the strategy shifted.** The iOS and Android dev teams were now expected to collaborate on cross-platform apps. Suddenly, our two separate design systems weren't just inefficient — they were an architectural liability. Adopting either one would bake platform-specific assumptions into cross-platform products.
+**Then the strategy shifted.** The iOS and Android dev teams were now expected to build cross-platform apps together. At that point our two systems stopped being merely inefficient and became a problem in the architecture, because adopting either one would bake that platform's assumptions into products meant for both.
 
 We had one choice: rebuild from a shared foundation.
 
@@ -54,9 +54,9 @@ We had one choice: rebuild from a shared foundation.
 
 ### Not a missing system. A missing shared language.
 
-"An iOS designer said 'primary blue'. A developer said 'surface container'. An Android designer said 'theme color'. They meant the same thing — and none of them knew it."
+"An iOS designer said 'primary blue'. A developer said 'surface container'. An Android designer said 'theme color'. They meant the same thing, and none of them knew it."
 
-The root cause wasn't that we lacked a design system. We had two. The root cause was that every discipline had developed its own shorthand. When teams finally had to collaborate, the translation overhead was enormous.
+The problem was not that we lacked a design system. We had two. The problem was that every discipline had grown its own shorthand, so when the teams finally had to work together, most of the effort went into translation.
 
 A new cross-platform design system would only solve the problem if it gave everyone a **single, unambiguous vocabulary**. That meant token architecture wasn't a technical question. It was a *communication design problem*.
 
@@ -70,7 +70,7 @@ This was the most contested part of the project. My co-designer and I each devel
 
 The fundamental question: **should a token name describe where it's used, or how it looks?**
 
-**Idea 1 — Element-anchored**
+**Idea 1 · Element-anchored**
 
 **Type · Intent · Prominence**
 
@@ -86,9 +86,9 @@ surface.theme.primary.light
 
 button.error.primary.pressed
 
-✕ Color vocabulary too narrow for 30+ diverse app styles
+✕ Color vocabulary too narrow for 30 diverse app styles
 
-**Idea 2 — Space × Layer × Tone … Selected**
+**Idea 2 · Space × Layer × Tone … Selected**
 
 **Zone · Layer · Tone × 5** — .zone Where in UI space (screen, card, button, dialog…)
 
@@ -110,19 +110,19 @@ screen.background.neutral-base
 
 **M3's strengths**
 
-- High developer familiarity — engineers already knew container / surface naming
+- High developer familiarity, since engineers already knew container and surface naming
 - Excellent reuse rates; fewer tokens to maintain
 - Well-documented, industry-proven structure
 
 **Why it didn't fit our context**
 
-- Container/surface naming compresses color vocabulary into too few slots — insufficient for 30 apps with distinct visual identities
+- Container and surface naming squeezes the color vocabulary into too few slots for 30 apps with distinct identities
 - M3's semantic layer assumes a single brand palette. Our apps do not share a brand.
 - Designers found token names non-descriptive outside Material's own ecosystem
 
 **The Final Architecture**
 
-**Primitive layer** — Raw color values with neutral names: **red-50, blue-300, neutral-700.** Never used directly in product code — they are the source of truth semantic tokens reference.
+**Primitive layer** — Raw color values with neutral names: **red-50, blue-300, neutral-700.** Never used directly in product code. They are the source of truth that semantic tokens point at.
 
 **Semantic layer** — Contextual tokens named by **purpose, not hue** — called *Local Colors*. Each token communicates meaning to designers and developers without guesswork, and maps directly to both light and dark themes.
 
@@ -130,7 +130,7 @@ Background · On Background · Scrim · On Scrim Primary · On Primary · Second
 
 **One system, both platforms** — Rather than separate iOS and Android token sets, we output **one unified token library.** Engineering on both platforms references identical color vocabulary.
 
-**Deliberate simplification** — After engineering alignment, the Idea 2 structure was **intentionally pruned.** Dev's priority — high reuse rate — was honoured. Our priority — readable semantics — was preserved.
+**Deliberate simplification** — After engineering alignment, the Idea 2 structure was **intentionally pruned.** Dev wanted a high reuse rate and we wanted names that read clearly. Both survived the cut.
 
 **03b · Local Colors**
 
@@ -140,7 +140,7 @@ Local Colors are semantic tokens that represent how colors are used in context t
 
 The naming rules follow a consistent hierarchy: surface tokens (Background, Scrim) anchor the canvas, role tokens (Primary, Secondary, Tertiary) carry brand intent, and status tokens (Error, Success, Warning) communicate state. Every token has a paired On {Token} for text and icons placed on top of it.
 
-This structure keeps color usage consistent and meaningful across all 22 apps — designers and developers reference the same vocabulary whether they're building for light mode, dark mode, iOS, or Android.
+That structure keeps color usage consistent across all 30 apps. Designers and developers use the same vocabulary whether they are building for light mode, dark mode, iOS or Android.
 
 Background On Background Scrim On Scrim Primary On Primary Secondary On Secondary Tertiary On Tertiary Error On Error Success On Success Warning On Warning Disabled Pressed Selected Outline Divider
 
@@ -150,17 +150,17 @@ Background On Background Scrim On Scrim Primary On Primary Secondary On Secondar
 
 ### Not a type scale. A set of roles.
 
-Cross-platform typography is usually solved by mapping font sizes. We took a different approach: instead of specifying what text should **look like**, we specified what it should **do**.
+Cross-platform typography usually gets solved by mapping font sizes. We specified what the text should do instead of what it should look like.
 
-The system defines seven roles: Display, Headline, Title, Subtitle, Body, Label, and Button. Each carries a clear functional mandate. Both iOS and Android use the same role names — but render them with platform-appropriate font families underneath.
+The system defines seven roles: Display, Headline, Title, Subtitle, Body, Label and Button. Each one has a job. iOS and Android use the same role names and render them with the right font family underneath.
 
-A designer building a new app doesn't start by asking "17px or 18px?" They ask "is this text playing a Title role or a Headline role?" The answer is consistent across every app, every platform.
+A designer starting a new app no longer asks "17px or 18px?" They ask whether the text is doing a Title job or a Headline job, and the answer holds across every app and both platforms.
 
 ![Font Role documentation — 7 roles](../images/case-3/case%203%20-%20Font%20Role.webp)
 
 iOS · Android
 
-**Display** — Used for very large text that makes a **strong visual impact** — banners, hero sections, key promotional content. Designed to capture immediate attention.
+**Display** — Very large text for banners, hero sections and promotional content, sized to be the first thing you see.
 
 ![Display role — app screenshot](../images/case-3/case%203%20-%20Font%20Role%20Display.webp)
 
@@ -190,7 +190,7 @@ iOS · Android
 
 iOS · Android
 
-**Label** — Used for **short descriptors** — form labels, tags, chips, helper text. Clear and concise.
+**Label** — Short descriptors: form labels, tags, chips, helper text.
 
 ![Label role](../images/case-3/case%203%20-%20Font%20Role%20Label.webp)
 
@@ -204,9 +204,9 @@ iOS · Android
 
 #### A font that disappears into both platforms.
 
-The obvious choices were SF Pro (iOS native) and Roboto (Android native). But using either would telegraph a platform preference — Android users notice SF Pro; iOS users notice Roboto. We needed something **neutral, legible, and platform-agnostic**.
+The obvious choices were SF Pro (iOS native) and Roboto (Android native). Either one picks a side: Android users notice SF Pro, iOS users notice Roboto. We needed something neutral that stayed legible on both.
 
-Inter was chosen because its core metrics — x-height, stroke width, letter spacing, and line height — are remarkably close to both SF Pro and Roboto. Users don't notice it's a different font. They just notice the text is easy to read.
+We chose Inter because its core metrics, x-height, stroke width, letter spacing and line height, sit very close to both SF Pro and Roboto. Users don't notice it is a different font. They notice the text is easy to read.
 
 **iOS Native**
 
@@ -218,7 +218,7 @@ Inter was chosen because its core metrics — x-height, stroke width, letter spa
 
 **x-height · High**
 
-**Platform · Apple only** — Apple's system font. Excellent on iOS, but restricted license — cannot be used on Android or web outside Apple's ecosystem.
+**Platform · Apple only** — Apple's system font. Excellent on iOS, but the license does not allow it on Android or on the web outside Apple's ecosystem.
 
 **Android Native**
 
@@ -230,7 +230,7 @@ Inter was chosen because its core metrics — x-height, stroke width, letter spa
 
 **x-height · High**
 
-**Platform · Android / Open** — Google's system font. Slightly wider letterforms. Reads as "Android" to iOS users — breaks platform neutrality.
+**Platform · Android / Open** — Google's system font. Slightly wider letterforms. Reads as "Android" to iOS users, which breaks the neutrality we needed.
 
 **✦ Selected**
 
@@ -242,27 +242,27 @@ Inter was chosen because its core metrics — x-height, stroke width, letter spa
 
 **x-height High (≈ SF Pro)**
 
-**Platform iOS + Android + Web** — Metrics nearly identical to SF Pro and Roboto. Renders consistently across both platforms. Open license. Platform-neutral — users feel at home on iOS and Android.
+**Platform iOS + Android + Web** — Metrics nearly identical to SF Pro and Roboto, consistent rendering on both platforms, open license. Nobody feels like they are using the other platform's app.
 
 **05 · Platform Tensions**
 
 ### Unified tokens. Respected conventions.
 
-Unifying iOS and Android at the token layer surfaced a real tension: what do we do when the two platforms have different interaction patterns that users are deeply familiar with?
+Unifying iOS and Android at the token layer raised a real question. What do you do when the two platforms have different interaction patterns that their users already know by heart?
 
-The clearest example was the search bar. Android users expect a visible focus state — a clear indicator that the field is active. iOS users typically just tap and type; a focus state feels redundant.
+The search bar was the clearest example. Android users expect a visible focus state that tells them the field is active. iOS users tap and start typing, so the same indicator feels redundant.
 
-**Our decision:** the token layer stays unified. The component layer respects platform convention. Tokens govern color vocabulary. Components govern interaction behaviour. This is the right architectural split — and it maps directly to how Jakob's Law applies at a systems level.
+**Our decision:** the token layer stays unified and the component layer follows platform convention. Tokens govern the color vocabulary, components govern how things behave. That split is also Jakob's Law applied to a system rather than a screen.
 
 ![iOS vs Android search component comparison](../images/case-3/case%203%20-%20Search%20Bar%20comparison.webp)
 
-**Principle Applied** — **Jakob's Law** — users spend most of their time in other apps. Design to match the platform conventions they already know, even within a unified system.
+**Principle Applied** — **Jakob's Law** — people spend most of their time in other apps, so match the conventions they already know, even inside a unified system.
 
 **06 · Component Library**
 
 ### Built for reuse. Sourced from evidence.
 
-Component selection wasn't based on guesswork. We cross-referenced Material 3, iOS Human Interface Guidelines, and Tencent's design system — then filtered against our own historical audit of what components appeared most frequently across the 30 apps. The result is a set of **high-reuse, low-ambiguity building blocks** that covers the full range of interaction patterns without over-engineering.
+We did not guess at the component list. We cross-referenced Material 3, the iOS Human Interface Guidelines and Tencent's design system, then checked that against an audit of which components actually appeared most often across the 30 apps. What survived is a small set of building blocks that covers the interaction patterns we use, and not much else.
 
 🔷 Basic UI 5
 
@@ -360,7 +360,7 @@ Component selection wasn't based on guesswork. We cross-referenced Material 3, i
 
 #### Same function, different form.
 
-Most components share one unified design. But a handful carry enough platform-native meaning that forcing a single visual would break user expectations. For these, we made a deliberate call to **maintain separate iOS and Android variants** within the same system — same token layer, different component expression.
+Most components share one design. A handful carry so much platform meaning that forcing a single visual would break what users expect, so those keep separate iOS and Android variants inside the same system: same tokens, different component.
 
 **Segmented Picker** — iOS Segmented Control is a pill-shaped, filled selection. Android's equivalent is a more linear, outlined chip-group. Using the wrong one reads as "ported."
 
@@ -382,7 +382,7 @@ Most components share one unified design. But a handful carry enough platform-na
 
 **Android Focus indicator**
 
-**Switch (Toggle)** — iOS switch is larger, with a white thumb and smooth slide. Android's M3 switch uses a smaller thumb that grows on press, with a distinct track shape. Both are instantly recognizable — but only on their home platform.
+**Switch (Toggle)** — iOS switch is larger, with a white thumb and smooth slide. Android's M3 switch uses a smaller thumb that grows on press, with a distinct track shape. Each one is instantly recognizable on its home platform, and slightly wrong on the other.
 
 ![iOS switch](../images/case-3/case%203%20-%20iOS%20Toggle.webp)
 
@@ -406,19 +406,19 @@ Most components share one unified design. But a handful carry enough platform-na
 
 ### What we chose not to build.
 
-The instinct with design systems is to be comprehensive. We made the opposite call. A system that over-specifies becomes a ceiling, not a foundation — a lesson learned the hard way from our first-generation systems.
+The instinct with design systems is to cover everything. We went the other way. Our first-generation systems specified so much that they became a ceiling, and we did not want to repeat that.
 
 **Out of Scope**
 
-**Dark Mode** — Our 30 apps are stylistically diverse — some are dark-mode-first, some have individual dark pages within a light app. Baking dark/light into the global system would force false consistency. Designers would either inherit wrong values or fight the system entirely.
+**Dark Mode** — Our 30 apps look very different from each other. Some are dark-mode-first, some have a single dark page inside a light app. Baking dark and light into the global system would have forced a consistency that isn't real, and designers would have inherited wrong values or worked around the system.
 
-**Lesson from v1:** Our first-gen systems included dark mode tokens. Designers found them constraining on apps with non-standard mode logic and bypassed them entirely — defeating the purpose.
+**Lesson from v1:** Our first-gen systems included dark mode tokens. On apps with unusual mode logic, designers found them constraining and bypassed them, which defeated the point.
 
 **Out of Scope**
 
-**Shadows & Effects** — Visual effects like shadow and blur are highly style-dependent. A food delivery app and a fintech dashboard need fundamentally different elevation languages. Standardizing these would constrain UI variety in ways the creative director explicitly did not want.
+**Shadows & Effects** — Shadow and blur depend on the style of the product. A food delivery app and a fintech dashboard need different elevation logic, and standardizing it would have flattened the variety our creative director wanted to keep.
 
-**Design principle:** Global systems should govern shared logic, not aesthetic personality. Effects belong to the product, not the system.
+**Design principle:** A global system should govern shared logic and leave the personality to the product. Effects belong to the app.
 
 "A system that controls too much becomes a ceiling. We built a foundation — then got out of the way."
 
@@ -428,7 +428,7 @@ The instinct with design systems is to be comprehensive. We made the opposite ca
 
 5 new apps launched cross-platform from day one. VQA issue rate down from ~95% to ~80%. Engineering on iOS and Android now reference identical color names.
 
-VQA Issue Rate — Before vs After System Deployment
+VQA Issue Rate · Before vs After System Deployment
 
 **Before**
 
@@ -444,7 +444,7 @@ Engineering · iOS team
 
 Engineering · Android team
 
-**Adjacent Impact** — The motion team — responsible for promotional videos and animations — reported that **improved design-to-product fidelity** directly reduced their revision cycles. When the product looks like the design, they can pull UI references without manual corrections.
+**Adjacent Impact** — The motion team, who make the promotional videos and animations, said the closer match between design and shipped product cut their revision cycles. When the product looks like the design, they can pull UI references without correcting them by hand.
 
 **09 · Reflection**
 
@@ -452,12 +452,12 @@ Engineering · Android team
 
 **01**
 
-**Spacing should have been in scope** — VQA data shows spacing is now the most frequent failure point. Color and typography were solved — but without a shared spacing token system, handoff inconsistencies persist. In the next iteration, spacing tokens are the priority.
+**Spacing should have been in scope** — VQA data shows spacing is now the most common failure. Color and typography are settled, but without shared spacing tokens the handoff still drifts. Spacing tokens are first in the next iteration.
 
 **02**
 
-**Bring engineering into the token architecture debate earlier** — We spent nearly three weeks debating Idea 1 vs Idea 2 between two designers. When we finally brought engineering into the conversation, their priorities — reuse rate, simplicity — clarified our decision within days. That conversation should have happened in week one, not week three.
+**Bring engineering into the token architecture debate earlier** — Two designers spent nearly three weeks debating Idea 1 against Idea 2. Once engineering joined the conversation, their priorities of reuse rate and simplicity settled it within days. That conversation belonged in week one.
 
 **03**
 
-**The constraint strategy was the right call** — Excluding dark mode and effects from the global system felt like a limitation at the time. In retrospect, it was the decision that made the system actually adoptable. Products with unique visual needs used the token foundation and built their personality on top. This is what a platform should feel like.
+**The constraint strategy was the right call** — Leaving dark mode and effects out felt like a limitation at the time. It is the reason teams adopted the system. Products with their own visual needs took the token foundation and built their personality on top of it.
