@@ -76,7 +76,7 @@ Research
 
 **Act & Improve**
 
-- One fast, practical tip — not a 40-page report
+- One fast, practical tip instead of a 40-page report
 - Context for why students gave that feedback
 - Progress that's visible across the school year
 
@@ -98,13 +98,13 @@ Design
 
 ### Four features, *each earned through research.*
 
-3 rounds of wireframes → mid-fidelity prototype. Every feature traces directly to a specific user pain point.
+3 rounds of wireframes, then a mid-fidelity prototype. Each of the four features answers something a teacher told us.
 
 **01**
 
 **Modular Dashboard** — Teachers manage 3–6 classes daily. The dashboard matches that reality.
 
-Tab-based class switching surfaces the right data in context: no hunting, no lost thread between periods.
+Switching tabs switches the class, so the data for the period you are teaching is already on screen and you don't lose your place between periods.
 
 **Jakob's Law** — Match the mental model teachers already use. Reduce cognitive load at exactly the moment they're most pressed.
 
@@ -114,7 +114,7 @@ Tab-based class switching surfaces the right data in context: no hunting, no los
 
 **Calendar + Tip Requesting**
 
-**Request a tip at the moment you're planning — not after.** — "Request a Tip" embedded directly in the calendar, tied to specific lessons. The client later promoted it to primary CTA; we'd found the right trigger point.
+**Ask for a tip while you're planning, not after the lesson.** — "Request a Tip" embedded directly in the calendar, tied to specific lessons. The client later promoted it to primary CTA; we'd found the right trigger point.
 
 **Zeigarnik Effect** — Pending tips create an open loop that brings teachers back. Lesson planning is the moment of highest motivation.
 
@@ -124,9 +124,9 @@ Tab-based class switching surfaces the right data in context: no hunting, no los
 
 **Teacher Goals**
 
-**Goals set in September shouldn't disappear by November.** — A persistent goals module, categorized by domain, visible to both teacher and administrator year-round, anchoring tips and feedback to something that matters long-term.
+**Goals set in September shouldn't disappear by November.** — A goals module that stays put all year, grouped by domain and visible to both the teacher and the administrator. Tips and feedback then hang off a goal instead of arriving on their own.
 
-**Goal-Gradient Effect** — Progress feels real when the finish line is visible. Categorical chunking makes complex goals approachable.
+**Goal-Gradient Effect** — Progress feels real when you can see the finish line. Breaking a big goal into domains makes it easier to start.
 
 ![Student Engagement data](../images/case-4/case%204%20-%20Student%20Engagement.webp) Engagement → Goal Setting
 
@@ -144,7 +144,7 @@ User Testing
 
 ### Halfway there. *Testing showed us the other half.*
 
-3 sessions · 6 tasks each · mid-fidelity prototype. The calendar we were proud of failed. The tip flow needed rethinking. Both got fixed.
+3 sessions, 6 tasks each, on the mid-fidelity prototype. The calendar we were most proud of was the thing that failed, and the tip flow needed rethinking. We fixed both before handoff.
 
 > "The calendar is confusing. I'm used to a standard monthly view."
 
@@ -176,7 +176,7 @@ Reflection
 
 ### What I'd tell myself on *day one.*
 
-This shipped. It went live. Every decision traces back to something a real person told us. The brief said "survey platform." Research said "teacher confidence." Those aren't the same product; knowing the difference is the job.
+This one shipped and is live. Every decision traces back to something a real person told us. The brief said "survey platform." The research said "teacher confidence." Those are two different products, and telling them apart was most of the work.
 
 **01**
 
@@ -184,7 +184,7 @@ This shipped. It went live. Every decision traces back to something a real perso
 
 **02**
 
-**Deciding who not to design for is design** — Focusing on educators over admins wasn't a shortcut; it was a strategic bet that the product needed a strong foundation before scaling.
+**Choosing who not to design for** — We picked educators over admins on purpose. The product needed one solid layer before it could serve both, and the admin view was easier to add later than to unpick.
 
 **03**
 
