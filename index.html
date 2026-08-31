@@ -9,7 +9,43 @@
   <link rel="icon" type="image/png" href="/images/favicon.png">
   <link rel="apple-touch-icon" href="/images/favicon.png">
   <style>
-    :root { --case-screen-bg: oklch(0.08 0.01 275); }
+    :root {
+      --case-screen-bg: oklch(0.08 0.01 275);
+      /* page ground — matches the fluid canvas base so the seam is invisible */
+      --case-page-bg:      #F5F8FA;
+      /* footer — sits on the page wash, same light ground as the rest */
+      --case-footer-name:  var(--text);
+      --case-footer-dot:   var(--rust);
+      --case-footer-muted: var(--text-tertiary);
+      --case-footer-link:  var(--text-secondary);
+      /* page wash — same four soft radials as the about page */
+      --case-page-wash:
+        radial-gradient(ellipse 70% 60% at 8% 12%,  rgba(220,184,232,0.30) 0%, transparent 70%),
+        radial-gradient(ellipse 55% 65% at 92% 78%, rgba(181,218,240,0.25) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 45% at 72% 18%, rgba(197,176,238,0.20) 0%, transparent 65%),
+        radial-gradient(ellipse 45% 55% at 22% 88%, rgba(245,210,192,0.22) 0%, transparent 65%);
+      /* canvas tail — fades the live hero background into the page wash */
+      --case-canvas-mask: linear-gradient(
+        to bottom,
+        #000 0%,
+        #000 68%,
+        rgba(0,0,0,0.55) 84%,
+        rgba(0,0,0,0) 100%
+      );
+    }
+
+    body {
+      background-color: var(--case-page-bg);
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: var(--case-page-wash);
+    }
 
     .works {
       padding-top: var(--space-8);
@@ -70,10 +106,8 @@
     }
     .work-screen img {
       width: 100%;
+      height: auto;
       display: block;
-      aspect-ratio: 16/10;
-      object-fit: cover;
-      object-position: top;
     }
 
     .work-info {
@@ -142,23 +176,42 @@
     nav { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom-color: transparent; }
     nav.scrolled { background: rgba(245,248,250,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom-color: var(--border-subtle); }
 
-    /* ── Light footer for index ── */
+    /* ── Footer ── */
     .contact-strip { display: none; }
     footer {
-      background: var(--bg);
-      color: var(--text-secondary);
+      position: relative;
+      z-index: 1;
+      padding: var(--space-5) var(--page-x);
+      background: transparent;
       border-top: 1px solid var(--border-subtle);
+      color: var(--case-footer-muted);
     }
-    footer a { color: var(--text-secondary); }
-    footer a:hover { color: var(--text); }
-    .footer-name { color: var(--text); font-weight: 500; font-size: 14px; }
-    .footer-copy { color: var(--text-secondary); font-size: 14px; }
+    .footer-brand {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+    }
+    .footer-name {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 500;
+      font-size: 20px;
+      letter-spacing: -0.01em;
+      color: var(--case-footer-name);
+    }
+    .footer-name::after { content: '.'; color: var(--case-footer-dot); }
+    .footer-copy { font-size: 13.5px; color: var(--case-footer-muted); }
+    footer .footer-links { gap: var(--space-4); }
+    footer a { color: var(--case-footer-link); font-size: 14px; }
+    footer a:hover { color: var(--case-footer-name); }
 
-    /* ── Fluid canvas background ── */
+    /* ── Fluid canvas background — hero only ── */
     #fluid {
-      position: fixed;
+      position: absolute;
       z-index: 0;
       pointer-events: none;
+      mask-image: var(--case-canvas-mask);
+      -webkit-mask-image: var(--case-canvas-mask);
     }
 
     /* ── Hero overrides (transparent so canvas shows through) ── */
@@ -320,13 +373,13 @@
   </div>
 </div>
 <footer>
-  <div>
-    <div class="footer-name">Yuzhuo Zhang</div>
-    <div class="footer-copy">© 2026 · Designed with care</div>
+  <div class="footer-brand">
+    <span class="footer-name">Yuzhuo Zhang</span>
+    <span class="footer-copy">© 2026</span>
   </div>
   <div class="footer-links">
-    <a href="https://www.linkedin.com/in/yuzhuo-zhang777/" target="_blank">LinkedIn</a>
     <a href="contact.html">Email</a>
+    <a href="https://www.linkedin.com/in/yuzhuo-zhang777/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
   </div>
 </footer>
 
@@ -420,7 +473,7 @@ const rm={active:false,inWarmup:false,targetX:0,targetY:0,drawX:0,drawY:0,prevDr
   paletteIdx:Math.random()*(PALETTE.length-1),paletteDir:Math.random()<0.5?-1:1,lastMoveTime:0};
 
 window.addEventListener('mousemove',function(e){
-  rm.targetX=e.clientX+EDGE_PAD; rm.targetY=e.clientY+EDGE_PAD;
+  rm.targetX=e.clientX+EDGE_PAD; rm.targetY=e.clientY+window.scrollY+EDGE_PAD;
   if(!rm.active){rm.drawX=rm.targetX;rm.drawY=rm.targetY;rm.prevDrawX=rm.drawX;rm.prevDrawY=rm.drawY;
     rm.active=true;rm.inWarmup=true;setTimeout(()=>{rm.inWarmup=false;},250);}
   rm.lastMoveTime=performance.now();
