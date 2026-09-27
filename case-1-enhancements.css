@@ -1,0 +1,65 @@
+/* Readability and interaction refinements for the Sleep Tracker case study. */
+:root {
+  color-scheme: dark;
+  --case-chart-before: #aaa7bf;
+  --case-chart-purple: #c084fc;
+  --case-chart-teal: #2dd4bf;
+}
+.section { scroll-margin-top: var(--space-16); }
+.section > p { max-width: 68ch; line-height: 1.8; }
+.ic-desc, .rc-body, .principle-body, .flow-desc,
+.ba-cell-before, .ba-cell-after { font-size: 15px; line-height: 1.75; }
+.case-img-insight, .qt-source, .impact-label { font-size: 14px; line-height: 1.65; }
+.ic-num.purple { color: var(--case-chart-purple); }
+.ic-num, .metric-val { font-variant-numeric: tabular-nums; }
+.section h2 { text-wrap: balance; }
+.reveal, .reveal.in { opacity: 1; transform: none; transition: none; }
+.case-img:focus-visible { outline: 2px solid var(--case-accent); outline-offset: 4px; }
+.peek-prev, .peek-next, .lb-close { min-width: 44px; min-height: 44px; }
+[role="tab"] { min-height: 44px; }
+#lightbox {
+  width: 100vw; height: 100dvh; max-width: none; max-height: none;
+  margin: 0; padding: 0; border: 0; background: transparent;
+  overscroll-behavior: contain;
+}
+#lightbox:not([open]) { display: none; }
+#lightbox::backdrop { background: transparent; }
+.impact-chart { margin: var(--space-3) 0 0; }
+.impact-chart figcaption { color: var(--text2); font-size: 13px; line-height: 1.6; }
+.impact-chart svg { display: block; width: 100%; overflow: visible; }
+.impact-chart text { font-family: var(--font-body); font-size: 13px; fill: var(--text2); }
+.impact-chart .chart-value { fill: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
+.impact-chart .domain, .impact-chart .tick line { stroke: var(--border2); }
+.impact-chart .before-bar { fill: var(--case-chart-before); }
+.impact-chart .after-bar.purple { fill: var(--case-chart-purple); }
+.impact-chart .after-bar.teal { fill: var(--case-chart-teal); }
+.impact-chart-replay {
+  margin-top: var(--space-1); padding: var(--space-1) var(--space-2);
+  min-height: 44px; border: 1px solid var(--border2); border-radius: var(--radius-sm);
+  color: var(--text); background: var(--bg2); font: inherit; font-size: 13px; cursor: pointer;
+}
+.impact-chart-replay:hover { border-color: var(--case-accent); }
+@media (max-width: 600px) {
+  .section { padding-top: var(--space-8); padding-bottom: var(--space-8); }
+  .ic { padding: var(--space-3); }
+  .ba-head { display: none; }
+  .ba-row-g { grid-template-columns: 1fr; }
+  .ba-cell-before { border-right: 0; }
+  .ba-cell-before::before, .ba-cell-after::before {
+    display: block; margin-bottom: var(--space-1); font-weight: 600; color: var(--text);
+  }
+  .ba-cell-before::before { content: 'Before · Sleep Sounds'; }
+  .ba-cell-after::before { content: 'After · Sleep Sounds'; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .hero-title, .hero-sub, .hero-meta, .hero-eyebrow, .impact-strip { opacity: 1; transform: none; }
+  .ic:hover, .rc:hover { transform: none; }
+  .impact-chart-replay { display: none; }
+}
+
+.peek-dot { position: relative; }
+.peek-dot::before { content: ""; position: absolute; inset: -18px -4px; }
+
+.case-video { aspect-ratio: 332.8767 / 720; }

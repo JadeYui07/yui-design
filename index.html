@@ -82,14 +82,14 @@
       color: inherit;
       display: flex;
       flex-direction: column;
-      transition: transform 0.3s ease;
+      transition: translate 0.3s var(--transition), box-shadow 0.3s ease;
     }
     .work-card.card-sleep   { background: var(--card-sleep); }
     .work-card.card-weather { background: var(--card-weather); }
     .work-card.card-system  { background: var(--card-system); }
     .work-card.card-edtech  { background: var(--card-edtech); }
-    .work-card:hover {
-      transform: translateY(-6px);
+    .work-card:focus-visible {
+      translate: 0 calc(-1 * var(--space-1));
       box-shadow: 0 24px 64px rgba(0,0,0,0.13);
     }
 
@@ -149,7 +149,17 @@
       opacity: 0.5;
       transition: opacity 0.2s;
     }
-    .work-card:hover .work-card-link { opacity: 1; }
+    .work-card:focus-visible .work-card-link { opacity: 1; }
+    .work-screen img { transition: transform 0.45s var(--transition); }
+    .work-card-arrow { display: inline-block; transition: transform 0.25s var(--transition); }
+    .work-card:focus-visible .work-card-arrow { transform: translateX(var(--space-1)); }
+    .work-card:focus-visible .work-screen img { transform: scale(1.06); }
+    @media (hover: hover) and (pointer: fine) {
+      .work-card:hover { translate: 0 calc(-1 * var(--space-1)); box-shadow: var(--shadow-xl); }
+      .work-card:hover .work-screen img { transform: scale(1.06); }
+      .work-card:hover .work-card-link { opacity: 1; }
+      .work-card:hover .work-card-arrow { transform: translateX(var(--space-1)); }
+    }
 
     @media (max-width: 768px) {
       section.hero .hero-content { max-width: 100%; }
@@ -168,10 +178,10 @@
       border-radius: 3px;
     }
 
+    .work-card:focus-visible { border-radius: 28px; }
+
     /* ── Reduced motion ── */
-    @media (prefers-reduced-motion: reduce) {
-      .hero-h1, .hero-body { animation: none; opacity: 1; }
-    }
+
 
     /* ── Nav transparent on index ── */
     nav { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom-color: transparent; }
@@ -233,7 +243,7 @@
       letter-spacing: -0.03em;
       color: var(--text);
       margin-bottom: var(--space-3);
-      animation: fadeUp 0.75s var(--transition) both;
+      animation: fadeUp 0.55s ease-out both;
     }
     .hero-h1 em { font-style: italic; color: var(--rust); }
     .hero-body {
@@ -241,15 +251,41 @@
       color: var(--text-secondary);
       line-height: 1.7;
       max-width: min(56vw, 800px);
-      animation: fadeUp 0.75s 0.15s var(--transition) both;
+      animation: fadeUp 0.55s 0.08s ease-out both;
     }
 
     /* Works section */
     .works {
       position: relative;
       z-index: 1;
+      scroll-margin-top: var(--space-16);
+    }
+    /* Spring-driven hover is separate from the scroll reveal transform. */
+    .work-card.motion-ready { translate: 0 calc(-8px * var(--engagement, 0)); transition: box-shadow 0.2s ease, scale 0.16s ease-out; }
+    .work-card.motion-ready .work-screen img { transform: scale(calc(1 + 0.06 * var(--engagement, 0))); transition: none; }
+    .work-card.motion-ready .work-card-arrow { transform: translateX(calc(8px * var(--engagement, 0))); transition: none; }
+    .work-card, .nav-links .cta { scale: 1; transition-property: translate, box-shadow, scale; transition-duration: 0.3s, 0.2s, 0.16s; }
+    .nav-links .cta { display: inline-block; }
+    .work-card:active, .nav-links .cta:active { scale: 0.985; transition-duration: 0.08s; }
+    .work-card.motion-ready:active { translate: 0 0; }
+    @media (hover: none) { .work-card-link { opacity: 1; } }
+    @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+      nav, nav.scrolled { background: var(--bg); backdrop-filter: none; -webkit-backdrop-filter: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .work-card:active, .nav-links .cta:active { scale: 1; opacity: 0.8; }
+      .work-card.motion-ready { translate: none; }
+      .work-card.motion-ready .work-screen img, .work-card.motion-ready .work-card-arrow { transform: none; }
+      body, .hero-h1, .hero-body { animation: none; opacity: 1; }
+      .work-card, .work-screen img, .work-card-arrow, .work-card-link { transition: none; }
+      .work-card:hover, .work-card:focus-visible { translate: none; }
+      .work-card:hover .work-screen img, .work-card:hover .work-card-arrow,
+      .work-card:focus-visible .work-card-arrow, .work-card:focus-visible .work-screen img { transform: none; }
     }
   </style>
+  <script defer src="scripts/vendor/gsap.min.js"></script>
+  <script defer src="scripts/interactions.js"></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
@@ -272,7 +308,7 @@
 <section class="hero">
   <div class="hero-content">
     <h1 class="hero-h1">I turn ambiguous product problems into <em>clear systems</em> and <em>actionable experiences</em>.</h1>
-    <p class="hero-body">Product designer working across core consumer products and cross-platform systems&mdash;from severe-weather decisions to bedtime habits and a 30-app design system.</p>
+    <p class="hero-body">Product designer focused on consumer products and complex systems - from shaping product direction and interaction models to working with engineering through implementation.</p>
   </div>
 </section>
 
@@ -286,7 +322,7 @@
   <div class="works-grid">
 
     <!-- Card 1: Sleep -->
-    <a href="case-1.html" class="work-card card-sleep reveal">
+    <a href="case-1.html" class="work-card card-sleep">
       <div class="work-preview">
         <div class="work-frame">
           <div class="work-screen">
@@ -298,12 +334,12 @@
         <span class="work-tag">iOS App · Health &amp; Wellness</span>
         <h2>Track My Sleep Now</h2>
         <p>Redesigning a sleep tracker to align with user mindset, reduce drop-off, and drive premium conversion through personalized soundscapes and actionable insights.</p>
-        <span class="work-card-link">View project →</span>
+        <span class="work-card-link">View project <span class="work-card-arrow" aria-hidden="true">→</span></span>
       </div>
     </a>
 
     <!-- Card 2: Weather -->
-    <a href="case-2.html" class="work-card card-weather reveal">
+    <a href="case-2.html" class="work-card card-weather">
       <div class="work-preview">
         <div class="work-frame">
           <div class="work-screen">
@@ -315,12 +351,12 @@
         <span class="work-tag">iOS App · Top 10 Weather</span>
         <h2>NOAA Live Weather Radar</h2>
         <p>How to get accurate, hyper-local weather alerts fast enough to make safe decisions for your family. PCMAG Best Weather Apps since 2023.</p>
-        <span class="work-card-link">View project →</span>
+        <span class="work-card-link">View project <span class="work-card-arrow" aria-hidden="true">→</span></span>
       </div>
     </a>
 
     <!-- Card 3: Design System -->
-    <a href="case-3.html" class="work-card card-system reveal">
+    <a href="case-3.html" class="work-card card-system">
       <div class="work-preview">
         <div class="work-frame">
           <div class="work-screen">
@@ -332,12 +368,12 @@
         <span class="work-tag">Design System · Cross-Platform</span>
         <h2>Global Design System for iOS &amp; Android</h2>
         <p>Building a cross-platform design system from 0–1: design tokens, components, and documentation enabling consistent experiences across iOS and Android.</p>
-        <span class="work-card-link">View project →</span>
+        <span class="work-card-link">View project <span class="work-card-arrow" aria-hidden="true">→</span></span>
       </div>
     </a>
 
     <!-- Card 4: EdTech -->
-    <a href="case-4.html" class="work-card card-edtech reveal">
+    <a href="case-4.html" class="work-card card-edtech">
       <div class="work-preview">
         <div class="work-frame">
           <div class="work-screen">
@@ -349,7 +385,7 @@
         <span class="work-tag">Web Design · EdTech</span>
         <h2>EdTechLive — Instructional Strategies App Redesign</h2>
         <p>Empowering students to share their voices and create more engaging learning experiences through EdTechLive's SEEDS-based tools.</p>
-        <span class="work-card-link">View project →</span>
+        <span class="work-card-link">View project <span class="work-card-arrow" aria-hidden="true">→</span></span>
       </div>
     </a>
 
@@ -407,7 +443,7 @@ function resize() {
 window.addEventListener('resize', resize);
 resize();
 
-const params = { mice:2, speed:1.4, omega:0.12, drift:0.87, brush:185, blur:36, fade:0.009, hue:1.4, satShift:6, lightShift:10 };
+const params = { mice:window.matchMedia("(pointer: coarse)").matches ? 1 : 2, speed:1.4, omega:0.12, drift:0.87, brush:185, blur:36, fade:0.009, hue:1.4, satShift:6, lightShift:10 };
 
 const PALETTE_HEX = ['#F5E5A0','#F5D2C0','#F5C8D8','#F0BCDC','#DCB8E8','#C5B0EE','#B8C5EF','#B5DAF0'];
 function hexToHSL(hex) {
@@ -541,6 +577,22 @@ document.addEventListener('visibilitychange', () => {
   }
 });
 
+const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+let fluidFrameId = null;
+let heroVisible = false;
+function syncFluidAnimation() {
+  const shouldRun = heroVisible && !document.hidden && !motionPreference.matches;
+  if (shouldRun && fluidFrameId === null) fluidFrameId = requestAnimationFrame(fluidFrame);
+  if (!shouldRun && fluidFrameId !== null) {
+    cancelAnimationFrame(fluidFrameId);
+    fluidFrameId = null;
+  }
+  if (motionPreference.matches) {
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = BG;
+    ctx.fillRect(0, 0, W, H);
+  }
+}
 function fluidFrame(){
   updateDensityBoost();
   let ef = params.fade;
@@ -553,15 +605,16 @@ function fluidFrame(){
   for(const m of mice){m.update();m.draw(ctx);}
   ctx.globalAlpha=1.0;
   if(rm.active)drawRealMouse();
-  requestAnimationFrame(fluidFrame);
+  fluidFrameId = requestAnimationFrame(fluidFrame);
 }
 canvas.style.filter=`blur(${params.blur}px)`;
-// Respect prefers-reduced-motion: fill with BG color and skip animation
-if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  ctx.fillStyle = BG; ctx.fillRect(0, 0, W, H);
-} else {
-  requestAnimationFrame(fluidFrame);
-}
+const heroObserver = new IntersectionObserver(([entry]) => {
+  heroVisible = entry.isIntersecting;
+  syncFluidAnimation();
+});
+heroObserver.observe(document.querySelector('.hero'));
+document.addEventListener('visibilitychange', syncFluidAnimation);
+motionPreference.addEventListener('change', syncFluidAnimation);
 // ── End fluid canvas ────────────────────────────────────────
 </script>
 
@@ -571,16 +624,6 @@ if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 10);
   });
 
-  // Scroll-triggered reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-  reveals.forEach(el => observer.observe(el));
 </script>
 
 </body>

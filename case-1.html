@@ -18,8 +18,8 @@
   --border:   rgba(255,255,255,0.07);
   --border2:  rgba(255,255,255,0.12);
   --text:     #f0eef8;
-  --text2:    #9896aa;
-  --text3:    #767688;
+  --text2:    #b5b3c7;
+  --text3:    #a19fb4;
 
   /* brand gradient — matches YZ logo orange→purple */
   --grad-start: #ff7b35;
@@ -875,7 +875,7 @@ p strong { color: var(--text); font-weight: 500; }
   font-family: var(--font-display);
   font-size: 40px;
   font-weight: 600;
-  color: rgba(255,255,255,0.04);
+  color: var(--text3);
   line-height: 1;
   margin-bottom: 16px;
   letter-spacing: -0.03em;
@@ -1070,17 +1070,21 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--case-accent); o
   .peek-track, .peek-item { transition: none; }
 }
 </style>
+<link rel="stylesheet" href="case-1-enhancements.css">
+<script defer src="scripts/vendor/gsap.min.js"></script>
+<script defer src="scripts/vendor/d3.min.js"></script>
+<script defer src="scripts/case-1-enhancements.js"></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 
-<div id="lightbox">
+<dialog id="lightbox" aria-label="Enlarged project image">
   <div class="lb-backdrop"></div>
   <img id="lightbox-img" src="" alt="">
   <button class="lb-close" aria-label="Close">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
   </button>
-</div>
+</dialog>
 
 <!-- ambient gradient orbs -->
 <div class="blobs" aria-hidden="true">
@@ -1095,7 +1099,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--case-accent); o
 
 <!-- ── NAV ── -->
 <nav>
-  <a href="index.html" class="nav-logo"><img src="images/name_no_bg.webp" alt="YZ" height="32"></a>
+  <a href="index.html" class="nav-logo"><img src="images/name_no_bg.webp" alt="YZ" height="32" width="256"></a>
   <ul class="nav-links">
     <li><a href="index.html#works">Work</a></li>
     <li><a href="about.html">About</a></li>
@@ -1188,15 +1192,15 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--case-accent); o
 
   <div class="case-img-grid-3">
     <figure class="case-fig">
-      <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20sound%20page%20event%20tracking%20data.webp" alt="Sound page event tracking data">
+      <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20sound%20page%20event%20tracking%20data.webp" alt="Sound page event tracking data" width="1872" height="832">
       <figcaption class="case-img-insight">Event tracking shows users leaving the sound page without interacting. The drop-off starts at the first scroll, before any premium content is visible.</figcaption>
     </figure>
     <figure class="case-fig">
-      <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20sound%20interaction%20tracking.webp" alt="Sound interaction tracking">
+      <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20sound%20interaction%20tracking.webp" alt="Sound interaction tracking" width="1414" height="816">
       <figcaption class="case-img-insight">Interaction data confirms nearly all taps cluster on row 1. Rows 2–5 register almost nothing, and not because users preferred those four sounds. They never saw the rest.</figcaption>
     </figure>
     <figure class="case-fig">
-      <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20sleep%20app%20tickle%20flow%20reviews.webp" alt="Sleep app tickle flow App Store reviews">
+      <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20sleep%20app%20tickle%20flow%20reviews.webp" alt="Sleep app tickle flow App Store reviews" width="2016" height="836">
       <figcaption class="case-img-insight">App Store reviews from the trial (tickle) flow surface the same emotional pattern: users expected calm, encountered friction, and left before the premium offer landed.</figcaption>
     </figure>
   </div>
@@ -1208,7 +1212,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--case-accent); o
   <p style="max-width:600px; margin-bottom:24px;">The journey map showed frustration building in stages. People arrived calm, and each friction point took a little of that away.</p>
 
   <div class="case-img-full" style="margin:40px 0;">
-    <img class="case-img" data-lb="wide" style="border-radius:16px; box-shadow:0 8px 40px rgba(0,0,0,0.4);" src="images/case-1/case%201%20-%20user%20journey.webp" alt="User Journey Map — Emotional Gap">
+    <img class="case-img" data-lb="wide" style="border-radius:16px; box-shadow:0 8px 40px rgba(0,0,0,0.4);" src="images/case-1/case%201%20-%20user%20journey.webp" alt="User Journey Map — Emotional Gap" width="3240" height="895">
   </div>
 </section>
 
@@ -1252,19 +1256,19 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--case-accent); o
   <div class="peek-carousel" data-carousel>
     <div class="peek-track">
       <div class="peek-item active">
-        <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20User%20Testing%20Preference.webp" alt="User testing preference scores">
+        <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20User%20Testing%20Preference.webp" alt="User testing preference scores" width="1960" height="1086">
         <span class="case-img-insight">Visual preference testing (n=9) showed a clear lean toward Flow 3's consolidated layout, giving the design rationale quantitative grounding.</span>
       </div>
       <div class="peek-item">
-        <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20card%20sorting%20step%201.webp" alt="Card sorting step 1">
+        <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20card%20sorting%20step%201.webp" alt="Card sorting step 1" width="2798" height="2000">
         <span class="case-img-insight">Card sorting step 1: participants received 30 unlabeled metric cards and were asked to group them by perceived importance without prompting.</span>
       </div>
       <div class="peek-item">
-        <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20card%20sorting%20step%202.webp" alt="Card sorting step 2">
+        <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20card%20sorting%20step%202.webp" alt="Card sorting step 2" width="3304" height="2038">
         <span class="case-img-insight">Card sorting step 2: clusters emerged naturally. Total sleep time, schedule, and quality score consistently formed a primary group across all 9 participants.</span>
       </div>
       <div class="peek-item">
-        <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20card%20sorting%20step%203.webp" alt="Card sorting step 3">
+        <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20card%20sorting%20step%203.webp" alt="Card sorting step 3" width="2632" height="2036">
         <span class="case-img-insight">Card sorting step 3: the final groupings confirmed the mental model, and that hierarchy drove the Insight page redesign.</span>
       </div>
     </div>
@@ -1287,7 +1291,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--case-accent); o
   <p style="max-width:620px; margin-bottom:32px;">Each flow reflected a different navigation philosophy. Testing revealed not just which was faster, but <strong>why the intuitive answer was wrong</strong>.</p>
 
   <div class="case-img-full" style="margin-bottom:32px;">
-    <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%203%20flows%20usability%20prototypes.webp" alt="3 flows usability prototypes overview">
+    <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%203%20flows%20usability%20prototypes.webp" alt="3 flows usability prototypes overview" width="3050" height="982">
   </div>
 
   <div class="flows">
@@ -1302,7 +1306,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--case-accent); o
         <div class="metric-row"><span class="metric-name">Task speed</span><div class="metric-bar-bg"><div class="metric-fill fill-dim" style="width:30%"></div></div></div>
         <div class="metric-row"><span class="metric-name">User satisfaction</span><div class="metric-bar-bg"><div class="metric-fill fill-orange" style="width:48%"></div></div></div>
         <div class="flow-insight"><span class="why-bad">Failed:</span> Users expected tap → immediate play. Timer units mixed minutes and hours. The "+" button was too hidden to find.</div>
-        <video class="case-video" data-src="images/case-1/case%201%20-%20Flow%201.mp4" muted loop playsinline></video>
+        <video class="case-video" data-src="images/case-1/case%201%20-%20Flow%201.mp4" muted loop playsinline controls></video>
       </div>
     </div>
 
@@ -1317,7 +1321,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--case-accent); o
         <div class="metric-row"><span class="metric-name">Task speed</span><div class="metric-bar-bg"><div class="metric-fill fill-orange" style="width:60%"></div></div></div>
         <div class="metric-row"><span class="metric-name">User satisfaction</span><div class="metric-bar-bg"><div class="metric-fill fill-orange" style="width:55%"></div></div></div>
         <div class="flow-insight"><span class="why-bad">Failed:</span> No explicit Save/Done button. Users unsure if edits persisted. Good concept, incomplete execution.</div>
-        <video class="case-video" data-src="images/case-1/case%201%20-%20Flow%202.mp4" muted loop playsinline></video>
+        <video class="case-video" data-src="images/case-1/case%201%20-%20Flow%202.mp4" muted loop playsinline controls></video>
       </div>
     </div>
 
@@ -1332,7 +1336,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--case-accent); o
         <div class="metric-row"><span class="metric-name">Task speed</span><div class="metric-bar-bg"><div class="metric-fill fill-purple" style="width:88%"></div></div></div>
         <div class="metric-row"><span class="metric-name">User satisfaction</span><div class="metric-bar-bg"><div class="metric-fill fill-purple" style="width:84%"></div></div></div>
         <div class="flow-insight"><span class="why">Won:</span> Fastest time to sleep and the highest preference scores. The complexity moved into the system instead of onto the user (Tesler's Law).</div>
-        <video class="case-video" data-src="images/case-1/case%201%20-%20Flow%203.mp4" muted loop playsinline></video>
+        <video class="case-video" data-src="images/case-1/case%201%20-%20Flow%203.mp4" muted loop playsinline controls></video>
       </div>
     </div>
   </div>
@@ -1369,23 +1373,23 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--case-accent); o
   <div class="peek-carousel" data-carousel>
     <div class="peek-track">
       <div class="peek-item active">
-        <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20Interview%20quotes.webp" alt="User interview quotes">
+        <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20Interview%20quotes.webp" alt="User interview quotes" width="1720" height="728">
         <span class="case-img-insight">Interview synthesis: users arrived tired and ready to relax, but the interface demanded cognitive effort before they could start.</span>
       </div>
       <div class="peek-item">
-        <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20openend%20answers.webp" alt="Open-ended survey answers">
+        <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20openend%20answers.webp" alt="Open-ended survey answers" width="3266" height="1720">
         <span class="case-img-insight">Open-ended responses clustered around three themes: navigating the sound library, configuring the timer, and tracking state uncertainty.</span>
       </div>
       <div class="peek-item">
-        <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20Usability%20test%20openend%20question%20analysis.webp" alt="Open-ended question analysis">
+        <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20Usability%20test%20openend%20question%20analysis.webp" alt="Open-ended question analysis" width="2000" height="1199">
         <span class="case-img-insight">Coded analysis: timer confusion and playback uncertainty account for over half of all negative mentions across 9 sessions.</span>
       </div>
       <div class="peek-item">
-        <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20Usability%20test%20data%20result.webp" alt="Usability test quantitative results">
+        <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20Usability%20test%20data%20result.webp" alt="Usability test quantitative results" width="2000" height="1200">
         <span class="case-img-insight">Quantitative results: task completion speed and error rates across all three flows. The gap between Flow 3 and Flow 1 is widest at step 2.</span>
       </div>
       <div class="peek-item">
-        <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20Insight%20page%20data%20visualization%20feedback.webp" alt="Sleep Insights page — data visualization feedback">
+        <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20Insight%20page%20data%20visualization%20feedback.webp" alt="Sleep Insights page — data visualization feedback" width="2032" height="1998">
         <span class="case-img-insight">Insight page feedback: users wanted a clearer hierarchy, with a glanceable summary first and the detailed breakdown on demand. Card sorting guided the restructure.</span>
       </div>
     </div>
@@ -1498,14 +1502,14 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--case-accent); o
       </ul>
     </div>
     <div class="phone-wrap">
-      <video data-src="images/case-1/case%201%20-%20sleep%20sounds%20design%201.mp4" muted loop playsinline style="width:248px; aspect-ratio:9/19; border-radius:40px; display:block; object-fit:cover;"></video>
+      <video data-src="images/case-1/case%201%20-%20sleep%20sounds%20design%201.mp4" muted loop playsinline controls style="width:248px; aspect-ratio:9/19; border-radius:40px; display:block; object-fit:cover;"></video>
     </div>
   </div>
 
   <!-- Sound → Sleep Tracking handoff -->
   <div class="phone-showcase flip" style="margin-top:72px;">
     <div class="phone-wrap">
-      <video data-src="images/case-1/case%201%20-%20sleep%20sounds%20design%202.mp4" muted loop playsinline style="width:248px; aspect-ratio:9/19; border-radius:40px; display:block; object-fit:cover;"></video>
+      <video data-src="images/case-1/case%201%20-%20sleep%20sounds%20design%202.mp4" muted loop playsinline controls style="width:248px; aspect-ratio:9/19; border-radius:40px; display:block; object-fit:cover;"></video>
     </div>
     <div>
       <div class="feature-label">Sound → Sleep Tracking Handoff</div>
@@ -1561,16 +1565,16 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--case-accent); o
       <!-- Panels -->
       <div style="padding:24px 28px 0;">
         <div id="ipanel-1" style="display:block;">
-          <img class="case-img" loading="lazy" loading="lazy" src="images/case-1/case%201%20-%20old%20sleep%20insight%20design.webp" alt="Old Sleep Insight design — all metrics on one page with no priority hierarchy">
+          <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20old%20sleep%20insight%20design.webp" alt="Old Sleep Insight design — all metrics on one page with no priority hierarchy" width="4800" height="2100">
         </div>
         <div id="ipanel-2" style="display:none;">
-          <img class="case-img" loading="lazy" loading="lazy" src="images/case-1/case%201%20-%20new%20sleep%20insight%20design.webp" alt="New Sleep Insight design — progressive disclosure with insight list and tiered navigation">
+          <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20new%20sleep%20insight%20design.webp" alt="New Sleep Insight design — progressive disclosure with insight list and tiered navigation" width="4800" height="2100">
         </div>
         <div id="ipanel-3" style="display:none;">
-          <img class="case-img" loading="lazy" loading="lazy" src="images/case-1/case%201%20-%20old%20sleep%20insight%20data%20cards.webp" alt="Old data visualization cards — simple cards lacking supporting text">
+          <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20old%20sleep%20insight%20data%20cards.webp" alt="Old data visualization cards — simple cards lacking supporting text" width="4800" height="2100">
         </div>
         <div id="ipanel-4" style="display:none;">
-          <img class="case-img" loading="lazy" loading="lazy" src="images/case-1/case%201%20-%20new%20sleep%20insight%20data%20cards.webp" alt="New data visualization cards — contextual supporting text, timestamped snoring, sleep balance chart">
+          <img class="case-img" loading="lazy" src="images/case-1/case%201%20-%20new%20sleep%20insight%20data%20cards.webp" alt="New data visualization cards — contextual supporting text, timestamped snoring, sleep balance chart" width="4800" height="2100">
         </div>
       </div>
 
@@ -1597,7 +1601,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--case-accent); o
           document.getElementById('inum-'+i).style.border = active ? 'none' : '1px solid var(--border)';
           document.getElementById('itxt-'+i).style.color = active ? accent : 'var(--text2)';
           document.getElementById('iline-'+i).style.display = active ? 'block' : 'none';
-          if (btn) btn.setAttribute('aria-selected', active ? 'true' : 'false');
+          if (btn) { btn.setAttribute('aria-selected', String(active)); btn.tabIndex = active ? 0 : -1; }
         });
         document.getElementById('icaption').textContent = captions[n];
       };
@@ -1623,7 +1627,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--case-accent); o
 <div class="divider"><hr></div>
 
 <!-- ── IMPACT ── -->
-<section class="section reveal">
+<section class="section reveal" id="impact">
   <div class="section-label"><span class="section-label-line"></span>06 — Impact</div>
   <h2>Numbers that validated<br>the <span class="grad-text">ritual</span></h2>
   <p style="max-width:600px; margin-bottom:20px;">The post-launch numbers moved together, which suggests the flow was working as one experience rather than as separate features.</p>
@@ -1641,23 +1645,29 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--case-accent); o
       <div class="ic-context">Sound-to-pitch trigger rate ↑</div>
     </div>
     <div class="ic">
-      <div class="ic-label">Business · Renewal Conversion</div>
-      <div class="ic-num purple sm">4.5% → 7.2%</div>
-      <div class="ic-desc">Start Paid Rate increased 60%. People who went through the redesigned flow subscribed at a higher rate.</div>
-      <div class="ic-context">+60% relative increase in Start Paid Rate</div>
-    </div>
-    <div class="ic">
-      <div class="ic-label">Usability · Flow Completion</div>
-      <div class="ic-num teal sm">70% → 90%</div>
-      <div class="ic-desc">Flow success rate improved 20 percentage points in the sound-to-sleep-mode flow, from a bare majority finishing to nearly everyone.</div>
-      <div class="ic-context">Sound selection → sleep mode</div>
-    </div>
-    <div class="ic">
       <div class="ic-label">Usability · Task Efficiency</div>
       <div class="ic-num green">−22s</div>
       <div class="ic-desc">22 seconds removed from the sound selection task. That is a long time to spend fiddling with a phone when you are trying to fall asleep.</div>
       <div class="ic-context">Task completion time ↓</div>
+    </div>    <div class="ic">
+      <div class="ic-label">Business · Start Paid Conversion</div>
+      <div class="ic-num purple sm">4.5% → 7.2%</div>
+      <div class="ic-desc">Start Paid Rate increased 60%. People who went through the redesigned flow subscribed at a higher rate.</div>
+      <div class="ic-context">+2.7 percentage points · +60% relative increase</div>
+      <figure class="impact-chart" data-before="4.5" data-after="7.2" data-max="10" data-label="Start Paid Rate" data-color="purple">
+        <figcaption>Before vs. after · rate (%) · scale 0–10%</figcaption>
+      </figure>
     </div>
+    <div class="ic">
+      <div class="ic-label">Usability · Flow Completion</div>
+      <div class="ic-num teal sm">70% → 90%</div>
+      <div class="ic-desc">Flow success rate improved 20 percentage points in the sound-to-sleep-mode flow, from 70% to 90% completion.</div>
+      <div class="ic-context">+20 percentage points · Sound selection → sleep mode</div>
+      <figure class="impact-chart" data-before="70" data-after="90" data-max="100" data-label="Flow success rate" data-color="teal">
+        <figcaption>Before vs. after · rate (%) · scale 0–100%</figcaption>
+      </figure>
+    </div>
+
   </div>
 
   <div class="decision-box" style="margin-top:0;">
@@ -1712,20 +1722,24 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--case-accent); o
 </div><!-- /page -->
 
 <script>
-// Lazy-load videos: only download + play when entering viewport
+// Load demos near the viewport; native controls keep playback user-controllable.
 (function() {
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var vobs = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.isIntersecting && e.target.dataset.src) {
-        e.target.src = e.target.dataset.src;
-        delete e.target.dataset.src;
-        if (!reduced) e.target.play().catch(function(){});
-        vobs.unobserve(e.target);
-      }
-    });
-  }, { rootMargin: '200px' });
-  document.querySelectorAll('video[data-src]').forEach(function(v) { vobs.observe(v); });
+  const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const vobs = new IntersectionObserver(entries => entries.forEach(({ target: video, isIntersecting }) => {
+    if (!isIntersecting) { video.pause(); return; }
+    if (video.dataset.src) {
+      video.src = video.dataset.src;
+      delete video.dataset.src;
+      if (!preference.matches) video.play().catch(() => {});
+    }
+  }), { threshold: 0.1 });
+  document.querySelectorAll('video[data-src]').forEach(video => vobs.observe(video));
+  preference.addEventListener('change', () => {
+    if (preference.matches) document.querySelectorAll('video').forEach(video => video.pause());
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) document.querySelectorAll('video').forEach(video => video.pause());
+  });
 })();
 
 // progress bar + nav scroll state
@@ -1745,6 +1759,7 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
 // counter
 function count(el, to, prefix, suffix) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = prefix + to + suffix; return; }
   let start = performance.now();
   function frame(now) {
     const p = Math.min((now - start) / 1400, 1);
@@ -1771,6 +1786,7 @@ const bobs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
       e.target.querySelectorAll('.metric-fill').forEach(b => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         const w = parseFloat(b.style.width) / 100;
         b.style.width = '100%'; b.style.transform = 'scaleX(0)';
         setTimeout(() => { b.style.transition = 'transform 0.9s ease'; b.style.transform = `scaleX(${w})`; }, 150);
@@ -1784,24 +1800,37 @@ document.querySelectorAll('.flow-card').forEach(el => bobs.observe(el));
 // Lightbox
 const lb = document.getElementById('lightbox');
 const lbImg = document.getElementById('lightbox-img');
+let lightboxTrigger;
 function openLb(img) {
+  lightboxTrigger = img;
   lbImg.src = img.src;
   lbImg.alt = img.alt || '';
   lb.classList.toggle('wide', img.dataset.lb === 'wide');
   lb.classList.add('open');
+  if (!lb.open) lb.showModal();
+  lb.querySelector('.lb-close').focus();
   document.body.style.overflow = 'hidden';
 }
 document.querySelectorAll('img.case-img').forEach(img => {
   img.style.cursor = 'zoom-in';
+  img.tabIndex = 0;
+  img.setAttribute('role', 'button');
+  img.setAttribute('aria-label', 'Enlarge: ' + img.alt);
+  img.addEventListener('keydown', event => {
+    if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openLb(img); }
+  });
   img.addEventListener('click', () => openLb(img));
 });
 lb.querySelector('.lb-backdrop').addEventListener('click', closeLb);
 lb.querySelector('.lb-close').addEventListener('click', closeLb);
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+lb.addEventListener('cancel', event => { event.preventDefault(); closeLb(); });
 function closeLb() {
+  if (!lb.open) return;
+  lb.close();
   lb.classList.remove('open', 'wide');
   document.body.style.overflow = '';
-  setTimeout(() => { lbImg.src = ''; }, 300);
+  lbImg.removeAttribute('src');
+  lightboxTrigger?.focus({ preventScroll: true });
 }
 
 const chevron = (dir) => `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="${dir === 'l' ? '15 18 9 12 15 6' : '9 18 15 12 9 6'}"/></svg>`;
@@ -1887,7 +1916,7 @@ class PeekCarousel {
       // setPointerCapture redirects click to the track instead of the img child,
       // so manually open the lightbox for the active slide's image.
       const img = this.items[this.i].querySelector('img');
-      if (img) openLb(img);
+      if (img) { e.stopPropagation(); openLb(img); }
     }, true);
 
     this.track.addEventListener('contextmenu', e => e.preventDefault());
@@ -1901,8 +1930,15 @@ class PeekCarousel {
     const iw = Math.min(cw * 0.76, 800);
     this.items.forEach(item => { item.style.width = iw + 'px'; });
     this.track.style.transform = `translateX(${this._offset()}px)`;
-    this.items.forEach((item, j) => item.classList.toggle('active', j === this.i));
-    this.dots.forEach((d, j) => d.classList.toggle('active', j === this.i));
+    this.items.forEach((item, j) => {
+      item.classList.toggle('active', j === this.i);
+      item.querySelectorAll('img.case-img').forEach(img => { img.tabIndex = j === this.i ? 0 : -1; });
+    });
+    this.dots.forEach((d, j) => {
+      d.classList.toggle('active', j === this.i);
+      d.setAttribute('aria-label', `Show slide ${j + 1} of ${this.n}`);
+      d.setAttribute('aria-current', String(j === this.i));
+    });
     this.prevBtn.disabled = this.i === 0;
     this.nextBtn.disabled = this.i === this.n - 1;
   }
