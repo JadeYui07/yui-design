@@ -1236,6 +1236,12 @@ a:hover { color: var(--rust-700); }
 }
 
 @media (max-width: 480px) {
+  /* Keep all four navigation entries visible on small screens. */
+  nav { flex-wrap: wrap; justify-content: center; gap: var(--space-2); }
+  .nav-links { width: 100%; justify-content: center; gap: 0; }
+  .nav-links a { font-size: 13px; padding: var(--space-1); white-space: nowrap; }
+  .nav-links .cta { padding: var(--space-1); }
+
   .cs-metrics       { grid-template-columns: 1fr; }
   .cs-overview-grid { grid-template-columns: 1fr; }
   .cs-overview-item { border-right: none !important; }

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Playground — Yuzhuo Zhang</title>
+  <meta name="description" content="Visual explorations, things I've built, and experiments with AI.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="apple-touch-icon" href="/images/favicon.png">
+  <style>
+    .playground { padding-top: var(--space-16); padding-bottom: var(--space-10); }
+    .playground-intro { padding: var(--space-5) 0 var(--space-8); }
+    .playground-eyebrow {
+      color: var(--rust);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-2);
+    }
+    .playground h1 { font-size: clamp(52px, 8vw, 88px); font-weight: 400; letter-spacing: -0.045em; line-height: 1.1; margin-bottom: var(--space-3); }
+    .playground-intro > p:last-child { max-width: 520px; color: var(--text-secondary); font-size: 18px; line-height: 1.75; }
+    .playground-list { display: grid; gap: clamp(56px, 6vw, 88px); list-style: none; }
+    .playground-list { position: relative; isolation: isolate; }
+    .playground-list > li { position: relative; }
+    .playground-card {
+      box-shadow: 0 12px 32px rgba(30, 40, 55, 0.07);
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: var(--space-6);
+      align-items: center;
+      padding: var(--space-2);
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .playground-preview {
+      aspect-ratio: 4 / 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-3);
+      background: var(--bg-subtle);
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+    }
+    .playground-link { display: block; color: inherit; text-decoration: none; border-radius: var(--radius); }
+    .playground-link:focus-visible { outline: 2px solid var(--rust); outline-offset: 4px; }
+    .playground-link .playground-card { transition: box-shadow 0.2s ease, scale 0.16s ease; }
+    .playground-link:hover .playground-card, .playground-link:focus-visible .playground-card { box-shadow: 0 20px 48px rgba(30, 40, 55, 0.13); }
+    .playground-link:active .playground-card { scale: 0.99; }
+    .playground-card--linked { position: relative; }
+    .playground-card-target { position: absolute; inset: 0; z-index: 1; border-radius: var(--radius); }
+    .playground-card-target:focus-visible { outline: 2px solid var(--rust); outline-offset: -3px; }
+    .playground-card--linked:hover, .playground-card--linked:focus-within { box-shadow: 0 20px 48px rgba(30, 40, 55, 0.13); }
+    .playground-card--linked:active { scale: 0.99; }
+    .playground-project-link { position: relative; z-index: 2; display: inline-block; margin-top: var(--space-2); color: var(--rust-700); font-size: 14px; text-decoration: underline; text-underline-offset: 3px; }
+    .playground-preview--research { background: #df4245; }
+    .playground-preview--research img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-sm); }
+    .playground-preview--gemsy { aspect-ratio: 16 / 9; background: #f5f5f5; }
+    .playground-preview--gemsy img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-sm); }
+    .playground-preview--winter img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-sm); }
+    .playground-preview--code { background: var(--card-system); }
+    .playground-preview--ai { background: var(--card-onboarding); }
+    .playground-preview svg { width: 72px; height: 72px; }
+    .playground-preview span { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .playground-details { padding: var(--space-3) var(--space-4) var(--space-3) 0; }
+    .playground-meta { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; color: var(--text-secondary); font-size: 12px; margin-bottom: var(--space-3); }
+    .playground-category { color: var(--rust-700); font-weight: 600; }
+    .playground-card h2 { font-size: clamp(26px, 3vw, 36px); font-weight: 400; letter-spacing: -0.025em; line-height: 1.2; margin-bottom: var(--space-2); }
+    .playground-description { color: var(--text-secondary); font-size: 15px; line-height: 1.8; max-width: 420px; }
+    .playground-status { display: inline-block; margin-top: var(--space-4); color: var(--text-secondary); border-top: 1px solid var(--border-subtle); padding-top: var(--space-2); font-size: 12px; }
+    .playground-endnote { margin-top: var(--space-5); color: var(--text-secondary); font-size: 13px; text-align: center; }
+    .nav-links a[aria-current="page"] { color: var(--text); background: var(--bg-muted); }
+    a:focus-visible { outline: 2px solid var(--rust); outline-offset: 3px; }
+    @media (max-width: 768px) {
+      .playground-intro { padding-top: var(--space-3); padding-bottom: var(--space-5); }
+      .playground-card { grid-template-columns: 1fr; gap: var(--space-1); }
+      .playground-preview { aspect-ratio: 16 / 10; }
+      .playground-details { padding: var(--space-3) var(--space-1); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      body { animation: none; }
+    }
+  </style>
+  <script defer src="scripts/vendor/gsap.min.js"></script>
+  <script defer src="scripts/vendor/ScrollTrigger.min.js"></script>
+  <script defer src="scripts/playground-motion.js?v=2"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+  <nav aria-label="Main navigation">
+    <a href="index.html" class="nav-logo"><img src="images/name_no_bg.webp" alt="YZ" height="32"></a>
+    <ul class="nav-links">
+      <li><a href="index.html#works">Work</a></li>
+      <li><a href="playground.html" aria-current="page">Playground</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="cta">Contact Me</a></li>
+    </ul>
+  </nav>
+
+  <main class="playground page-inner">
+    <header class="playground-intro">
+      <p class="playground-eyebrow">A space for curiosity</p>
+      <h1>Playground.</h1>
+      <p>Visual explorations, things I've built, and experiments with AI. A little room to try something different.</p>
+    </header>
+
+    <ul class="playground-list" aria-label="Creative projects">
+      <!-- Duplicate a list item to add a project. Replace its preview with an img,
+           then update the category, title, description, and status below. -->
+      <li>
+        <a class="playground-link" href="playground-plattsburgh.html" aria-label="Explore Snowfall at Home, interactive 3D winter scene">
+        <article class="playground-card">
+          <div class="playground-preview playground-preview--winter">
+            <img src="images/playground/plattsburgh-winter.png" alt="Snowy miniature of my former home in Plattsburgh, New York" width="1440" height="1000">
+          </div>
+          <div class="playground-details">
+            <div class="playground-meta"><span class="playground-category">Interactive · 3D</span><span>01 / Plattsburgh, New York</span></div>
+            <h2>Snowfall at Home</h2>
+            <p class="playground-description">A Christmas winter scene of my first home in America. Orbit the house, switch between Christmas Eve and daylight, and watch the snow fall.</p>
+            <span class="playground-status">Explore the scene ↗</span>
+          </div>
+        </article>
+        </a>
+      </li>
+      <li>
+        <article class="playground-card playground-card--linked">
+          <a class="playground-card-target" href="https://pages.github.coecis.cornell.edu/info4340-2022fa/gemsy-project/" rel="noopener noreferrer" aria-label="Open Gemsy Vue project"></a>
+          <div class="playground-preview playground-preview--gemsy">
+            <img src="images/playground/gemsy-cover.jpg" alt="Gemsy Explore page showing a garden banner, plant search, and vegetable cards" width="1710" height="895" loading="lazy">
+          </div>
+          <div class="playground-details">
+            <div class="playground-meta"><span class="playground-category">Code · Vue</span><span>02 / Gemsy</span></div>
+            <h2>Gemsy Vegetable Varieties</h2>
+            <p class="playground-description">A Vue app for browsing vegetable varieties. Explore popular plants, search the catalog, and read the project overview for more context.</p>
+            <span class="playground-status">Open project ↗</span><br>
+            <a class="playground-project-link" href="https://drive.google.com/file/d/1CMds-8xsiRUQB5YaJlEXJG4Ty01zwrkW/view?usp=sharing" target="_blank" rel="noopener noreferrer">Read the project overview ↗</a>
+          </div>
+        </article>
+      </li>
+      <li>
+        <a class="playground-link" href="https://dl.acm.org/doi/10.1145/3544549.3585634" aria-label="Read Comparing the Impact of Professional and Automatic Closed Captions on Video-Watching Experience">
+          <article class="playground-card">
+            <div class="playground-preview playground-preview--research">
+              <img src="images/playground/captions-research-cover.png" alt="3D film play icon beside a closed captions icon on a red background" width="1448" height="1086" loading="lazy">
+            </div>
+            <div class="playground-details">
+              <div class="playground-meta"><span class="playground-category">Research · CHI 2023</span><span>03 / Publication</span></div>
+              <h2>Professional vs. Automatic Closed Captions</h2>
+              <p class="playground-description">A paper I co-authored comparing how professional and automatic captions affect the video-watching experience.</p>
+              <span class="playground-status">Read the research ↗</span>
+            </div>
+          </article>
+        </a>
+      </li>
+    </ul>
+    <p class="playground-endnote">More experiments will find a home here.</p>
+  </main>
+  <script>
+    window.addEventListener('scroll', () => {
+      document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 10);
+    });
+  </script>
+</body>
+</html>
