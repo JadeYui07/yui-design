@@ -10,7 +10,22 @@
   <link rel="icon" type="image/png" href="/images/favicon.png">
   <link rel="apple-touch-icon" href="/images/favicon.png">
   <style>
-    .playground { padding-top: var(--space-16); padding-bottom: var(--space-10); }
+    .playground-body { overflow-x: hidden; }
+    .playground-body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 70% 60% at 8% 12%,  rgba(220,184,232,0.30) 0%, transparent 70%),
+        radial-gradient(ellipse 55% 65% at 92% 78%,  rgba(181,218,240,0.25) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 45% at 72% 18%,  rgba(197,176,238,0.20) 0%, transparent 65%),
+        radial-gradient(ellipse 45% 55% at 22% 88%,  rgba(245,210,192,0.22) 0%, transparent 65%);
+    }
+    nav { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom-color: transparent; }
+    nav.scrolled { background: rgba(245,248,250,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom-color: var(--border-subtle); }
+    .playground { position: relative; z-index: 1; padding-top: var(--space-16); padding-bottom: var(--space-10); }
     .playground-intro { padding: var(--space-5) 0 var(--space-8); }
     .playground-eyebrow {
       color: var(--rust);
@@ -86,6 +101,9 @@
       html { scroll-behavior: auto; }
       body { animation: none; }
     }
+    @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+      nav, nav.scrolled { background: var(--bg); backdrop-filter: none; -webkit-backdrop-filter: none; }
+    }
   </style>
   <script defer src="scripts/vendor/gsap.min.js"></script>
   <script defer src="scripts/vendor/ScrollTrigger.min.js"></script>
@@ -93,7 +111,7 @@
   <script defer src="scripts/nav-motion.js"></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
-<body>
+<body class="playground-body">
   <nav aria-label="Main navigation">
     <a href="index.html" class="nav-logo"><img src="images/name_no_bg.webp" alt="YZ" height="32"></a>
     <ul class="nav-links">
