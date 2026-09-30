@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Projects — Yuzhuo Zhang</title>
+  <meta name="description" content="Product design case studies, creative work, and experiments by Yuzhuo Zhang.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="apple-touch-icon" href="/images/favicon.png">
+  <style>
+    :root { --case-screen-bg: oklch(0.08 0.01 275); }
+    .playground-body { overflow-x: hidden; }
+    .playground-body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 70% 60% at 8% 12%,  rgba(220,184,232,0.30) 0%, transparent 70%),
+        radial-gradient(ellipse 55% 65% at 92% 78%,  rgba(181,218,240,0.25) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 45% at 72% 18%,  rgba(197,176,238,0.20) 0%, transparent 65%),
+        radial-gradient(ellipse 45% 55% at 22% 88%,  rgba(245,210,192,0.22) 0%, transparent 65%);
+    }
+    nav { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom-color: transparent; }
+    nav.scrolled { background: rgba(245,248,250,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom-color: var(--border-subtle); }
+    .playground { position: relative; z-index: 1; padding-top: var(--space-16); padding-bottom: var(--space-10); }
+    .playground-intro { padding: var(--space-5) 0 var(--space-8); }
+    .playground-eyebrow {
+      color: var(--rust);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-2);
+    }
+    .playground h1 { font-size: clamp(52px, 8vw, 88px); font-weight: 400; letter-spacing: -0.045em; line-height: 1.1; margin-bottom: var(--space-3); }
+    .playground-intro > p:last-child { max-width: 520px; color: var(--text-secondary); font-size: 18px; line-height: 1.75; }
+    .playground-list { display: grid; gap: clamp(27.44px, 2.94vw, 43.12px); list-style: none; }
+    .playground-list { position: relative; isolation: isolate; }
+    .playground-list > li { position: relative; }
+    .playground-card {
+      box-shadow: 0 12px 32px rgba(30, 40, 55, 0.07);
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: var(--space-6);
+      align-items: center;
+      padding: var(--space-2);
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .playground-preview {
+      aspect-ratio: 4 / 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-3);
+      background: var(--bg-subtle);
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+    }
+    .playground-link { display: block; color: inherit; text-decoration: none; border-radius: var(--radius); }
+    .playground-link:focus-visible { outline: 2px solid var(--rust); outline-offset: 4px; }
+    .playground-link .playground-card { transition: box-shadow 0.2s ease, scale 0.16s ease; }
+    .playground-card.motion-ready { translate: 0 calc(-8px * var(--engagement, 0)); }
+    .playground-card.motion-ready .playground-preview img { transform: scale(calc(1 + 0.06 * var(--engagement, 0))); }
+    .playground-card.motion-ready .playground-status { transform: translateX(calc(8px * var(--engagement, 0))); }
+    .playground-preview { overflow: hidden; }
+    .playground-link:hover .playground-card, .playground-link:focus-visible .playground-card { box-shadow: 0 20px 48px rgba(30, 40, 55, 0.13); }
+    .playground-link:active .playground-card { scale: 0.985; }
+    .playground-card--linked { position: relative; }
+    .playground-card-target { position: absolute; inset: 0; z-index: 1; border-radius: var(--radius); }
+    .playground-card-target:focus-visible { outline: 2px solid var(--rust); outline-offset: -3px; }
+    .playground-card--linked:hover, .playground-card--linked:focus-within { box-shadow: 0 20px 48px rgba(30, 40, 55, 0.13); }
+    .playground-card--linked:active { scale: 0.985; }
+    .playground-project-link { position: relative; z-index: 2; display: inline-block; margin-top: var(--space-2); color: var(--rust-700); font-size: 14px; text-decoration: underline; text-underline-offset: 3px; }
+    .playground-preview--research { background: #df4245; }
+    .playground-preview--research img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-sm); }
+    .playground-preview--gemsy { aspect-ratio: 16 / 9; background: #f5f5f5; }
+    .playground-preview--gemsy img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-sm); }
+    .playground-preview--winter img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-sm); }
+    .playground-preview--code { background: var(--card-system); }
+    .playground-preview--ai { background: var(--card-onboarding); }
+    .playground-preview svg { width: 72px; height: 72px; }
+    .playground-preview span { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .playground-details { padding: var(--space-3) var(--space-4) var(--space-3) 0; }
+    .playground-meta { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; color: var(--text-secondary); font-size: 12px; margin-bottom: var(--space-3); }
+    .playground-category { color: var(--rust-700); font-weight: 600; }
+    .playground-card h3 { font-size: clamp(26px, 3vw, 36px); font-weight: 400; letter-spacing: -0.025em; line-height: 1.2; margin-bottom: var(--space-2); }
+    .playground-description { color: var(--text-secondary); font-size: 15px; line-height: 1.8; max-width: 420px; }
+    .playground-status { display: inline-block; margin-top: var(--space-4); color: var(--text-secondary); border-top: 1px solid var(--border-subtle); padding-top: var(--space-2); font-size: 12px; }
+    .playground-endnote { margin-top: var(--space-5); color: var(--text-secondary); font-size: 13px; text-align: center; }
+    a:focus-visible { outline: 2px solid var(--rust); outline-offset: 3px; }
+    @media (max-width: 768px) {
+      .playground-intro { padding-top: var(--space-3); padding-bottom: var(--space-5); }
+      .playground-card { grid-template-columns: 1fr; gap: var(--space-1); }
+      .playground-preview { aspect-ratio: 16 / 10; }
+      .playground-details { padding: var(--space-3) var(--space-1); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      body { animation: none; }
+      .playground-card.motion-ready { translate: none; }
+      .playground-card.motion-ready .playground-preview img,
+      .playground-card.motion-ready .playground-status { transform: none; }
+    }
+    @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+      nav, nav.scrolled { background: var(--bg); backdrop-filter: none; -webkit-backdrop-filter: none; }
+    }
+    /* Selected Work cards */
+
+    .works-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      row-gap: 48px;
+      column-gap: 32px;
+      padding: 0 var(--page-x) var(--space-8);
+    }
+
+    .work-card {
+      border-radius: 28px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: translate 0.3s var(--transition), box-shadow 0.3s ease;
+    }
+    .work-card.card-sleep   { background: var(--card-sleep); }
+    .work-card.card-weather { background: var(--card-weather); }
+    .work-card.card-system  { background: var(--card-system); }
+    .work-card.card-edtech  { background: var(--card-edtech); }
+    .work-card:focus-visible {
+      translate: 0 calc(-1 * var(--space-1));
+      box-shadow: 0 24px 64px rgba(0,0,0,0.13);
+    }
+
+    .work-preview {
+      padding: 36px 36px 0;
+    }
+    .work-frame {
+      border-radius: 16px 16px 0 0;
+      overflow: hidden;
+    }
+    .work-screen {
+      border-radius: 16px 16px 0 0;
+      overflow: hidden;
+      background: var(--case-screen-bg);
+    }
+    .work-screen img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .work-info {
+      padding: 28px 36px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+    .work-tag {
+      font-size: 12px;
+      color: var(--text-secondary);
+      letter-spacing: 0.02em;
+    }
+    .work-card h3 {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 2vw, 28px);
+      font-weight: 500;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      margin: 0;
+    }
+    .work-card p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin: 0;
+    }
+    .work-card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      opacity: 0.5;
+      transition: opacity 0.2s;
+    }
+    .work-card:focus-visible .work-card-link { opacity: 1; }
+    .work-screen img { transition: transform 0.45s var(--transition); }
+    .work-card-arrow { display: inline-block; transition: transform 0.25s var(--transition); }
+    .work-card:focus-visible .work-card-arrow { transform: translateX(var(--space-1)); }
+    .work-card:focus-visible .work-screen img { transform: scale(1.06); }
+    @media (hover: hover) and (pointer: fine) {
+      .work-card:hover { translate: 0 calc(-1 * var(--space-1)); box-shadow: var(--shadow-xl); }
+      .work-card:hover .work-screen img { transform: scale(1.06); }
+      .work-card:hover .work-card-link { opacity: 1; }
+      .work-card:hover .work-card-arrow { transform: translateX(var(--space-1)); }
+    }
+
+    @media (max-width: 768px) {
+      section.hero .hero-content { max-width: 100%; }
+      .hero-body { max-width: 100%; }
+      .works-grid { grid-template-columns: 1fr; }
+      .works-summary { white-space: normal; }
+      .works-header { flex-direction: column; gap: 8px; }
+      .work-preview { padding: 24px 24px 0; }
+      .work-info { padding: 20px 24px 28px; }
+    }
+
+    
+    /* Case studies keep their larger covers; experiments stay in the list below. */
+    .projects .playground-intro { padding-bottom: clamp(64px, 8vw, 112px); }
+    .projects .playground-intro > p:last-child { max-width: 650px; }
+    .project-section { scroll-margin-top: 120px; }
+    .project-section + .project-section { margin-top: clamp(96px, 11vw, 160px); }
+    .project-section-head { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; margin-bottom: var(--space-6); }
+    .project-section-head h2 { font-family: var(--font-display); font-size: clamp(32px, 4vw, 52px); font-weight: 400; letter-spacing: -0.035em; line-height: 1.1; }
+    .project-section-head p { color: var(--text-secondary); font-size: 14px; white-space: nowrap; }
+    .projects .works { max-width: none; margin: 0; padding: 0; }
+    .projects .works-grid { padding: 0; }
+    .projects .work-card.motion-ready { translate: 0 calc(-8px * var(--engagement, 0)); transition: box-shadow 0.2s ease, scale 0.16s ease-out; }
+    .projects .work-card.motion-ready .work-screen img { transform: scale(calc(1 + 0.06 * var(--engagement, 0))); transition: none; }
+    .projects .work-card.motion-ready .work-card-arrow { transform: translateX(calc(8px * var(--engagement, 0))); transition: none; }
+    .projects .work-card:active { scale: 0.985; }
+    @media (max-width: 768px) {
+      .project-section-head { display: block; }
+      .project-section-head p { margin-top: 12px; white-space: normal; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .projects .work-card.motion-ready { translate: none; }
+      .projects .work-card.motion-ready .work-screen img, .projects .work-card.motion-ready .work-card-arrow { transform: none; }
+    }
+  </style>
+  <script defer src="scripts/vendor/gsap.min.js"></script>
+  <script defer src="scripts/vendor/ScrollTrigger.min.js"></script>
+  <script defer src="scripts/playground-motion.js?v=3"></script>
+  <script defer src="scripts/interactions.js?v=2"></script>
+  <script defer src="scripts/nav-motion.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body class="playground-body">
+  <nav aria-label="Main navigation">
+    <a href="index.html" class="nav-logo"><img src="images/name_no_bg.webp" alt="YZ" height="32"></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html" aria-current="page">Projects</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="cta">Contact Me</a></li>
+    </ul>
+  </nav>
+
+  <main class="playground projects page-inner">
+    <header class="playground-intro">
+      <p class="playground-eyebrow">Product design & personal exploration</p>
+      <h1>Projects.</h1>
+      <p>Product work grounded in real problems, alongside the experiments I make to keep learning.</p>
+    </header>
+
+    <section class="works project-section" id="selected-work" aria-labelledby="selected-work-title">
+      <div class="project-section-head">
+        <h2 id="selected-work-title">Selected Work</h2>
+        <p>01 — Product design · 4 case studies</p>
+      </div>
+  <div class="works-grid">
+
+    <!-- Card 1: Sleep -->
+    <a href="case-1.html" class="work-card card-sleep">
+      <div class="work-preview">
+        <div class="work-frame">
+          <div class="work-screen">
+            <img src="images/Home%20covers/case%201%20-%20Sleep.webp" alt="Sleep Tracker App">
+          </div>
+        </div>
+      </div>
+      <div class="work-info">
+        <span class="work-tag">iOS App · Health &amp; Wellness</span>
+        <h3>Track My Sleep Now</h3>
+        <p>Redesigning a sleep tracker to align with user mindset, reduce drop-off, and drive premium conversion through personalized soundscapes and actionable insights.</p>
+        <span class="work-card-link">View project <span class="work-card-arrow" aria-hidden="true">→</span></span>
+      </div>
+    </a>
+
+    <!-- Card 2: Weather -->
+    <a href="case-2.html" class="work-card card-weather">
+      <div class="work-preview">
+        <div class="work-frame">
+          <div class="work-screen">
+            <img src="images/Home%20covers/case%202%20-%20weather.webp" alt="NOAA Weather Radar App">
+          </div>
+        </div>
+      </div>
+      <div class="work-info">
+        <span class="work-tag">iOS App · Top 10 Weather</span>
+        <h3>NOAA Live Weather Radar</h3>
+        <p>How to get accurate, hyper-local weather alerts fast enough to make safe decisions for your family. PCMAG Best Weather Apps since 2023.</p>
+        <span class="work-card-link">View project <span class="work-card-arrow" aria-hidden="true">→</span></span>
+      </div>
+    </a>
+
+    <!-- Card 3: Design System -->
+    <a href="case-3.html" class="work-card card-system">
+      <div class="work-preview">
+        <div class="work-frame">
+          <div class="work-screen">
+            <img src="images/Home%20covers/case%203%20-%20Global%20design%20system.webp" alt="Global Design System" loading="lazy">
+          </div>
+        </div>
+      </div>
+      <div class="work-info">
+        <span class="work-tag">Design System · Cross-Platform</span>
+        <h3>Global Design System for iOS &amp; Android</h3>
+        <p>Building a cross-platform design system from 0–1: design tokens, components, and documentation enabling consistent experiences across iOS and Android.</p>
+        <span class="work-card-link">View project <span class="work-card-arrow" aria-hidden="true">→</span></span>
+      </div>
+    </a>
+
+    <!-- Card 4: EdTech -->
+    <a href="case-4.html" class="work-card card-edtech">
+      <div class="work-preview">
+        <div class="work-frame">
+          <div class="work-screen">
+            <img src="images/Home%20covers/case%204%20-%20EdTech.webp" alt="EdTechLive App" loading="lazy">
+          </div>
+        </div>
+      </div>
+      <div class="work-info">
+        <span class="work-tag">Web Design · EdTech</span>
+        <h3>EdTechLive — Instructional Strategies App Redesign</h3>
+        <p>Empowering students to share their voices and create more engaging learning experiences through EdTechLive's SEEDS-based tools.</p>
+        <span class="work-card-link">View project <span class="work-card-arrow" aria-hidden="true">→</span></span>
+      </div>
+    </a>
+
+  </div>
+    </section>
+
+    <section class="project-section" id="playground" aria-labelledby="playground-title">
+      <div class="project-section-head">
+        <h2 id="playground-title">Playground</h2>
+        <p>02 — Experiments, code & research</p>
+      </div>
+    <ul class="playground-list" aria-label="Creative projects">
+      <!-- Duplicate a list item to add a project. Replace its preview with an img,
+           then update the category, title, description, and status below. -->
+      <li>
+        <a class="playground-link" href="playground-plattsburgh.html" aria-label="Explore Snowfall at Home, interactive 3D winter scene">
+        <article class="playground-card">
+          <div class="playground-preview playground-preview--winter">
+            <img src="images/playground/plattsburgh-winter.png" alt="Snowy miniature of my former home in Plattsburgh, New York" width="1440" height="1000">
+          </div>
+          <div class="playground-details">
+            <div class="playground-meta"><span class="playground-category">Interactive · 3D</span><span>01 / Plattsburgh, New York</span></div>
+            <h3>Snowfall at Home</h3>
+            <p class="playground-description">A Christmas winter scene of my first home in America. Orbit the house, switch between Christmas Eve and daylight, and watch the snow fall.</p>
+            <span class="playground-status">Explore the scene ↗</span>
+          </div>
+        </article>
+        </a>
+      </li>
+      <li>
+        <article class="playground-card playground-card--linked">
+          <a class="playground-card-target" href="https://pages.github.coecis.cornell.edu/info4340-2022fa/gemsy-project/" rel="noopener noreferrer" aria-label="Open Gemsy Vue project"></a>
+          <div class="playground-preview playground-preview--gemsy">
+            <img src="images/playground/gemsy-cover.jpg" alt="Gemsy Explore page showing a garden banner, plant search, and vegetable cards" width="1710" height="895" loading="lazy">
+          </div>
+          <div class="playground-details">
+            <div class="playground-meta"><span class="playground-category">Code · Vue</span><span>02 / Gemsy</span></div>
+            <h3>Gemsy Vegetable Varieties</h3>
+            <p class="playground-description">A Vue app for browsing vegetable varieties. Explore popular plants, search the catalog, and read the project overview for more context.</p>
+            <span class="playground-status">Open project ↗</span><br>
+            <a class="playground-project-link" href="https://drive.google.com/file/d/1CMds-8xsiRUQB5YaJlEXJG4Ty01zwrkW/view?usp=sharing" target="_blank" rel="noopener noreferrer">Read the project overview ↗</a>
+          </div>
+        </article>
+      </li>
+      <li>
+        <a class="playground-link" href="https://dl.acm.org/doi/10.1145/3544549.3585634" aria-label="Read Comparing the Impact of Professional and Automatic Closed Captions on Video-Watching Experience">
+          <article class="playground-card">
+            <div class="playground-preview playground-preview--research">
+              <img src="images/playground/captions-research-cover.png" alt="3D film play icon beside a closed captions icon on a red background" width="1448" height="1086" loading="lazy">
+            </div>
+            <div class="playground-details">
+              <div class="playground-meta"><span class="playground-category">Research · CHI 2023</span><span>03 / Publication</span></div>
+              <h3>Professional vs. Automatic Closed Captions</h3>
+              <p class="playground-description">A paper I co-authored comparing how professional and automatic captions affect the video-watching experience.</p>
+              <span class="playground-status">Read the research ↗</span>
+            </div>
+          </article>
+        </a>
+      </li>
+    </ul>
+      <p class="playground-endnote">More experiments will find a home here.</p>
+    </section>
+  </main>
+  <script>
+    window.addEventListener('scroll', () => {
+      document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 10);
+    });
+  </script>
+</body>
+</html>

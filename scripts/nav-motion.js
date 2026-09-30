@@ -3,7 +3,7 @@ const navLinks = document.querySelector('.nav-links');
 if (navLinks) {
   const links = [...navLinks.querySelectorAll('a:not(.cta)')];
   const page = location.pathname.split('/').pop() || 'index.html';
-  const activeIndex = page === 'playground.html' ? 1 : page === 'about.html' ? 2 : page === 'contact.html' ? -1 : 0;
+  const activeIndex = page === 'projects.html' || page === 'playground.html' || page.startsWith('case-') ? 1 : page === 'about.html' ? 2 : page === 'contact.html' ? -1 : 0;
   const activeLink = links[activeIndex] || null;
   const indicator = document.createElement('span');
   indicator.className = 'nav-indicator';

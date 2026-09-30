@@ -56,11 +56,11 @@ function createInteractionSpring(paint) {
 }
 
 const hoverPointer = window.matchMedia('(hover: hover) and (pointer: fine)');
-document.querySelectorAll('.work-card').forEach(card => {
+document.querySelectorAll('.work-card, .playground-card').forEach(card => {
   let hovered = false;
   const spring = createInteractionSpring(value => card.style.setProperty('--engagement', value));
   const update = () => {
-    const target = (hovered && hoverPointer.matches) || card.matches(':focus-visible') ? 1 : 0;
+    const target = (hovered && hoverPointer.matches) || card.matches(':focus-within') ? 1 : 0;
     spring(reducedMotion.matches ? 0 : target, reducedMotion.matches || document.hidden);
   };
   card.classList.add('motion-ready');
@@ -69,6 +69,8 @@ document.querySelectorAll('.work-card').forEach(card => {
   card.addEventListener('pointercancel', () => { hovered = false; update(); });
   card.addEventListener('focus', update);
   card.addEventListener('blur', update);
+  card.addEventListener('focusin', update);
+  card.addEventListener('focusout', update);
   reducedMotion.addEventListener('change', update);
   hoverPointer.addEventListener('change', update);
   document.addEventListener('visibilitychange', update);
