@@ -22,7 +22,7 @@
     }
     .playground h1 { font-size: clamp(52px, 8vw, 88px); font-weight: 400; letter-spacing: -0.045em; line-height: 1.1; margin-bottom: var(--space-3); }
     .playground-intro > p:last-child { max-width: 520px; color: var(--text-secondary); font-size: 18px; line-height: 1.75; }
-    .playground-list { display: grid; gap: clamp(56px, 6vw, 88px); list-style: none; }
+    .playground-list { display: grid; gap: clamp(39.2px, 4.2vw, 61.6px); list-style: none; }
     .playground-list { position: relative; isolation: isolate; }
     .playground-list > li { position: relative; }
     .playground-card {
@@ -75,7 +75,6 @@
     .playground-description { color: var(--text-secondary); font-size: 15px; line-height: 1.8; max-width: 420px; }
     .playground-status { display: inline-block; margin-top: var(--space-4); color: var(--text-secondary); border-top: 1px solid var(--border-subtle); padding-top: var(--space-2); font-size: 12px; }
     .playground-endnote { margin-top: var(--space-5); color: var(--text-secondary); font-size: 13px; text-align: center; }
-    .nav-links a[aria-current="page"] { color: var(--text); background: var(--bg-muted); }
     a:focus-visible { outline: 2px solid var(--rust); outline-offset: 3px; }
     @media (max-width: 768px) {
       .playground-intro { padding-top: var(--space-3); padding-bottom: var(--space-5); }
@@ -90,7 +89,8 @@
   </style>
   <script defer src="scripts/vendor/gsap.min.js"></script>
   <script defer src="scripts/vendor/ScrollTrigger.min.js"></script>
-  <script defer src="scripts/playground-motion.js?v=2"></script>
+  <script defer src="scripts/playground-motion.js?v=3"></script>
+  <script defer src="scripts/nav-motion.js"></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>

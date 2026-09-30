@@ -16,7 +16,7 @@ if (window.gsap && window.ScrollTrigger) {
       scrollTrigger: {
         trigger: list,
         start: 0,
-        end: 260,
+        end: 390,
         scrub: true,
         invalidateOnRefresh: true
       }

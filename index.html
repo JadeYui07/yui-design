@@ -243,15 +243,15 @@
       letter-spacing: -0.03em;
       color: var(--text);
       margin-bottom: var(--space-3);
-      animation: fadeUp 0.55s ease-out both;
     }
+    .hero .hero-h1 { animation: none; }
     .hero-h1 em { font-style: italic; color: var(--rust); }
     .hero-body {
       font-size: clamp(15px, 1.5vw, 18px);
       color: var(--text-secondary);
       line-height: 1.7;
       max-width: min(56vw, 800px);
-      animation: fadeUp 0.55s 0.08s ease-out both;
+      animation: subtitleReveal 0.8s 1.55s both;
     }
 
     /* Works section */
@@ -286,6 +286,7 @@
   </style>
   <script defer src="scripts/vendor/gsap.min.js"></script>
   <script defer src="scripts/interactions.js"></script>
+  <script defer src="scripts/nav-motion.js"></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
@@ -308,7 +309,7 @@
 <!-- ── HERO ── -->
 <section class="hero">
   <div class="hero-content">
-    <h1 class="hero-h1">I turn ambiguous product problems into <em>clear systems</em> and <em>actionable experiences</em>.</h1>
+    <h1 class="hero-h1"><span class="text-reveal-word" style="--word-delay:0.1s">I</span> <span class="text-reveal-word" style="--word-delay:0.23s">turn</span> <span class="text-reveal-word" style="--word-delay:0.36s">ambiguous</span> <span class="text-reveal-word" style="--word-delay:0.49s">product</span> <span class="text-reveal-word" style="--word-delay:0.62s">problems</span> <span class="text-reveal-word" style="--word-delay:0.75s">into</span> <em><span class="text-reveal-word" style="--word-delay:0.88s">clear</span> <span class="text-reveal-word" style="--word-delay:1.01s">systems</span></em> <span class="text-reveal-word" style="--word-delay:1.14s">and</span> <em><span class="text-reveal-word" style="--word-delay:1.27s">actionable</span> <span class="text-reveal-word" style="--word-delay:1.4s">experiences</span></em>.</h1>
     <p class="hero-body">Product designer focused on consumer products and complex systems - from shaping product direction and interaction models to working with engineering through implementation.</p>
   </div>
 </section>
