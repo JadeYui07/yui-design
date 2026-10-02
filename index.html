@@ -110,6 +110,8 @@
     .featured-tag { display: block; margin-bottom: var(--space-3); color: var(--rust-700); font-size: 12px; font-weight: 600; }
     .featured-card h2 { font-family: var(--font-display); font-size: clamp(30px, 3.3vw, 44px); font-weight: 400; line-height: 1.15; letter-spacing: -0.03em; margin-bottom: var(--space-3); }
     .featured-card p { max-width: 440px; color: var(--text-secondary); font-size: 16px; line-height: 1.75; }
+    .featured-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: var(--space-4) 0 0; padding: 0; list-style: none; }
+    .featured-chips li { padding: 7px 12px; border: 1px solid rgba(40, 50, 65, 0.08); border-radius: 999px; background: rgba(255, 255, 255, 0.68); color: var(--text); font-size: 13px; font-weight: 500; line-height: 1.3; white-space: nowrap; }
     .featured-card-link { display: inline-block; margin-top: var(--space-5); padding-top: var(--space-2); border-top: 1px solid var(--border-subtle); color: var(--text-secondary); font-size: 13px; }
     @media (max-width: 768px) {
       .works-summary { white-space: normal; }
@@ -290,6 +292,9 @@
           <span class="featured-tag">01 / iOS App · Health &amp; Wellness</span>
           <h2>Track My Sleep Now</h2>
           <p>Redesigning a sleep tracker to align with user mindset, reduce drop-off, and drive premium conversion through personalized soundscapes and actionable insights.</p>
+          <ul class="featured-chips">
+            <li>User Research</li><li>Interaction Design</li><li>Usability Testing</li>
+          </ul>
           <span class="featured-card-link">View project ↗</span>
         </div>
       </a>
@@ -303,6 +308,9 @@
           <span class="featured-tag">02 / Design System · Cross-Platform</span>
           <h2>Global Design System for iOS &amp; Android</h2>
           <p>Building a cross-platform design system from 0–1: design tokens, components, and documentation enabling consistent experiences across iOS and Android.</p>
+          <ul class="featured-chips">
+            <li>Design Tokens</li><li>Component Library</li><li>Cross-Platform</li>
+          </ul>
           <span class="featured-card-link">View project ↗</span>
         </div>
       </a>
