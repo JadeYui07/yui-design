@@ -24,12 +24,12 @@
         radial-gradient(ellipse 55% 65% at 92% 78%, rgba(181,218,240,0.25) 0%, transparent 70%),
         radial-gradient(ellipse 50% 45% at 72% 18%, rgba(197,176,238,0.20) 0%, transparent 65%),
         radial-gradient(ellipse 45% 55% at 22% 88%, rgba(245,210,192,0.22) 0%, transparent 65%);
-      /* canvas tail — fades the live hero background into the page wash */
+      /* canvas tail — fades the live background after Featured Work */
       --case-canvas-mask: linear-gradient(
         to bottom,
         #000 0%,
-        #000 68%,
-        rgba(0,0,0,0.55) 84%,
+        #000 88%,
+        rgba(0,0,0,0.55) 95%,
         rgba(0,0,0,0) 100%
       );
     }
@@ -172,7 +172,7 @@
     footer a { color: var(--case-footer-link); font-size: 14px; }
     footer a:hover { color: var(--case-footer-name); }
 
-    /* ── Fluid canvas background — hero only ── */
+    /* ── Fluid canvas background — hero and Featured Work ── */
     #fluid {
       position: absolute;
       z-index: 0;
@@ -344,22 +344,25 @@
 // ── Fluid canvas animation ──────────────────────────────────
 const canvas = document.getElementById('fluid');
 const ctx = canvas.getContext('2d');
+const main = document.querySelector('main');
 const EDGE_PAD = 220;
 const BG = '#F5F8FA';
 
-let W = 0, H = 0;
+let W = 0, H = 0, mainTop = 0;
 function resize() {
+  mainTop = main.getBoundingClientRect().top + window.scrollY;
   W = window.innerWidth  + EDGE_PAD * 2;
-  H = window.innerHeight + EDGE_PAD * 2;
+  H = main.offsetHeight + EDGE_PAD * 2;
   canvas.width  = W; canvas.height = H;
   canvas.style.left   = `-${EDGE_PAD}px`;
-  canvas.style.top    = `-${EDGE_PAD}px`;
+  canvas.style.top    = `${mainTop - EDGE_PAD}px`;
   canvas.style.width  = `${W}px`;
   canvas.style.height = `${H}px`;
   ctx.fillStyle = BG;
   ctx.fillRect(0, 0, W, H);
 }
 window.addEventListener('resize', resize);
+new ResizeObserver(resize).observe(main);
 resize();
 
 const params = { mice:window.matchMedia("(pointer: coarse)").matches ? 1 : 2, speed:1.4, omega:0.12, drift:0.87, brush:185, blur:36, fade:0.009, hue:1.4, satShift:6, lightShift:10 };
@@ -392,17 +395,22 @@ function paletteFromPosition(x,y){
 
 class VirtualMouse {
   constructor(){
-    this.x=W*(0.35+Math.random()*0.3); this.y=H*(0.35+Math.random()*0.3);
+    this.x=W*(0.35+Math.random()*0.3);
+    this.y=window.scrollY-mainTop+EDGE_PAD+window.innerHeight*(0.35+Math.random()*0.3);
+    this.scrollY=window.scrollY;
     this.theta=Math.random()*Math.PI*2; this.speed=params.speed; this.speedTarget=params.speed;
     this.paletteIdx=Math.random()*(PALETTE.length-1); this.paletteDir=Math.random()<0.5?-1:1;
   }
   update(){
+    this.y+=window.scrollY-this.scrollY;
+    this.scrollY=window.scrollY;
     this.theta+=(Math.random()-0.5)*2*params.omega;
     if(Math.random()<0.015*params.drift){this.speedTarget=params.speed*(0.4+Math.random()*1.4);}
     this.speed+=(this.speedTarget-this.speed)*0.025;
     this.x+=Math.cos(this.theta)*this.speed; this.y+=Math.sin(this.theta)*this.speed;
-    const cx=W/2,cy=H/2,dx=this.x-cx,dy=this.y-cy,dist=Math.sqrt(dx*dx+dy*dy);
-    const maxR=Math.min(W-EDGE_PAD*2,H-EDGE_PAD*2)*0.45;
+    const cx=W/2,cy=window.scrollY-mainTop+EDGE_PAD+window.innerHeight/2;
+    const dx=this.x-cx,dy=this.y-cy,dist=Math.sqrt(dx*dx+dy*dy);
+    const maxR=Math.min(W-EDGE_PAD*2,window.innerHeight)*0.45;
     if(dist>maxR){const ah=Math.atan2(-dy,-dx);let df=ah-this.theta;
       while(df>Math.PI)df-=Math.PI*2;while(df<-Math.PI)df+=Math.PI*2;
       this.theta+=df*Math.min(0.18,((dist-maxR)/maxR)*0.2);}
@@ -428,8 +436,14 @@ rebuildMice();
 const rm={active:false,inWarmup:false,targetX:0,targetY:0,drawX:0,drawY:0,prevDrawX:0,prevDrawY:0,
   paletteIdx:Math.random()*(PALETTE.length-1),paletteDir:Math.random()<0.5?-1:1,lastMoveTime:0};
 
+let lastScrollY = window.scrollY;
+window.addEventListener('scroll', () => {
+  const delta = window.scrollY - lastScrollY;
+  rm.targetY += delta; rm.drawY += delta; rm.prevDrawY += delta;
+  lastScrollY = window.scrollY;
+});
 window.addEventListener('mousemove',function(e){
-  rm.targetX=e.clientX+EDGE_PAD; rm.targetY=e.clientY+window.scrollY+EDGE_PAD;
+  rm.targetX=e.clientX+EDGE_PAD; rm.targetY=e.clientY+window.scrollY-mainTop+EDGE_PAD;
   if(!rm.active){rm.drawX=rm.targetX;rm.drawY=rm.targetY;rm.prevDrawX=rm.drawX;rm.prevDrawY=rm.drawY;
     rm.active=true;rm.inWarmup=true;setTimeout(()=>{rm.inWarmup=false;},250);}
   rm.lastMoveTime=performance.now();
@@ -498,9 +512,9 @@ document.addEventListener('visibilitychange', () => {
 
 const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
 let fluidFrameId = null;
-let heroVisible = false;
+let mainVisible = false;
 function syncFluidAnimation() {
-  const shouldRun = heroVisible && !document.hidden && !motionPreference.matches;
+  const shouldRun = mainVisible && !document.hidden && !motionPreference.matches;
   if (shouldRun && fluidFrameId === null) fluidFrameId = requestAnimationFrame(fluidFrame);
   if (!shouldRun && fluidFrameId !== null) {
     cancelAnimationFrame(fluidFrameId);
@@ -527,11 +541,11 @@ function fluidFrame(){
   fluidFrameId = requestAnimationFrame(fluidFrame);
 }
 canvas.style.filter=`blur(${params.blur}px)`;
-const heroObserver = new IntersectionObserver(([entry]) => {
-  heroVisible = entry.isIntersecting;
+const mainObserver = new IntersectionObserver(([entry]) => {
+  mainVisible = entry.isIntersecting;
   syncFluidAnimation();
 });
-heroObserver.observe(document.querySelector('.hero'));
+mainObserver.observe(main);
 document.addEventListener('visibilitychange', syncFluidAnimation);
 motionPreference.addEventListener('change', syncFluidAnimation);
 // ── End fluid canvas ────────────────────────────────────────
